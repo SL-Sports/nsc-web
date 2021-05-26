@@ -1,18 +1,19 @@
 import React from 'react';
 import {
     BrowserRouter as Router,
-    // Switch,
+    Switch,
     Route,
-    // Link
 } from "react-router-dom";
 
 import Home from './home/home';
 
-const Webpages = () => {
+function Webpages() {
     return(
-        <Router>
-            <Route exact path="/" component= {Home} />
-        </Router>
+      <Router>
+        <Switch>
+          <Route path="/" component= {Home} />
+        </Switch>
+      </Router>
     );
 };
 

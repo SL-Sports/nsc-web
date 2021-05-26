@@ -3,9 +3,7 @@ import React, {useState} from 'react';
 import {
     BrowserRouter as Router,
     Redirect,
-    // Switch,
     Route,
-    // Link
 } from "react-router-dom";
 
 import Webpages from './webpages/index';
@@ -33,13 +31,15 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Route exact path="/">
+        <Route path="/">
           <Webpages />
         </Route>
-        <Route path="/auth">
+
+        {/* <Route path="/auth">
           <Redirect to="/" />
           <Auth setToken = {setToken} />
-        </Route>
+        </Route> */}
+
       </Router>
     </div>
   );

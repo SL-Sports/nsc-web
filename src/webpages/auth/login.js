@@ -4,9 +4,6 @@ class Login extends React.Component {
     render() {
         return (
             <div className="login-form">
-                <h1>
-                    Login
-                </h1>
                 <p>
                     <button onClick ={() => this.props.setToken("set")}>
                         Login
@@ -16,5 +13,5 @@ class Login extends React.Component {
         );
     }
 }
-
+    
 export default Login;
