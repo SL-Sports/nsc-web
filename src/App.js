@@ -4,44 +4,51 @@ import {
     BrowserRouter as Router,
     Redirect,
     Route,
+    Switch
 } from "react-router-dom";
+import {
+  CookiesProvider,
+  useCookies,
+} from 'react-cookie';
 
 import Webpages from './webpages/index';
 import Auth from './webpages/auth/auth';
 
 function App() {
   const [token, setToken] = useState("");
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
+
+  let authRedir;
+  let authComponent;
 
   if (token === "") {
-    return (
-      <div className="App">
-        <Router>
-          <Redirect to="/auth" />
-          <Route exact path="/">
-              <Webpages />
-          </Route>
-          <Route path="/auth">
-              <Auth setToken = {setToken} />
-          </Route>
-        </Router>
-      </div>
-    );
+    authRedir = <Redirect to="/auth" />;
+    authComponent = <Auth setToken={setToken} />;
+  } else {
+    authRedir = <></>;
+    authComponent = <Redirect to="/" />;
   }
 
   return (
-    <div className="App">
-      <Router>
-        <Route path="/">
-          <Webpages />
-        </Route>
+    // Cookies
+    <CookiesProvider>
+      <div className="App">
+        <Router>
+          {authRedir}
+            
+          <Switch>
+            {/* Send /auth to auth stuff */}
+            <Route path="/auth">
+              {authComponent}
+            </Route>
 
-        {/* <Route path="/auth">
-          <Redirect to="/" />
-          <Auth setToken = {setToken} />
-        </Route> */}
-
-      </Router>
-    </div>
+            <Route path="/">
+              <Webpages />
+            </Route>
+          </Switch>
+        </Router>
+      </div>
+    </CookiesProvider>
   );
 }
 
