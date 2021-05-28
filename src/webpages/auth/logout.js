@@ -1,12 +1,16 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
 
 class Logout extends React.Component {
     render() {
         return (
             <div className='logout-button'>
-                <button onClick={this.props.onClick}>
+                <Button 
+                  onClick={this.props.onClick}
+                  variant="contained"
+                  color="primary">
                     Logout
-                </button>
+                </Button>
             </div>
         )
     }

@@ -5,6 +5,7 @@ import {
     Link,
     Switch,
 } from "react-router-dom";
+import Button from '@material-ui/core/Button';
 
 import Login from './login'
 import Register from './register'
@@ -24,15 +25,19 @@ class Auth extends React.Component {
                     <Route path="/">
                         <div>
                             <p>
-                                <Link to="/login">
+                                <Link to="/login" style={{ textDecoration: 'none' }}>
+                                <Button variant="contained" color="primary">
                                     Login
+                                </Button>
                                 </Link>
                             </p>
 
                             <p>
-                                <Link to="/register">
-                                    Register
-                                </Link>
+                            <Link to="/register" style={{ textDecoration: 'none' }}>
+                              <Button variant="contained" color="primary">
+                                Register
+                              </Button>
+                            </Link>
                             </p>
                         </div>
                     </Route>

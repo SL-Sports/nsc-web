@@ -37,7 +37,7 @@ function App() {
     authComponent = <Redirect to="/" />;
   }
 
-  console.log(cookies.token);
+  console.log('Token: ' + cookies.token);
 
   return (
     // Cookies
@@ -45,18 +45,19 @@ function App() {
       <div className="App">
 
         <div className="testing">
-          {cookies.token}
+          {/* {cookies.token} */}
         </div>
 
         <Router>
           {authRedir}
 
           <Switch>
-            {/* Send /auth to auth stuff */}
+            {/* Send /auth to Auth stuff if not logged in */}
             <Route path="/auth">
               {authComponent}
             </Route>
 
+            {/* Send everything else to Webpages */}
             <Route path="/">
               <Webpages />
             </Route>
