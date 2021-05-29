@@ -14,6 +14,7 @@ import {
 import Webpages from './webpages/index';
 import Auth from './webpages/auth/auth';
 import LogoutButton from './webpages/auth/logout';
+import { Container } from '@material-ui/core';
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
@@ -42,32 +43,34 @@ function App() {
   return (
     // Cookies
     <CookiesProvider>
-      <div className="App">
+      <Container>
+        <div className="App">
 
-        <div className="testing">
-          {/* {cookies.token} */}
+          <div className="testing">
+            {/* {cookies.token} */}
+          </div>
+
+          <Router>
+            {authRedir}
+
+            <Switch>
+              {/* Send /auth to Auth stuff if not logged in */}
+              <Route path="/auth">
+                {authComponent}
+              </Route>
+
+              {/* Send everything else to Webpages */}
+              <Route path="/">
+                <Webpages />
+              </Route>
+            </Switch>
+
+          </Router>
+
+          {/* If logged in display LogoutButton */}
+          {cookies.token && <LogoutButton onClick={() => removeCookie('token')} />}
         </div>
-
-        <Router>
-          {authRedir}
-
-          <Switch>
-            {/* Send /auth to Auth stuff if not logged in */}
-            <Route path="/auth">
-              {authComponent}
-            </Route>
-
-            {/* Send everything else to Webpages */}
-            <Route path="/">
-              <Webpages />
-            </Route>
-          </Switch>
-
-        </Router>
-
-        {/* If logged in display LogoutButton */}
-        {cookies.token && <LogoutButton onClick={() => removeCookie('token')} />}
-      </div>
+      </Container>
     </CookiesProvider>
   );
 }
