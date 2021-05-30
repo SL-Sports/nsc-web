@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormLabel, Input, Button } from '@material-ui/core';
 
 class Register extends React.Component {
   render() {
@@ -48,37 +49,39 @@ class Register extends React.Component {
         <div className='register-form'>
           <form onSubmit={this.handleSubmit}>
             <p>
-              <label>
+              <FormLabel>
               Phone:
-              <input
+              </FormLabel>
+              <Input
                 name="phone"
                 type="text" 
                 value={this.state.phone} 
                 onChange={this.handleInputChange} />
-              </label>
             </p>
             <p>
-              <label>
+              <FormLabel>
               Invite Code:
-              <input
+              </FormLabel>
+              <Input
                 name="inviteCode"
                 type="text" 
                 value={this.state.inviteCode} 
                 onChange={this.handleInputChange} />
-              </label>
             </p>
             {/* Insert Date Picker */}
             <p>
-              <label>
+              <FormLabel>
               Password:
-              <input
+              </FormLabel>
+              <Input
                 name="password"
                 type="password" 
                 value={this.state.password} 
                 onChange={this.handleInputChange} />
-              </label>
             </p>
-          <input type="submit" value="Submit" />
+          <Button type="submit" variant="contained">
+            Submit
+          </Button>
           </form>
         </div>
         );
