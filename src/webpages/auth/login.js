@@ -1,5 +1,6 @@
-import { TextField, Button, Grid, Box } from '@material-ui/core';
 import React from 'react';
+import axios from 'axios';
+import { TextField, Button, Grid, Box } from '@material-ui/core';
 
 class Login extends React.Component {
     render() {
@@ -18,7 +19,7 @@ class LoginForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-        username: '',
+        phone: '',
         password: '',
         };
         
@@ -37,7 +38,23 @@ class LoginForm extends React.Component {
     }
 
     handleSubmit(event) {
-        this.props.setToken("set");
+        axios.post("http://128.199.196.251:3000/auth/login", 
+                    this.state,
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    })
+            .then(res => {
+                if (res.status === 200) {
+                    this.props.setToken(res.data.token);
+                } else {
+                    alert(res.data.message);
+                }
+            }).catch(err => {
+                console.log("caught");
+                alert(err.response.data.message);
+            })
         event.preventDefault();
     }
 
@@ -48,10 +65,10 @@ class LoginForm extends React.Component {
             <Grid container direction="column">
                 <Grid item>
                     <TextField
-                    name="username"
+                    name="phone"
                     type="text" 
-                    label="Username"
-                    value={this.state.username} 
+                    label="Phone"
+                    value={this.state.phone} 
                     onChange={this.handleInputChange} />
                 </Grid>
                 <Grid item>
