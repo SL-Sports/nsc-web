@@ -46,7 +46,7 @@ function App() {
       <Container>
         <div className="App">
 
-          <div className="testing">
+          <div className="debug">
             {/* {cookies.token} */}
           </div>
 

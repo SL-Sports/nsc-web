@@ -1,4 +1,4 @@
-import { FormLabel, Input, Button } from '@material-ui/core';
+import { TextField, Button, Grid, Box } from '@material-ui/core';
 import React from 'react';
 
 class Login extends React.Component {
@@ -45,29 +45,31 @@ class LoginForm extends React.Component {
         return (
         <div className='register-form'>
             <form onSubmit={this.handleSubmit}>
-            <p>
-                <FormLabel>
-                Username:
-                </FormLabel>
-                <Input
-                name="username"
-                type="text" 
-                value={this.state.username} 
-                onChange={this.handleInputChange} />
-            </p>
-            <p>
-                <FormLabel>
-                Password:
-                </FormLabel>
-                <Input
-                name="password"
-                type="password" 
-                value={this.state.password} 
-                onChange={this.handleInputChange} />
-            </p>
-            <Button variant="contained" type="submit">
-                Submit
-            </Button>
+            <Grid container direction="column">
+                <Grid item>
+                    <TextField
+                    name="username"
+                    type="text" 
+                    label="Username"
+                    value={this.state.username} 
+                    onChange={this.handleInputChange} />
+                </Grid>
+                <Grid item>
+                    <TextField
+                    name="password"
+                    type="password" 
+                    label="Password"
+                    value={this.state.password} 
+                    onChange={this.handleInputChange} />
+                </Grid>
+                <Grid item>
+                    <Box my={2}>
+                    <Button variant="contained" type="submit">
+                        Submit
+                    </Button>
+                    </Box>
+                </Grid>
+            </Grid>
             </form>
         </div>
         );
