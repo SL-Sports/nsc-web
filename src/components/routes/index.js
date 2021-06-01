@@ -7,10 +7,15 @@ import {
 
 import Activities from '../activities';
 import Profiles from '../profiles';
-import Payments from '../payments'
+import Payments from '../payments';
 
 function Home () {
-    return <h1>Home</h1>
+
+    return (
+        <>
+            <h1>Home</h1>
+        </>
+    );
 }
 
 function NoMatch () {
