@@ -1,4 +1,5 @@
 import React from 'react';
+import COLORS from '../../colors';
 import {
     BrowserRouter as Router,
     Route,
@@ -10,12 +11,7 @@ import Profiles from '../profiles';
 import Payments from '../payments';
 
 function Home () {
-
-    return (
-        <>
-            <h1>Home</h1>
-        </>
-    );
+    return <h1  style={{color: COLORS.blueGradientStart}}>Home</h1>
 }
 
 function NoMatch () {
