@@ -46,8 +46,6 @@ export async function getProfiles (firstName, lastName, preferredName) {
                 result.data = response.data.message;
             }
 
-            console.log(result);
-
             // return result;
         })
         .catch(err => {

@@ -11,7 +11,8 @@ function ProfileRow (props) {
         <TableRow key={profile._id}>
             <TableCell>{ profile.firstName }</TableCell>
             <TableCell>{ profile.lastName }</TableCell>
-            <TableCell>Test</TableCell>
+            <TableCell>{ profile.preferredName }</TableCell>
+            <TableCell>{ profile.profileType }</TableCell>
         </TableRow>
     )
 }
@@ -27,7 +28,11 @@ export default function Profiles () {
     useEffect(() => {
         async function updateProfiles() {
             const profilesResponse = await getProfiles();
-            setProfiles(profilesResponse.data);
+            setProfiles(profilesResponse.data.sort(
+                (p1, p2) => {
+                    return p1.profile.profileType.localeCompare(p2.profile.profileType);
+                }
+            ));
         }
 
         updateProfiles();
@@ -51,6 +56,7 @@ export default function Profiles () {
                                 <TableCell>First Name</TableCell>
                                 <TableCell>Last Name</TableCell>
                                 <TableCell>Preferred Name</TableCell>
+                                <TableCell>Profile Type</TableCell>
                             </TableRow>    
                         </TableHead>
                         <TableBody>
