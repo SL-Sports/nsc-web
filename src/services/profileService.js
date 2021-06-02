@@ -46,12 +46,16 @@ export async function getProfiles (firstName, lastName, preferredName) {
                 result.data = response.data.message;
             }
 
-            return result;
+            console.log(result);
+
+            // return result;
         })
         .catch(err => {
             result.status = err.response.status;
             result.data = err.response.data.message;
 
-            return result;
+            // return result;
         });
+
+    return result;
 };
