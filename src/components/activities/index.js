@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
       flexDirection: 'column',
       padding: theme.spacing(2),
+      borderRadius: 20
     },
     cardMedia: {
       paddingTop: '56.25%', // 16:9
@@ -56,7 +57,8 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
       flexDirection: 'column',
       padding: theme.spacing(2),
-      background: theme.palette.secondary.mainGradient
+      background: theme.palette.secondary.mainGradient,
+      borderRadius: 20
     }
   }));
 
@@ -82,7 +84,9 @@ export default function Activities() {
     useEffect(() => {
         const getActivities = async () => {
           const activitiesRes = await activityService.getActivities(profileId);
-          setActivities(activitiesRes.data);
+          if(activitiesRes.status === 200){
+            setActivities(activitiesRes.data);
+          }
         }
     
         getActivities();
@@ -100,36 +104,39 @@ export default function Activities() {
                     </Toolbar>
                 </AppBar>
                 <main>
-                    <Container className={classes.cardGrid} maxWidth="md">
-                        <Grid container spacing={4}>
+                    <Container className={classes.cardGrid} maxWidth="sm">
+                        <Grid container spacing={2}>
                             {activities.map((activity) => (
-                            <Grid item key={activity.activity._id} xs={12} sm={6} md={6}>
+                            <Grid item key={activity.activity._id} xs={12} sm={12} md={12}>
                                 <Card className={classes.card}>
-                                <Grid container spacing = {2}  style={{height:"100%" }} alignItems='center'>
-                                    <Grid item xs = {3} style={{height:"100%" }}>
-                                        <Card className={classes.dateCard} style={{ background: theme.palette.secondary.mainGradient, height:'100%' }}>
-                                            <Typography style = {{color: "white", fontWeight: 'bold'}}>{getMonth(activity.activity.startTime)}</Typography>
-                                            <Typography style = {{color: "white", fontWeight: 'bold'}}>{getDay(activity.activity.startTime)}</Typography>
-                                            <Typography style = {{color: "white", fontWeight: 'bold'}}>{getYear(activity.activity.startTime)}</Typography>
+                                <Grid container spacing = {2}  style={{height:"100%" }}>
+                                    <Grid item xs = {3}>
+                                        <Card className={classes.dateCard} style={{ background: theme.palette.secondary.mainGradient, height:'100%'}}>
+                                            <div style={{margin:'auto', paddingBottom: 4}}>
+                                            <Typography style = {{color: "white", fontWeight: 'bolder'}}>{getMonth(activity.activity.startTime)}</Typography>
+                                            <Typography style = {{color: "white", fontWeight: 'bolder'}}>{getDay(activity.activity.startTime)}</Typography>
+                                            <Typography style = {{color: "white", fontWeight: 'bolder'}}>{getYear(activity.activity.startTime)}</Typography>
+                                            </div>
+                                            <Typography style = {{color: "white", fontWeight: 'bolder', fontStyle: 'italic'}}>{activity.activity.activityType.activityType}</Typography>
                                         </Card>
                                     </Grid>
                                     <Grid item xs = {9}>
                                         <Grid container spacing = {1}>
                                             <Grid item xs = {10}>
-                                                <Typography gutterBottom variant="h5"  align="left">
+                                                <Typography gutterBottom variant="h5"  align="left" style={{fontWeight:'bolder'}}>
                                                     {activity.activity.title}
                                                 </Typography>
                                             </Grid>
                                             <Grid item xs = {2} >
-                                                {activity.activity.isApproved?<CheckBox style={{color:"green"}}/>:<CheckBoxOutlineBlank style={{color:"red"}}/>}
+                                                {activity.activity.isApproved?<CheckBox fontSize='large' style={{color:"green"}}/>:<CheckBoxOutlineBlank fontSize='large' style={{color:"red"}}/>}
                                             </Grid>
                                         </Grid>
                                         
-                                        <Typography gutterBottom align="left">
+                                        <Typography gutterBottom align="left" style={{paddingTop:15, paddingBottom:15}}>
                                             {activity.activity.description}
                                         </Typography>
                                         
-                                        <Button  style={{background: theme.palette.primary.mainGradient, color: 'white'}} fullWidth>
+                                        <Button  style={{background: theme.palette.primary.mainGradient, color: 'white', borderRadius: 20, fontWeight:'bolder'}} fullWidth>
                                             SEE MORE
                                         </Button>
                                     </Grid>
