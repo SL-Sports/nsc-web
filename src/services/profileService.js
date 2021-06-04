@@ -17,15 +17,15 @@ const token = 'omHdMoX8HVao6Ui6aTfLhg8m6CNY6eNqazJFcWOl63fiJwbPg8PFYVa836xuL9uzg
  *                            the error message
  * 
  */
-export async function getProfiles (firstName, lastName, preferredName) {
+export async function getProfiles (firstName = "", lastName = "", preferredName = "") {
     const url = baseUrl + '/get';
 
     let body = {};
 
     // add keys to body if they have been specified
-    if (firstName !== undefined) body.firstName = firstName;
-    if (lastName !== undefined) body.lastName = lastName;
-    if (preferredName !== undefined) body.preferredName = preferredName;
+    if (firstName !== "") body.firstName = firstName;
+    if (lastName !== "") body.lastName = lastName;
+    if (preferredName !== "") body.preferredName = preferredName;
 
     const config = {
         headers: {
