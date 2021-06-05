@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Paper } from "@material-ui/core";
-import {
-  Table,
-  TableContainer,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableCell,
-} from "@material-ui/core";
+import { Box } from "@material-ui/core";
 // eslint-disable-next-line
 import { spacing } from "@material-ui/system";
 
@@ -15,24 +7,11 @@ import {
   // advancedSearchProfiles,
   searchProfiles,
 } from "../../services/profileService";
-
 import {
   ProfileSearchForm,
   // ProfileAdvancedSearchForm,
 } from "./profileSearchForm";
-
-function ProfileRow(props) {
-  const profile = props.profile;
-
-  return (
-    <TableRow key={profile._id}>
-      <TableCell>{profile.firstName}</TableCell>
-      <TableCell>{profile.lastName}</TableCell>
-      <TableCell>{profile.preferredName}</TableCell>
-      <TableCell>{profile.profileType}</TableCell>
-    </TableRow>
-  );
-}
+import { ProfileTable } from "./renderProfiles";
 
 export default function Profiles() {
   // Profile lists
@@ -99,23 +78,7 @@ export default function Profiles() {
         <ProfileSearchForm field="Search" value={query} setter={setQuery} />
       </Box>
       <Box name="profile-list">
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>First Name</TableCell>
-                <TableCell>Last Name</TableCell>
-                <TableCell>Preferred Name</TableCell>
-                <TableCell>Profile Type</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {profiles.map((profile) => (
-                <ProfileRow key={profile._id} profile={profile} />
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <ProfileTable profiles={profiles} />
       </Box>
     </>
   );
