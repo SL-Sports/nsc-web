@@ -1,6 +1,7 @@
 import { Typography, Grid, Card, Button } from "@material-ui/core";
 import { CheckBox, CheckBoxOutlineBlank } from "@material-ui/icons";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 import { theme, useStyles } from "./activityTheme";
 
@@ -85,18 +86,19 @@ const Activity = ({ activity }) => {
             >
               {activity.activity.description}
             </Typography>
-
-            <Button
-              style={{
-                background: theme.palette.primary.mainGradient,
-                color: "white",
-                borderRadius: 20,
-                fontWeight: "bolder",
-              }}
-              fullWidth
-            >
-              SEE MORE
-            </Button>
+            <Link to={"activity-detail/" + activity.activity._id}>
+              <Button
+                style={{
+                  background: theme.palette.primary.mainGradient,
+                  color: "white",
+                  borderRadius: 20,
+                  fontWeight: "bolder",
+                }}
+                fullWidth
+              >
+                SEE MORE
+              </Button>
+            </Link>
           </Grid>
         </Grid>
       </Card>
