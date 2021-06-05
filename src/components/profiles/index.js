@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box } from "@material-ui/core";
+import { Box, Container } from "@material-ui/core";
 // eslint-disable-next-line
 import { spacing } from "@material-ui/system";
 
@@ -11,7 +11,7 @@ import {
   ProfileSearchForm,
   // ProfileAdvancedSearchForm,
 } from "./profileSearchForm";
-import { ProfileTable } from "./renderProfiles";
+import { ProfileList } from "./renderProfiles";
 
 export default function Profiles() {
   // Profile lists
@@ -74,12 +74,14 @@ export default function Profiles() {
       {/* <Box name="profile-advanced-search-form" my={2}>
         <ProfileAdvancedSearchForm fields={fields} />
       </Box> */}
-      <Box name="profile-search-form" my={2}>
+      <Box name="profile-search-form" pb={4}>
         <ProfileSearchForm field="Search" value={query} setter={setQuery} />
       </Box>
-      <Box name="profile-list">
-        <ProfileTable profiles={profiles} />
-      </Box>
+      <Container maxWidth="sm">
+        <Box name="profile-list">
+          <ProfileList profiles={profiles} />
+        </Box>
+      </Container>
     </>
   );
 }
