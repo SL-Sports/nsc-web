@@ -3,6 +3,7 @@ import COLORS from "../../colors";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Activities from "../activities";
+import ActivityDetail from "../activities/activityDetail";
 import Profiles from "../profiles";
 import Payments from "../payments";
 
@@ -21,6 +22,7 @@ export default function Routes() {
         {/* TODO: Auth */}
         {/* Activities */}
         <Route path="/activities" component={Activities} />
+        <Route path="/activity-detail/:activityId" component={ActivityDetail} />
         {/* Payments */}
         <Route path="/payments" component={Payments} />
         {/* Profiles */}
