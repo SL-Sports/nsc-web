@@ -11,11 +11,19 @@ import { makeStyles } from "@material-ui/core/styles";
 // eslint-disable-next-line
 import { spacing } from "@material-ui/system";
 
-const useStyles = makeStyles({
+function capitalize(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 275,
+    borderRadius: 20,
   },
   name: {
+    fontSize: 12,
+  },
+  profileType: {
     fontSize: 12,
   },
   age: {
@@ -31,7 +39,11 @@ const useStyles = makeStyles({
   sport: {
     fontSize: 14,
   },
-});
+  large: {
+    width: 70,
+    height: 70,
+  },
+}));
 
 function AvatarAndName({ profile }) {
   const classes = useStyles();
@@ -45,15 +57,15 @@ function AvatarAndName({ profile }) {
       justify="flex-start"
     >
       <Grid item>
-        <Avatar src={profile.profilePicUrl} />
+        <Avatar src={profile.profilePicUrl} className={classes.large} />
       </Grid>
       <Grid item>
-        <Typography variant="h5" align="left">
-          {profile.preferredName}
+        <Typography variant="h6" align="left">
+          {profile.preferredName} {profile.lastName}
         </Typography>
-        <Typography className={classes.name} align="left">
-          {profile.firstName} {profile.lastName}
-        </Typography>
+        {/* <Typography className={classes.profileType} align="left">
+          {profile.profileType}
+        </Typography> */}
         <Typography className={classes.school} align="left">
           {profile.school}
         </Typography>
@@ -80,18 +92,12 @@ function AgeSport({ profile }) {
             </Typography>
           </Box>
         </Grid>
-        {/* <Grid item>
-        <Typography className={classes.city} align="right">
-          {profile.city}
-        </Typography>
-      </Grid> */}
         <Grid item>
           <Typography className={classes.sport} align="right">
-            {profile.sport.name}
+            {profile.sport.name} {capitalize(profile.profileType.toLowerCase())}
           </Typography>
         </Grid>
       </Grid>
-      <Typography>{profile.profileType}</Typography>
     </>
   );
 }
@@ -102,7 +108,7 @@ export function ProfileCard({ profile }) {
   return (
     <>
       <Card className={classes.root}>
-        <CardContent>
+        <CardContent justify="center">
           <Grid container direction="row" justify="space-between" spacing={2}>
             <Grid item>
               <AvatarAndName profile={profile} />

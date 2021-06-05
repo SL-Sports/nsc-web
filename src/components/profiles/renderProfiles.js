@@ -49,7 +49,7 @@ export function ProfileList({ profiles }) {
   return (
     <Grid container direction="column" spacing={2}>
       {profiles.map((profile) => (
-        <Grid item key={profile._id} xs={12} sm={12} md={12}>
+        <Grid item key={profile._id}>
           <ProfileCard profile={profile} />
         </Grid>
       ))}
