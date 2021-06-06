@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Button,
   Card,
   CardContent,
   Typography,
@@ -61,7 +62,7 @@ function AvatarAndName({ profile }) {
       </Grid>
       <Grid item>
         <Typography variant="h6" align="left">
-          {profile.preferredName} {profile.lastName}
+          {capitalize(profile.preferredName)} {capitalize(profile.lastName)}
         </Typography>
         {/* <Typography className={classes.profileType} align="left">
           {profile.profileType}
@@ -83,9 +84,9 @@ function AgeSport({ profile }) {
         container
         direction="column"
         alignItems="flex-end"
-        justify="space-around"
+        justify="space-between"
       >
-        <Grid item style={{ marginTop: "0" }}>
+        <Grid item>
           <Box pt={0}>
             <Typography className={classes.age} align="right">
               {profile.age}
@@ -96,6 +97,9 @@ function AgeSport({ profile }) {
           <Typography className={classes.sport} align="right">
             {profile.sport.name} {capitalize(profile.profileType.toLowerCase())}
           </Typography>
+        </Grid>
+        <Grid item>
+          <Button size="small">See More</Button>
         </Grid>
       </Grid>
     </>
