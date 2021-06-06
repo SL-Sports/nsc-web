@@ -70,4 +70,34 @@ const getActivityDetail = async (activityId) => {
   return result;
 };
 
-export default { getActivities, getActivityDetail };
+const approveActivity = async (activityId, approvedBy) => {
+  const url = baseUrl + "/approve";
+
+  const body = {
+    activityId: activityId,
+    approvedBy: approvedBy,
+  };
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Token: token,
+    },
+  };
+
+  let result = {};
+
+  let response = await axios.post(url, body, config).catch((err) => {
+    result.status = err.response.status;
+    result.data = err.response.data.message;
+
+    return result;
+  });
+  result.status = response.status;
+
+  result.data = response.data.message;
+
+  return result;
+};
+
+export default { getActivities, getActivityDetail, approveActivity };

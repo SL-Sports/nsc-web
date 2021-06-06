@@ -19,25 +19,36 @@ import { theme, useStyles } from "./activityTheme";
 import CoachApprovalCard from "./coachApprovalCard";
 import TimeCard from "./timeCard";
 
+const profileId = "60ac7adc658e534fb80b9f55";
+
 export default function ActivityDetail() {
   const { activityId } = useParams();
   const [activity, setActivity] = useState(undefined);
   const classes = useStyles();
 
-  useEffect(() => {
-    const getActivity = async () => {
-      const activityRes = await activityService.getActivityDetail(activityId);
-      if (activityRes.status === 200) {
-        if (activityRes.data.length === 0) {
-          alert("Invalid activity ID. Please try again.");
-        } else {
-          setActivity(activityRes.data[0]);
-        }
+  const getActivity = async () => {
+    const activityRes = await activityService.getActivityDetail(activityId);
+    if (activityRes.status === 200) {
+      if (activityRes.data.length === 0) {
+        alert("Invalid activity ID. Please try again.");
+      } else {
+        setActivity(activityRes.data[0]);
       }
-    };
+    }
+  };
 
+  useEffect(() => {
     getActivity();
-  });
+  }, []);
+
+  const approve = async () => {
+    const approveRes = await activityService.approveActivity(
+      activityId,
+      profileId
+    );
+    alert(approveRes.data);
+    getActivity();
+  };
   if (activity === undefined) {
     return (
       <>
@@ -97,6 +108,7 @@ export default function ActivityDetail() {
                         fontWeight: "bolder",
                       }}
                       fullWidth
+                      onClick={approve}
                     >
                       APPROVE ACTIVITY
                     </Button>
