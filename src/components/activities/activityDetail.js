@@ -11,6 +11,7 @@ import {
   Toolbar,
   Typography,
   Container,
+  Card,
 } from "@material-ui/core";
 import COLORS from "../../colors";
 import { theme, useStyles } from "./activityTheme";
@@ -20,6 +21,7 @@ import TimeCard from "./timeCard";
 export default function ActivityDetail() {
   const { activityId } = useParams();
   const [activity, setActivity] = useState(undefined);
+  const classes = useStyles();
 
   useEffect(() => {
     const getActivity = async () => {
@@ -75,24 +77,37 @@ export default function ActivityDetail() {
           </AppBar>
           <main>
             <Container style={{ paddingTop: 30 }} maxWidth="md">
-              <CoachApprovalCard
-                isApproved={activity.activity.isApproved}
-                approvedBy={activity.activity.approvedBy}
-                approvedAt={activity.activity.approvedAt}
-                createdAt={activity.activity.createdAt}
-              />
-              <Grid container spacing={4} style={{ marginTop: 10 }}>
-                <Grid item xs={6}>
-                  <TimeCard
-                    labelText="START TIME"
-                    time={activity.activity.startTime}
+              <Grid container direction="column" spacing={4}>
+                <Grid item xs={12}>
+                  <CoachApprovalCard
+                    isApproved={activity.activity.isApproved}
+                    approvedBy={activity.activity.approvedBy}
+                    approvedAt={activity.activity.approvedAt}
+                    createdAt={activity.activity.createdAt}
                   />
                 </Grid>
-                <Grid item xs={6}>
-                  <TimeCard
-                    labelText="END TIME"
-                    time={activity.activity.endTime}
-                  />
+                <Grid item>
+                  <Grid container spacing={4}>
+                    <Grid item xs={6}>
+                      <TimeCard
+                        labelText="START TIME"
+                        time={activity.activity.startTime}
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TimeCard
+                        labelText="END TIME"
+                        time={activity.activity.endTime}
+                      />
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid item>
+                  <Card className={classes.card}>
+                    <Typography align="left">
+                      {activity.activity.description}
+                    </Typography>
+                  </Card>
                 </Grid>
               </Grid>
             </Container>
