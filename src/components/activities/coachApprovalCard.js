@@ -25,7 +25,6 @@ const CoachApprovalCard = ({
         alignContents="center"
         justify="center"
         spacing={2}
-        style={{ width: "100%" }}
       >
         <Grid item xs={9}>
           <Typography

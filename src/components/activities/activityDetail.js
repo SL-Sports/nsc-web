@@ -77,7 +77,7 @@ export default function ActivityDetail() {
           </AppBar>
           <main>
             <Container style={{ paddingTop: 30 }} maxWidth="md">
-              <Grid container direction="column" spacing={4}>
+              <Grid container direction="column" spacing={2}>
                 <Grid item xs={12}>
                   <CoachApprovalCard
                     isApproved={activity.activity.isApproved}
@@ -87,27 +87,27 @@ export default function ActivityDetail() {
                   />
                 </Grid>
                 <Grid item>
-                  <Grid container spacing={4}>
-                    <Grid item xs={6}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={6} md={2}>
                       <TimeCard
                         labelText="START TIME"
                         time={activity.activity.startTime}
                       />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={6} md={2}>
                       <TimeCard
                         labelText="END TIME"
                         time={activity.activity.endTime}
                       />
                     </Grid>
+                    <Grid item xs={12} md={8}>
+                      <Card className={classes.card}>
+                        <Typography align="left">
+                          {activity.activity.description}
+                        </Typography>
+                      </Card>
+                    </Grid>
                   </Grid>
-                </Grid>
-                <Grid item>
-                  <Card className={classes.card}>
-                    <Typography align="left">
-                      {activity.activity.description}
-                    </Typography>
-                  </Card>
                 </Grid>
               </Grid>
             </Container>
