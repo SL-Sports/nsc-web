@@ -1,9 +1,8 @@
 import { Typography, Grid, Card, Avatar } from "@material-ui/core";
 import { Schedule } from "@material-ui/icons";
 import moment from "moment";
-import COLORS from "../../colors";
 
-import { theme, useStyles } from "./activityTheme";
+import { useStyles } from "./activityTheme";
 
 const CoachApprovalCard = ({
   isApproved,

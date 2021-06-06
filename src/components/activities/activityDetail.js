@@ -15,6 +15,7 @@ import {
 import COLORS from "../../colors";
 import { theme, useStyles } from "./activityTheme";
 import CoachApprovalCard from "./coachApprovalCard";
+import TimeCard from "./timeCard";
 
 export default function ActivityDetail() {
   const { activityId } = useParams();
@@ -80,6 +81,20 @@ export default function ActivityDetail() {
                 approvedAt={activity.activity.approvedAt}
                 createdAt={activity.activity.createdAt}
               />
+              <Grid container spacing={4} style={{ marginTop: 10 }}>
+                <Grid item xs={6}>
+                  <TimeCard
+                    labelText="START TIME"
+                    time={activity.activity.startTime}
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <TimeCard
+                    labelText="END TIME"
+                    time={activity.activity.endTime}
+                  />
+                </Grid>
+              </Grid>
             </Container>
           </main>
         </CssBaseline>
