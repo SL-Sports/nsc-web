@@ -12,6 +12,7 @@ import {
   Typography,
   Container,
   Card,
+  Button,
 } from "@material-ui/core";
 import COLORS from "../../colors";
 import { theme, useStyles } from "./activityTheme";
@@ -86,7 +87,22 @@ export default function ActivityDetail() {
                     createdAt={activity.activity.createdAt}
                   />
                 </Grid>
-                <Grid item>
+                {!activity.activity.isApproved && (
+                  <Grid item xs={12}>
+                    <Button
+                      style={{
+                        background: theme.palette.primary.mainGradient,
+                        color: "white",
+                        borderRadius: 20,
+                        fontWeight: "bolder",
+                      }}
+                      fullWidth
+                    >
+                      APPROVE ACTIVITY
+                    </Button>
+                  </Grid>
+                )}
+                <Grid item xs={12}>
                   <Grid container spacing={2}>
                     <Grid item xs={6} md={2}>
                       <TimeCard
