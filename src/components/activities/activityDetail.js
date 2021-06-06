@@ -10,9 +10,11 @@ import {
   AppBar,
   Toolbar,
   Typography,
+  Container,
 } from "@material-ui/core";
 import COLORS from "../../colors";
 import { theme, useStyles } from "./activityTheme";
+import CoachApprovalCard from "./coachApprovalCard";
 
 export default function ActivityDetail() {
   const { activityId } = useParams();
@@ -70,6 +72,16 @@ export default function ActivityDetail() {
               </Typography>
             </Toolbar>
           </AppBar>
+          <main>
+            <Container style={{ paddingTop: 30 }} maxWidth="md">
+              <CoachApprovalCard
+                isApproved={activity.activity.isApproved}
+                approvedBy={activity.activity.approvedBy}
+                approvedAt={activity.activity.approvedAt}
+                createdAt={activity.activity.createdAt}
+              />
+            </Container>
+          </main>
         </CssBaseline>
       </>
     );
