@@ -24,6 +24,7 @@ const profileId = "60ac7adc658e534fb80b9f55";
 export default function ActivityDetail() {
   const { activityId } = useParams();
   const [activity, setActivity] = useState(undefined);
+  const [approving, setApproving] = useState(false);
   const classes = useStyles();
 
   const getActivity = async () => {
@@ -42,11 +43,13 @@ export default function ActivityDetail() {
   }, []);
 
   const approve = async () => {
+    setApproving(true);
     const approveRes = await activityService.approveActivity(
       activityId,
       profileId
     );
     alert(approveRes.data);
+    setApproving(false);
     getActivity();
   };
   if (activity === undefined) {
@@ -110,7 +113,13 @@ export default function ActivityDetail() {
                       fullWidth
                       onClick={approve}
                     >
-                      APPROVE ACTIVITY
+                      {approving ? (
+                        <CircularProgress
+                          style={{ color: "white", padding: 8 }}
+                        ></CircularProgress>
+                      ) : (
+                        "APPROVE ACTIVITY"
+                      )}
                     </Button>
                   </Grid>
                 )}
