@@ -18,13 +18,16 @@ const TimeCard = ({ labelText, time }) => {
 
   return (
     <Card className={classes.card}>
-      <Typography variant="subtitle1" gutterBottom>
+      <Typography variant="subtitle1" style={{ color: "grey" }}>
         {labelText}
       </Typography>
-      <Typography variant="h5" gutterBottom>
+      <Typography
+        variant="h4"
+        style={{ fontWeight: "bolder", marginBottom: 10, marginTop: 10 }}
+      >
         {formatTime(time)}
       </Typography>
-      <Typography variant="h5" gutterBottom>
+      <Typography variant="h5" style={{ fontWeight: "bold" }}>
         {formatDate(time)}
       </Typography>
     </Card>
