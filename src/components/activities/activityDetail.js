@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from "react";
 import activityService from "../../services/activityService";
 import { useParams } from "react-router-dom";
-import { CircularProgress, Grid } from "@material-ui/core";
+import { ArrowBack } from "@material-ui/icons";
+import { Link } from "react-router-dom";
+import {
+  CircularProgress,
+  CssBaseline,
+  Grid,
+  AppBar,
+  Toolbar,
+  Typography,
+} from "@material-ui/core";
 import COLORS from "../../colors";
 import { theme, useStyles } from "./activityTheme";
 
@@ -17,7 +26,6 @@ export default function ActivityDetail() {
           alert("Invalid activity ID. Please try again.");
         } else {
           setActivity(activityRes.data[0]);
-          console.log(activityRes.data[0]);
         }
       }
     };
@@ -46,7 +54,23 @@ export default function ActivityDetail() {
   } else {
     return (
       <>
-        <h1>Activity Detail - {activity.activity.title}</h1>
+        <CssBaseline>
+          <AppBar
+            style={{ background: theme.palette.primary.mainGradient }}
+            position="relative"
+          >
+            <Toolbar>
+              <Link to="/activities" style={{ color: "white", marginTop: 4 }}>
+                <ArrowBack style={{ marginRight: 15 }} />
+              </Link>
+              <Typography variant="h6" color="inherit" noWrap>
+                {activity.activity.title +
+                  " - " +
+                  activity.activity.activityType.activityType}
+              </Typography>
+            </Toolbar>
+          </AppBar>
+        </CssBaseline>
       </>
     );
   }
