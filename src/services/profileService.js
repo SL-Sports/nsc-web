@@ -125,3 +125,60 @@ export async function advancedSearchProfiles(
 
   return result;
 }
+
+/**
+ * getProfile:
+ *  fetches a profile with the id input
+ *
+ * @param {string} id     profileID
+ * @return {Object}          on success, result has the same status
+ *                            and data as the API response
+ *                           on failure, result has the same status
+ *                            as the error, with data containing
+ *                            the error message
+ *
+ */
+export async function getProfile(id) {
+  const url = baseUrl + "/get";
+
+  let body = {};
+
+  // add keys to body if they have been specified
+  body._id = id;
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Token: token,
+    },
+  };
+
+  let result = {};
+
+  console.log("Posting with body: ");
+  console.log(body);
+
+  await axios
+    .post(url, body, config)
+    .then((response) => {
+      result.status = response.status;
+
+      if (response.status === 200) {
+        result.data = response.data;
+      } else {
+        result.data = response.data.message;
+      }
+
+      console.log(result);
+
+      // return result;
+    })
+    .catch((err) => {
+      result.status = err.response.status;
+      result.data = err.response.data.message;
+
+      // return result;
+    });
+
+  return result;
+}
