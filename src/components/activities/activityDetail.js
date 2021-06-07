@@ -19,6 +19,7 @@ import COLORS from "../../colors";
 import { theme, useStyles } from "./activityTheme";
 import CoachApprovalCard from "./coachApprovalCard";
 import TimeCard from "./timeCard";
+import ActivityComments from "./activityComments";
 
 const profileId = "60ac7adc658e534fb80b9f55";
 
@@ -148,7 +149,7 @@ export default function ActivityDetail() {
                   </Grid>
                 </Grid>
                 <Grid item xs={12}>
-                  <Grid container spacing={4}>
+                  <Grid container spacing={6}>
                     <Grid item xs={12} md={6}>
                       <Grid container spacing={2}>
                         <Grid item xs={11}>
@@ -171,6 +172,7 @@ export default function ActivityDetail() {
                           </IconButton>
                         </Grid>
                       </Grid>
+                      <ActivityComments comments={activity.comments} />
                     </Grid>
                     <Grid item xs={12} md={6}>
                       <Grid container spacing={2}>
