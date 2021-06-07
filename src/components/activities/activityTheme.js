@@ -26,6 +26,10 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     borderRadius: 20,
   },
+  commentsCard: {
+    padding: theme.spacing(2),
+    borderRadius: 20,
+  },
   cardContent: {
     flexGrow: 1,
   },

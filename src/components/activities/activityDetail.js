@@ -151,7 +151,11 @@ export default function ActivityDetail() {
                 <Grid item xs={12}>
                   <Grid container spacing={6}>
                     <Grid item xs={12} md={6}>
-                      <Grid container spacing={2}>
+                      <Grid
+                        container
+                        spacing={2}
+                        style={{ paddingLeft: 10, paddingRight: 15 }}
+                      >
                         <Grid item xs={11}>
                           <Typography
                             gutterBottom
