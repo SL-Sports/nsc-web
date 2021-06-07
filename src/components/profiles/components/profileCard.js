@@ -1,13 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
-  Button,
   Card,
   CardContent,
   Typography,
   Box,
   Grid,
   Avatar,
+  IconButton,
 } from "@material-ui/core";
+import { ArrowForwardIos, Edit } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 // eslint-disable-next-line
 import { spacing } from "@material-ui/system";
@@ -64,9 +66,6 @@ function AvatarAndName({ profile }) {
         <Typography variant="h6" align="left">
           {capitalize(profile.preferredName)} {capitalize(profile.lastName)}
         </Typography>
-        {/* <Typography className={classes.profileType} align="left">
-          {profile.profileType}
-        </Typography> */}
         <Typography className={classes.school} align="left">
           {profile.school}
         </Typography>
@@ -94,12 +93,24 @@ function AgeSport({ profile }) {
           </Box>
         </Grid>
         <Grid item>
-          <Typography className={classes.sport} align="right">
-            {profile.sport.name} {capitalize(profile.profileType.toLowerCase())}
-          </Typography>
+          <Box pb={1}>
+            <Typography className={classes.sport} align="right">
+              {profile.sport.name}{" "}
+              {capitalize(profile.profileType.toLowerCase())}
+            </Typography>
+          </Box>
         </Grid>
         <Grid item>
-          <Button size="small">See More</Button>
+          <Grid container alignItems="center" justify="flex-end" spacing={1}>
+            <Grid item>
+              <Link to={profile._id + "/edit"}>
+                <IconButton size="small" component={Edit} />
+              </Link>
+            </Grid>
+            <Grid item>
+              <IconButton size="small" component={ArrowForwardIos} />
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </>
@@ -114,10 +125,10 @@ export function ProfileCard({ profile }) {
       <Card className={classes.root}>
         <CardContent justify="center">
           <Grid container direction="row" justify="space-between" spacing={2}>
-            <Grid item>
+            <Grid item xs={9}>
               <AvatarAndName profile={profile} />
             </Grid>
-            <Grid item>
+            <Grid item xs={3}>
               <AgeSport profile={profile} />
             </Grid>
           </Grid>

@@ -6,7 +6,7 @@ import { ProfileCard } from "./profileCard";
 
 export function ProfileList({ profiles }) {
   return (
-    <Grid container direction="column" spacing={2}>
+    <Grid container direction="column" spacing={1}>
       {profiles.map((profile) => (
         <Grid item key={profile._id}>
           <Link to={profile._id} style={{ textDecoration: "none" }}>

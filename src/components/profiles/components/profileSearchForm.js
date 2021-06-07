@@ -16,20 +16,18 @@ export function ProfileSearchForm({ field, value, setter }) {
         submit();
       }}
     >
-      <Grid container alignItems="center" justify="center">
+      <Grid container alignItems="center" justify="center" spacing={1}>
         <Grid item>
-          <Box mx={1}>
-            <TextField
-              name={field}
-              label={field}
-              value={query}
-              variant="outlined"
-              onChange={(event) => setQuery(event.target.value)}
-            />
-          </Box>
+          <TextField
+            name={field}
+            label={field}
+            value={query}
+            variant="outlined"
+            onChange={(event) => setQuery(event.target.value)}
+          />
         </Grid>
         <Grid item>
-          <Button onClick={submit} variant="contained">
+          <Button onClick={submit} color="primary" variant="contained">
             Search
           </Button>
         </Grid>

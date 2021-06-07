@@ -5,7 +5,7 @@ import { CircularProgress, Container, Grid } from "@material-ui/core";
 import { spacing } from "@material-ui/system";
 
 import { getProfile } from "../../../services/profileService";
-import { ProfileCard } from "../components/profileCard";
+import { ProfileDisplay } from "../components/profileDisplay";
 
 const status = {
   LOADING: "loading",
@@ -41,14 +41,14 @@ export default function ProfileView() {
   } else if (profileStatus === status.NOTFOUND) {
     return <h2>Invalid profile ID - this profile does not exist</h2>;
   } else {
-    return <ProfileCard profile={profile} />;
+    return <ProfileDisplay profile={profile} />;
   }
 }
 
 function Loader() {
   return (
     <Container>
-      <Grid container justify="center" alignItems="center">
+      <Grid container direction="column" justify="center" alignItems="center">
         <Grid item>
           <CircularProgress />
         </Grid>
