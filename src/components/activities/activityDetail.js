@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import activityService from "../../services/activityService";
-import { useParams } from "react-router-dom";
-import { ArrowBack } from "@material-ui/icons";
-import { Link } from "react-router-dom";
+import { Add, AddComment, ArrowBack } from "@material-ui/icons";
+import { Link, useParams } from "react-router-dom";
 import {
   CircularProgress,
   CssBaseline,
@@ -13,6 +12,8 @@ import {
   Container,
   Card,
   Button,
+  IconButton,
+  ThemeProvider,
 } from "@material-ui/core";
 import COLORS from "../../colors";
 import { theme, useStyles } from "./activityTheme";
@@ -73,7 +74,7 @@ export default function ActivityDetail() {
     );
   } else {
     return (
-      <>
+      <ThemeProvider theme={theme}>
         <CssBaseline>
           <AppBar
             style={{ background: theme.palette.primary.mainGradient }}
@@ -146,11 +147,61 @@ export default function ActivityDetail() {
                     </Grid>
                   </Grid>
                 </Grid>
+                <Grid item xs={12}>
+                  <Grid container spacing={4}>
+                    <Grid item xs={12} md={6}>
+                      <Grid container spacing={2}>
+                        <Grid item xs={11}>
+                          <Typography
+                            gutterBottom
+                            variant="h5"
+                            align="left"
+                            style={{ fontWeight: "bolder" }}
+                          >
+                            Comments
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={1}>
+                          <IconButton
+                            color="primary"
+                            aria-label="new-comment"
+                            size="small"
+                          >
+                            <AddComment fontSize="medium"></AddComment>
+                          </IconButton>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                      <Grid container spacing={2}>
+                        <Grid item xs={11}>
+                          <Typography
+                            gutterBottom
+                            variant="h5"
+                            align="left"
+                            style={{ fontWeight: "bolder" }}
+                          >
+                            Media
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={1}>
+                          <IconButton
+                            color="primary"
+                            aria-label="new-comment"
+                            size="small"
+                          >
+                            <Add></Add>
+                          </IconButton>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
               </Grid>
             </Container>
           </main>
         </CssBaseline>
-      </>
+      </ThemeProvider>
     );
   }
 }

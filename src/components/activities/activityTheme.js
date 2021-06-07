@@ -8,7 +8,7 @@ const theme = createMuiTheme({
       mainGradient: "linear-gradient(to right,#0575e6, #021b79)",
     },
     secondary: {
-      main: COLORS.blueGradientStart,
+      main: COLORS.yellowGradientStart,
       mainGradient: "linear-gradient(to right,#f7971e, #ffd200)",
     },
   },
