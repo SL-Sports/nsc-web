@@ -2,7 +2,7 @@ import axios from "axios";
 
 const baseUrl = "https://slsports.anuda.me/activity";
 const token =
-  "VzLEcf6QcmkiIKVVUz0uyraoPW7hhwSfOJpuRjMjCBbt8thzGnAt8PRv5w4RKjQIcG3KufRbN057HdFHyr7o9ejtJsqNuBXSe28TxrE3hL1JP73DM18EB7oa51irnsh7";
+  "YkOqT2ryn3niQpFf3WjVU1gsUaA0a6ltGg8bepJ9UqIqghbJQ40CE6w5O5iFcYJvv11YV1VdgUWLpYdSnq7IZniXucpuO3AzzbHFPk8YWg4Yc0nGS5agGZ1dovEvUEea";
 
 const getActivities = async (profileId) => {
   const url = baseUrl + "/get";
@@ -100,4 +100,39 @@ const approveActivity = async (activityId, approvedBy) => {
   return result;
 };
 
-export default { getActivities, getActivityDetail, approveActivity };
+const addComment = async (text, activityId) => {
+  const url = baseUrl + "/comment/new";
+
+  const body = {
+    activity: activityId,
+    text: text,
+  };
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Token: token,
+    },
+  };
+
+  let result = {};
+
+  let response = await axios.post(url, body, config).catch((err) => {
+    result.status = err.response.status;
+    result.data = err.response.data.message;
+
+    return result;
+  });
+  result.status = response.status;
+
+  result.data = response.data.message;
+
+  return result;
+};
+
+export default {
+  getActivities,
+  getActivityDetail,
+  approveActivity,
+  addComment,
+};

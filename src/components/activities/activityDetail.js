@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import activityService from "../../services/activityService";
-import { Add, AddComment, ArrowBack } from "@material-ui/icons";
+import { Add, AddComment, ArrowBack, Close } from "@material-ui/icons";
 import { Link, useParams } from "react-router-dom";
 import {
   CircularProgress,
@@ -14,6 +14,7 @@ import {
   Button,
   IconButton,
   ThemeProvider,
+  TextField,
 } from "@material-ui/core";
 import COLORS from "../../colors";
 import { theme, useStyles } from "./activityTheme";
@@ -28,6 +29,9 @@ export default function ActivityDetail() {
   const [activity, setActivity] = useState(undefined);
   const [approving, setApproving] = useState(false);
   const classes = useStyles();
+  const [newCommentToggle, setNewCommentToggle] = useState(false);
+  const [commentText, setCommentText] = useState("");
+  const [savingComment, setSavingComment] = useState(false);
 
   const getActivity = async () => {
     const activityRes = await activityService.getActivityDetail(activityId);
@@ -53,6 +57,18 @@ export default function ActivityDetail() {
     alert(approveRes.data);
     setApproving(false);
     getActivity();
+  };
+
+  const saveComment = async () => {
+    setSavingComment(true);
+    const saveRes = await activityService.addComment(commentText, activityId);
+    alert(saveRes.data);
+    setSavingComment(false);
+    setCommentText("");
+    setNewCommentToggle(false);
+    if (saveRes.status === 200) {
+      getActivity();
+    }
   };
   if (activity === undefined) {
     return (
@@ -154,11 +170,17 @@ export default function ActivityDetail() {
                       <Grid
                         container
                         spacing={2}
-                        style={{ paddingLeft: 10, paddingRight: 15 }}
+                        style={{
+                          paddingLeft: 10,
+                          paddingRight: 15,
+                          paddingBottom: 15,
+                        }}
+                        alignContent="center"
+                        alignItems="center"
+                        justify="center"
                       >
                         <Grid item xs={11}>
                           <Typography
-                            gutterBottom
                             variant="h5"
                             align="left"
                             style={{ fontWeight: "bolder" }}
@@ -171,10 +193,55 @@ export default function ActivityDetail() {
                             color="primary"
                             aria-label="new-comment"
                             size="small"
+                            onClick={() =>
+                              setNewCommentToggle(!newCommentToggle)
+                            }
                           >
-                            <AddComment fontSize="medium"></AddComment>
+                            {newCommentToggle ? (
+                              <Close></Close>
+                            ) : (
+                              <AddComment></AddComment>
+                            )}
                           </IconButton>
                         </Grid>
+                        {newCommentToggle && (
+                          <Grid item xs={10}>
+                            <TextField
+                              color="primary"
+                              required
+                              fullWidth
+                              id="comment"
+                              label="New Comment"
+                              name="comment"
+                              autoComplete="new comment"
+                              autoFocus
+                              value={commentText}
+                              onChange={(e) => setCommentText(e.target.value)}
+                            />
+                          </Grid>
+                        )}
+                        {newCommentToggle && (
+                          <Grid item xs={2}>
+                            <Button
+                              style={{
+                                background: theme.palette.primary.mainGradient,
+                                color: "white",
+                                borderRadius: 20,
+                                fontWeight: "bolder",
+                              }}
+                              fullWidth
+                              onClick={saveComment}
+                            >
+                              {savingComment ? (
+                                <CircularProgress
+                                  style={{ color: "white" }}
+                                ></CircularProgress>
+                              ) : (
+                                "SAVE"
+                              )}
+                            </Button>
+                          </Grid>
+                        )}
                       </Grid>
                       <ActivityComments comments={activity.comments} />
                     </Grid>
@@ -193,7 +260,7 @@ export default function ActivityDetail() {
                         <Grid item xs={1}>
                           <IconButton
                             color="primary"
-                            aria-label="new-comment"
+                            aria-label="new-media"
                             size="small"
                           >
                             <Add></Add>
