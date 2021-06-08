@@ -109,7 +109,7 @@ function AgeSport({ profile, editLinks = false }) {
               </Grid>
             )}
             <Grid item>
-              <Link to={profile._id + "/edit"}>
+              <Link to={profile._id}>
                 <IconButton size="small" component={ArrowForwardIos} />
               </Link>
             </Grid>
