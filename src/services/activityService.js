@@ -187,7 +187,35 @@ const mediaUpload = async (file, mediaType, activityId) => {
   }
 };
 
-const addActivityType = async (activityType, association) => {};
+const addActivityType = async (activityType, association) => {
+  const url = baseUrl + "/type/new";
+
+  const body = {
+    association: association,
+    activityType: activityType,
+  };
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Token: token,
+    },
+  };
+
+  let result = {};
+
+  let response = await axios.post(url, body, config).catch((err) => {
+    result.status = err.response.status;
+    result.data = err.response.data.message;
+
+    return result;
+  });
+  result.status = response.status;
+
+  result.data = response.data.message;
+
+  return result;
+};
 
 const getActivityTypes = async (association) => {
   const url = baseUrl + "/type/get";

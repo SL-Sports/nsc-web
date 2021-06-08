@@ -189,7 +189,7 @@ export default function ActivityDetail() {
                         </Grid>
                         <Grid item xs={1}>
                           <IconButton
-                            color="primary"
+                            color={newCommentToggle ? "secondary" : "primary"}
                             aria-label="new-comment"
                             size="small"
                             onClick={() =>
