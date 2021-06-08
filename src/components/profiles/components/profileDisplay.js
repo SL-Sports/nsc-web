@@ -21,25 +21,31 @@ export function ProfileDisplay({ profileHeader }) {
       justify="space-around"
       spacing={2}
     >
-      <Grid item name="profile-details" xs={12} md={6}>
+      <Grid item name="profile-details" xs={12}>
         <ProfileDetails profile={profile} />
       </Grid>
       <Grid item name="coaches-students" xs={12} md={5}>
-        <Paper>
-          <Box m={3} p={3}>
-            <Typography variant="h4">
-              {(profile.profileType === "ATHLETE" && "Coaches") || "Students"}
-            </Typography>
-            <CoachesStudentsList profileHeader={profileHeader} />
-          </Box>
-        </Paper>
+        <Box m={3} p={3}>
+          <Typography variant="h4">
+            {(profile.profileType === "ATHLETE" && "Coaches") || "Students"}
+          </Typography>
+        </Box>
+        <CoachesStudentsList profileHeader={profileHeader} />
+      </Grid>
+      <Grid item name="rankings" xs={12} md={6}>
+        <Box m={3} p={3}>
+          <Typography variant="h4">Rankings</Typography>
+        </Box>
+      </Grid>
+      <Grid item name="activities" xs={12} md={6}>
+        <Box m={3} p={3}>
+          <Typography variant="h4">Activities</Typography>
+        </Box>
       </Grid>
       <Grid item name="payments" xs={12} md={6}>
-        <Paper>
-          <Box m={3} p={3}>
-            <Typography variant="h4">Payments</Typography>
-          </Box>
-        </Paper>
+        <Box m={3} p={3}>
+          <Typography variant="h4">Payments</Typography>
+        </Box>
       </Grid>
     </Grid>
   );
