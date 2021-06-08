@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import activityService from "../../services/activityService";
 import { Add, AddComment, ArrowBack, Close } from "@material-ui/icons";
 import { Link, useParams } from "react-router-dom";
@@ -31,11 +31,12 @@ export default function ActivityDetail() {
   const [newCommentToggle, setNewCommentToggle] = useState(false);
   const [commentText, setCommentText] = useState("");
   const [savingComment, setSavingComment] = useState(false);
-  const [file, setFile] = useState(undefined);
+  const [uploadFile, setUploadFile] = useState(null);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [uploadingVideo, setUploadingVideo] = useState(false);
-  const [mediaType, setMediaType] = useState(undefined);
   const [newMediaToggle, setNewMediaToggle] = useState(false);
+  const inputImage = useRef(null);
+  const inputVideo = useRef(null);
 
   const getActivity = async () => {
     const activityRes = await activityService.getActivityDetail(activityId);
@@ -77,10 +78,43 @@ export default function ActivityDetail() {
 
   const uploadImage = async () => {
     setUploadingImage(true);
+    inputImage.current.click();
+    while (uploadFile === null || uploadFile === undefined) {
+      await new Promise((resolve) => setTimeout(resolve, 10));
+    }
+    console.log("hi");
+    const saveRes = await activityService.mediaUpload(
+      uploadFile,
+      "IMAGE",
+      activityId
+    );
+    alert(saveRes.data);
+    setUploadingImage(false);
+    setUploadFile(null);
+    setNewMediaToggle(false);
+    if (saveRes.status === 200) {
+      getActivity();
+    }
   };
 
   const uploadVideo = async () => {
     setUploadingVideo(true);
+    inputVideo.current.click();
+    while (uploadFile !== undefined) {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    }
+    const saveRes = await activityService.mediaUpload(
+      uploadFile,
+      "VIDEO",
+      activityId
+    );
+    alert(saveRes.data);
+    setUploadingVideo(false);
+    setUploadFile(null);
+    setNewMediaToggle(false);
+    if (saveRes.status === 200) {
+      getActivity();
+    }
   };
   if (activity === undefined) {
     return (
@@ -370,6 +404,23 @@ export default function ActivityDetail() {
                 </Grid>
               </Grid>
             </Container>
+            <input
+              type="file"
+              id="image"
+              ref={inputImage}
+              style={{ display: "none" }}
+              accept="image/*"
+              onChange={(e) => setUploadFile(e.target.files[0])}
+            />
+
+            <input
+              type="file"
+              id="video"
+              ref={inputVideo}
+              style={{ display: "none" }}
+              accept="video/mp4,video/x-m4v,video/*"
+              onChange={(e) => setUploadFile(e.target.files[0])}
+            />
           </main>
         </CssBaseline>
       </ThemeProvider>
