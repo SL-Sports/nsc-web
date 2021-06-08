@@ -14,8 +14,8 @@ import { makeStyles } from "@material-ui/core/styles";
 // eslint-disable-next-line
 import { spacing } from "@material-ui/system";
 
-function capitalize(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+function title(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -64,7 +64,7 @@ function AvatarAndName({ profile }) {
       </Grid>
       <Grid item>
         <Typography variant="h6" align="left">
-          {capitalize(profile.preferredName)} {capitalize(profile.lastName)}
+          {title(profile.preferredName)} {title(profile.lastName)}
         </Typography>
         <Typography className={classes.school} align="left">
           {profile.school}
@@ -95,8 +95,7 @@ function AgeSport({ profile }) {
         <Grid item>
           <Box pb={1}>
             <Typography className={classes.sport} align="right">
-              {profile.sport.name}{" "}
-              {capitalize(profile.profileType.toLowerCase())}
+              {profile.sport.name} {title(profile.profileType)}
             </Typography>
           </Box>
         </Grid>

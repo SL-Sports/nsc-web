@@ -13,4 +13,9 @@ const getDay = (unixTime) => {
   return moment(date).format("DD");
 };
 
-export { getMonth, getYear, getDay };
+const getDOB = (unixTime) => {
+  let date = moment.unix(unixTime);
+  return moment(date).format("LL");
+};
+
+export { getMonth, getYear, getDay, getDOB };
