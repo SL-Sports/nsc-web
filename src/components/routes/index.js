@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Activities from "../activities";
 import ActivityDetail from "../activities/activityDetail";
+import ActivityTypes from "../activities/activityTypes";
 import Profiles from "../profiles";
 import Payments from "../payments";
 
@@ -23,6 +24,7 @@ export default function Routes() {
         {/* Activities */}
         <Route path="/activities" component={Activities} />
         <Route path="/activity-detail/:activityId" component={ActivityDetail} />
+        <Route path="/activity-types" component={ActivityTypes} />
         {/* Payments */}
         <Route path="/payments" component={Payments} />
         {/* Profiles */}

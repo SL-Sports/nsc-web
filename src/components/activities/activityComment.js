@@ -1,17 +1,6 @@
-import { Typography, Grid, Card, Avatar } from "@material-ui/core";
-import { Schedule } from "@material-ui/icons";
-import moment from "moment";
-
-import { useStyles } from "./activityTheme";
+import { Typography, Grid, Avatar } from "@material-ui/core";
 
 const ActivityComment = ({ comment }) => {
-  const classes = useStyles();
-
-  const formatDate = (unixTime) => {
-    let date = moment.unix(unixTime);
-    return moment(date).format("HH:mm, DD/MM/yyyy");
-  };
-
   return (
     <Grid
       container
