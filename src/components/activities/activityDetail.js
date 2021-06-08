@@ -243,7 +243,13 @@ export default function ActivityDetail() {
                           </Grid>
                         )}
                       </Grid>
-                      <ActivityComments comments={activity.comments} />
+                      {activity.comments.length === 0 ? (
+                        <Typography>
+                          No comments have been added to this activity yet.
+                        </Typography>
+                      ) : (
+                        <ActivityComments comments={activity.comments} />
+                      )}
                     </Grid>
                     <Grid item xs={12} md={6}>
                       <Grid container spacing={2}>
@@ -267,6 +273,35 @@ export default function ActivityDetail() {
                           </IconButton>
                         </Grid>
                       </Grid>
+                      {activity.media.length === 0 ? (
+                        <Typography>
+                          No media has been added to this activity yet.
+                        </Typography>
+                      ) : (
+                        <Card className={classes.card}>
+                          <div>
+                            {activity.media.map((media) => (
+                              <div key={media._id} style={{ padding: 15 }}>
+                                {media.mediaType === "VIDEO" ? (
+                                  <video key={media._id} controls width="100%">
+                                    <source
+                                      key={media._id}
+                                      src={media.urlToMedia}
+                                    />
+                                  </video>
+                                ) : (
+                                  <img
+                                    key={media._id}
+                                    src={media.urlToMedia}
+                                    width="100%"
+                                    alt=""
+                                  />
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        </Card>
+                      )}
                     </Grid>
                   </Grid>
                 </Grid>
