@@ -33,6 +33,8 @@ export default function ActivityDetail() {
   const [commentText, setCommentText] = useState("");
   const [savingComment, setSavingComment] = useState(false);
 
+  const [newMediaToggle, setNewMediaToggle] = useState(false);
+
   const getActivity = async () => {
     const activityRes = await activityService.getActivityDetail(activityId);
     if (activityRes.status === 200) {

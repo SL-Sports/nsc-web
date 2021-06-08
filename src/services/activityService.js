@@ -130,9 +130,67 @@ const addComment = async (text, activityId) => {
   return result;
 };
 
+const mediaUpload = async (file, mediaType, activityId) => {
+  const formData = new FormData();
+
+  formData.append("media", file);
+
+  const url = baseUrl + "/media/upload";
+
+  const config = {
+    headers: {
+      Token: token,
+    },
+  };
+
+  let result = {};
+
+  let response = await axios.post(url, formData, config).catch((err) => {
+    result.status = response.status;
+    result.data =
+      "We encountered an error while uploading your media. Please try again.";
+
+    return result;
+  });
+
+  if (result.status === 200) {
+    let urlToMedia = response.data.filePath;
+
+    const body = {
+      activity: activityId,
+      urlToMedia: urlToMedia,
+      mediaType: mediaType,
+    };
+
+    const saveUrl = baseUrl + "/media/new";
+
+    const saveConfig = {
+      headers: {
+        "Content-Type": "application/json",
+        Token: token,
+      },
+    };
+
+    let saveResponse = await axios
+      .post(saveUrl, body, saveConfig)
+      .catch((err) => {
+        result.status = err.response.status;
+        result.data = err.response.data.message;
+
+        return result;
+      });
+    result.status = saveResponse.status;
+
+    result.data = saveResponse.data.message;
+
+    return result;
+  }
+};
+
 export default {
   getActivities,
   getActivityDetail,
   approveActivity,
   addComment,
+  mediaUpload,
 };
