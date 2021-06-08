@@ -79,7 +79,7 @@ export default function ProfilesHome() {
       </Box>
       <Container maxWidth="sm">
         <Box name="profile-list">
-          <ProfileList profiles={profiles} />
+          <ProfileList profiles={profiles} editLinks={true} />
         </Box>
       </Container>
     </>

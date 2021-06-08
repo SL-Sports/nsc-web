@@ -64,7 +64,7 @@ function AvatarAndName({ profile }) {
       </Grid>
       <Grid item>
         <Typography variant="h6" align="left">
-          {title(profile.preferredName)} {title(profile.lastName)}
+          {profile.preferredName} {profile.lastName}
         </Typography>
         <Typography className={classes.school} align="left">
           {profile.school}
@@ -74,7 +74,7 @@ function AvatarAndName({ profile }) {
   );
 }
 
-function AgeSport({ profile }) {
+function AgeSport({ profile, editLinks = false }) {
   const classes = useStyles();
 
   return (
@@ -101,11 +101,13 @@ function AgeSport({ profile }) {
         </Grid>
         <Grid item>
           <Grid container alignItems="center" justify="flex-end" spacing={1}>
-            <Grid item>
-              <Link to={profile._id + "/edit"}>
-                <IconButton size="small" component={Edit} />
-              </Link>
-            </Grid>
+            {editLinks && (
+              <Grid item>
+                <Link to={profile._id + "/edit"}>
+                  <IconButton size="small" component={Edit} />
+                </Link>
+              </Grid>
+            )}
             <Grid item>
               <IconButton size="small" component={ArrowForwardIos} />
             </Grid>
@@ -116,7 +118,7 @@ function AgeSport({ profile }) {
   );
 }
 
-export function ProfileCard({ profile }) {
+export function ProfileCard({ profile, editLinks = false }) {
   const classes = useStyles();
 
   return (
@@ -128,7 +130,7 @@ export function ProfileCard({ profile }) {
               <AvatarAndName profile={profile} />
             </Grid>
             <Grid item xs={3}>
-              <AgeSport profile={profile} />
+              <AgeSport profile={profile} editLinks={editLinks} />
             </Grid>
           </Grid>
         </CardContent>
