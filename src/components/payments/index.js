@@ -12,7 +12,10 @@ import PaymentCard from "./paymentCard";
 
 import { theme } from "./paymentsTheme";
 
+import PaymentDetail from "./paymentDetail"
+
 const profileId = "60a7f13a8ae2f8ad47c5cd1a";
+
 
 export default function Payments() {
   const [payments, setPayments] = useState([]);
@@ -43,7 +46,7 @@ export default function Payments() {
           </Toolbar>
         </AppBar>
         <main>
-          <Container style={{ paddingTop: 30 }} maxWidth="sm">
+          <Container style={{ paddingTop: 30 }} maxWidth="lg">
             <Grid container spacing={2}>
               {payments.map((payment) => (
                 <PaymentCard payment={payment} />

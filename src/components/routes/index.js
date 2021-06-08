@@ -9,6 +9,7 @@ import {
 import Activities from '../activities';
 import Profiles from '../profiles';
 import Payments from '../payments';
+import PaymentDetail from '../payments/paymentDetail';
 
 function Home () {
     return <h1  style={{color: COLORS.blueGradientStart}}>Home</h1>
@@ -27,6 +28,7 @@ export default function Routes () {
                 <Route path='/activities' component={Activities} />
                 {/* Payments */}
                 <Route path='/payments' component={Payments} />
+                <Route path='/payment-detail/:paymentID' component={PaymentDetail} />
                 {/* Profiles */}
                 <Route path='/profiles' component={Profiles} />
                 {/* Home */}
