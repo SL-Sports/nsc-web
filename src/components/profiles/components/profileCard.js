@@ -128,10 +128,10 @@ export function ProfileCard({ profile, editLinks = false }) {
       <Card className={classes.root}>
         <CardContent justify="center">
           <Grid container direction="row" justify="space-between" spacing={2}>
-            <Grid item xs={9}>
+            <Grid item>
               <AvatarAndName profile={profile} />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item>
               <AgeSport profile={profile} editLinks={editLinks} />
             </Grid>
           </Grid>
