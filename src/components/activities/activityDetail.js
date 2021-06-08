@@ -16,7 +16,6 @@ import {
   ThemeProvider,
   TextField,
 } from "@material-ui/core";
-import COLORS from "../../colors";
 import { theme, useStyles } from "./activityTheme";
 import CoachApprovalCard from "./coachApprovalCard";
 import TimeCard from "./timeCard";
@@ -32,8 +31,6 @@ export default function ActivityDetail() {
   const [newCommentToggle, setNewCommentToggle] = useState(false);
   const [commentText, setCommentText] = useState("");
   const [savingComment, setSavingComment] = useState(false);
-
-  const [newMediaToggle, setNewMediaToggle] = useState(false);
 
   const getActivity = async () => {
     const activityRes = await activityService.getActivityDetail(activityId);

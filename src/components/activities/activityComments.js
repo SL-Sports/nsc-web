@@ -1,5 +1,4 @@
-import { Typography, Grid, Card, Avatar } from "@material-ui/core";
-import { Schedule } from "@material-ui/icons";
+import { Grid, Card } from "@material-ui/core";
 import ActivityComment from "./activityComment";
 import { useStyles } from "./activityTheme";
 
