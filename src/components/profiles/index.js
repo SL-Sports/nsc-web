@@ -1,3 +1,4 @@
+import { CssBaseline } from "@material-ui/core";
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -7,6 +8,7 @@ import ProfileView from "./webpages/profileView";
 export default function Profiles() {
   return (
     <Router basename="profiles/">
+      <CssBaseline />
       <Switch>
         <Route exact path="/" component={ProfilesHome} />
         <Route path="/:profileID" component={ProfileView} />
