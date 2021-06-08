@@ -4,21 +4,40 @@ import { Paper, Grid, Box, Card, Avatar, Typography } from "@material-ui/core";
 import { spacing } from "@material-ui/system";
 
 import { getDOB } from "../../../services/dateService";
+import { ProfileList } from "./renderProfiles";
 
 function title(string) {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
 
-export function ProfileDisplay({ profile }) {
+export function ProfileDisplay({ profileHeader }) {
+  console.log(profileHeader);
+  const profile = profileHeader.profile;
   return (
-    <Grid container direction="row" align="flex-start" justify="space-around">
+    <Grid
+      container
+      direction="row"
+      align="center"
+      justify="space-around"
+      spacing={2}
+    >
       <Grid item name="profile-details" xs={12} md={6}>
         <ProfileDetails profile={profile} />
       </Grid>
-      <Grid item name="everything-else" xs={12} md={5}>
+      <Grid item name="coaches-students" xs={12} md={5}>
         <Paper>
-          <Box mx={3}>
-            <h1>Bruh</h1>
+          <Box m={3} p={3}>
+            <Typography variant="h4">
+              {(profile.profileType === "ATHLETE" && "Coaches") || "Students"}
+            </Typography>
+            <CoachesStudentsList profileHeader={profileHeader} />
+          </Box>
+        </Paper>
+      </Grid>
+      <Grid item name="payments" xs={12} md={6}>
+        <Paper>
+          <Box m={3} p={3}>
+            <Typography variant="h4">Payments</Typography>
           </Box>
         </Paper>
       </Grid>
@@ -30,11 +49,9 @@ function ProfileDetails({ profile }) {
   return (
     <Paper>
       <Box m={3} p={3}>
-        <Grid container direction="column" spacing={1}>
+        <Grid container direction="column" spacing={2}>
           <Grid item>
-            <Box my={2}>
-              <Typography variant="h4">Profile Information</Typography>
-            </Box>
+            <Typography variant="h4">Profile Information</Typography>
           </Grid>
           <Grid item>
             <Card raised style={{ borderRadius: 20 }}>
@@ -48,13 +65,13 @@ function ProfileDetails({ profile }) {
                   </Grid>
                   <Grid item xs={8} md={6}>
                     <Typography variant="h4">
-                      {title(profile.preferredName)} {title(profile.lastName)}
+                      {profile.preferredName} {profile.lastName}
                     </Typography>
                     <Typography variant="subtitle1">
                       {title(profile.profileType)}
                     </Typography>
                     <Typography variant="subtitle2">
-                      {profile.country} {title(profile.sport.name)}
+                      {profile.country} {profile.sport.name}
                     </Typography>
                   </Grid>
                   <Grid item xs={4} md={3} align="center">
@@ -87,4 +104,22 @@ function ProfileDetails({ profile }) {
       </Box>
     </Paper>
   );
+}
+
+function CoachesStudentsList({ profileHeader }) {
+  const profile = profileHeader.profile;
+
+  if (profile.profileType === "ATHLETE") {
+    let coaches = profileHeader.coaches;
+    coaches = coaches
+      .filter((coach) => coach.activeStatus === "ACTIVE")
+      .map((coach) => coach.coachProfile);
+    return <ProfileList profiles={coaches} />;
+  } else {
+    let students = profileHeader.students;
+    students = students
+      .filter((student) => student.activeStatus === "ACTIVE")
+      .map((student) => student.athleteProfile);
+    return <ProfileList profiles={students} />;
+  }
 }
