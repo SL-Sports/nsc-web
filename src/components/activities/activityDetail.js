@@ -31,6 +31,11 @@ export default function ActivityDetail() {
   const [newCommentToggle, setNewCommentToggle] = useState(false);
   const [commentText, setCommentText] = useState("");
   const [savingComment, setSavingComment] = useState(false);
+  const [file, setFile] = useState(undefined);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [uploadingVideo, setUploadingVideo] = useState(false);
+  const [mediaType, setMediaType] = useState(undefined);
+  const [newMediaToggle, setNewMediaToggle] = useState(false);
 
   const getActivity = async () => {
     const activityRes = await activityService.getActivityDetail(activityId);
@@ -68,6 +73,14 @@ export default function ActivityDetail() {
     if (saveRes.status === 200) {
       getActivity();
     }
+  };
+
+  const uploadImage = async () => {
+    setUploadingImage(true);
+  };
+
+  const uploadVideo = async () => {
+    setUploadingVideo(true);
   };
   if (activity === undefined) {
     return (
@@ -251,7 +264,7 @@ export default function ActivityDetail() {
                       )}
                     </Grid>
                     <Grid item xs={12} md={6}>
-                      <Grid container spacing={2}>
+                      <Grid container spacing={1}>
                         <Grid item xs={11}>
                           <Typography
                             gutterBottom
@@ -264,20 +277,71 @@ export default function ActivityDetail() {
                         </Grid>
                         <Grid item xs={1}>
                           <IconButton
-                            color="primary"
+                            color={newMediaToggle ? "secondary" : "primary"}
                             aria-label="new-media"
                             size="small"
+                            onClick={() => setNewMediaToggle(!newMediaToggle)}
+                            disabled={uploadingImage || uploadingVideo}
                           >
-                            <Add></Add>
+                            {newMediaToggle ? <Close></Close> : <Add></Add>}
                           </IconButton>
                         </Grid>
+                        {newMediaToggle && (
+                          <Grid item xs={6}>
+                            <Button
+                              style={{
+                                background: theme.palette.primary.mainGradient,
+                                color: "white",
+                                borderRadius: 20,
+                                fontWeight: "bolder",
+                              }}
+                              fullWidth
+                              disabled={uploadingImage || uploadingVideo}
+                              onClick={uploadImage}
+                            >
+                              {uploadingImage ? (
+                                <CircularProgress
+                                  style={{ color: "white" }}
+                                ></CircularProgress>
+                              ) : (
+                                "UPLOAD IMAGE"
+                              )}
+                            </Button>
+                          </Grid>
+                        )}
+                        {newMediaToggle && (
+                          <Grid item xs={6}>
+                            <Button
+                              style={{
+                                background: theme.palette.primary.mainGradient,
+                                color: "white",
+                                borderRadius: 20,
+                                fontWeight: "bolder",
+                              }}
+                              fullWidth
+                              disabled={uploadingImage || uploadingVideo}
+                              onClick={uploadVideo}
+                            >
+                              {uploadingVideo ? (
+                                <CircularProgress
+                                  style={{ color: "white" }}
+                                ></CircularProgress>
+                              ) : (
+                                "UPLOAD VIDEO"
+                              )}
+                            </Button>
+                          </Grid>
+                        )}
                       </Grid>
                       {activity.media.length === 0 ? (
                         <Typography>
                           No media has been added to this activity yet.
                         </Typography>
                       ) : (
-                        <Card className={classes.card}>
+                        <Card
+                          className={classes.card}
+                          style={{ marginTop: 15 }}
+                        >
                           <div>
                             {activity.media.map((media) => (
                               <div key={media._id} style={{ padding: 15 }}>
