@@ -43,9 +43,12 @@ const useStyles = makeStyles((theme) => ({
   sport: {
     fontSize: 14,
   },
-  large: {
+  avatar: {
     width: 70,
     height: 70,
+  },
+  icon: {
+    fontSize: 14,
   },
 }));
 
@@ -61,7 +64,7 @@ function AvatarAndName({ profile }) {
       justify="flex-start"
     >
       <Grid item>
-        <Avatar src={profile.profilePicUrl} className={classes.large} />
+        <Avatar src={profile.profilePicUrl} className={classes.avatar} />
       </Grid>
       <Grid item>
         <Typography variant="h6" align="left">
@@ -106,7 +109,9 @@ function AgeSport({ profile, editLink = false }) {
               <Grid item>
                 <Link to={profile._id + "/edit"}>
                   <Tooltip title="Edit">
-                    <IconButton size="small" component={Edit} />
+                    <IconButton size="small">
+                      <Edit className={classes.icon} />
+                    </IconButton>
                   </Tooltip>
                 </Link>
               </Grid>
@@ -114,7 +119,9 @@ function AgeSport({ profile, editLink = false }) {
             <Grid item>
               <Link to={profile._id}>
                 <Tooltip title="See More">
-                  <IconButton size="small" component={ArrowForwardIos} />
+                  <IconButton size="small">
+                    <ArrowForwardIos className={classes.icon} />
+                  </IconButton>
                 </Tooltip>
               </Link>
             </Grid>
