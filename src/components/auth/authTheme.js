@@ -12,16 +12,6 @@ const theme = createMuiTheme({
       mainGradient: "linear-gradient(to right,#f7971e, #ffd200)",
     },
   },
-  overrides: {
-    MuiCssBaseline: {
-      "@global": {
-        body: {
-          background: "linear-gradient(to right,#0575e6, #021b79)",
-          backgroundAttachment: "fixed",
-        },
-      },
-    },
-  },
 });
 
 const useStyles = makeStyles((theme) => ({
