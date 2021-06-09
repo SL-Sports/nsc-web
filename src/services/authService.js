@@ -32,7 +32,7 @@ const login = async (phone, password) => {
 };
 
 const signup = async (phone, password, inviteCode, dateOfBirth) => {
-  const url = baseUrl + "/auth/signup";
+  const url = baseUrl + "/sign-up";
 
   const body = {
     phone: `94${phone}`,
@@ -48,10 +48,10 @@ const signup = async (phone, password, inviteCode, dateOfBirth) => {
   };
 
   let response = await axios.post(url, body, config).catch((err) => {
-    if (response.data === undefined) {
+    if (err.response.data === undefined) {
       alert("We encountered an error while signing you up");
     } else {
-      alert(response.data.message);
+      alert(err.response.data.message);
     }
 
     return false;
@@ -59,9 +59,6 @@ const signup = async (phone, password, inviteCode, dateOfBirth) => {
 
   if (response.status === 200) {
     return login(phone, password);
-  } else {
-    alert(response.data.message);
-    return false;
   }
 };
 
