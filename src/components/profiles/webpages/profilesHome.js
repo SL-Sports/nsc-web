@@ -117,13 +117,13 @@ export default function ProfilesHome() {
           <ProfileList profiles={profiles} editLinks={true} />
         </Box>
       </Container>
-      <Tooltip title="Create Profile/Invite">
-        <Link to="new">
+      <Link to="new">
+        <Tooltip title="Create Profile/Invite">
           <Fab color="primary" className={classes.fab}>
             <Add />
           </Fab>
-        </Link>
-      </Tooltip>
+        </Tooltip>
+      </Link>
     </>
   );
 }

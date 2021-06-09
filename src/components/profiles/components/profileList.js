@@ -8,7 +8,7 @@ export function ProfileList({ profiles, editLinks = false }) {
     <Grid container direction="column" spacing={1}>
       {profiles.map((profile) => (
         <Grid item key={profile._id}>
-          <ProfileCard profile={profile} editLinks={editLinks} />
+          <ProfileCard profile={profile} editLink={editLinks} />
         </Grid>
       ))}
     </Grid>

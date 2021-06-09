@@ -8,6 +8,7 @@ import {
   Grid,
   Avatar,
   IconButton,
+  Tooltip,
 } from "@material-ui/core";
 import { ArrowForwardIos, Edit } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
@@ -74,7 +75,7 @@ function AvatarAndName({ profile }) {
   );
 }
 
-function AgeSport({ profile, editLinks = false }) {
+function AgeSport({ profile, editLink = false }) {
   const classes = useStyles();
 
   return (
@@ -101,16 +102,20 @@ function AgeSport({ profile, editLinks = false }) {
         </Grid>
         <Grid item>
           <Grid container alignItems="center" justify="flex-end" spacing={1}>
-            {editLinks && (
+            {editLink && (
               <Grid item>
                 <Link to={profile._id + "/edit"}>
-                  <IconButton size="small" component={Edit} />
+                  <Tooltip title="Edit">
+                    <IconButton size="small" component={Edit} />
+                  </Tooltip>
                 </Link>
               </Grid>
             )}
             <Grid item>
               <Link to={profile._id}>
-                <IconButton size="small" component={ArrowForwardIos} />
+                <Tooltip title="See More">
+                  <IconButton size="small" component={ArrowForwardIos} />
+                </Tooltip>
               </Link>
             </Grid>
           </Grid>
@@ -120,7 +125,7 @@ function AgeSport({ profile, editLinks = false }) {
   );
 }
 
-export function ProfileCard({ profile, editLinks = false }) {
+export function ProfileCard({ profile, editLink = false }) {
   const classes = useStyles();
 
   return (
@@ -132,7 +137,7 @@ export function ProfileCard({ profile, editLinks = false }) {
               <AvatarAndName profile={profile} />
             </Grid>
             <Grid item>
-              <AgeSport profile={profile} editLinks={editLinks} />
+              <AgeSport profile={profile} editLink={editLink} />
             </Grid>
           </Grid>
         </CardContent>
