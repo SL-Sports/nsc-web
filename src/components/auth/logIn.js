@@ -3,7 +3,7 @@ import authService from "../../services/authService";
 import { theme, useStyles } from "./authTheme";
 import bg from "../../assets/dots-web.png";
 import { Phone } from "@material-ui/icons";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   Typography,
   CssBaseline,
@@ -19,9 +19,22 @@ import {
 
 export default function Login() {
   const classes = useStyles();
+  const history = useHistory();
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [loggingIn, setLoggingIn] = useState(false);
+
+  const login = async () => {
+    setLoggingIn(true);
+    let result = await authService.login(phone, password);
+    if (result) {
+      history.go("/activities");
+    } else {
+      setLoggingIn(false);
+      setPassword("");
+      setPhone("");
+    }
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -61,7 +74,7 @@ export default function Login() {
                     >
                       <Grid item xs={12} style={{ paddingBottom: 50 }}>
                         <Typography
-                          variant="h4"
+                          variant="h3"
                           style={{ fontWeight: "bolder" }}
                           align="left"
                         >
@@ -107,7 +120,7 @@ export default function Login() {
                             padding: 10,
                           }}
                           fullWidth
-                          // onClick={approve}
+                          onClick={login}
                         >
                           {loggingIn ? (
                             <CircularProgress

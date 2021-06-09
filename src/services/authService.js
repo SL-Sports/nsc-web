@@ -16,10 +16,10 @@ const login = async (phone, password) => {
   };
 
   let response = await axios.post(url, body, config).catch((err) => {
-    if (response.data === undefined) {
+    if (err.response.data === undefined) {
       alert("We encountered an error while logging you in");
     } else {
-      alert(response.data.message);
+      alert(err.response.data.message);
     }
 
     return false;
@@ -28,9 +28,6 @@ const login = async (phone, password) => {
   if (response.status === 200) {
     return true;
     //TODO:Save token and profile info in cookies
-  } else {
-    alert(response.data.message);
-    return false;
   }
 };
 
