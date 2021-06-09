@@ -15,6 +15,7 @@ import {
   IconButton,
   ThemeProvider,
   TextField,
+  Input,
 } from "@material-ui/core";
 import { theme, useStyles } from "./activityTheme";
 import CoachApprovalCard from "./coachApprovalCard";
@@ -35,8 +36,8 @@ export default function ActivityDetail() {
   const [uploadingImage, setUploadingImage] = useState(false);
   const [uploadingVideo, setUploadingVideo] = useState(false);
   const [newMediaToggle, setNewMediaToggle] = useState(false);
-  const inputImage = useRef(null);
-  const inputVideo = useRef(null);
+  const [selectedImage, setSelectedImage] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState(false);
 
   const getActivity = async () => {
     const activityRes = await activityService.getActivityDetail(activityId);
@@ -78,7 +79,6 @@ export default function ActivityDetail() {
 
   const uploadImage = async () => {
     setUploadingImage(true);
-    inputImage.current.click();
     while (uploadFile === null || uploadFile === undefined) {
       await new Promise((resolve) => setTimeout(resolve, 10));
     }
@@ -99,7 +99,6 @@ export default function ActivityDetail() {
 
   const uploadVideo = async () => {
     setUploadingVideo(true);
-    inputVideo.current.click();
     while (uploadFile !== undefined) {
       await new Promise((resolve) => setTimeout(resolve, 1000));
     }
@@ -314,13 +313,17 @@ export default function ActivityDetail() {
                             color={newMediaToggle ? "secondary" : "primary"}
                             aria-label="new-media"
                             size="small"
-                            onClick={() => setNewMediaToggle(!newMediaToggle)}
+                            onClick={() => {
+                              setNewMediaToggle(!newMediaToggle);
+                              setSelectedImage(false);
+                              setSelectedVideo(false);
+                            }}
                             disabled={uploadingImage || uploadingVideo}
                           >
                             {newMediaToggle ? <Close></Close> : <Add></Add>}
                           </IconButton>
                         </Grid>
-                        {newMediaToggle && (
+                        {newMediaToggle && !(selectedImage || selectedVideo) && (
                           <Grid item xs={6}>
                             <Button
                               style={{
@@ -331,7 +334,7 @@ export default function ActivityDetail() {
                               }}
                               fullWidth
                               disabled={uploadingImage || uploadingVideo}
-                              onClick={uploadImage}
+                              onClick={() => setSelectedImage(true)}
                             >
                               {uploadingImage ? (
                                 <CircularProgress
@@ -343,7 +346,7 @@ export default function ActivityDetail() {
                             </Button>
                           </Grid>
                         )}
-                        {newMediaToggle && (
+                        {newMediaToggle && !(selectedImage || selectedVideo) && (
                           <Grid item xs={6}>
                             <Button
                               style={{
@@ -354,7 +357,7 @@ export default function ActivityDetail() {
                               }}
                               fullWidth
                               disabled={uploadingImage || uploadingVideo}
-                              onClick={uploadVideo}
+                              onClick={() => setSelectedVideo(true)}
                             >
                               {uploadingVideo ? (
                                 <CircularProgress
@@ -362,6 +365,76 @@ export default function ActivityDetail() {
                                 ></CircularProgress>
                               ) : (
                                 "UPLOAD VIDEO"
+                              )}
+                            </Button>
+                          </Grid>
+                        )}
+                        {newMediaToggle && selectedImage && (
+                          <Grid item xs={9}>
+                            <Input
+                              type="file"
+                              color="primary"
+                              id="image"
+                              accept="image/*"
+                              style={{ width: "100%", height: "100%" }}
+                              onChange={(e) => setUploadFile(e.target.files[0])}
+                            />
+                          </Grid>
+                        )}
+                        {newMediaToggle && selectedImage && (
+                          <Grid item xs={3}>
+                            <Button
+                              style={{
+                                background: theme.palette.primary.mainGradient,
+                                color: "white",
+                                borderRadius: 20,
+                                fontWeight: "bolder",
+                              }}
+                              fullWidth
+                              onClick={uploadImage}
+                              disabled={uploadingImage}
+                            >
+                              {uploadingImage ? (
+                                <CircularProgress
+                                  style={{ color: "white" }}
+                                ></CircularProgress>
+                              ) : (
+                                "UPLOAD"
+                              )}
+                            </Button>
+                          </Grid>
+                        )}
+                        {newMediaToggle && selectedVideo && (
+                          <Grid item xs={9}>
+                            <Input
+                              type="file"
+                              id="video"
+                              color="primary"
+                              accept="video/mp4,video/x-m4v,video/*"
+                              style={{ width: "100%", height: "100%" }}
+                              onChange={(e) => setUploadFile(e.target.files[0])}
+                            />
+                          </Grid>
+                        )}
+                        {newMediaToggle && selectedVideo && (
+                          <Grid item xs={3}>
+                            <Button
+                              style={{
+                                background: theme.palette.primary.mainGradient,
+                                color: "white",
+                                borderRadius: 20,
+                                fontWeight: "bolder",
+                              }}
+                              fullWidth
+                              onClick={uploadVideo}
+                              disabled={uploadingVideo}
+                            >
+                              {uploadingImage ? (
+                                <CircularProgress
+                                  style={{ color: "white" }}
+                                ></CircularProgress>
+                              ) : (
+                                "UPLOAD"
                               )}
                             </Button>
                           </Grid>
@@ -404,23 +477,6 @@ export default function ActivityDetail() {
                 </Grid>
               </Grid>
             </Container>
-            <input
-              type="file"
-              id="image"
-              ref={inputImage}
-              style={{ display: "none" }}
-              accept="image/*"
-              onChange={(e) => setUploadFile(e.target.files[0])}
-            />
-
-            <input
-              type="file"
-              id="video"
-              ref={inputVideo}
-              style={{ display: "none" }}
-              accept="video/mp4,video/x-m4v,video/*"
-              onChange={(e) => setUploadFile(e.target.files[0])}
-            />
           </main>
         </CssBaseline>
       </ThemeProvider>
