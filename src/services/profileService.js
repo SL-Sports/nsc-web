@@ -17,14 +17,14 @@ const token =
  *                            the error message
  *
  */
-export async function searchProfiles(query = "", accountType = "") {
+export async function searchProfiles(query = "", profileType = "") {
   const url = baseUrl + "/search";
 
   let body = {};
 
   // add keys to body if they have been specified
   body.query = query;
-  if (accountType !== "") body.accountType = accountType;
+  if (profileType !== "") body.profileType = profileType;
 
   const config = {
     headers: {

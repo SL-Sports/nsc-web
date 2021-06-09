@@ -12,6 +12,7 @@ import {
   // ProfileAdvancedSearchForm,
 } from "../components/profileSearchForm";
 import { ProfileList } from "../components/renderProfiles";
+import { profileTypes } from "../profileTypes";
 
 export default function ProfilesHome() {
   // Profile lists
@@ -19,7 +20,7 @@ export default function ProfilesHome() {
 
   // Search form field
   let [query, setQuery] = useState("");
-
+  let [profileTypeField, setProfileTypeField] = useState(profileTypes.ALL);
   // Form advanced filter fields
   // let [firstName, setFirstName] = useState("");
   // let [lastName, setLastName] = useState("");
@@ -49,7 +50,20 @@ export default function ProfilesHome() {
   useEffect(() => {
     async function updateProfiles() {
       console.log("Updating profiles...");
-      const profilesResponse = await searchProfiles(query);
+
+      let profileType;
+      switch (profileTypeField) {
+        case profileTypes.ATHLETES:
+          profileType = "ATHLETE";
+          break;
+        case profileTypes.COACHES:
+          profileType = "COACH";
+          break;
+        default:
+          profileType = undefined;
+      }
+
+      const profilesResponse = await searchProfiles(query, profileType);
 
       console.log(profilesResponse);
       if (profilesResponse.status === 200) {
@@ -66,7 +80,7 @@ export default function ProfilesHome() {
     }
 
     updateProfiles();
-  }, [query]);
+  }, [query, profileTypeField]);
 
   return (
     <>
@@ -75,7 +89,13 @@ export default function ProfilesHome() {
         <ProfileAdvancedSearchForm fields={fields} />
       </Box> */}
       <Box name="profile-search-form" pb={4}>
-        <ProfileSearchForm field="Search" value={query} setter={setQuery} />
+        <ProfileSearchForm
+          field="Search"
+          query={query}
+          setQuery={setQuery}
+          profileTypeField={profileTypeField}
+          setProfileTypeField={setProfileTypeField}
+        />
       </Box>
       <Container maxWidth="sm">
         <Box name="profile-list">
