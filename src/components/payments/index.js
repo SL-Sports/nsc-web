@@ -7,7 +7,11 @@ import {
   CssBaseline,
   Container,
   Grid,
+  Fab,
 } from "@material-ui/core";
+
+import AddIcon from '@material-ui/icons/Add';
+
 import PaymentCard from "./paymentCard";
 
 import { theme } from "./paymentsTheme";
@@ -32,6 +36,15 @@ export default function Payments() {
     getPayments(); 
   }, [])
   
+  const fabStyle = {
+    margin: 0,
+    top: 'auto',
+    right: 20,
+    bottom: 20,
+    left: 'auto',
+    position: 'fixed',
+};
+
   return (
     <>
       <CssBaseline>
@@ -53,6 +66,9 @@ export default function Payments() {
               ))}
             </Grid>
           </Container>
+          <Fab color="primary" aria-label="add" style = {fabStyle}>
+              <AddIcon />
+          </Fab>
         </main>
       </CssBaseline>
     </>

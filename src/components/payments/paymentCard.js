@@ -59,9 +59,7 @@ const PaymentCard = ({payment}) => {
                             <Grid item xs={1} md={1}>
                                 <Checkbox 
                                     checked={payment.payment.approvedByAssociation}
-                                    color={"primary"/*theme.palette.primary.main*/}
-                                    size="string"
-                                    style={{transform: "scale(1.5)"}}
+                                               style={{transform: "scale(1.5)"}}
                                     />
                             </Grid>
                             <Grid item xs={6} md={6}>

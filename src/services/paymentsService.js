@@ -2,7 +2,7 @@ import axios from "axios";
 
 const baseUrl = "https://slsports.anuda.me/payment";
 
-const token = "O1y6PaUfCJ1UMNVDlMV510Jqh0dkZkp8tDSgEkv9PWinPC95NHeojt0CYvU49qmllN2cXmWtaNDyi2e93W7nmiqvQ2vsgAAjvsO9B10oalwA2tAPVceBfsTEpPlxU3VO";
+const token = "8cJeOM8vZUkSPKhn978Lh3LhY86TJSwDzUYVHxD6rrDdSBQazf4MrZSxV94pDxgwXWc5ZKkOuHrqGPt4ma0imc5K4VE7dT8VKdmOA5vZ8mI24J6mG8I3aTnE0mVcpyxE";
 
 const getPayments = async (associationID) => {
     const url = baseUrl + "/get";
@@ -69,4 +69,41 @@ const getPaymentDetail = async (paymentID) => {
     return result;
 };
 
-export default { getPayments, getPaymentDetail };
+const newPayment = async (paymentInfo) => {
+    const url = baseUrl + "/new";
+
+    const body = {
+        month: paymentInfo.month,
+        year: paymentInfo.year,
+        profile: paymentInfo.profileID,
+        amount: paymentInfo.amount,
+        paymentType: paymentInfo.paymentType
+    }; 
+
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            Token: token,
+        },
+    };
+
+    let result = {};
+
+    let response = await axios.post(url, body, config).catch((err) => {
+        result.status = err.response.status;
+        result.data = err.response.data.message;
+        alert(result.data);
+        return result;
+    });
+    result.status = response.status;
+
+    if (response.status === 200) {
+        result.data = response.data;
+    } else {
+        result.data = response.data.message;
+    }
+    return result;
+
+};
+
+export default { getPayments, getPaymentDetail, newPayment };
