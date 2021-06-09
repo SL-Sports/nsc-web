@@ -79,10 +79,7 @@ export default function ActivityDetail() {
 
   const uploadImage = async () => {
     setUploadingImage(true);
-    while (uploadFile === null || uploadFile === undefined) {
-      await new Promise((resolve) => setTimeout(resolve, 10));
-    }
-    console.log("hi");
+
     const saveRes = await activityService.mediaUpload(
       uploadFile,
       "IMAGE",
@@ -90,7 +87,8 @@ export default function ActivityDetail() {
     );
     alert(saveRes.data);
     setUploadingImage(false);
-    setUploadFile(null);
+    setUploadFile(undefined);
+    setSelectedImage(false);
     setNewMediaToggle(false);
     if (saveRes.status === 200) {
       getActivity();
@@ -99,9 +97,7 @@ export default function ActivityDetail() {
 
   const uploadVideo = async () => {
     setUploadingVideo(true);
-    while (uploadFile !== undefined) {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-    }
+
     const saveRes = await activityService.mediaUpload(
       uploadFile,
       "VIDEO",
@@ -109,7 +105,8 @@ export default function ActivityDetail() {
     );
     alert(saveRes.data);
     setUploadingVideo(false);
-    setUploadFile(null);
+    setUploadFile(undefined);
+    setSelectedVideo(false);
     setNewMediaToggle(false);
     if (saveRes.status === 200) {
       getActivity();
@@ -429,7 +426,7 @@ export default function ActivityDetail() {
                               onClick={uploadVideo}
                               disabled={uploadingVideo}
                             >
-                              {uploadingImage ? (
+                              {uploadingVideo ? (
                                 <CircularProgress
                                   style={{ color: "white" }}
                                 ></CircularProgress>

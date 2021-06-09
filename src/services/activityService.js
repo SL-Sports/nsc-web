@@ -141,11 +141,14 @@ const mediaUpload = async (file, mediaType, activityId) => {
     headers: {
       Token: token,
     },
+    maxContentLength: Infinity,
+    maxBodyLength: Infinity,
   };
 
   let result = {};
 
   let response = await axios.post(url, formData, config).catch((err) => {
+    console.log(err);
     result.status = response.status;
     result.data =
       "We encountered an error while uploading your media. Please try again.";
@@ -153,7 +156,7 @@ const mediaUpload = async (file, mediaType, activityId) => {
     return result;
   });
 
-  if (result.status === 200) {
+  if (response.status === 200) {
     let urlToMedia = response.data.filePath;
 
     const body = {
@@ -167,6 +170,7 @@ const mediaUpload = async (file, mediaType, activityId) => {
     const saveConfig = {
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
         Token: token,
       },
     };
