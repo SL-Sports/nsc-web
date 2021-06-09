@@ -8,6 +8,7 @@ import ActivityTypes from "../activities/activityTypes";
 import Profiles from "../profiles";
 import Payments from "../payments";
 import LogIn from "../auth/logIn";
+import SignUp from "../auth/signUp";
 
 function Home() {
   return <h1 style={{ color: COLORS.blueGradientStart }}>Home</h1>;
@@ -23,6 +24,8 @@ export default function Routes() {
       <Switch>
         {/* Auth */}
         <Route path="/login" component={LogIn} />
+        <Route path="/signup" component={SignUp} />
+
         {/* Activities */}
         <Route path="/activities" component={Activities} />
         <Route path="/activity-detail/:activityId" component={ActivityDetail} />

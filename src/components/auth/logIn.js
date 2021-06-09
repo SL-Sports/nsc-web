@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import authService from "../../services/authService";
 import { theme, useStyles } from "./authTheme";
 import bg from "../../assets/dots-web.png";
-import { Phone } from "@material-ui/icons";
 import { Link, useHistory } from "react-router-dom";
 import {
   Typography,
@@ -40,7 +39,9 @@ export default function Login() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline>
-        <Box bgcolor="primary.main">
+        <Box
+          style={{ background: "linear-gradient(to right,#0575e6, #021b79)" }}
+        >
           <Container maxWidth="lg" style={{ padding: 20 }}>
             <Grid
               container
@@ -146,7 +147,7 @@ export default function Login() {
                           </Link>
                         </Grid>
                         <Grid item xs={6}>
-                          <Link>
+                          <Link to="/signup">
                             <Typography color="primary">Sign Up</Typography>
                           </Link>
                         </Grid>
