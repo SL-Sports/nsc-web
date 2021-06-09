@@ -372,7 +372,7 @@ export default function ActivityDetail() {
                               type="file"
                               color="primary"
                               id="image"
-                              accept="image/*"
+                              inputProps={{ accept: "image/*" }}
                               style={{ width: "100%", height: "100%" }}
                               onChange={(e) => setUploadFile(e.target.files[0])}
                             />
@@ -407,7 +407,9 @@ export default function ActivityDetail() {
                               type="file"
                               id="video"
                               color="primary"
-                              accept="video/mp4,video/x-m4v,video/*"
+                              inputProps={{
+                                accept: "video/mp4,video/x-m4v,video/*",
+                              }}
                               style={{ width: "100%", height: "100%" }}
                               onChange={(e) => setUploadFile(e.target.files[0])}
                             />

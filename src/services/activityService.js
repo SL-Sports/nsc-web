@@ -170,7 +170,6 @@ const mediaUpload = async (file, mediaType, activityId) => {
     const saveConfig = {
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
         Token: token,
       },
     };
