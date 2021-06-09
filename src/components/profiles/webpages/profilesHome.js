@@ -11,7 +11,7 @@ import {
   ProfileSearchForm,
   // ProfileAdvancedSearchForm,
 } from "../components/profileSearchForm";
-import { ProfileList } from "../components/renderProfiles";
+import { ProfileList } from "../components/profileList";
 import { profileTypes } from "../profileTypes";
 
 export default function ProfilesHome() {
