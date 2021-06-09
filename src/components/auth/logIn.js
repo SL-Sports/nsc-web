@@ -1,0 +1,148 @@
+import React, { useState } from "react";
+import authService from "../../services/authService";
+import { theme, useStyles } from "./authTheme";
+import bg from "../../assets/dots-web.png";
+import { Phone } from "@material-ui/icons";
+import { Link } from "react-router-dom";
+import {
+  Typography,
+  CssBaseline,
+  Container,
+  Grid,
+  ThemeProvider,
+  Card,
+  Hidden,
+  TextField,
+  Button,
+  CircularProgress,
+} from "@material-ui/core";
+
+export default function Login() {
+  const classes = useStyles();
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [loggingIn, setLoggingIn] = useState(false);
+
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline>
+        <Container maxWidth="lg" style={{ padding: 20 }}>
+          <Grid
+            container
+            spacing={0}
+            direction="row"
+            alignItems="center"
+            justify="center"
+            style={{ minHeight: "100vh", width: "100%" }}
+          >
+            <Grid item xs={12}>
+              <Card className={classes.card} raised>
+                <Grid
+                  container
+                  spacing={0}
+                  direction="row"
+                  alignItems="center"
+                  justify="center"
+                >
+                  <Hidden smDown>
+                    <Grid item md={6}>
+                      <img src={bg} alt="background" width="100%" />
+                    </Grid>
+                  </Hidden>
+
+                  <Grid item md={6} sm={12}>
+                    <Grid
+                      container
+                      spacing={4}
+                      direction="row"
+                      alignItems="stretch"
+                      justify="flex-start"
+                      style={{ padding: 50 }}
+                    >
+                      <Grid item xs={12} style={{ paddingBottom: 50 }}>
+                        <Typography
+                          variant="h4"
+                          style={{ fontWeight: "bolder" }}
+                          align="left"
+                        >
+                          Welcome Back!
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          color="secondary"
+                          required
+                          fullWidth
+                          id="phone"
+                          label="Phone"
+                          name="phone"
+                          placeholder="7XXXXXXXX"
+                          autoComplete="phone"
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          color="secondary"
+                          required
+                          fullWidth
+                          id="password"
+                          label="Password"
+                          name="password"
+                          autoComplete="password"
+                          type="password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Button
+                          style={{
+                            background: theme.palette.primary.mainGradient,
+                            color: "white",
+                            borderRadius: 20,
+                            fontWeight: "bolder",
+                            marginTop: 50,
+                            padding: 10,
+                          }}
+                          fullWidth
+                          // onClick={approve}
+                        >
+                          {loggingIn ? (
+                            <CircularProgress
+                              style={{ color: "white" }}
+                            ></CircularProgress>
+                          ) : (
+                            <Typography
+                              variant="subtitle1"
+                              style={{ fontWeight: "bolder" }}
+                            >
+                              LET'S GO
+                            </Typography>
+                          )}
+                        </Button>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Link>
+                          <Typography color="primary">
+                            Forgot Password
+                          </Typography>
+                        </Link>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Link>
+                          <Typography color="primary">Sign Up</Typography>
+                        </Link>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Card>
+            </Grid>
+          </Grid>
+        </Container>
+      </CssBaseline>
+    </ThemeProvider>
+  );
+}
