@@ -4,7 +4,7 @@ import { Grid, Box, Card, Avatar, Typography } from "@material-ui/core";
 import { spacing } from "@material-ui/system";
 
 import { getDOB } from "../../../services/dateService";
-import { ProfileList } from "./renderProfiles";
+import { ProfileList } from "./profileList";
 
 function title(string) {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
