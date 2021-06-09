@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Box, Container } from "@material-ui/core";
+import { Box, Container, Fab, Tooltip, Typography } from "@material-ui/core";
+import { Add } from "@material-ui/icons";
 // eslint-disable-next-line
 import { spacing } from "@material-ui/system";
+import { makeStyles } from "@material-ui/core/styles";
 
 import {
   // advancedSearchProfiles,
@@ -13,8 +15,19 @@ import {
 } from "../components/profileSearchForm";
 import { ProfileList } from "../components/profileList";
 import { profileTypes } from "../profileTypes";
+import { Link } from "react-router-dom";
+
+const useStyles = makeStyles((theme) => ({
+  fab: {
+    position: "fixed",
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+  },
+}));
 
 export default function ProfilesHome() {
+  const classes = useStyles();
+
   // Profile lists
   let [profiles, setProfiles] = useState([]);
 
@@ -84,7 +97,9 @@ export default function ProfilesHome() {
 
   return (
     <>
-      <h1>Profiles</h1>
+      <Box p={2}>
+        <Typography variant="h3">Profiles</Typography>
+      </Box>
       {/* <Box name="profile-advanced-search-form" my={2}>
         <ProfileAdvancedSearchForm fields={fields} />
       </Box> */}
@@ -102,6 +117,13 @@ export default function ProfilesHome() {
           <ProfileList profiles={profiles} editLinks={true} />
         </Box>
       </Container>
+      <Tooltip title="Create Profile/Invite">
+        <Link to="new">
+          <Fab color="primary" className={classes.fab}>
+            <Add />
+          </Fab>
+        </Link>
+      </Tooltip>
     </>
   );
 }
