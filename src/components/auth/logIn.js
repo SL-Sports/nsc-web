@@ -124,6 +124,7 @@ export default function Login() {
                             }}
                             fullWidth
                             onClick={login}
+                            disabled={loggingIn}
                           >
                             {loggingIn ? (
                               <CircularProgress

@@ -62,4 +62,62 @@ const signup = async (phone, password, inviteCode, dateOfBirth) => {
   }
 };
 
-export default { login, signup };
+const forgotRequest = async (phone) => {
+  const url = baseUrl + "/forgot/request";
+
+  const body = {
+    phone: `94${phone}`,
+  };
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  let response = await axios.post(url, body, config).catch((err) => {
+    if (err.response.data === undefined) {
+      alert("We encountered an error while resetting your password");
+    } else {
+      alert(err.response.data.message);
+    }
+
+    return "ERROR";
+  });
+
+  if (response.status === 200) {
+    return response.data.otpId;
+  }
+};
+
+const forgotVerify = async (phone, otpSessionId, otp, newPassword) => {
+  const url = baseUrl + "/forgot/verify";
+
+  const body = {
+    otpSessionId: otpSessionId,
+    otp: otp,
+    newPassword: newPassword,
+  };
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  let response = await axios.post(url, body, config).catch((err) => {
+    if (err.response.data === undefined) {
+      alert("We encountered an error while signing you up");
+    } else {
+      alert(err.response.data.message);
+    }
+
+    return false;
+  });
+
+  if (response.status === 200) {
+    return login(phone, newPassword);
+  }
+};
+
+export default { login, signup, forgotRequest, forgotVerify };

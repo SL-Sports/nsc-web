@@ -188,6 +188,7 @@ export default function SignUp() {
                             }}
                             fullWidth
                             onClick={signUp}
+                            disabled={signingUp}
                           >
                             {signingUp ? (
                               <CircularProgress
