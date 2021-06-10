@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getRankings } from "../../services/rankingService";
 import { rankingTypes, rankingsList } from "./rankingTypes";
-import { theme } from "./rankingTheme";
+import { theme, useStyles } from "./rankingTheme";
 import {
   AppBar,
   Typography,
@@ -12,12 +12,17 @@ import {
   Grid,
   Select,
   MenuItem,
+  Fab,
+  Tooltip,
 } from "@material-ui/core";
+import { Add } from "@material-ui/icons";
+
 import Ranking from "./rankingCard";
 
 const sportId = "60a7643e0c36495526c36b09";
 
 export default function Rankings() {
+  const classes = useStyles();
   const [rankings, setRankings] = useState(undefined);
   const [rankingType, setRankingType] = useState(rankingTypes.NATIONAL);
 
@@ -117,6 +122,11 @@ export default function Rankings() {
                   <Ranking key={ranking._id} ranking={ranking} />
                 ))}
               </Grid>
+              <Tooltip title="Add New Ranking" aria-label="add">
+                <Fab className={classes.fab} size="large">
+                  <Add></Add>
+                </Fab>
+              </Tooltip>
             </Container>
           </main>
         </CssBaseline>
