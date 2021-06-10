@@ -1,5 +1,6 @@
-import { Typography, Grid, Card, Button } from "@material-ui/core";
-import { CheckBox, CheckBoxOutlineBlank } from "@material-ui/icons";
+import { Typography, Grid, Card, Button, IconButton } from "@material-ui/core";
+import { CheckBox, CheckBoxOutlineBlank} from "@material-ui/icons";
+import EditIcon from '@material-ui/icons/Edit';
 import moment from "moment";
 import { Link } from "react-router-dom";
 import Checkbox from '@material-ui/core/Checkbox';
@@ -103,6 +104,13 @@ const PaymentCard = ({payment, seeMoreEnabled}) => {
                                     >
                                         SEE MORE
                                     </Button>}
+                                </Link>
+                            </Grid>
+                            <Grid item xs={2}>
+                                <Link to={"payments-edit/" + payment.payment._id}>
+                                    <IconButton>
+                                        <EditIcon/>
+                                    </IconButton>
                                 </Link>
                             </Grid>
                         </Grid>

@@ -11,6 +11,7 @@ import Profiles from '../profiles';
 import Payments from '../payments';
 import PaymentDetail from '../payments/paymentDetail';
 import NewPayment from '../payments/newPayment';
+import EditPayment from '../payments/editPayment';
 
 function Home () {
     return <h1  style={{color: COLORS.blueGradientStart}}>Home</h1>
@@ -31,6 +32,7 @@ export default function Routes () {
                 <Route path='/payments' component={Payments} />
                 <Route path='/payment-detail/:paymentID' component={PaymentDetail} />
                 <Route path='/payments-new' component={NewPayment} />
+                <Route path='/payments-edit/:paymentID' component={EditPayment} />
                 {/* Profiles */}
                 <Route path='/profiles' component={Profiles} />
                 {/* Home */}

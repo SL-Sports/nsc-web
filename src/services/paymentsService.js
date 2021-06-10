@@ -106,4 +106,41 @@ const sendNewPayment = async (paymentInfo) => {
 
 };
 
-export default { getPayments, getPaymentDetail, sendNewPayment };
+const editPayment = async (paymentInfo) => {
+    const url = baseUrl + "/edit";
+    const body = {
+        id: paymentInfo.paymentID,
+        month: paymentInfo.month,
+        year: paymentInfo.year,
+        profile: paymentInfo.profile,
+        amount: paymentInfo.amount,
+        paymentType: paymentInfo.paymentType,
+        isDeleted: paymentInfo.isDeleted
+    };
+
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            Token: token,
+        },
+    };
+
+    let result = {};
+
+    let response = await axios.post(url, body, config).catch((err) => {
+        result.status = err.response.status;
+        result.data = err.response.data.message;
+        alert(result.data);
+        return result;
+    });
+    result.status = response.status;
+
+    if (response.status === 200) {
+        result.data = response.data;
+    } else {
+        result.data = response.data.message;
+    }
+    return result;
+}
+
+export default { getPayments, getPaymentDetail, sendNewPayment, editPayment };
