@@ -95,7 +95,7 @@ const forgotVerify = async (phone, otpSessionId, otp, newPassword) => {
 
   const body = {
     otpSessionId: otpSessionId,
-    otp: otp,
+    OTP: otp,
     newPassword: newPassword,
   };
 

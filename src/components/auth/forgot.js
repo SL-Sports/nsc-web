@@ -30,7 +30,6 @@ export default function Forgot() {
   const [onRequestPage, setOnRequestPage] = useState(true);
 
   const resetState = () => {
-    console.log("hi");
     setPhone("");
     setPassword("");
     setRequesting(false);
@@ -42,18 +41,37 @@ export default function Forgot() {
   };
 
   const request = async () => {
-    // setLoggingIn(true);
-    // let result = await authService.login(phone, password);
-    // if (result) {
-    //   history.replace("/activities");
-    // } else {
-    //   setLoggingIn(false);
-    //   setPassword("");
-    //   setPhone("");
-    // }
+    setRequesting(true);
+    let result = await authService.forgotRequest(phone);
+    setRequesting(false);
+
+    if (result === "ERROR") {
+      resetState();
+    } else {
+      setOtpSessionId(result);
+      setOnRequestPage(false);
+    }
   };
 
-  const verify = async () => {};
+  const verify = async () => {
+    if (confirmPassword !== password) {
+      alert("Your new password and password confirmation don't match");
+      return;
+    }
+    setVerifying(true);
+    let result = await authService.forgotVerify(
+      phone,
+      otpSessionId,
+      otp,
+      password
+    );
+    setVerifying(false);
+    if (result) {
+      history.replace("/activities");
+    } else {
+      setOtp("");
+    }
+  };
 
   if (onRequestPage) {
     return (
