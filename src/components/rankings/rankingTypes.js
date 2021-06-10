@@ -8,3 +8,14 @@ export const rankingTypes = {
   U17: "U17",
   U15: "U15",
 };
+
+export const rankingsList = [
+  "NATIONAL",
+  "WORLD",
+  "SCHOOL",
+  "ASIA",
+  "SOUTH-ASIA",
+  "U19",
+  "U17",
+  "U15",
+];

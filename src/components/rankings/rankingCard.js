@@ -1,11 +1,4 @@
-import {
-  Typography,
-  Grid,
-  Card,
-  Button,
-  Avatar,
-  IconButton,
-} from "@material-ui/core";
+import { Typography, Grid, Card, Avatar, IconButton } from "@material-ui/core";
 import { Edit, Delete } from "@material-ui/icons";
 
 import { Link } from "react-router-dom";
@@ -17,7 +10,7 @@ const Ranking = ({ ranking }) => {
   return (
     <Grid item key={ranking._id} xs={12} sm={12} md={12}>
       <Card className={classes.card}>
-        <Grid container alignItems="center" justify="flex-start" spacing={2}>
+        <Grid container alignItems="center" justify="center" spacing={2}>
           <Grid item md={2} sm={2} xs={3}>
             <Typography
               variant="h4"
@@ -46,7 +39,7 @@ const Ranking = ({ ranking }) => {
             <IconButton
               color="red"
               aria-label="delete-ranking"
-              size="small"
+              size="medium"
               style={{ float: "right" }}
               // onClick={}
             >
@@ -57,7 +50,7 @@ const Ranking = ({ ranking }) => {
             <IconButton
               color="primary"
               aria-label="edit-ranking"
-              size="small"
+              size="medium"
               style={{ float: "left" }}
               // onClick={}
             >

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getRankings } from "../../services/rankingService";
-import { rankingTypes } from "./rankingTypes";
+import { rankingTypes, rankingsList } from "./rankingTypes";
 import { theme } from "./rankingTheme";
 import {
   AppBar,
@@ -10,6 +10,8 @@ import {
   Container,
   CircularProgress,
   Grid,
+  Select,
+  MenuItem,
 } from "@material-ui/core";
 import Ranking from "./rankingCard";
 
@@ -19,15 +21,21 @@ export default function Rankings() {
   const [rankings, setRankings] = useState(undefined);
   const [rankingType, setRankingType] = useState(rankingTypes.NATIONAL);
 
-  const loadRankings = async () => {
-    const rankingsRes = await getRankings(rankingType, sportId);
+  const loadRankings = async (type) => {
+    const rankingsRes = await getRankings(type, sportId);
     if (rankingsRes.status === 200) {
       setRankings(rankingsRes.data);
     }
   };
   useEffect(() => {
-    loadRankings();
+    loadRankings(rankingType);
   }, []);
+
+  const handleSelectChange = async (event) => {
+    setRankingType(event.target.value);
+    setRankings(undefined);
+    loadRankings(event.target.value);
+  };
 
   if (rankings === undefined) {
     return (
@@ -78,7 +86,33 @@ export default function Rankings() {
           </AppBar>
           <main>
             <Container style={{ padding: 30 }} maxWidth="md">
-              <Grid container spacing={2}>
+              <Grid container spacing={1}>
+                <Grid item xs={12}>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    fullWidth
+                    color="primary"
+                    value={rankingType}
+                    onChange={handleSelectChange}
+                    style={{ textAlign: "left", marginBottom: 20 }}
+                  >
+                    {rankingsList.map((type, index) => (
+                      <MenuItem value={type}>
+                        <Typography
+                          variant="h5"
+                          style={{
+                            fontWeight: "bolder",
+                            paddingLeft: 8,
+                            fontStyle: "italic",
+                          }}
+                        >
+                          {type}
+                        </Typography>
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </Grid>
                 {rankings.map((ranking) => (
                   <Ranking key={ranking._id} ranking={ranking} />
                 ))}
