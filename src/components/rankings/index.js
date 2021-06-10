@@ -89,12 +89,12 @@ export default function Rankings() {
               <Grid container spacing={1}>
                 <Grid item xs={12}>
                   <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
+                    id="ranking-type"
                     fullWidth
                     color="primary"
                     value={rankingType}
                     onChange={handleSelectChange}
+                    label="Ranking Type"
                     style={{ textAlign: "left", marginBottom: 20 }}
                   >
                     {rankingsList.map((type, index) => (

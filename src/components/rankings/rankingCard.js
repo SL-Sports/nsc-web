@@ -1,4 +1,11 @@
-import { Typography, Grid, Card, Avatar, IconButton } from "@material-ui/core";
+import {
+  Typography,
+  Grid,
+  Card,
+  Avatar,
+  IconButton,
+  Hidden,
+} from "@material-ui/core";
 import { Edit, Delete } from "@material-ui/icons";
 
 import { Link } from "react-router-dom";
@@ -11,7 +18,7 @@ const Ranking = ({ ranking }) => {
     <Grid item key={ranking._id} xs={12} sm={12} md={12}>
       <Card className={classes.card}>
         <Grid container alignItems="center" justify="center" spacing={2}>
-          <Grid item md={2} sm={2} xs={3}>
+          <Grid item md={2} sm={1} xs={5}>
             <Typography
               variant="h4"
               align="left"
@@ -20,13 +27,16 @@ const Ranking = ({ ranking }) => {
               {`#${ranking.ranking}`}
             </Typography>
           </Grid>
-          <Grid item md={1} sm={2} xs={3}>
-            <Avatar
-              src={ranking.profile.profilePicUrl}
-              style={{ width: 40, height: 40, float: "right" }}
-            ></Avatar>
-          </Grid>
-          <Grid item md={7} sm={4} xs={6}>
+          <Hidden xsDown>
+            <Grid item md={1} sm={2}>
+              <Avatar
+                src={ranking.profile.profilePicUrl}
+                style={{ width: 40, height: 40, float: "right" }}
+              ></Avatar>
+            </Grid>
+          </Hidden>
+
+          <Grid item md={7} sm={5} xs={7}>
             <Typography
               variant="h5"
               align="left"
