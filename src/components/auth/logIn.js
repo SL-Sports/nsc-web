@@ -141,7 +141,7 @@ export default function Login() {
                           </Button>
                         </Grid>
                         <Grid item xs={6}>
-                          <Link>
+                          <Link to="/forgot">
                             <Typography color="primary">
                               Forgot Password
                             </Typography>

@@ -9,6 +9,7 @@ import Profiles from "../profiles";
 import Payments from "../payments";
 import LogIn from "../auth/logIn";
 import SignUp from "../auth/signUp";
+import Forgot from "../auth/forgot";
 
 function Home() {
   return <h1 style={{ color: COLORS.blueGradientStart }}>Home</h1>;
@@ -25,6 +26,7 @@ export default function Routes() {
         {/* Auth */}
         <Route path="/login" component={LogIn} />
         <Route path="/signup" component={SignUp} />
+        <Route path="/forgot" component={Forgot} />
 
         {/* Activities */}
         <Route path="/activities" component={Activities} />
