@@ -5,14 +5,27 @@ import {
   Avatar,
   IconButton,
   Hidden,
+  CircularProgress,
 } from "@material-ui/core";
 import { Edit, Delete } from "@material-ui/icons";
-
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { theme, useStyles } from "./rankingTheme";
+import { deleteRanking } from "../../services/rankingService";
 
 const Ranking = ({ ranking }) => {
   const classes = useStyles();
+  const [deleting, setDeleting] = useState(false);
+
+  const deleteItem = async () => {
+    setDeleting(true);
+
+    const deleteRes = await deleteRanking(ranking._id);
+    setDeleting(false);
+    if (deleteRes.status === 200) {
+      window.location.reload();
+    }
+  };
 
   return (
     <Grid item key={ranking._id} xs={12} sm={12} md={12}>
@@ -47,13 +60,17 @@ const Ranking = ({ ranking }) => {
           </Grid>
           <Grid item md={1} sm={2} xs={6}>
             <IconButton
-              color="red"
               aria-label="delete-ranking"
               size="medium"
               style={{ float: "right" }}
-              // onClick={}
+              disabled={deleting}
+              onClick={deleteItem}
             >
-              <Delete style={{ color: "red" }} fontSize="medium"></Delete>
+              {deleting ? (
+                <CircularProgress style={{ color: "red" }}></CircularProgress>
+              ) : (
+                <Delete style={{ color: "red" }} fontSize="medium"></Delete>
+              )}
             </IconButton>
           </Grid>
           <Grid item md={1} sm={2} xs={6}>
