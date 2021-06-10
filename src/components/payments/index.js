@@ -18,6 +18,10 @@ import { theme } from "./paymentsTheme";
 
 import PaymentDetail from "./paymentDetail"
 
+import { Link } from "react-router-dom";
+
+import NewPayment from "./newPayment";
+
 const profileId = "60a7f13a8ae2f8ad47c5cd1a";
 
 
@@ -62,13 +66,15 @@ export default function Payments() {
           <Container style={{ paddingTop: 30 }} maxWidth="lg">
             <Grid container spacing={2}>
               {payments.map((payment) => (
-                <PaymentCard payment={payment} />
+                <PaymentCard key = {payment.payment.id} payment={payment} seeMoreEnabled={true}/>
               ))}
             </Grid>
           </Container>
-          <Fab color="primary" aria-label="add" style = {fabStyle}>
-              <AddIcon />
-          </Fab>
+          <Link to={"payments-new"}>
+            <Fab color="primary" aria-label="add" style = {fabStyle}>
+                <AddIcon />
+            </Fab>
+          </Link>
         </main>
       </CssBaseline>
     </>

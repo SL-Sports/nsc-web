@@ -10,6 +10,7 @@ import Activities from '../activities';
 import Profiles from '../profiles';
 import Payments from '../payments';
 import PaymentDetail from '../payments/paymentDetail';
+import NewPayment from '../payments/newPayment';
 
 function Home () {
     return <h1  style={{color: COLORS.blueGradientStart}}>Home</h1>
@@ -29,6 +30,7 @@ export default function Routes () {
                 {/* Payments */}
                 <Route path='/payments' component={Payments} />
                 <Route path='/payment-detail/:paymentID' component={PaymentDetail} />
+                <Route path='/payments-new' component={NewPayment} />
                 {/* Profiles */}
                 <Route path='/profiles' component={Profiles} />
                 {/* Home */}

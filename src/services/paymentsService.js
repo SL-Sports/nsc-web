@@ -2,7 +2,7 @@ import axios from "axios";
 
 const baseUrl = "https://slsports.anuda.me/payment";
 
-const token = "8cJeOM8vZUkSPKhn978Lh3LhY86TJSwDzUYVHxD6rrDdSBQazf4MrZSxV94pDxgwXWc5ZKkOuHrqGPt4ma0imc5K4VE7dT8VKdmOA5vZ8mI24J6mG8I3aTnE0mVcpyxE";
+const token = "q4DRq9lPhYGwgnlTJYm9B4yLG7udKpNHNmW2jocy5m2cWqz546A3yookPfv9hlwu0Gcw9ge1KH1T3Agjrjo3Esb3B6RY57zHxJptoidoGJkWZhOm1IIYvyYqSnA6WIdh";
 
 const getPayments = async (associationID) => {
     const url = baseUrl + "/get";
@@ -69,9 +69,9 @@ const getPaymentDetail = async (paymentID) => {
     return result;
 };
 
-const newPayment = async (paymentInfo) => {
+const sendNewPayment = async (paymentInfo) => {
     const url = baseUrl + "/new";
-
+    console.log(paymentInfo);
     const body = {
         month: paymentInfo.month,
         year: paymentInfo.year,
@@ -106,4 +106,4 @@ const newPayment = async (paymentInfo) => {
 
 };
 
-export default { getPayments, getPaymentDetail, newPayment };
+export default { getPayments, getPaymentDetail, sendNewPayment };

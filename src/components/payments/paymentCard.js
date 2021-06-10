@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Checkbox from '@material-ui/core/Checkbox';
 import { theme, useStyles } from "./paymentsTheme";
 
-const PaymentCard = ({payment}) => {
+const PaymentCard = ({payment, seeMoreEnabled}) => {
     const classes = useStyles();
     
     const stringifyPaymentType = (paymentType) => {
@@ -92,7 +92,7 @@ const PaymentCard = ({payment}) => {
                             </Grid>
                             <Grid item xs={12}>
                                 <Link to={"payment-detail/" + payment.payment._id}>
-                                    <Button
+                                    {seeMoreEnabled && <Button
                                         style={{
                                         background: theme.palette.primary.mainGradient,
                                         color: "white",
@@ -102,7 +102,7 @@ const PaymentCard = ({payment}) => {
                                         fullWidth
                                     >
                                         SEE MORE
-                                    </Button>
+                                    </Button>}
                                 </Link>
                             </Grid>
                         </Grid>
