@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { addRanking, profileSearch } from "../../services/rankingService";
+import React, { useState } from "react";
+import { addRanking } from "../../services/rankingService";
 import { rankingsList, rankingTypes } from "./rankingTypes";
-import { theme, useStyles } from "./rankingTheme";
+import { theme } from "./rankingTheme";
 import {
   AppBar,
   Typography,

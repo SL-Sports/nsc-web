@@ -4,7 +4,10 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { profileSearch } from "../../services/rankingService";
 
-export default function ProfileSearchAutoComplete({ onSelect }) {
+export default function ProfileSearchAutoComplete({
+  onSelect,
+  defaultProfile,
+}) {
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
   const loading = open && options.length === 0;
@@ -43,6 +46,7 @@ export default function ProfileSearchAutoComplete({ onSelect }) {
       getOptionLabel={(option) => `${option.preferredName} ${option.lastName}`}
       options={options}
       loading={loading}
+      defaultValue={defaultProfile}
       renderOption={(option) => {
         return (
           <Grid container alignItems="center">

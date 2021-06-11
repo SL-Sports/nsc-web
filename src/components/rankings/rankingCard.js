@@ -50,7 +50,7 @@ const Ranking = ({ ranking }) => {
               >
                 <Avatar
                   src={ranking.profile.profilePicUrl}
-                  style={{ width: 40, height: 40, float: "right" }}
+                  style={{ width: 50, height: 50, float: "right" }}
                 ></Avatar>
               </Link>
             </Grid>
@@ -91,7 +91,7 @@ const Ranking = ({ ranking }) => {
               aria-label="edit-ranking"
               size="medium"
               style={{ float: "left" }}
-              // onClick={}
+              onClick={() => history.push(`/rankings/edit/${ranking._id}`)}
             >
               <Edit fontSize="medium"></Edit>
             </IconButton>

@@ -12,6 +12,7 @@ import SignUp from "../auth/signUp";
 import Forgot from "../auth/forgot";
 import Rankings from "../rankings";
 import NewRanking from "../rankings/newRanking";
+import EditRanking from "../rankings/editRanking";
 
 function Home() {
   return <h1 style={{ color: COLORS.blueGradientStart }}>Home</h1>;
@@ -44,6 +45,8 @@ export default function Routes() {
         {/* Rankings */}
         <Route exact path="/rankings" component={Rankings} />
         <Route exact path="/rankings/new" component={NewRanking} />
+        <Route path="/rankings/edit/:rankingID" component={EditRanking} />
+
         {/* NoMatch */}
         <Route path="*" component={NoMatch} />
       </Switch>

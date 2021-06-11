@@ -50,6 +50,50 @@ export async function getRankings(rankingType, sport) {
   return result;
 }
 
+export async function getRankingById(id) {
+  const url = baseUrl + "rankings/get";
+  const body = {
+    _id: id,
+  };
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  let result = {};
+
+  await axios
+    .post(url, body, config)
+    .then((response) => {
+      result.status = response.status;
+      if (response.status === 200) {
+        result.data = response.data;
+      } else {
+        if (response.data.message !== undefined) {
+          result.data = response.data.message;
+        } else {
+          result.data =
+            "We encountered an error while retrieving ranking data. Please try again.";
+        }
+        alert(result.data);
+      }
+    })
+    .catch((err) => {
+      result.status = err.response.status;
+      if (err.response.data.message !== undefined) {
+        result.data = err.response.data.message;
+      } else {
+        result.data =
+          "We encountered an error while retrieving ranking data. Please try again.";
+      }
+      alert(result.data);
+    });
+
+  return result;
+}
+
 export async function addRanking(ranking, rankingType, profileId, sportId) {
   const url = baseUrl + "/rankings/new";
   const body = {
@@ -97,20 +141,13 @@ export async function addRanking(ranking, rankingType, profileId, sportId) {
   return result;
 }
 
-export async function editRanking(
-  id,
-  ranking,
-  rankingType,
-  profileId,
-  isDeleted
-) {
+export async function editRanking(id, ranking, rankingType, profileId) {
   const url = baseUrl + "/rankings/edit";
   const body = {
     ranking: ranking,
     rankingType: rankingType,
     profile: profileId,
     _id: id,
-    isDeleted: isDeleted,
   };
 
   const config = {
