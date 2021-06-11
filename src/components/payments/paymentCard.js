@@ -5,10 +5,15 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 import Checkbox from '@material-ui/core/Checkbox';
 import { theme, useStyles } from "./paymentsTheme";
+import paymentService from "../../services/paymentsService";
+import React, {useState} from "react";
 
-const PaymentCard = ({payment, seeMoreEnabled}) => {
+
+const jackSmithProfileID = "60ac7adc658e534fb80b9f55";
+
+const PaymentCard = ({payment, seeMoreEnabled, allowApproval}) => {
     const classes = useStyles();
-    
+
     const stringifyPaymentType = (paymentType) => {
         const stipend = "Monthly Stipend";
         const equipment = "Equipment";
@@ -20,6 +25,20 @@ const PaymentCard = ({payment, seeMoreEnabled}) => {
         } else if (paymentType === "TRAVEL") {
             return travel;
         }
+    };
+
+    const approvePayment = async () => {
+        const approveBody = {
+            paymentID: payment.payment._id,
+            approvedBy: jackSmithProfileID,
+        };
+
+        console.log(approveBody);
+
+        const approvalRes = await paymentService.approvePayment(approveBody);
+        console.log(approvalRes);
+        alert(approvalRes.data);
+        
     };
 
     return (
@@ -105,6 +124,20 @@ const PaymentCard = ({payment, seeMoreEnabled}) => {
                                         SEE MORE
                                     </Button>}
                                 </Link>
+                            </Grid>
+                            <Grid item xs={12}>
+                                {allowApproval && <Button
+                                        style={{
+                                        background: theme.palette.secondary.mainGradient,
+                                        color: "white",
+                                        borderRadius: 20,
+                                        fontWeight: "bolder",
+                                        }}
+                                        fullWidth
+                                        onClick={approvePayment}
+                                    >
+                                        Approve
+                                    </Button>}
                             </Grid>
                             <Grid item xs={2}>
                                 <Link to={"payments-edit/" + payment.payment._id}>

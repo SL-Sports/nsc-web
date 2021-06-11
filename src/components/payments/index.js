@@ -66,7 +66,7 @@ export default function Payments() {
           <Container style={{ paddingTop: 30 }} maxWidth="lg">
             <Grid container spacing={2}>
               {payments.map((payment) => (
-                <PaymentCard key = {payment.payment.id} payment={payment} seeMoreEnabled={true}/>
+                <PaymentCard key = {payment.payment.id} payment={payment} seeMoreEnabled={true} allowApproval={false}/>
               ))}
             </Grid>
           </Container>
