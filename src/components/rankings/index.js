@@ -16,7 +16,7 @@ import {
   Tooltip,
 } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
-
+import { Link } from "react-router-dom";
 import Ranking from "./rankingCard";
 
 const sportId = "60a7643e0c36495526c36b09";
@@ -122,11 +122,13 @@ export default function Rankings() {
                   <Ranking key={ranking._id} ranking={ranking} />
                 ))}
               </Grid>
-              <Tooltip title="Add New Ranking" aria-label="add">
-                <Fab className={classes.fab} size="large">
-                  <Add></Add>
-                </Fab>
-              </Tooltip>
+              <Link to="/rankings/new">
+                <Tooltip title="Add New Ranking" aria-label="add">
+                  <Fab className={classes.fab} size="large">
+                    <Add></Add>
+                  </Fab>
+                </Tooltip>
+              </Link>
             </Container>
           </main>
         </CssBaseline>

@@ -9,13 +9,14 @@ import {
 } from "@material-ui/core";
 import { Edit, Delete } from "@material-ui/icons";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { theme, useStyles } from "./rankingTheme";
 import { deleteRanking } from "../../services/rankingService";
 
 const Ranking = ({ ranking }) => {
   const classes = useStyles();
   const [deleting, setDeleting] = useState(false);
+  const history = useHistory();
 
   const deleteItem = async () => {
     setDeleting(true);
@@ -40,23 +41,34 @@ const Ranking = ({ ranking }) => {
               {`#${ranking.ranking}`}
             </Typography>
           </Grid>
+
           <Hidden xsDown>
             <Grid item md={1} sm={2}>
-              <Avatar
-                src={ranking.profile.profilePicUrl}
-                style={{ width: 40, height: 40, float: "right" }}
-              ></Avatar>
+              <Link
+                to={`/profiles/${ranking.profile._id}`}
+                style={{ textDecoration: "none" }}
+              >
+                <Avatar
+                  src={ranking.profile.profilePicUrl}
+                  style={{ width: 40, height: 40, float: "right" }}
+                ></Avatar>
+              </Link>
             </Grid>
           </Hidden>
 
           <Grid item md={7} sm={5} xs={7}>
-            <Typography
-              variant="h5"
-              align="left"
-              style={{ fontWeight: "bolder" }}
+            <Link
+              to={`/profiles/${ranking.profile._id}`}
+              style={{ textDecoration: "none", color: "black" }}
             >
-              {`${ranking.profile.preferredName} ${ranking.profile.lastName}`}
-            </Typography>
+              <Typography
+                variant="h5"
+                align="left"
+                style={{ fontWeight: "bolder" }}
+              >
+                {`${ranking.profile.preferredName} ${ranking.profile.lastName}`}
+              </Typography>
+            </Link>
           </Grid>
           <Grid item md={1} sm={2} xs={6}>
             <IconButton
