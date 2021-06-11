@@ -16,8 +16,8 @@ import {
   TextField,
   ThemeProvider,
 } from "@material-ui/core";
-import { Search, ArrowBack } from "@material-ui/icons";
-import { Link } from "react-router-dom";
+import { ArrowBack } from "@material-ui/icons";
+import { Link, useHistory } from "react-router-dom";
 import ProfileSearchAutoComplete from "./profileSearchField";
 const sportId = "60a7643e0c36495526c36b09";
 
@@ -26,8 +26,24 @@ export default function NewRanking() {
   const [profile, setProfile] = useState("");
   const [ranking, setRanking] = useState(undefined);
   const [saving, setSaving] = useState(false);
+  const history = useHistory();
 
-  const save = async () => {};
+  const save = async () => {
+    setSaving(true);
+    //TODO: restrict profiles to within sport
+    const saveRes = await addRanking(
+      ranking,
+      rankingType,
+      profile._id,
+      sportId
+    );
+    setSaving(false);
+    setProfile(undefined);
+    setRanking(undefined);
+    if (saveRes.status === 200) {
+      history.push("/rankings");
+    }
+  };
 
   return (
     <ThemeProvider theme={theme}>
