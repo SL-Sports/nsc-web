@@ -25,7 +25,16 @@ export default function Sports() {
   const [saving, setSaving] = useState(false);
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(" ");
+
+  const [sportId, setSportId] = useState(undefined);
+
+  const onEdit = async (sport) => {
+    setSportId(sport._id);
+    setName(sport.name);
+    setDescription(sport.description);
+    setEditing(true);
+  };
 
   const loadSports = async () => {
     const sportsRes = await getSports();
@@ -39,12 +48,21 @@ export default function Sports() {
 
   const save = async () => {
     setSaving(true);
-    const saveRes = await addSport(name, description);
+    let saveRes = {};
+
+    if (sportId === undefined) {
+      saveRes = await addSport(name, description);
+    } else {
+      saveRes = await editSport(sportId, name, description);
+    }
 
     if (saveRes.status === 200) {
-      setName("");
-      setDescription("");
       await loadSports();
+      setName("");
+
+      setDescription(" ");
+      setSportId(undefined);
+      setEditing(false);
     }
     setSaving(false);
   };
@@ -168,7 +186,7 @@ export default function Sports() {
           </Grid>
         )}
         {sports.map((sport) => (
-          <Sport key={sport._id} sport={sport} />
+          <Sport key={sport._id} sport={sport} editSport={onEdit} />
         ))}
       </Grid>
     );

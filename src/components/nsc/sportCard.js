@@ -3,7 +3,7 @@ import { Edit } from "@material-ui/icons";
 import React from "react";
 import { theme, useStyles } from "./nscTheme";
 
-const Sport = ({ sport }) => {
+const Sport = ({ sport, editSport }) => {
   const classes = useStyles();
 
   return (
@@ -25,7 +25,7 @@ const Sport = ({ sport }) => {
               aria-label="edit-ranking"
               size="medium"
               style={{ float: "right" }}
-              // onClick={() => history.push(`/rankings/edit/${ranking._id}`)}
+              onClick={() => editSport(sport)}
             >
               <Edit fontSize="medium"></Edit>
             </IconButton>
