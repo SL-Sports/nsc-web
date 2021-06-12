@@ -30,9 +30,11 @@ const Sport = ({ sport, editSport }) => {
               <Edit fontSize="medium"></Edit>
             </IconButton>
           </Grid>
-          <Grid item xs={12}>
-            <Typography align="left">{sport.description}</Typography>
-          </Grid>
+          {sport.description.length > 0 && (
+            <Grid item xs={12}>
+              <Typography align="left">{sport.description}</Typography>
+            </Grid>
+          )}
         </Grid>
       </Card>
     </Grid>

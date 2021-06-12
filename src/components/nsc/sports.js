@@ -25,7 +25,7 @@ export default function Sports() {
   const [saving, setSaving] = useState(false);
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState("");
-  const [description, setDescription] = useState(" ");
+  const [description, setDescription] = useState("");
 
   const [sportId, setSportId] = useState(undefined);
 
@@ -34,6 +34,15 @@ export default function Sports() {
     setName(sport.name);
     setDescription(sport.description);
     setEditing(true);
+  };
+
+  const resetState = async () => {
+    setName("");
+
+    setDescription("");
+    setSportId(undefined);
+    setEditing(!editing);
+    setSaving(false);
   };
 
   const loadSports = async () => {
@@ -58,13 +67,10 @@ export default function Sports() {
 
     if (saveRes.status === 200) {
       await loadSports();
-      setName("");
-
-      setDescription(" ");
-      setSportId(undefined);
-      setEditing(false);
+      resetState();
+    } else {
+      setSaving(false);
     }
-    setSaving(false);
   };
 
   if (sports === undefined) {
@@ -124,7 +130,8 @@ export default function Sports() {
             color={editing ? "secondary" : "primary"}
             aria-label="new-comment"
             size="medium"
-            onClick={() => setEditing(!editing)}
+            onClick={() => resetState()}
+            disabled={saving}
           >
             {editing ? (
               <Close fontSize="large"></Close>
@@ -143,8 +150,8 @@ export default function Sports() {
               label="Name"
               name="name"
               autoComplete="new sport name"
-              autoFocus
               value={name}
+              autoFocus
               onChange={(e) => setName(e.target.value)}
             />
           </Grid>
@@ -159,7 +166,6 @@ export default function Sports() {
               name="description"
               autoComplete="new sport description"
               multiline
-              autoFocus
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
@@ -176,6 +182,7 @@ export default function Sports() {
               }}
               fullWidth
               onClick={save}
+              disabled={saving}
             >
               {saving ? (
                 <CircularProgress style={{ color: "white" }}></CircularProgress>
