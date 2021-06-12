@@ -1,7 +1,7 @@
 import { Typography, Grid, Card, IconButton } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
 import React from "react";
-import { theme, useStyles } from "./nscTheme";
+import { useStyles } from "./nscTheme";
 
 const Sport = ({ sport, editSport }) => {
   const classes = useStyles();
