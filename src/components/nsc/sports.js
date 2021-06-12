@@ -37,6 +37,18 @@ export default function Sports() {
     loadSports();
   }, []);
 
+  const save = async () => {
+    setSaving(true);
+    const saveRes = await addSport(name, description);
+
+    if (saveRes.status === 200) {
+      setName("");
+      setDescription("");
+      await loadSports();
+    }
+    setSaving(false);
+  };
+
   if (sports === undefined) {
     return (
       <Grid
@@ -145,7 +157,7 @@ export default function Sports() {
                 fontWeight: "bolder",
               }}
               fullWidth
-              // onClick={saveComment}
+              onClick={save}
             >
               {saving ? (
                 <CircularProgress style={{ color: "white" }}></CircularProgress>
