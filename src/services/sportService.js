@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "https://slsports.anuda.me/sport";
+const baseUrl = "https://slsports.anuda.me/profile/sports";
 const token =
   "xIPkeAkS8PDP2iNSUcFpDFcTYaO5dyJUYxEySAAIO0IAxL9jYfxcmwYocXuVN5fdEpyS6er6Lbp9dtqlYVOJOFs39JXDJwnOyygpUQ74bDVhZCf8cbQu29KbTVMDsPTJ";
 

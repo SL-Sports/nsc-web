@@ -44,7 +44,7 @@ export default function NSCDashboard() {
                 <Associations></Associations>
               </Grid>
 
-              <Grid item lg={4} md={12} md={12} xs={12}>
+              <Grid item lg={4} md={12} xs={12}>
                 <Sports></Sports>
               </Grid>
             </Grid>

@@ -17,6 +17,7 @@ import {
   Button,
 } from "@material-ui/core";
 import { Edit, Add, Close } from "@material-ui/icons";
+import Sport from "./sportCard";
 
 export default function Sports() {
   const classes = useStyles();
@@ -25,6 +26,16 @@ export default function Sports() {
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+
+  const loadSports = async () => {
+    const sportsRes = await getSports();
+    if (sportsRes.status === 200) {
+      setSports(sportsRes.data);
+    }
+  };
+  useEffect(() => {
+    loadSports();
+  }, []);
 
   return (
     <Grid
@@ -106,6 +117,9 @@ export default function Sports() {
           </Button>
         </Grid>
       )}
+      {sports.map((sport) => (
+        <Sport key={sport._id} sport={sport} />
+      ))}
     </Grid>
   );
 }
