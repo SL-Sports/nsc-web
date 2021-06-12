@@ -2,26 +2,24 @@ import React, { useState, useEffect } from "react";
 import {
   getAssociations,
   editAssociation,
-  getAssociationById,
   addAssociation,
 } from "../../services/associationService";
-import { theme, useStyles } from "./nscTheme";
+import { theme } from "./nscTheme";
 import {
   Typography,
   Grid,
-  Card,
   IconButton,
   Button,
   TextField,
   CircularProgress,
-  Container,
 } from "@material-ui/core";
-import { Edit, Search, Add, Close } from "@material-ui/icons";
+import { Search, Add, Close } from "@material-ui/icons";
 import Association from "./associationCard";
 
 export default function Associations() {
-  const classes = useStyles();
   const [associations, setAssociations] = useState(undefined);
+  const [filteredAssociations, setFilteredAssociations] =
+    useState(associations);
   const [saving, setSaving] = useState(false);
   const [searching, setSearching] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -29,6 +27,22 @@ export default function Associations() {
   const [description, setDescription] = useState("");
   const [query, setQuery] = useState("");
   const [associationId, setAssociationId] = useState(undefined);
+
+  const handleSearch = (event) => {
+    setQuery(event.target.value);
+    let result = [];
+
+    if (event.target.value.length === 0) {
+      result = associations;
+    } else {
+      result = associations.filter((association) => {
+        return (
+          association.name.toLowerCase().indexOf(query.toLowerCase()) !== -1
+        );
+      });
+    }
+    setFilteredAssociations(result);
+  };
 
   const resetState = () => {
     setSaving(false);
@@ -38,12 +52,14 @@ export default function Associations() {
     setDescription("");
     setQuery("");
     setAssociationId(undefined);
+    setFilteredAssociations(associations);
   };
 
   const loadAssociations = async () => {
     const associationsRes = await getAssociations();
     if (associationsRes.status === 200) {
       setAssociations(associationsRes.data);
+      setFilteredAssociations(associationsRes.data);
     }
   };
 
@@ -62,20 +78,22 @@ export default function Associations() {
     }
 
     if (saveRes.status === 200) {
-      await loadAssociations();
       resetState();
+
+      await loadAssociations();
     } else {
       setSaving(false);
     }
   };
   const onEdit = async (association) => {
+    setSearching(false);
     setAssociationId(association._id);
     setName(association.name);
     setDescription(association.description);
     setEditing(true);
   };
 
-  if (associations === undefined) {
+  if (filteredAssociations === undefined) {
     return (
       <Grid
         container
@@ -133,7 +151,7 @@ export default function Associations() {
               color={editing || searching ? "secondary" : "primary"}
               aria-label="new-comment"
               size="medium"
-              // onClick={() => resetState()}
+              onClick={() => setSearching(true)}
               disabled={saving}
               style={{
                 float: "right",
@@ -228,11 +246,11 @@ export default function Associations() {
               autoComplete="association search"
               value={query}
               autoFocus
-              // onChange={(e) => setName(e.target.value)}
+              onChange={(e) => handleSearch(e)}
             />
           </Grid>
         )}
-        {associations.map((association) => (
+        {filteredAssociations.map((association) => (
           <Association
             key={association._id}
             association={association}
