@@ -9,6 +9,7 @@ import {
   Grid,
   Select,
   CssBaseline,
+  ThemeProvider,
 } from "@material-ui/core";
 
 import Associations from "./associations";
@@ -17,7 +18,7 @@ import Sports from "./sports";
 export default function NSCDashboard() {
   const classes = useStyles();
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <CssBaseline>
         <AppBar
           style={{ background: theme.palette.primary.mainGradient }}
@@ -37,19 +38,19 @@ export default function NSCDashboard() {
           </Toolbar>
         </AppBar>
         <main>
-          <Container style={{ padding: 30 }} maxWidth="xl">
+          <Container style={{ padding: 30 }} maxWidth="lg">
             <Grid container spacing={3}>
-              <Grid item lg={8} md={12}>
+              <Grid item lg={8} md={12} xs={12}>
                 <Associations></Associations>
               </Grid>
 
-              <Grid item lg={4} md={12}>
+              <Grid item lg={4} md={12} md={12} xs={12}>
                 <Sports></Sports>
               </Grid>
             </Grid>
           </Container>
         </main>
       </CssBaseline>
-    </>
+    </ThemeProvider>
   );
 }
