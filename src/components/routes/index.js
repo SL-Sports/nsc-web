@@ -13,6 +13,7 @@ import Forgot from "../auth/forgot";
 import Rankings from "../rankings";
 import NewRanking from "../rankings/newRanking";
 import EditRanking from "../rankings/editRanking";
+import NSCDashboard from "../nsc";
 
 function Home() {
   return <h1 style={{ color: COLORS.blueGradientStart }}>Home</h1>;
@@ -46,6 +47,9 @@ export default function Routes() {
         <Route exact path="/rankings" component={Rankings} />
         <Route exact path="/rankings/new" component={NewRanking} />
         <Route path="/rankings/edit/:rankingID" component={EditRanking} />
+
+        {/* NSC Dashboard */}
+        <Route exact path="/nsc" component={NSCDashboard} />
 
         {/* NoMatch */}
         <Route path="*" component={NoMatch} />
