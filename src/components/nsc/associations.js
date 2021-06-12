@@ -68,7 +68,12 @@ export default function Associations() {
       setSaving(false);
     }
   };
-  const onEdit = async (association) => {};
+  const onEdit = async (association) => {
+    setAssociationId(association._id);
+    setName(association.name);
+    setDescription(association.description);
+    setEditing(true);
+  };
 
   if (associations === undefined) {
     return (
