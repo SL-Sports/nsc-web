@@ -167,7 +167,7 @@ export default function Sports() {
           <Grid item xs={12}>
             <Button
               style={{
-                background: theme.palette.primary.mainGradient,
+                background: theme.palette.secondary.mainGradient,
                 color: "white",
                 borderRadius: 20,
                 fontWeight: "bolder",

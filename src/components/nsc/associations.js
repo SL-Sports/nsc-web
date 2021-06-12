@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
   getAssociations,
-  editAssociations,
+  editAssociation,
   getAssociationById,
   addAssociation,
 } from "../../services/associationService";
@@ -27,6 +27,18 @@ export default function Associations() {
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [query, setQuery] = useState("");
+  const [associationId, setAssociationId] = useState(undefined);
+
+  const resetState = () => {
+    setSaving(false);
+    setSearching(false);
+    setEditing(false);
+    setName("");
+    setDescription("");
+    setQuery("");
+    setAssociationId(undefined);
+  };
 
   const loadAssociations = async () => {
     const associationsRes = await getAssociations();
@@ -34,9 +46,28 @@ export default function Associations() {
       setAssociations(associationsRes.data);
     }
   };
+
   useEffect(() => {
     loadAssociations();
   }, []);
+
+  const save = async () => {
+    setSaving(true);
+    let saveRes = {};
+
+    if (associationId === undefined) {
+      saveRes = await addAssociation(name, description);
+    } else {
+      saveRes = await editAssociation(associationId, name, description);
+    }
+
+    if (saveRes.status === 200) {
+      await loadAssociations();
+      resetState();
+    } else {
+      setSaving(false);
+    }
+  };
   const onEdit = async (association) => {};
 
   if (associations === undefined) {
@@ -114,7 +145,9 @@ export default function Associations() {
             color={editing || searching ? "secondary" : "primary"}
             aria-label="new-comment"
             size="medium"
-            // onClick={() => resetState()}
+            onClick={
+              editing || searching ? () => resetState() : () => setEditing(true)
+            }
             disabled={saving}
             style={{ float: "right" }}
           >
@@ -160,13 +193,13 @@ export default function Associations() {
           <Grid item xs={12}>
             <Button
               style={{
-                background: theme.palette.primary.mainGradient,
+                background: theme.palette.secondary.mainGradient,
                 color: "white",
                 borderRadius: 20,
                 fontWeight: "bolder",
               }}
               fullWidth
-              // onClick={save}
+              onClick={save}
               disabled={saving}
             >
               {saving ? (
@@ -188,7 +221,7 @@ export default function Associations() {
               label="Search Associations"
               name="query"
               autoComplete="association search"
-              value={name}
+              value={query}
               autoFocus
               // onChange={(e) => setName(e.target.value)}
             />
