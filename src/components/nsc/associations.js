@@ -3,7 +3,6 @@ import {
   getAssociations,
   editAssociations,
   getAssociationById,
-  deleteAssociation,
   addAssociation,
 } from "../../services/associationService";
 import { theme, useStyles } from "./nscTheme";
@@ -17,7 +16,7 @@ import {
   CircularProgress,
   Container,
 } from "@material-ui/core";
-import { Delete, Edit, Search, Add, Close } from "@material-ui/icons";
+import { Edit, Search, Add, Close } from "@material-ui/icons";
 import Association from "./associationCard";
 
 export default function Associations() {
@@ -40,7 +39,6 @@ export default function Associations() {
   }, []);
   const onEdit = async (association) => {};
 
-  const onDelete = async (association) => {};
   if (associations === undefined) {
     return (
       <Grid
@@ -201,7 +199,7 @@ export default function Associations() {
             key={association._id}
             association={association}
             editAssociation={onEdit}
-            deleteAssociation={onDelete}
+            reloadAssociations={loadAssociations}
           />
         ))}
       </Grid>

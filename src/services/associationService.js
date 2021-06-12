@@ -204,7 +204,7 @@ export async function deleteAssociation(associationId) {
     .then((response) => {
       result.status = response.status;
       if (response.status === 200) {
-        result.data = response.data.message;
+        result.data = "Successfully deleted this association!";
       } else {
         if (response.data.message !== undefined) {
           result.data = response.data.message;

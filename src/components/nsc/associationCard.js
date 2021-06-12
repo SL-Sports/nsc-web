@@ -1,10 +1,29 @@
-import { Typography, Grid, Card, IconButton, Button } from "@material-ui/core";
+import {
+  Typography,
+  Grid,
+  Card,
+  IconButton,
+  Button,
+  CircularProgress,
+} from "@material-ui/core";
 import { Edit, Delete } from "@material-ui/icons";
-import React from "react";
+import React, { useState } from "react";
 import { useStyles, theme } from "./nscTheme";
+import { deleteAssociation } from "../../services/associationService";
 
-const Association = ({ association, deleteAssociation, editAssociation }) => {
+const Association = ({ association, editAssociation, reloadAssociations }) => {
   const classes = useStyles();
+  const [deleting, setDeleting] = useState(false);
+
+  const deleteItem = async () => {
+    setDeleting(true);
+
+    const deleteRes = await deleteAssociation(association._id);
+    if (deleteRes.status === 200) {
+      await reloadAssociations();
+    }
+    setDeleting(false);
+  };
 
   return (
     <Grid item key={association._id} xs={12} sm={12} md={12}>
@@ -24,9 +43,14 @@ const Association = ({ association, deleteAssociation, editAssociation }) => {
               aria-label="edit-ranking"
               size="medium"
               style={{ float: "right", color: "red" }}
-              onClick={() => deleteAssociation(association)}
+              onClick={() => deleteItem(association)}
+              disabled={deleting}
             >
-              <Delete fontSize="medium"></Delete>
+              {deleting ? (
+                <CircularProgress style={{ color: "red" }}></CircularProgress>
+              ) : (
+                <Delete fontSize="medium"></Delete>
+              )}
             </IconButton>
           </Grid>
           <Grid item xs={2} md={1} lg={1}>
