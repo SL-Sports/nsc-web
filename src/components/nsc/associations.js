@@ -18,6 +18,7 @@ import {
   Container,
 } from "@material-ui/core";
 import { Delete, Edit, Search, Add, Close } from "@material-ui/icons";
+import Association from "./associationCard";
 
 export default function Associations() {
   const classes = useStyles();
@@ -27,6 +28,19 @@ export default function Associations() {
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+
+  const loadAssociations = async () => {
+    const associationsRes = await getAssociations();
+    if (associationsRes.status === 200) {
+      setAssociations(associationsRes.data);
+    }
+  };
+  useEffect(() => {
+    loadAssociations();
+  }, []);
+  const onEdit = async (association) => {};
+
+  const onDelete = async (association) => {};
   if (associations === undefined) {
     return (
       <Grid
@@ -70,7 +84,7 @@ export default function Associations() {
         alignItems="center"
         justify="center"
       >
-        <Grid item xs={8}>
+        <Grid item xs={11} md={10} lg={10} xl={10}>
           <Typography
             variant="h4"
             align="left"
@@ -79,7 +93,7 @@ export default function Associations() {
             Associations
           </Typography>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={1} md={1} lg={1} xl={1}>
           {!(editing || searching) && (
             <IconButton
               color={editing || searching ? "secondary" : "primary"}
@@ -97,13 +111,14 @@ export default function Associations() {
             </IconButton>
           )}
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={12} md={1} lg={1} xl={1}>
           <IconButton
             color={editing || searching ? "secondary" : "primary"}
             aria-label="new-comment"
             size="medium"
             // onClick={() => resetState()}
             disabled={saving}
+            style={{ float: "right" }}
           >
             {editing || searching ? (
               <Close fontSize="large"></Close>
@@ -181,9 +196,14 @@ export default function Associations() {
             />
           </Grid>
         )}
-        {/* {sports.map((sport) => (
-          <Sport key={sport._id} sport={sport} editSport={onEdit} />
-        ))} */}
+        {associations.map((association) => (
+          <Association
+            key={association._id}
+            association={association}
+            editAssociation={onEdit}
+            deleteAssociation={onDelete}
+          />
+        ))}
       </Grid>
     );
   }

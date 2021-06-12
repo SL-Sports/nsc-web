@@ -21,7 +21,7 @@ const Sport = ({ sport, editSport }) => {
           </Grid>
           <Grid item xs={2}>
             <IconButton
-              color="primary"
+              color="secondary"
               aria-label="edit-ranking"
               size="medium"
               style={{ float: "right" }}
