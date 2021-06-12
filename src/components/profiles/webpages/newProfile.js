@@ -11,13 +11,17 @@ export default function NewProfile() {
     lastName: "",
     preferredName: "",
     association: "",
+    // TODO
     profilePicUrl: "",
     sport: "",
+    // TODO
     age: 0,
+    // TODO
     dateOfBirth: "",
     country: "",
     city: "",
     school: "",
+    // TODO
     profileType: "",
   };
 
