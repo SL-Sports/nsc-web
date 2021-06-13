@@ -11,7 +11,6 @@ function title(string) {
 }
 
 export function ProfileDisplay({ profileHeader }) {
-  console.log(profileHeader);
   const profile = profileHeader.profile;
   return (
     <Grid

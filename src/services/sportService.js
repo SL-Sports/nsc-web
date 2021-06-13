@@ -27,8 +27,6 @@ export async function getAllSports() {
         result.data = response.data.message;
       }
 
-      console.log(result);
-
       // return result;
     })
     .catch((err) => {

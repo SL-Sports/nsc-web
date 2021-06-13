@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Switch, Route } from "react-router-dom";
 import { CircularProgress, Container, Grid } from "@material-ui/core";
 // eslint-disable-next-line
 import { spacing } from "@material-ui/system";
 
 import { getProfile } from "../../../services/profileService";
 import { ProfileDisplay } from "../components/profileDisplay";
+import EditProfile from "../webpages/editProfile";
 
 const status = {
   LOADING: "loading",
@@ -20,9 +21,8 @@ export default function ProfileView() {
 
   useEffect(() => {
     async function updateProfileHeader() {
-      console.log("Fetching profile: " + profileID);
       const profileResponse = await getProfile(profileID);
-      console.log(profileResponse);
+
       if (profileResponse.status === 200) {
         // If request is good get profile
         const profileList = profileResponse.data;
@@ -41,7 +41,17 @@ export default function ProfileView() {
   } else if (profileStatus === status.NOTFOUND) {
     return <h2>Invalid profile ID - this profile does not exist</h2>;
   } else {
-    return <ProfileDisplay profileHeader={profileHeader} />;
+    const profile = profileHeader.profile;
+    return (
+      <Switch>
+        <Route path="/:profileID/edit">
+          <EditProfile profile={profile} />
+        </Route>
+        <Route path="/:profileID">
+          <ProfileDisplay profileHeader={profileHeader} />
+        </Route>
+      </Switch>
+    );
   }
 }
 

@@ -27,8 +27,6 @@ export async function getAllAssociations() {
         result.data = response.data.message;
       }
 
-      console.log(result);
-
       // return result;
     })
     .catch((err) => {

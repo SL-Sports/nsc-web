@@ -46,7 +46,7 @@ export default function ProfilesHome() {
   // async function updateProfilesAdvanced() {
   //   const profilesResponse = await advancedSearchProfiles(firstName, lastName);
 
-  //   console.log(profilesResponse);
+  //
   //   if (profilesResponse.status === 200) {
   //     // If request is good get profiles
   //     const profiles = profilesResponse.data;
@@ -62,8 +62,6 @@ export default function ProfilesHome() {
 
   useEffect(() => {
     async function updateProfiles() {
-      console.log("Updating profiles...");
-
       let profileType;
       switch (profileTypeField) {
         case profileTypes.ATHLETES:
@@ -78,7 +76,6 @@ export default function ProfilesHome() {
 
       const profilesResponse = await searchProfiles(query, profileType);
 
-      console.log(profilesResponse);
       if (profilesResponse.status === 200) {
         // If request is good get profiles
         const profiles = profilesResponse.data;

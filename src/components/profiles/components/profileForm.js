@@ -15,18 +15,27 @@ import { getAllSports } from "../../../services/sportService";
 import { getAllAssociations } from "../../../services/associationService";
 
 export function ProfileForm({ profile, onSubmit }) {
-  const [tempProfile, setTempProfile] = useState(profile);
-  const [sports, setSports] = useState([]);
-  const [selectedSport, setSelectedSport] = useState("");
-  const [associations, setAssociations] = useState([]);
-  const [selectedAssociation, setSelectedAssociation] = useState("");
   const profileTypes = [
     { value: "ADMIN", name: "Admin" },
     { value: "COACH", name: "Coach" },
     { value: "ATHLETE", name: "Athlete" },
   ];
-  const [selectedProfileType, setSelectedProfileType] = useState("");
-  const [selectedDate, setSelectedDate] = useState(moment());
+
+  const [tempProfile, setTempProfile] = useState(profile);
+
+  const [sports, setSports] = useState([]);
+  const [associations, setAssociations] = useState([]);
+
+  const [selectedAssociation, setSelectedAssociation] = useState(
+    profile.association._id || ""
+  );
+  const [selectedSport, setSelectedSport] = useState(profile.sport._id || "");
+  const [selectedProfileType, setSelectedProfileType] = useState(
+    profile.profileType || ""
+  );
+  const [selectedDate, setSelectedDate] = useState(
+    (profile.dateOfBirth && moment.unix(profile.dateOfBirth)) || moment()
+  );
 
   function handleInputChange(event) {
     setTempProfile({
@@ -37,7 +46,6 @@ export function ProfileForm({ profile, onSubmit }) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(selectedDate);
     tempProfile.sport = selectedSport;
     tempProfile.association = selectedAssociation;
     tempProfile.profileType = selectedProfileType;

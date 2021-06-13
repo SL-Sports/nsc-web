@@ -35,9 +35,6 @@ export async function searchProfiles(query = "", profileType = "") {
 
   let result = {};
 
-  console.log("Posting with body: ");
-  console.log(body);
-
   await axios
     .post(url, body, config)
     .then((response) => {
@@ -48,8 +45,6 @@ export async function searchProfiles(query = "", profileType = "") {
       } else {
         result.data = response.data.message;
       }
-
-      console.log(result);
 
       // return result;
     })
@@ -112,8 +107,6 @@ export async function advancedSearchProfiles(
         result.data = response.data.message;
       }
 
-      console.log(result);
-
       // return result;
     })
     .catch((err) => {
@@ -155,9 +148,6 @@ export async function getProfile(id) {
 
   let result = {};
 
-  console.log("Posting with body: ");
-  console.log(body);
-
   await axios
     .post(url, body, config)
     .then((response) => {
@@ -168,8 +158,6 @@ export async function getProfile(id) {
       } else {
         result.data = response.data.message;
       }
-
-      console.log(result);
 
       // return result;
     })

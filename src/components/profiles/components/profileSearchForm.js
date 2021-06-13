@@ -20,7 +20,6 @@ export function ProfileSearchForm({
   let [queryField, setQueryField] = useState(query);
 
   const submit = () => {
-    console.log("Submitting search query...");
     setQuery(queryField);
   };
 
