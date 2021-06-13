@@ -30,7 +30,6 @@ export default function NewProfile() {
   function onSubmit(profile) {
     createProfile(profile)
       .then((res) => {
-        console.log(res);
         const id = res.data.profileInfo._id;
         history.push("/" + id);
       })

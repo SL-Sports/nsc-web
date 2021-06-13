@@ -53,7 +53,6 @@ export function ProfileForm({ profile, onSubmit }) {
     tempProfile.profileType = selectedProfileType;
     tempProfile.dateOfBirth = selectedDate.unix();
     tempProfile.age = moment().year() - selectedDate.year();
-    console.log(tempProfile);
     onSubmit(tempProfile);
   }
 

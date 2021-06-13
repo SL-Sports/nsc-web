@@ -1,5 +1,6 @@
 import React from "react";
-import { Grid, Box, Card, Avatar, Typography } from "@material-ui/core";
+import { Grid, Box, Card, Avatar, Typography, Button } from "@material-ui/core";
+import { Link } from "react-router-dom";
 // eslint-disable-next-line
 import { spacing } from "@material-ui/system";
 
@@ -84,6 +85,25 @@ function ProfileDetails({ profile }) {
               </Grid>
             </Box>
           </Card>
+        </Grid>
+        <Grid item>
+          <Grid container spacing={2} justify="center">
+            <Grid item>
+              <Link
+                to={profile._id + "/edit"}
+                style={{ textDecoration: "none" }}
+              >
+                <Button variant="contained" color="secondary">
+                  Edit Profile
+                </Button>
+              </Link>
+            </Grid>
+            <Grid item>
+              <Button variant="contained" color="primary">
+                Invite
+              </Button>
+            </Grid>
+          </Grid>
         </Grid>
         <Grid item>
           <Card style={{ borderRadius: 20 }}>

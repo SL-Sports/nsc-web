@@ -14,7 +14,6 @@ export default function EditProfile({ profile }) {
   function onSubmit(profile) {
     editProfile(profile)
       .then((res) => {
-        console.log(res);
         const id = res.data.profileInfo._id;
         history.push("/" + id);
       })
