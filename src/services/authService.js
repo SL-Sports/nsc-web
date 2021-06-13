@@ -1,5 +1,4 @@
 import axios from "axios";
-
 const baseUrl = "https://slsports.anuda.me/auth";
 
 const login = async (phone, password) => {
@@ -14,19 +13,26 @@ const login = async (phone, password) => {
       "Content-Type": "application/json",
     },
   };
-  let result = false;
+  let result = {};
   await axios
     .post(url, body, config)
     .then((response) => {
-      if (response.status === 200) {
-        result = true;
-      }
+      result.token = response.data.token;
+      result.accountType = response.data.accountType;
+      result.profile = response.data.profile;
+      result.status = response.status;
+      result.phone = phone;
+      result.password = password;
     })
     .catch((err) => {
+      result.status = err.response.status;
+
       if (err.response.data === undefined) {
         alert("We encountered an error while logging you in");
+        result.message = "We encountered an error while logging you in";
       } else {
         alert(err.response.data.message);
+        result.message = err.response.data.message;
       }
     });
 

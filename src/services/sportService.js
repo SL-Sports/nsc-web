@@ -2,7 +2,7 @@ import axios from "axios";
 
 const baseUrl = "https://slsports.anuda.me/profile/sports";
 const token =
-  "uaJ3irWJnDNwPGKUNUpcO3P6DDZjeqRvc05t9Q5coi7bLvAoPDa2UT5Ps5obqRWFBlzyXM3hhHrqJehZuaSpNY6fqMq6VsuLTBkLrwXJiDk9P7jWdzVn3MGapowfdL9s";
+  "JlmAcyxYBZQrs7Jj5fNL7N0uYTaH1wjKBlXuu9yEMUXnSZvSqdn5baJLJMBMpdmNaybH1JletQiwAej05yoVHDemtqfLOWgnYq8PzqSRn9usxavKboiXLN5LQ8FNMRzm";
 
 export async function getSports() {
   const url = baseUrl + "/get";

@@ -16,6 +16,7 @@ import {
   CircularProgress,
   Box,
 } from "@material-ui/core";
+import { useCookies } from "react-cookie";
 
 export default function Forgot() {
   const classes = useStyles();
@@ -28,6 +29,15 @@ export default function Forgot() {
   const [otp, setOtp] = useState("");
   const [otpSessionId, setOtpSessionId] = useState("");
   const [onRequestPage, setOnRequestPage] = useState(true);
+  const [cookies, setCookie] = useCookies([
+    "token",
+    "accountType",
+    "profileID",
+    "phone",
+    "password",
+    "preferredName",
+    "activeAssociation",
+  ]);
 
   const resetState = () => {
     setPhone("");
@@ -66,7 +76,20 @@ export default function Forgot() {
       password
     );
     setVerifying(false);
-    if (result) {
+    if (result.status === 200) {
+      setCookie("token", result.token, { path: "/" });
+      setCookie("accountType", result.accountType, { path: "/" });
+      setCookie("profileID", result.profile._id, { path: "/" });
+      setCookie("phone", result.phone, { path: "/" });
+      setCookie("password", result.password, { path: "/" });
+      setCookie("preferredName", result.profile.preferredName, { path: "/" });
+
+      if (result.accountType === "ASSOCIATION_ADMIN") {
+        setCookie("activeAssociation", result.profile.association, {
+          path: "/",
+        });
+      }
+
       history.replace("/activities");
     } else {
       setOtp("");
