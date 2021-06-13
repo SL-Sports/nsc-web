@@ -1,11 +1,16 @@
 import React from "react";
 import { Paper, Box, Grid } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 // eslint-disable-next-line
 import { spacing } from "@material-ui/system";
 
 import { ProfileForm } from "../components/profileForm";
+import { createProfile } from "../../../services/profileService";
+
 export default function NewProfile() {
+  const history = useHistory();
+
   const newProfile = {
     firstName: "",
     lastName: "",
@@ -14,18 +19,23 @@ export default function NewProfile() {
     // TODO
     profilePicUrl: "",
     sport: undefined,
-    // TODO
     age: 0,
-    // TODO
     dateOfBirth: undefined,
     country: "",
     city: "",
     school: "",
-    // TODO
     profileType: "",
   };
 
-  function onSubmit(profile) {}
+  function onSubmit(profile) {
+    createProfile(profile)
+      .then((res) => {
+        console.log(res);
+        const id = res.data.profileInfo._id;
+        history.push("/" + id);
+      })
+      .catch((err) => console.error(err));
+  }
 
   return (
     <>

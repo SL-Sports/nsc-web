@@ -1,12 +1,25 @@
 import React from "react";
 import { Paper, Box, Grid } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 // eslint-disable-next-line
 import { spacing } from "@material-ui/system";
 
 import { ProfileForm } from "../components/profileForm";
+import { editProfile } from "../../../services/profileService";
+
 export default function EditProfile({ profile }) {
-  function onSubmit(profile) {}
+  const history = useHistory();
+
+  function onSubmit(profile) {
+    editProfile(profile)
+      .then((res) => {
+        console.log(res);
+        const id = res.data.profileInfo._id;
+        history.push("/" + id);
+      })
+      .catch((err) => console.error(err));
+  }
 
   return (
     <>

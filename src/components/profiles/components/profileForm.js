@@ -219,7 +219,7 @@ export function ProfileForm({ profile, onSubmit }) {
         <Grid item></Grid>
         <Grid item>
           <Button variant="contained" type="submit">
-            Create Profile
+            {(profile._id && "Edit") || "Create"} Profile
           </Button>
         </Grid>
       </Grid>
