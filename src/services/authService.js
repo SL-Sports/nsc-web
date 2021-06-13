@@ -14,21 +14,23 @@ const login = async (phone, password) => {
       "Content-Type": "application/json",
     },
   };
+  let result = false;
+  await axios
+    .post(url, body, config)
+    .then((response) => {
+      if (response.status === 200) {
+        result = true;
+      }
+    })
+    .catch((err) => {
+      if (err.response.data === undefined) {
+        alert("We encountered an error while logging you in");
+      } else {
+        alert(err.response.data.message);
+      }
+    });
 
-  let response = await axios.post(url, body, config).catch((err) => {
-    if (err.response.data === undefined) {
-      alert("We encountered an error while logging you in");
-    } else {
-      alert(err.response.data.message);
-    }
-
-    return false;
-  });
-
-  if (response.status === 200) {
-    return true;
-    //TODO:Save token and profile info in cookies
-  }
+  return result;
 };
 
 const signup = async (phone, password, inviteCode, dateOfBirth) => {

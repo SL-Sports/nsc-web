@@ -27,7 +27,7 @@ export default function Login() {
   const login = async () => {
     setLoggingIn(true);
     let result = await authService.login(phone, password);
-    if (result) {
+    if (result === true) {
       history.replace("/activities");
     } else {
       setLoggingIn(false);
