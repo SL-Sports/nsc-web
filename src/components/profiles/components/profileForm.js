@@ -27,9 +27,11 @@ export function ProfileForm({ profile, onSubmit }) {
   const [associations, setAssociations] = useState([]);
 
   const [selectedAssociation, setSelectedAssociation] = useState(
-    profile.association._id || ""
+    (profile.association && profile.association._id) || ""
   );
-  const [selectedSport, setSelectedSport] = useState(profile.sport._id || "");
+  const [selectedSport, setSelectedSport] = useState(
+    (profile.sport && profile.sport._id) || ""
+  );
   const [selectedProfileType, setSelectedProfileType] = useState(
     profile.profileType || ""
   );
@@ -50,6 +52,8 @@ export function ProfileForm({ profile, onSubmit }) {
     tempProfile.association = selectedAssociation;
     tempProfile.profileType = selectedProfileType;
     tempProfile.dateOfBirth = selectedDate.unix();
+    tempProfile.age = moment().year() - selectedDate.year();
+    console.log(tempProfile);
     onSubmit(tempProfile);
   }
 
