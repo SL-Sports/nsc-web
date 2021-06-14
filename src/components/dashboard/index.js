@@ -15,7 +15,7 @@ import {
 import { getAssociationById } from "../../services/associationService";
 import authService from "../../services/authService";
 
-import ActivityTypes from "../activities/activityTypes";
+import ActivityTypes from "../activities/components/activityTypes";
 import { useHistory } from "react-router-dom";
 import { classes } from "istanbul-lib-coverage";
 

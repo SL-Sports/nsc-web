@@ -3,8 +3,8 @@ import COLORS from "../../colors";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Activities from "../activities";
-import ActivityDetail from "../activities/activityDetail";
-import ActivityTypes from "../activities/activityTypes";
+import ActivityDetail from "../activities/webpages/activityDetail";
+import ActivityTypes from "../activities/components/activityTypes";
 import Profiles from "../profiles";
 import Payments from "../payments";
 import LogIn from "../auth/logIn";
@@ -34,8 +34,6 @@ export default function Routes() {
 
         {/* Activities */}
         <Route path="/activities" component={Activities} />
-        <Route path="/activity-detail/:activityId" component={ActivityDetail} />
-        <Route path="/activity-types" component={ActivityTypes} />
         {/* Payments */}
         <Route path="/payments" component={Payments} />
         {/* Profiles */}
@@ -46,7 +44,7 @@ export default function Routes() {
         {/* Rankings */}
         <Route exact path="/rankings" component={Rankings} />
         <Route exact path="/rankings/new" component={NewRanking} />
-        <Route path="/rankings/edit/:rankingID" component={EditRanking} />
+        <Route exact path="/rankings/edit/:rankingID" component={EditRanking} />
 
         {/* NSC Dashboard */}
         <Route exact path="/nsc" component={NSCDashboard} />

@@ -1,56 +1,23 @@
-import React, { useState, useEffect } from "react";
-import activityService from "../../services/activityService";
-import {
-  AppBar,
-  Typography,
-  Toolbar,
-  CssBaseline,
-  Container,
-  Grid,
-} from "@material-ui/core";
-import Activity from "./activityCard";
+import { CssBaseline } from "@material-ui/core";
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import { theme } from "./activityTheme";
-
-const profileId = "60ac7a65658e534fb80b9f52";
+import ActivitiesList from "./components/activitiesList";
+import ActivityDetail from "./webpages/activityDetail";
 
 export default function Activities() {
-  const [activities, setActivities] = useState([]);
-
-  useEffect(() => {
-    const getActivities = async () => {
-      const activitiesRes = await activityService.getActivities(profileId);
-      if (activitiesRes.status === 200) {
-        setActivities(activitiesRes.data);
-      }
-    };
-
-    getActivities();
-  }, []);
-
   return (
-    <>
-      <CssBaseline>
-        <AppBar
-          style={{ background: theme.palette.primary.mainGradient }}
-          position="relative"
-        >
-          <Toolbar>
-            <Typography variant="h6" color="inherit" noWrap>
-              Activities - Tiger Woods
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <main>
-          <Container style={{ paddingTop: 30 }} maxWidth="sm">
-            <Grid container spacing={2}>
-              {activities.map((activity) => (
-                <Activity key={activity.activity.id} activity={activity} />
-              ))}
-            </Grid>
-          </Container>
-        </main>
-      </CssBaseline>
-    </>
+    <Router basename="activities/">
+      <CssBaseline />
+      <Switch>
+        <Route exact path="/" component={ActivitiesList} />
+        <Route exact path="/:activityId" component={ActivityDetail} />
+        <Route component={NoMatch} />
+      </Switch>
+    </Router>
   );
+}
+
+function NoMatch() {
+  return <h1>404 Page Not Found</h1>;
 }
