@@ -17,6 +17,7 @@ import authService from "../../services/authService";
 
 import ActivityTypes from "../activities/activityTypes";
 import { useHistory } from "react-router-dom";
+import { classes } from "istanbul-lib-coverage";
 
 export default function AssociationDashboard() {
   const [association, setAssociation] = useState(undefined);
@@ -91,7 +92,7 @@ export default function AssociationDashboard() {
                 style={{ flexGrow: 1 }}
                 align="left"
               >
-                Hello John
+                {`${association.name} Dashboard`}
               </Typography>
               <Button color="inherit">LOGOUT</Button>
             </Toolbar>
@@ -100,13 +101,28 @@ export default function AssociationDashboard() {
             <Container style={{ padding: 30 }} maxWidth="lg">
               <Grid container spacing={3}>
                 <Grid item lg={8} md={12} xs={12}>
-                  {/* <Associations></Associations> */}
+                  <Typography
+                    variant="h4"
+                    align="left"
+                    style={{ fontWeight: "bolder" }}
+                  >
+                    Payments
+                  </Typography>
                 </Grid>
 
                 <Grid item lg={4} md={12} xs={12}>
                   <ActivityTypes
                     associationId={association._id}
                   ></ActivityTypes>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography
+                    variant="h4"
+                    align="left"
+                    style={{ fontWeight: "bolder" }}
+                  >
+                    Profiles
+                  </Typography>
                 </Grid>
               </Grid>
             </Container>

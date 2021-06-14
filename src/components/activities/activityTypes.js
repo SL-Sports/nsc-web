@@ -54,7 +54,22 @@ export default function ActivityTypes({ associationId }) {
 
   if (activityTypes === undefined) {
     return (
-      <>
+      <Grid
+        container
+        spacing={2}
+        alignContent="center"
+        alignItems="center"
+        justify="center"
+      >
+        <Grid item xs={12}>
+          <Typography
+            variant="h4"
+            align="left"
+            style={{ fontWeight: "bolder" }}
+          >
+            Activity Types
+          </Typography>
+        </Grid>
         <Grid
           container
           spacing={0}
@@ -69,7 +84,7 @@ export default function ActivityTypes({ associationId }) {
             ></CircularProgress>{" "}
           </Grid>
         </Grid>
-      </>
+      </Grid>
     );
   } else {
     return (
