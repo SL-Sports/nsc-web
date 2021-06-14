@@ -6,6 +6,10 @@ const getToken = async () => {
   return Cookies.get("token");
 };
 
+const getProfileID = async () => {
+  return Cookies.get("profileID");
+};
+
 const login = async (phone, password) => {
   const url = baseUrl + "/login";
   const body = {
@@ -136,4 +140,11 @@ const forgotVerify = async (phone, otpSessionId, otp, newPassword) => {
   }
 };
 
-export default { login, signup, forgotRequest, forgotVerify, getToken };
+export default {
+  login,
+  signup,
+  forgotRequest,
+  forgotVerify,
+  getToken,
+  getProfileID,
+};

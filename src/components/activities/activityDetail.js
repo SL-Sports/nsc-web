@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import activityService from "../../services/activityService";
+import authService from "../../services/authService";
 import { Add, AddComment, ArrowBack, Close } from "@material-ui/icons";
 import { Link, useParams } from "react-router-dom";
 import {
@@ -21,8 +22,6 @@ import { theme, useStyles } from "./activityTheme";
 import CoachApprovalCard from "./coachApprovalCard";
 import TimeCard from "./timeCard";
 import ActivityComments from "./activityComments";
-
-const profileId = "60ac7adc658e534fb80b9f55";
 
 export default function ActivityDetail() {
   const { activityId } = useParams();
@@ -56,9 +55,10 @@ export default function ActivityDetail() {
 
   const approve = async () => {
     setApproving(true);
+    let approvedBy = await authService.getProfileID();
     const approveRes = await activityService.approveActivity(
       activityId,
-      profileId
+      approvedBy
     );
     alert(approveRes.data);
     setApproving(false);
