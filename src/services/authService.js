@@ -10,6 +10,10 @@ const getProfileID = async () => {
   return Cookies.get("profileID");
 };
 
+const getActiveAssociationID = async () => {
+  return Cookies.get("activeAssociation");
+};
+
 const login = async (phone, password) => {
   const url = baseUrl + "/login";
   const body = {
@@ -147,4 +151,5 @@ export default {
   forgotVerify,
   getToken,
   getProfileID,
+  getActiveAssociationID,
 };

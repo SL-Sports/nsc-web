@@ -1,5 +1,5 @@
 import React from "react";
-import { theme, useStyles } from "./nscTheme";
+import { theme } from "./nscTheme";
 import {
   AppBar,
   Typography,
@@ -7,7 +7,6 @@ import {
   Button,
   Container,
   Grid,
-  Select,
   CssBaseline,
   ThemeProvider,
 } from "@material-ui/core";
@@ -16,7 +15,6 @@ import Associations from "./associations";
 import Sports from "./sports";
 
 export default function NSCDashboard() {
-  const classes = useStyles();
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline>

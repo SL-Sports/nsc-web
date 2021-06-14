@@ -18,9 +18,7 @@ import {
 } from "@material-ui/core";
 import { theme, useStyles } from "./activityTheme";
 
-const associationId = "60a7f13a8ae2f8ad47c5cd1a";
-
-export default function ActivityTypes() {
+export default function ActivityTypes({ associationId }) {
   const [activityTypes, setActivityTypes] = useState(undefined);
   const [newTypeToggle, setNewTypeToggle] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -63,7 +61,7 @@ export default function ActivityTypes() {
           direction="column"
           alignItems="center"
           justify="center"
-          style={{ minHeight: "100vh" }}
+          style={{ minHeight: "20vh" }}
         >
           <Grid item xs={3}>
             <CircularProgress
@@ -75,101 +73,81 @@ export default function ActivityTypes() {
     );
   } else {
     return (
-      <ThemeProvider theme={theme}>
-        <CssBaseline>
-          <AppBar
-            style={{ background: theme.palette.primary.mainGradient }}
-            position="relative"
+      <Grid container spacing={2}>
+        <Grid item xs={10}>
+          <Typography
+            variant="h4"
+            align="left"
+            style={{ fontWeight: "bolder" }}
           >
-            <Toolbar>
-              <Typography variant="h6" color="inherit" noWrap>
-                Activity Types
+            Activity Types
+          </Typography>
+        </Grid>
+        <Grid item xs={2} style={{ textAlign: "right" }}>
+          <IconButton
+            color={newTypeToggle ? "secondary" : "primary"}
+            aria-label="new-activity-type"
+            size="small"
+            onClick={() => setNewTypeToggle(!newTypeToggle)}
+          >
+            {newTypeToggle ? (
+              <Close fontSize="large"></Close>
+            ) : (
+              <Add fontSize="large"></Add>
+            )}
+          </IconButton>
+        </Grid>
+        {newTypeToggle && (
+          <Grid item xs={8}>
+            <TextField
+              color="primary"
+              required
+              fullWidth
+              id="activityType"
+              label="Activity Type Name"
+              name="activityType"
+              autoComplete="activity type name"
+              autoFocus
+              value={newActivityType}
+              onChange={(e) => setNewActivityType(e.target.value)}
+            />
+          </Grid>
+        )}
+        {newTypeToggle && (
+          <Grid item xs={4}>
+            <Button
+              style={{
+                background: theme.palette.primary.mainGradient,
+                color: "white",
+                borderRadius: 20,
+                fontWeight: "bolder",
+              }}
+              disabled={saving}
+              fullWidth
+              onClick={saveActivityType}
+            >
+              {saving ? (
+                <CircularProgress style={{ color: "white" }}></CircularProgress>
+              ) : (
+                "SAVE"
+              )}
+            </Button>
+          </Grid>
+        )}
+        {activityTypes.map((activityType) => (
+          <Grid item xs={12}>
+            <Card className={classes.card} style={{ width: "100%" }}>
+              <Typography
+                variant="h5"
+                style={{ fontWeight: "bolder" }}
+                align="left"
+              >
+                {activityType.activityType}
               </Typography>
-            </Toolbar>
-          </AppBar>
-          <main>
-            <Container style={{ paddingTop: 30 }} maxWidth="sm">
-              <Grid container spacing={2}>
-                <Grid item xs={10}>
-                  <Typography
-                    variant="h4"
-                    align="left"
-                    style={{ fontWeight: "bolder" }}
-                  >
-                    Activity Types
-                  </Typography>
-                </Grid>
-                <Grid item xs={2} style={{ textAlign: "right" }}>
-                  <IconButton
-                    color={newTypeToggle ? "secondary" : "primary"}
-                    aria-label="new-activity-type"
-                    size="small"
-                    onClick={() => setNewTypeToggle(!newTypeToggle)}
-                  >
-                    {newTypeToggle ? (
-                      <Close fontSize="large"></Close>
-                    ) : (
-                      <Add fontSize="large"></Add>
-                    )}
-                  </IconButton>
-                </Grid>
-                {newTypeToggle && (
-                  <Grid item xs={8}>
-                    <TextField
-                      color="primary"
-                      required
-                      fullWidth
-                      id="activityType"
-                      label="Activity Type Name"
-                      name="activityType"
-                      autoComplete="activity type name"
-                      autoFocus
-                      value={newActivityType}
-                      onChange={(e) => setNewActivityType(e.target.value)}
-                    />
-                  </Grid>
-                )}
-                {newTypeToggle && (
-                  <Grid item xs={4}>
-                    <Button
-                      style={{
-                        background: theme.palette.primary.mainGradient,
-                        color: "white",
-                        borderRadius: 20,
-                        fontWeight: "bolder",
-                      }}
-                      disabled={saving}
-                      fullWidth
-                      onClick={saveActivityType}
-                    >
-                      {saving ? (
-                        <CircularProgress
-                          style={{ color: "white" }}
-                        ></CircularProgress>
-                      ) : (
-                        "SAVE"
-                      )}
-                    </Button>
-                  </Grid>
-                )}
-                {activityTypes.map((activityType) => (
-                  <Grid item xs={12}>
-                    <Card className={classes.card} style={{ width: "100%" }}>
-                      <Typography
-                        variant="h5"
-                        style={{ fontWeight: "bolder" }}
-                        align="left"
-                      >
-                        {activityType.activityType}
-                      </Typography>
-                    </Card>
-                  </Grid>
-                ))}
-              </Grid>
-            </Container>
-          </main>
-        </CssBaseline>
-      </ThemeProvider>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
     );
   }
 }
