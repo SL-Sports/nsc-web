@@ -1,10 +1,10 @@
 import axios from "axios";
+import authService from "./authService";
 
 const baseUrl = "https://slsports.anuda.me/activity";
-const token =
-  "JlmAcyxYBZQrs7Jj5fNL7N0uYTaH1wjKBlXuu9yEMUXnSZvSqdn5baJLJMBMpdmNaybH1JletQiwAej05yoVHDemtqfLOWgnYq8PzqSRn9usxavKboiXLN5LQ8FNMRzm";
 
 const getActivities = async (profileId) => {
+  let token = await authService.getToken();
   const url = baseUrl + "/get";
 
   const body = {
@@ -38,6 +38,7 @@ const getActivities = async (profileId) => {
 };
 
 const getActivityDetail = async (activityId) => {
+  let token = await authService.getToken();
   const url = baseUrl + "/get";
 
   const body = {
@@ -71,6 +72,7 @@ const getActivityDetail = async (activityId) => {
 };
 
 const approveActivity = async (activityId, approvedBy) => {
+  let token = await authService.getToken();
   const url = baseUrl + "/approve";
 
   const body = {
@@ -101,6 +103,7 @@ const approveActivity = async (activityId, approvedBy) => {
 };
 
 const addComment = async (text, activityId) => {
+  let token = await authService.getToken();
   const url = baseUrl + "/comment/new";
 
   const body = {
@@ -131,6 +134,7 @@ const addComment = async (text, activityId) => {
 };
 
 const mediaUpload = async (file, mediaType, activityId) => {
+  let token = await authService.getToken();
   const formData = new FormData();
 
   formData.append("media", file);
@@ -191,6 +195,7 @@ const mediaUpload = async (file, mediaType, activityId) => {
 };
 
 const addActivityType = async (activityType, association) => {
+  let token = await authService.getToken();
   const url = baseUrl + "/type/new";
 
   const body = {
@@ -221,6 +226,7 @@ const addActivityType = async (activityType, association) => {
 };
 
 const getActivityTypes = async (association) => {
+  let token = await authService.getToken();
   const url = baseUrl + "/type/get";
 
   const body = {

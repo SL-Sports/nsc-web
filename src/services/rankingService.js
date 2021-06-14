@@ -1,8 +1,7 @@
 import axios from "axios";
+import authService from "./authService";
 
 const baseUrl = "https://slsports.anuda.me/profile/";
-const token =
-  "JlmAcyxYBZQrs7Jj5fNL7N0uYTaH1wjKBlXuu9yEMUXnSZvSqdn5baJLJMBMpdmNaybH1JletQiwAej05yoVHDemtqfLOWgnYq8PzqSRn9usxavKboiXLN5LQ8FNMRzm";
 
 export async function getRankings(rankingType, sport) {
   const url = baseUrl + "rankings/get";
@@ -95,6 +94,7 @@ export async function getRankingById(id) {
 }
 
 export async function addRanking(ranking, rankingType, profileId, sportId) {
+  let token = await authService.getToken();
   const url = baseUrl + "/rankings/new";
   const body = {
     ranking: ranking,
@@ -142,6 +142,7 @@ export async function addRanking(ranking, rankingType, profileId, sportId) {
 }
 
 export async function editRanking(id, ranking, rankingType, profileId) {
+  let token = await authService.getToken();
   const url = baseUrl + "/rankings/edit";
   const body = {
     ranking: ranking,
@@ -189,6 +190,7 @@ export async function editRanking(id, ranking, rankingType, profileId) {
 }
 
 export async function deleteRanking(rankingId) {
+  let token = await authService.getToken();
   const url = baseUrl + "/rankings/edit";
   const body = {
     _id: rankingId,

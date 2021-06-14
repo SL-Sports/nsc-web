@@ -2,6 +2,10 @@ import axios from "axios";
 import Cookies from "js-cookie";
 const baseUrl = "https://slsports.anuda.me/auth";
 
+const getToken = async () => {
+  return Cookies.get("token");
+};
+
 const login = async (phone, password) => {
   const url = baseUrl + "/login";
   const body = {
@@ -132,4 +136,4 @@ const forgotVerify = async (phone, otpSessionId, otp, newPassword) => {
   }
 };
 
-export default { login, signup, forgotRequest, forgotVerify };
+export default { login, signup, forgotRequest, forgotVerify, getToken };

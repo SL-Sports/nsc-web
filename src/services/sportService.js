@@ -1,8 +1,7 @@
 import axios from "axios";
+import authService from "./authService";
 
 const baseUrl = "https://slsports.anuda.me/profile/sports";
-const token =
-  "JlmAcyxYBZQrs7Jj5fNL7N0uYTaH1wjKBlXuu9yEMUXnSZvSqdn5baJLJMBMpdmNaybH1JletQiwAej05yoVHDemtqfLOWgnYq8PzqSRn9usxavKboiXLN5LQ8FNMRzm";
 
 export async function getSports() {
   const url = baseUrl + "/get";
@@ -91,6 +90,7 @@ export async function getSportById(id) {
 }
 
 export async function addSport(name, description) {
+  let token = await authService.getToken();
   const url = baseUrl + "/new";
   const body = {
     name: name,
@@ -136,6 +136,7 @@ export async function addSport(name, description) {
 }
 
 export async function editSport(id, name, description) {
+  let token = await authService.getToken();
   const url = baseUrl + "/edit";
   const body = {
     name: name,
