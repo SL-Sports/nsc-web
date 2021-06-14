@@ -1,5 +1,5 @@
 import React from "react";
-import { theme } from "./nscTheme";
+import { theme } from "../nscTheme";
 import {
   AppBar,
   Typography,
@@ -11,8 +11,8 @@ import {
   ThemeProvider,
 } from "@material-ui/core";
 
-import Associations from "./associations";
-import Sports from "./sports";
+import Associations from "../components/associations";
+import Sports from "../components/sports";
 
 export default function NSCDashboard() {
   return (

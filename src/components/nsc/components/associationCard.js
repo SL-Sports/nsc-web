@@ -8,8 +8,8 @@ import {
 } from "@material-ui/core";
 import { Edit, Delete } from "@material-ui/icons";
 import React, { useState } from "react";
-import { useStyles, theme } from "./nscTheme";
-import { deleteAssociation } from "../../services/associationService";
+import { useStyles, theme } from "../nscTheme";
+import { deleteAssociation } from "../../../services/associationService";
 import { useHistory } from "react-router-dom";
 
 import Cookies from "js-cookie";

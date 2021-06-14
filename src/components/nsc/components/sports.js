@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { getSports, editSport, addSport } from "../../services/sportService";
-import { theme } from "./nscTheme";
+import { getSports, editSport, addSport } from "../../../services/sportService";
+import { theme } from "../nscTheme";
 import {
   Typography,
   Grid,

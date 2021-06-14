@@ -3,7 +3,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import ActivitiesList from "./components/activitiesList";
-import ActivityDetail from "./webpages/activityDetail";
+import ActivityDetail from "./pages/activityDetail";
 
 export default function Activities() {
   return (

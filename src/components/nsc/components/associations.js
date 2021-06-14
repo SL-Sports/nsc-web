@@ -3,8 +3,8 @@ import {
   getAssociations,
   editAssociation,
   addAssociation,
-} from "../../services/associationService";
-import { theme } from "./nscTheme";
+} from "../../../services/associationService";
+import { theme } from "../nscTheme";
 import {
   Typography,
   Grid,

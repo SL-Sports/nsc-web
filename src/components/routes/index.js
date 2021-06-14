@@ -3,8 +3,6 @@ import COLORS from "../../colors";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Activities from "../activities";
-import ActivityDetail from "../activities/webpages/activityDetail";
-import ActivityTypes from "../activities/components/activityTypes";
 import Profiles from "../profiles";
 import Payments from "../payments";
 import LogIn from "../auth/logIn";
@@ -13,7 +11,7 @@ import Forgot from "../auth/forgot";
 import Rankings from "../rankings";
 import NewRanking from "../rankings/newRanking";
 import EditRanking from "../rankings/editRanking";
-import NSCDashboard from "../nsc";
+import NSCDashboard from "../nsc/pages/nscDashboard";
 import AssociationDashboard from "../dashboard";
 function Home() {
   return <h1 style={{ color: COLORS.blueGradientStart }}>Home</h1>;
