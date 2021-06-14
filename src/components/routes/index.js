@@ -14,7 +14,7 @@ import Rankings from "../rankings";
 import NewRanking from "../rankings/newRanking";
 import EditRanking from "../rankings/editRanking";
 import NSCDashboard from "../nsc";
-
+import AssociationDashboard from "../dashboard";
 function Home() {
   return <h1 style={{ color: COLORS.blueGradientStart }}>Home</h1>;
 }
@@ -50,6 +50,9 @@ export default function Routes() {
 
         {/* NSC Dashboard */}
         <Route exact path="/nsc" component={NSCDashboard} />
+
+        {/* Association Dashboard */}
+        <Route exact path="/dashboard" component={AssociationDashboard} />
 
         {/* NoMatch */}
         <Route path="*" component={NoMatch} />

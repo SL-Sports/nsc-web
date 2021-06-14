@@ -10,9 +10,13 @@ import { Edit, Delete } from "@material-ui/icons";
 import React, { useState } from "react";
 import { useStyles, theme } from "./nscTheme";
 import { deleteAssociation } from "../../services/associationService";
+import { useHistory } from "react-router-dom";
+
+import Cookies from "js-cookie";
 
 const Association = ({ association, editAssociation, reloadAssociations }) => {
   const classes = useStyles();
+  const history = useHistory();
   const [deleting, setDeleting] = useState(false);
 
   const deleteItem = async () => {
@@ -23,6 +27,11 @@ const Association = ({ association, editAssociation, reloadAssociations }) => {
       await reloadAssociations();
     }
     setDeleting(false);
+  };
+
+  const goToAssociation = async () => {
+    await Cookies.set("activeAssociation", association._id);
+    history.push("/dashboard");
   };
 
   return (
@@ -79,7 +88,7 @@ const Association = ({ association, editAssociation, reloadAssociations }) => {
                 padding: 10,
               }}
               fullWidth
-              // onClick={login}
+              onClick={goToAssociation}
             >
               <Typography variant="subtitle1" style={{ fontWeight: "bolder" }}>
                 VIEW DASHBOARD
