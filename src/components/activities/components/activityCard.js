@@ -25,7 +25,7 @@ const Activity = ({ activity }) => {
     <Grid item key={activity.activity._id} xs={12} sm={12} md={12}>
       <Card className={classes.card}>
         <Grid container spacing={2} style={{ height: "100%" }}>
-          <Grid item xs={3}>
+          <Grid item xs={4} sm={3} md={3} lg={3}>
             <Card
               className={classes.dateCard}
               style={{
@@ -45,6 +45,7 @@ const Activity = ({ activity }) => {
                 </Typography>
               </div>
               <Typography
+                noWrap
                 style={{
                   color: "white",
                   fontWeight: "bolder",
@@ -55,7 +56,7 @@ const Activity = ({ activity }) => {
               </Typography>
             </Card>
           </Grid>
-          <Grid item xs={9}>
+          <Grid item xs={8} sm={9} md={9} lg={9}>
             <Grid container spacing={1}>
               <Grid item xs={10}>
                 <Typography
