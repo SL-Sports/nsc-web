@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import activityService from "../../../services/activityService";
 import {
-  AppBar,
   Typography,
-  Toolbar,
-  CssBaseline,
+  CircularProgress,
   Container,
   Grid,
 } from "@material-ui/core";
@@ -15,7 +13,7 @@ import { theme } from "../activityTheme";
 const profileId = "60ac7a65658e534fb80b9f52";
 
 export default function ActivitiesList() {
-  const [activities, setActivities] = useState([]);
+  const [activities, setActivities] = useState(undefined);
 
   useEffect(() => {
     const getActivities = async () => {
@@ -28,29 +26,62 @@ export default function ActivitiesList() {
     getActivities();
   }, []);
 
-  return (
-    <>
-      <CssBaseline>
-        <AppBar
-          style={{ background: theme.palette.primary.mainGradient }}
-          position="relative"
+  if (activities === undefined) {
+    return (
+      <Container style={{ paddingTop: 30 }} maxWidth="sm">
+        <Grid
+          container
+          spacing={2}
+          alignContent="center"
+          alignItems="center"
+          justify="center"
         >
-          <Toolbar>
-            <Typography variant="h6" color="inherit" noWrap>
-              Activities - Tiger Woods
+          <Grid item xs={12}>
+            <Typography
+              variant="h4"
+              align="left"
+              style={{ fontWeight: "bolder" }}
+            >
+              Activity Journal
             </Typography>
-          </Toolbar>
-        </AppBar>
-        <main>
-          <Container style={{ paddingTop: 30 }} maxWidth="sm">
-            <Grid container spacing={2}>
-              {activities.map((activity) => (
-                <Activity key={activity.activity.id} activity={activity} />
-              ))}
+          </Grid>
+          <Grid
+            container
+            spacing={0}
+            direction="column"
+            alignItems="center"
+            justify="center"
+            style={{ minHeight: "20vh" }}
+          >
+            <Grid item xs={3}>
+              <CircularProgress
+                style={{ color: theme.palette.primary.main, margin: "auto" }}
+              ></CircularProgress>{" "}
             </Grid>
-          </Container>
-        </main>
-      </CssBaseline>
-    </>
-  );
+          </Grid>
+        </Grid>
+      </Container>
+    );
+  } else {
+    return (
+      <>
+        <Container style={{ paddingTop: 30 }} maxWidth="sm">
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Typography
+                variant="h4"
+                align="left"
+                style={{ fontWeight: "bolder" }}
+              >
+                Activity Journal
+              </Typography>
+            </Grid>
+            {activities.map((activity) => (
+              <Activity key={activity.activity.id} activity={activity} />
+            ))}
+          </Grid>
+        </Container>
+      </>
+    );
+  }
 }

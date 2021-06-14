@@ -4,16 +4,11 @@ import activityService from "../../../services/activityService";
 import { Add, Close } from "@material-ui/icons";
 import {
   CircularProgress,
-  CssBaseline,
   Grid,
-  AppBar,
-  Toolbar,
   Typography,
   Card,
   Button,
   IconButton,
-  ThemeProvider,
-  Container,
   TextField,
 } from "@material-ui/core";
 import { theme, useStyles } from "../activityTheme";
