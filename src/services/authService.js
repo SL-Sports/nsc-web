@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 const baseUrl = "https://slsports.anuda.me/auth";
 
 const login = async (phone, password) => {
@@ -13,26 +14,29 @@ const login = async (phone, password) => {
       "Content-Type": "application/json",
     },
   };
-  let result = {};
+  let result = false;
   await axios
     .post(url, body, config)
     .then((response) => {
-      result.token = response.data.token;
-      result.accountType = response.data.accountType;
-      result.profile = response.data.profile;
-      result.status = response.status;
-      result.phone = phone;
-      result.password = password;
+      if (response.status === 200) {
+        Cookies.set("token", response.data.token);
+        Cookies.set("preferredName", response.data.profile.preferredName);
+        Cookies.set("profileID", response.data.profile._id);
+        Cookies.set("accountType", response.data.accountType);
+        Cookies.set("phone", phone);
+        Cookies.set("password", password);
+
+        if (response.data.accountType === "ASSOCIATION_ADMIN") {
+          Cookies.set("activeAssociation", response.data.profile.association);
+        }
+        result = true;
+      }
     })
     .catch((err) => {
-      result.status = err.response.status;
-
       if (err.response.data === undefined) {
         alert("We encountered an error while logging you in");
-        result.message = "We encountered an error while logging you in";
       } else {
         alert(err.response.data.message);
-        result.message = err.response.data.message;
       }
     });
 

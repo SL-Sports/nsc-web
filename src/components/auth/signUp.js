@@ -22,7 +22,6 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
-import { useCookies } from "react-cookie";
 
 export default function SignUp() {
   const classes = useStyles();
@@ -33,16 +32,6 @@ export default function SignUp() {
   const [birthDay, setBirthDay] = useState(new Date());
   const [confirmPassword, setConfirmPassword] = useState("");
   const [signingUp, setSigningUp] = useState(false);
-
-  const [cookies, setCookie] = useCookies([
-    "token",
-    "accountType",
-    "profileID",
-    "phone",
-    "password",
-    "preferredName",
-    "activeAssociation",
-  ]);
 
   const signUp = async () => {
     if (confirmPassword !== password) {
@@ -57,20 +46,7 @@ export default function SignUp() {
       inviteCode,
       formattedBirthday
     );
-    if (result.status === 200) {
-      setCookie("token", result.token, { path: "/" });
-      setCookie("accountType", result.accountType, { path: "/" });
-      setCookie("profileID", result.profile._id, { path: "/" });
-      setCookie("phone", result.phone, { path: "/" });
-      setCookie("password", result.password, { path: "/" });
-      setCookie("preferredName", result.profile.preferredName, { path: "/" });
-
-      if (result.accountType === "ASSOCIATION_ADMIN") {
-        setCookie("activeAssociation", result.profile.association, {
-          path: "/",
-        });
-      }
-
+    if (result) {
       history.replace("/activities");
     } else {
       setSigningUp(false);

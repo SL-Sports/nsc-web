@@ -17,8 +17,6 @@ import {
   Box,
 } from "@material-ui/core";
 
-import { useCookies } from "react-cookie";
-
 export default function Login() {
   const classes = useStyles();
   const history = useHistory();
@@ -26,33 +24,10 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [loggingIn, setLoggingIn] = useState(false);
 
-  const [cookies, setCookie] = useCookies([
-    "token",
-    "accountType",
-    "profileID",
-    "phone",
-    "password",
-    "preferredName",
-    "activeAssociation",
-  ]);
-
   const login = async () => {
     setLoggingIn(true);
     let result = await authService.login(phone, password);
-    if (result.status === 200) {
-      setCookie("token", result.token, { path: "/" });
-      setCookie("accountType", result.accountType, { path: "/" });
-      setCookie("profileID", result.profile._id, { path: "/" });
-      setCookie("phone", result.phone, { path: "/" });
-      setCookie("password", result.password, { path: "/" });
-      setCookie("preferredName", result.profile.preferredName, { path: "/" });
-
-      if (result.accountType === "ASSOCIATION_ADMIN") {
-        setCookie("activeAssociation", result.profile.association, {
-          path: "/",
-        });
-      }
-
+    if (result) {
       history.replace("/activities");
     } else {
       setLoggingIn(false);
