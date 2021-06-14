@@ -2,7 +2,7 @@ import React from "react";
 import { TextField, Avatar, Grid, Typography } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { profileSearch } from "../../services/rankingService";
+import { profileSearch } from "../../../services/rankingService";
 
 export default function ProfileSearchAutoComplete({
   onSelect,

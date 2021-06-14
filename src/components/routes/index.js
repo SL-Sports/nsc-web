@@ -9,8 +9,6 @@ import LogIn from "../auth/logIn";
 import SignUp from "../auth/signUp";
 import Forgot from "../auth/forgot";
 import Rankings from "../rankings";
-import NewRanking from "../rankings/newRanking";
-import EditRanking from "../rankings/editRanking";
 import NSCDashboard from "../nsc/pages/nscDashboard";
 import AssociationDashboard from "../dashboard";
 function Home() {
@@ -41,8 +39,6 @@ export default function Routes() {
 
         {/* Rankings */}
         <Route exact path="/rankings" component={Rankings} />
-        <Route exact path="/rankings/new" component={NewRanking} />
-        <Route exact path="/rankings/edit/:rankingID" component={EditRanking} />
 
         {/* NSC Dashboard */}
         <Route exact path="/nsc" component={NSCDashboard} />

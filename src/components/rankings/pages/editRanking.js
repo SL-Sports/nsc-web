@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { editRanking, getRankingById } from "../../services/rankingService";
-import { rankingsList, rankingTypes } from "./rankingTypes";
-import { theme } from "./rankingTheme";
+import { editRanking, getRankingById } from "../../../services/rankingService";
+import { rankingsList, rankingTypes } from "../components/rankingTypes";
+import { theme } from "../rankingTheme";
 import {
   AppBar,
   Typography,
@@ -18,8 +18,7 @@ import {
 } from "@material-ui/core";
 import { ArrowBack } from "@material-ui/icons";
 import { Link, useHistory, useParams } from "react-router-dom";
-import ProfileSearchAutoComplete from "./profileSearchField";
-const sportId = "60a7643e0c36495526c36b09";
+import ProfileSearchAutoComplete from "../components/profileSearchField";
 
 export default function EditRanking() {
   const [rankingType, setRankingType] = useState(rankingTypes.NATIONAL);
@@ -58,7 +57,7 @@ export default function EditRanking() {
     );
     setSaving(false);
     if (saveRes.status === 200) {
-      history.push("/rankings");
+      history.push("/");
     }
   };
   if (rankingData === undefined) {
@@ -103,7 +102,7 @@ export default function EditRanking() {
             position="relative"
           >
             <Toolbar>
-              <Link to="/rankings" style={{ color: "white", marginTop: 4 }}>
+              <Link to="/" style={{ color: "white", marginTop: 4 }}>
                 <ArrowBack style={{ marginRight: 15 }} />
               </Link>
               <Typography variant="h6" color="inherit" noWrap>

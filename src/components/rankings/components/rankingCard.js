@@ -10,8 +10,8 @@ import {
 import { Edit, Delete } from "@material-ui/icons";
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { theme, useStyles } from "./rankingTheme";
-import { deleteRanking } from "../../services/rankingService";
+import { useStyles } from "../rankingTheme";
+import { deleteRanking } from "../../../services/rankingService";
 
 const Ranking = ({ ranking }) => {
   const classes = useStyles();
@@ -91,7 +91,7 @@ const Ranking = ({ ranking }) => {
               aria-label="edit-ranking"
               size="medium"
               style={{ float: "left" }}
-              onClick={() => history.push(`/rankings/edit/${ranking._id}`)}
+              onClick={() => history.push(`/edit/${ranking._id}`)}
             >
               <Edit fontSize="medium"></Edit>
             </IconButton>
