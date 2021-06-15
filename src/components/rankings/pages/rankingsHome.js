@@ -110,7 +110,7 @@ export default function RankingsHome() {
                   <Ranking key={ranking._id} ranking={ranking} />
                 ))}
               </Grid>
-              <Link to="/new">
+              <Link to="/rankings/new">
                 <Tooltip title="Add New Ranking" aria-label="add">
                   <Fab className={classes.fab} size="large">
                     <Add></Add>

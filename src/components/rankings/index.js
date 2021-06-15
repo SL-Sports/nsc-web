@@ -5,16 +5,17 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import RankingsHome from "./pages/rankingsHome";
 import EditRanking from "./pages/editRanking";
 import NewRanking from "./pages/newRanking";
+import Routes from "../routes";
 
 export default function Rankings() {
   return (
-    <Router basename="rankings/">
+    <Router>
       <CssBaseline />
       <Switch>
-        <Route exact path="/" component={RankingsHome} />
-        <Route exact path="/new" component={NewRanking} />
-        <Route exact path="/edit/:rankingID" component={EditRanking} />
-        <Route component={NoMatch} />
+        <Route exact path="/rankings" component={RankingsHome} />
+        <Route exact path="/rankings/new" component={NewRanking} />
+        <Route exact path="/rankings/edit/:rankingID" component={EditRanking} />
+        <Route component={Routes} />
       </Switch>
     </Router>
   );

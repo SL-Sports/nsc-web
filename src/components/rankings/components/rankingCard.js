@@ -91,7 +91,7 @@ const Ranking = ({ ranking }) => {
               aria-label="edit-ranking"
               size="medium"
               style={{ float: "left" }}
-              onClick={() => history.push(`/edit/${ranking._id}`)}
+              onClick={() => history.push(`/rankings/edit/${ranking._id}`)}
             >
               <Edit fontSize="medium"></Edit>
             </IconButton>

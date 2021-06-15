@@ -42,7 +42,7 @@ export default function NewRanking() {
     setProfile(undefined);
     setRanking(undefined);
     if (saveRes.status === 200) {
-      history.push("/");
+      history.push("/rankings");
     }
   };
 
