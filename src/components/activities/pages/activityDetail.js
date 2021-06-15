@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import activityService from "../../../services/activityService";
 import authService from "../../../services/authService";
-import { Add, AddComment, ArrowBack, Close } from "@material-ui/icons";
-import { Link, useParams } from "react-router-dom";
+import { Add, AddComment, Close } from "@material-ui/icons";
+import { useParams } from "react-router-dom";
 import {
   CircularProgress,
   CssBaseline,
   Grid,
-  AppBar,
-  Toolbar,
   Typography,
   Container,
   Card,
@@ -22,6 +20,8 @@ import { theme, useStyles } from "../activityTheme";
 import CoachApprovalCard from "../components/coachApprovalCard";
 import TimeCard from "../components/timeCard";
 import ActivityComments from "../components/activityComments";
+
+import NavBar from "../../navbar";
 
 export default function ActivityDetail() {
   const { activityId } = useParams();
@@ -135,21 +135,15 @@ export default function ActivityDetail() {
     return (
       <ThemeProvider theme={theme}>
         <CssBaseline>
-          <AppBar
-            style={{ background: theme.palette.primary.mainGradient }}
-            position="relative"
-          >
-            <Toolbar>
-              <Link to="/" style={{ color: "white", marginTop: 4 }}>
-                <ArrowBack style={{ marginRight: 15 }} />
-              </Link>
-              <Typography variant="h6" color="inherit" noWrap>
-                {activity.activity.title +
-                  " - " +
-                  activity.activity.activityType.activityType}
-              </Typography>
-            </Toolbar>
-          </AppBar>
+          <NavBar
+            title={
+              activity.activity.title +
+              " - " +
+              activity.activity.activityType.activityType
+            }
+            backButtonEnabled={true}
+          />
+
           <main>
             <Container style={{ paddingTop: 30 }} maxWidth="md">
               <Grid container direction="column" spacing={2}>

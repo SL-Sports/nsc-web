@@ -18,6 +18,10 @@ const getAccountType = async () => {
   return Cookies.get("accountType");
 };
 
+const getProfilePic = async () => {
+  return Cookies.get("profilePicUrl");
+};
+
 const logout = async () => {
   await Cookies.remove("token");
   await Cookies.remove("preferredName");
@@ -26,6 +30,7 @@ const logout = async () => {
   await Cookies.remove("phone");
   await Cookies.remove("password");
   await Cookies.remove("activeAssociation");
+  await Cookies.remove("profilePicUrl");
 
   window.location.replace("/login");
 };
@@ -53,6 +58,7 @@ const login = async (phone, password) => {
         Cookies.set("accountType", response.data.accountType);
         Cookies.set("phone", phone);
         Cookies.set("password", password);
+        Cookies.set("profilePicUrl", response.data.profile.profilePicUrl);
 
         if (response.data.accountType === "ASSOCIATION_ADMIN") {
           Cookies.set("activeAssociation", response.data.profile.association);
@@ -170,4 +176,5 @@ export default {
   getActiveAssociationID,
   getAccountType,
   logout,
+  getProfilePic,
 };
