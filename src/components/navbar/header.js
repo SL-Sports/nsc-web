@@ -4,14 +4,13 @@ import {
   IconButton,
   Avatar,
   Toolbar,
-  Button,
   Menu,
   MenuItem,
   Fade,
 } from "@material-ui/core";
-import { ArrowBack, Menu as MenuIcon, ExitToApp } from "@material-ui/icons";
+import { ArrowBack, Menu as MenuIcon } from "@material-ui/icons";
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useStyles, theme } from "./navBarTheme";
 
 import authService from "../../services/authService";
@@ -25,7 +24,6 @@ const Header = ({
   profilePicUrl,
   setDrawerOpen,
 }) => {
-  const classes = useStyles();
   const history = useHistory();
   const [profileMenuAnchor, setProfileMenuAnchor] = useState(null);
   const open = Boolean(profileMenuAnchor);
@@ -50,7 +48,7 @@ const Header = ({
           variant="h6"
           color="inherit"
           noWrap
-          style={{ flexGrow: 1 }}
+          style={{ width: "95%" }}
           align="left"
         >
           {title}
