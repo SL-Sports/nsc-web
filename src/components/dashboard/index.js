@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { theme } from "./dashboardTheme";
 import {
-  AppBar,
   Typography,
-  Toolbar,
-  Button,
   Container,
   Grid,
   CssBaseline,
@@ -17,7 +14,6 @@ import authService from "../../services/authService";
 
 import ActivityTypes from "../activities/components/activityTypes";
 import { useHistory } from "react-router-dom";
-import { classes } from "istanbul-lib-coverage";
 
 import NavBar from "../navbar";
 

@@ -1,46 +1,16 @@
 import React from "react";
 import { theme } from "../nscTheme";
-import {
-  AppBar,
-  Typography,
-  Toolbar,
-  Button,
-  Container,
-  Grid,
-  CssBaseline,
-  ThemeProvider,
-} from "@material-ui/core";
+import { Container, Grid, CssBaseline, ThemeProvider } from "@material-ui/core";
 
 import Associations from "../components/associations";
 import Sports from "../components/sports";
-import authService from "../../../services/authService";
+import NavBar from "../../navbar";
 
 export default function NSCDashboard() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline>
-        <AppBar
-          style={{ background: theme.palette.primary.mainGradient }}
-          position="relative"
-        >
-          <Toolbar>
-            <Typography
-              variant="h6"
-              color="inherit"
-              noWrap
-              style={{ flexGrow: 1 }}
-              align="left"
-            >
-              Hello John
-            </Typography>
-            <Button
-              color="inherit"
-              onClick={async () => await authService.logout()}
-            >
-              LOGOUT
-            </Button>
-          </Toolbar>
-        </AppBar>
+        <NavBar title="SL Sports Admin Dashboard" profilePicEnabled />
         <main>
           <Container style={{ padding: 30 }} maxWidth="lg">
             <Grid container spacing={3}>
