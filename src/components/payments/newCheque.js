@@ -60,7 +60,7 @@ const NewChequeCard = ({paymentID}) => {
                             <Grid item sm={12}>
                                 <IconButton
                                 onClick={sendCheque}>
-                                    <SendIcon/>
+                                    <SendIcon color="primary"/>
                                 </IconButton>
                             </Grid>
                         </Grid>

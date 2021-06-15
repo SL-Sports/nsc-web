@@ -58,7 +58,7 @@ const NewCommentCard = ({paymentID}) => {
                             <Grid item sm={12}>
                                 <IconButton
                                 onClick={sendComment}>
-                                    <SendIcon/>
+                                    <SendIcon color="primary"/>
                                 </IconButton>
                             </Grid>
                         </Grid>

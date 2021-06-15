@@ -9,6 +9,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { theme, useStyles } from "./paymentsTheme";
 import paymentsService from "../../services/paymentsService";
 import React, {useState} from "react";
+import Avatar from '@material-ui/core/Avatar';
 
 const CommentCard = ({comment}) => {
     const classes = useStyles();
@@ -56,7 +57,9 @@ const CommentCard = ({comment}) => {
                     <Grid item sm={10}>
                         <Grid container spacing={1}>
                             <Grid item sm={2}>
-                                <img src={comment.createdBy.profilePicUrl} width="100%"/>
+                                <Avatar 
+                                alt={comment.createdBy.preferredName + " " + comment.createdBy.lastName}
+                                src={comment.createdBy.profilePicUrl}/>
                             </Grid>
                             <Grid item sm={10}>
                                 <Typography variant="h6">

@@ -146,6 +146,20 @@ const PaymentCard = ({payment, seeMoreEnabled, allowApproval}) => {
                                     </Button>}
                                 </Link>
                             </Grid>
+                            <Grid item xs={12}>
+                                {allowApproval && <Button
+                                        style={{
+                                        background: theme.palette.secondary.mainGradient,
+                                        color: "white",
+                                        borderRadius: 20,
+                                        fontWeight: "bolder",
+                                        }}
+                                        fullWidth
+                                        onClick={approvePayment}
+                                    >
+                                        Approve
+                                    </Button>}
+                            </Grid>
                             {/* <Grid item xs={6} md={6}>
                                 <Typography align="left" style = {{color: "black", fontWeight: "fontWeightLight"}}>
                                     Ministry Approved? {String(payment.payment.approvedByMinistry)
@@ -190,7 +204,7 @@ const PaymentCard = ({payment, seeMoreEnabled, allowApproval}) => {
                                     </Button>}
                                 </Link> */}
                             </Grid>
-                            <Grid item xs={12}>
+                            {/* <Grid item xs={12}>
                                 {allowApproval && <Button
                                         style={{
                                         background: theme.palette.secondary.mainGradient,
@@ -203,7 +217,7 @@ const PaymentCard = ({payment, seeMoreEnabled, allowApproval}) => {
                                     >
                                         Approve
                                     </Button>}
-                            </Grid>
+                            </Grid> */}
                             {/*Need to get user object here somehow to verify that
                             user.accountType = "NSC_ADMIN"*/}
                             {/* {<Grid item xs={2}> 
