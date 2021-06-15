@@ -14,7 +14,7 @@ import AddIcon from '@material-ui/icons/Add';
 
 import PaymentCard from "./paymentCard";
 
-import { theme } from "./paymentsTheme";
+import { theme, useStyles } from "./paymentsTheme";
 
 import PaymentDetail from "./paymentDetail"
 
@@ -27,6 +27,7 @@ const profileId = "60a7f13a8ae2f8ad47c5cd1a";
 
 export default function Payments() {
   const [payments, setPayments] = useState([]);
+  const classes = useStyles();
   
   useEffect(() => {
     const getPayments = async () => {
@@ -47,6 +48,7 @@ export default function Payments() {
     bottom: 20,
     left: 'auto',
     position: 'fixed',
+    background: theme.palette.secondary.mainGradient
 };
 
   return (
@@ -71,7 +73,7 @@ export default function Payments() {
             </Grid>
           </Container>
           <Link to={"payments-new"}>
-            <Fab color="primary" aria-label="add" style = {fabStyle}>
+            <Fab aria-label="add" style = {fabStyle}>
                 <AddIcon />
             </Fab>
           </Link>
