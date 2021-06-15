@@ -4,7 +4,6 @@ import { CssBaseline, CircularProgress, Grid } from "@material-ui/core";
 import { theme } from "./authTheme";
 
 import authService from "../../services/authService";
-import AssociationDashboard from "../dashboard";
 
 //To make users login before they can access the other pages on the website
 function PrivateRouter(props) {
