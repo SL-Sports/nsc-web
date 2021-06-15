@@ -14,6 +14,7 @@ import authService from "../../services/authService";
 
 import ActivityTypes from "../activities/components/activityTypes";
 import { useHistory } from "react-router-dom";
+import Cookies from "js-cookie";
 
 import NavBar from "../navbar";
 
@@ -32,6 +33,7 @@ export default function AssociationDashboard() {
           history.push("/");
         } else {
           setAssociation(associationRes.data[0]);
+          Cookies.set("associationName", associationRes.data[0].name);
         }
       }
     }

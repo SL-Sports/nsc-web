@@ -22,6 +22,10 @@ const getProfilePic = async () => {
   return Cookies.get("profilePicUrl");
 };
 
+const getAssociationName = async () => {
+  return Cookies.get("associationName");
+};
+
 const logout = async () => {
   await Cookies.remove("token");
   await Cookies.remove("preferredName");
@@ -31,6 +35,7 @@ const logout = async () => {
   await Cookies.remove("password");
   await Cookies.remove("activeAssociation");
   await Cookies.remove("profilePicUrl");
+  await Cookies.remove("associationName");
 
   window.location.replace("/login");
 };
@@ -177,4 +182,5 @@ export default {
   getAccountType,
   logout,
   getProfilePic,
+  getAssociationName,
 };

@@ -19,6 +19,7 @@ import { Add } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import Ranking from "../components/rankingCard";
 import NavBar from "../../navbar";
+import authService from "../../../services/authService";
 
 const sportId = "60a7643e0c36495526c36b09";
 
@@ -26,10 +27,12 @@ export default function RankingsHome() {
   const classes = useStyles();
   const [rankings, setRankings] = useState(undefined);
   const [rankingType, setRankingType] = useState(rankingTypes.NATIONAL);
-
+  const [associationName, setAssociationName] = useState("");
   const loadRankings = async (type) => {
     const rankingsRes = await getRankings(type, sportId);
     if (rankingsRes.status === 200) {
+      setAssociationName(await authService.getAssociationName());
+
       setRankings(rankingsRes.data);
     }
   };
@@ -72,7 +75,7 @@ export default function RankingsHome() {
         <CssBaseline>
           <NavBar
             rankingsSelected
-            title="Rankings-Golf"
+            title={`Rankings - ${associationName}`}
             profilePicEnabled
             menuEnabled
           />
