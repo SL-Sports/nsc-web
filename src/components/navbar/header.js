@@ -5,8 +5,11 @@ import {
   Avatar,
   Toolbar,
   Button,
+  Menu,
+  MenuItem,
+  Fade,
 } from "@material-ui/core";
-import { ArrowBack, Menu, ExitToApp } from "@material-ui/icons";
+import { ArrowBack, Menu as MenuIcon, ExitToApp } from "@material-ui/icons";
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useStyles, theme } from "./navBarTheme";
@@ -17,7 +20,6 @@ const Header = ({
   title,
   backButtonEnabled,
   menuEnabled,
-  logOutEnabled,
   profileId,
   profilePicEnabled,
   profilePicUrl,
@@ -25,6 +27,8 @@ const Header = ({
 }) => {
   const classes = useStyles();
   const history = useHistory();
+  const [profileMenuAnchor, setProfileMenuAnchor] = useState(null);
+  const open = Boolean(profileMenuAnchor);
 
   return (
     <AppBar
@@ -34,7 +38,7 @@ const Header = ({
       <Toolbar>
         {menuEnabled && (
           <IconButton onClick={() => setDrawerOpen(true)} color="inherit">
-            <Menu />
+            <MenuIcon />
           </IconButton>
         )}
         {backButtonEnabled && (
@@ -51,21 +55,29 @@ const Header = ({
         >
           {title}
         </Typography>
-        {logOutEnabled && (
-          <IconButton
-            onClick={async () => await authService.logout()}
-            color="inherit"
-            size="medium"
-          >
-            <ExitToApp fontSize="large" />
-          </IconButton>
-        )}
+
         {profilePicEnabled && (
           <Avatar
+            raised
             src={profilePicUrl}
-            onClick={() => history.push(`/profiles/${profileId}`)}
+            onClick={(e) => setProfileMenuAnchor(e.currentTarget)}
           ></Avatar>
         )}
+        <Menu
+          id="fade-menu"
+          anchorEl={profileMenuAnchor}
+          keepMounted
+          open={open}
+          onClose={() => setProfileMenuAnchor(null)}
+          TransitionComponent={Fade}
+        >
+          <MenuItem onClick={() => history.push(`/profiles/${profileId}`)}>
+            My Profile
+          </MenuItem>
+          <MenuItem onClick={async () => await authService.logout()}>
+            Logout
+          </MenuItem>
+        </Menu>
       </Toolbar>
     </AppBar>
   );
