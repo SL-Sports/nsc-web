@@ -67,7 +67,7 @@ export default function Forgot() {
     );
     setVerifying(false);
     if (result) {
-      history.replace("/activities");
+      history.replace("/");
     } else {
       setOtp("");
     }

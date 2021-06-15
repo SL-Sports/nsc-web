@@ -47,7 +47,7 @@ export default function SignUp() {
       formattedBirthday
     );
     if (result) {
-      history.replace("/activities");
+      history.replace("/");
     } else {
       setSigningUp(false);
       setPassword("");

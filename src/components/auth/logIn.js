@@ -28,7 +28,7 @@ export default function Login() {
     setLoggingIn(true);
     let result = await authService.login(phone, password);
     if (result) {
-      history.replace("/activities");
+      history.replace("/");
     } else {
       setLoggingIn(false);
       setPassword("");

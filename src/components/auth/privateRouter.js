@@ -56,7 +56,7 @@ function PrivateRouter(props) {
         if (isNSCAdmin) {
           return <Route path={path} component={component} />;
         } else {
-          return <Route path="/dashboard" component={AssociationDashboard} />;
+          return <Redirect to="/dashboard" />;
         }
       } else {
         return <Route path={path} component={component} />;
