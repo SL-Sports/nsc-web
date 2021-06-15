@@ -100,7 +100,7 @@ const CommentCard = ({comment}) => {
                                     <EditIcon/>
                                 </IconButton>}
                                 {editingMode && <IconButton onClick={saveEditedComment}>
-                                    <SendIcon/>
+                                    <SendIcon style={{color: theme.palette.primary.main}}/>
                                     </IconButton>}
                             </Grid>
                         </Grid>

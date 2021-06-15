@@ -14,7 +14,9 @@ import {
   Button,
   IconButton,
   ThemeProvider,
+  Fab,
 } from "@material-ui/core";
+import EditIcon from '@material-ui/icons/Edit';
 import COLORS from "../../colors";
 import { theme, useStyles } from "./paymentsTheme";
 import PaymentCard from "./paymentCard";
@@ -23,6 +25,8 @@ import NewCommentCard from "./newCommentCard";
 import ChequeCard from "./chequeCard";
 import NewChequeCard from "./newCheque";
 import axios from "axios";
+import PaymentComment from "./paymentComment"
+import PaymentComments from "./paymentComments";
 
 const baseUrl = "https://slsports.anuda.me/payment";
 
@@ -31,6 +35,7 @@ const token = "Hu6J650rzUvMALE4d37PsnCvrJxxp6lNDnc80m7Qg6X0r27RvUqadKtgXWHdr74Gr
 const profileId = "60a7f13a8ae2f8ad47c5cd1a";
 
 export default function PaymentDetail() {
+    const classes = useStyles();
     const {paymentID} = useParams();
     const [payment, setPayment] = useState(undefined);
 
@@ -49,6 +54,30 @@ export default function PaymentDetail() {
         getPayments();
       }, []);
     
+    const fabStyle = {
+        margin: 0,
+        top: 'auto',
+        right: 20,
+        bottom: 20,
+        left: 'auto',
+        position: 'fixed',
+        background: theme.palette.secondary.mainGradient
+      };
+    
+
+    const stringifyPaymentType = (paymentType) => {
+        const stipend = "Monthly Stipend";
+        const equipment = "Equipment";
+        const travel = "Travel";
+        if (paymentType === "MONTHLY_STIPEND") {
+            return stipend;
+        } else if (paymentType === "EQUIPMENT") {
+            return equipment;
+        } else if (paymentType === "TRAVEL") {
+            return travel;
+        }
+    };
+
     if (payment === undefined) {
         return (
           <>
@@ -72,16 +101,15 @@ export default function PaymentDetail() {
     return (
         <>
             <CssBaseline>
-                <AppBar
-                style={{ background: theme.palette.primary.mainGradient }}
-                position="relative"
-                >
-                    <Toolbar>
-                        <Typography variant="h6" color="inherit" noWrap>
-                        Payments - Golf
-                        </Typography>
-                    </Toolbar>
-                </AppBar>
+              {/* <NavBar
+                  title={
+                    payment.payment.profile.preferredName + 
+                    payment.payment.profile.lastName +
+                    " - " +
+                    stringifyPaymentType(payment.payment.paymentType.activityType)
+                  }
+                  backButtonEnabled={true}
+                /> */}
                 <main>
                     <Container style={{ paddingTop: 30 }} maxWidth="lg">
                         <Grid container spacing={2}>
@@ -94,11 +122,14 @@ export default function PaymentDetail() {
                                 <Typography align="left" variant="h5" style={{paddingLeft: 30}}>
                                   Comments
                                 </Typography>
+                                {/* <Card className={classes.card}> */}
+                                <Card>
                                 {payment.comments.map((comment) => (
                                   <Grid item sm={12} style={{padding: 10}}>
-                                      <CommentCard key={comment._id} comment={comment}/>
+                                      <PaymentComment key={comment._id} comment={comment}/>
                                   </Grid>
                                 ))}
+                                </Card>
                                 <NewCommentCard paymentID={payment.payment._id}/>
                             </Grid>
                             <Grid item sm={6}>
@@ -114,6 +145,13 @@ export default function PaymentDetail() {
                             </Grid>
                         </Grid>
                     </Container>
+                    <Link to={"payments-edit/" + payment.payment._id}>
+                      <Fab aria-label="edit" style = {fabStyle}>
+                        <IconButton>
+                            <EditIcon/>
+                        </IconButton>
+                      </Fab>
+                    </Link>
                 </main>
             </CssBaseline>
         </>

@@ -26,10 +26,20 @@ import moment from "moment";
 import { Link, useParams } from "react-router-dom";
 import Checkbox from '@material-ui/core/Checkbox';
 import { useStyles } from "./paymentsTheme";
+import {
+    MuiPickersUtilsProvider,
+    KeyboardTimePicker,
+    KeyboardDatePicker,
+  } from "@material-ui/pickers";
+import DateFnsUtils from '@date-io/date-fns';
+import ProfileSearchAutoComplete from "../rankings/components/profileSearchField";
 
-const profileId = "60a7f13a8ae2f8ad47c5cd1a";
+  
+
+// const profileId = "60a7f13a8ae2f8ad47c5cd1a";
 
 export default function NewPayment() {
+    const classes = useStyles();
     const {paymentID} = useParams();
     const [payment, setPayment] = useState(undefined);
     const [month, setMonth] = useState("");
@@ -38,11 +48,13 @@ export default function NewPayment() {
     const [paymentType, setPaymentType] = useState("");
     const [amount, setAmount] = useState(0);
     const [isDeleted, setIsDeleted] = useState(false);
-
+    // const [selectedDate, setSelectedDate] = useState(new Date.now())
+    
     useEffect(() => {
         const getPayments = async () => {
           const paymentRes = await paymentService.getPaymentDetail(paymentID);
           if (paymentRes.status === 200) {
+            console.log(paymentRes.data[0]);
             setPayment(paymentRes.data[0]);
             const innerPayment=paymentRes.data[0];
             setMonth(innerPayment.payment.month);
@@ -50,12 +62,16 @@ export default function NewPayment() {
             setProfileID(innerPayment.payment.profile._id);
             setPaymentType(innerPayment.payment.paymentType);
             setAmount(innerPayment.payment.amount);
+            // setSelectedDate(Date(innerPayment.payment.month + innerPayment.payment.year));
           }
         };
     
         getPayments();
       }, []);
 
+    // const handleDateChange = (date) => {
+    //     setSelectedDate(date);
+    //   };
 
     const months = [
         {
@@ -150,6 +166,12 @@ export default function NewPayment() {
 
     };
 
+    const changeProfileid = (event) => {
+        console.log(event._id);
+        setProfileID(event._id);
+        console.log(profileID);
+    };
+
     const saveEditedPayment = async () => {
         const paymentInfo = {
             month:   month,
@@ -158,13 +180,12 @@ export default function NewPayment() {
             amount: parseInt(amount),
             paymentType: paymentType,
             paymentID: paymentID
-        }
+        };
         const saveRes = await paymentService.editPayment(paymentInfo);
         alert(saveRes.data);
-    }
+    };
 
-    if (payment === undefined) 
-    {
+    if (payment === undefined) {
     return (
         <>
           <Grid
@@ -186,94 +207,166 @@ export default function NewPayment() {
     } else {
     return (
         <Container style={{ paddingTop: 30 }} maxWidth="lg">
-            <Grid container spacing={2}>
-                <Grid item sm={12}>
-                    <Card style={{ background: theme.palette.secondary.mainGradient,height: "100%",}}>
-                        <Grid container spacing = {2}>
-                            <Grid item sm={6} md={3}>
-                                <TextField  
-                                color="primary"
-                                required
-                                id="standard-select-month"
-                                select
-                                label="Month"
-                                name="month"
-                                autoFocus
-                                value={month}
-                                helperText="Select the month."
-                                onChange={changeMonth}>
-                                    {months.map((option) => (
-                                        <MenuItem key={option.value} value = {option.value}>
-                                            {option.label}
-                                        </MenuItem>
-                                    ))}
-                                </TextField>
-                            </Grid>
-                            <Grid item sm={6} md={3}>
-                                <TextField
-                                color="primary"
-                                required
-                                id="standard-outlined"
-                                label="Year"
-                                variant="outlined"
-                                value = {year}
-                                onChange={changeYear}
-                                >
-
-                                </TextField>
-                            </Grid>
-                            <Grid item sm={6} md={3}>
-                                <TextField
-                                color="primary"
-                                required
-                                select
-                                label="Activity Type"
-                                value={paymentType}
-                                onChange={changeType}
-                                name="paymentType"
-                                helperText="Select the payment type.">
-                                    {paymentTypes.map((option) => (
-                                        <MenuItem key={option.value} value = {option.value}>
-                                            {option.label}
-                                        </MenuItem>
-                                    ))}
-                                </TextField>
-                            </Grid>
-                            <Grid item sm={6} md={3}>
-                                <TextField
-                                color="primary"
-                                required
-                                id="standard-outlined"
-                                label="Amount"
-                                variant="outlined"
-                                value = {amount}
-                                onChange={changeAmount}
-                                >
-
-                                </TextField>
-                            </Grid>
-                            <Grid item sm={6} md={3}>
-                                <CheckBox
-                                checked={!isDeleted}
-                                color="secondary"
-                                onClick={changeDeletionStatus}
+            <Grid container spacing = {5}>
+                <Grid item sm={6}> {/* Date/Time Picker */}
+                    <Card className={classes.card}>
+                        {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                            <KeyboardDatePicker
+                                disableToolbar
+                                variant="inline"
+                                format="MM/DD/yyyy"
+                                margin="normal"
+                                id="date-picker-inline"
+                                label="Date picker inline"
+                                value={selectedDate}
+                                onChange={handleDateChange}
+                                KeyboardButtonProps={{
+                                    'aria-label': 'change date',
+                                }}
                                 />
-                            </Grid>
-                        </Grid>
-                        <Grid container spacing={5}>
-                            <Grid item sm={12}>
-                                <Button 
-                                variant="contained" 
-                                color="primary"
-                                onClick={saveEditedPayment}>
-                                    Edit Payment
-                                </Button>
-                            </Grid>
-                        </Grid>
+                        </MuiPickersUtilsProvider> */}
                     </Card>
+                </Grid>
+                <Grid item sm={6}>
+                    <Card className={classes.card}>
+                        <TextField
+                            color="primary"
+                            required
+                            select
+                            label="Activity Type"
+                            value={paymentType}
+                            onChange={changeType}
+                            name="paymentType"
+                            helperText="Select the payment type.">
+                                {paymentTypes.map((option) => (
+                                    <MenuItem key={option.value} value = {option.value}>
+                                        {option.label}
+                                    </MenuItem>
+                                ))}
+                        </TextField>
+                    </Card>
+                </Grid>
+                <Grid item sm={4}>
+                    <Card className={classes.card}>
+                        <TextField
+                            color="primary"
+                            required
+                            id="standard-outlined"
+                            label="Amount"
+                            variant="outlined"
+                            value = {amount}
+                            onChange={changeAmount}
+                            >
+
+                        </TextField>
+                    </Card>
+                </Grid>
+                <Grid item sm={8}>
+                    <Card className={classes.card}>
+                        <ProfileSearchAutoComplete 
+                        onSelect = {changeProfileid}
+                        defaultProfile = {payment.payment.profile}/>
+                    </Card>
+                </Grid>
+                <Grid item sm={12}>
+                    <Button 
+                        variant="contained" 
+                        onClick={saveEditedPayment}
+                        style={{ background: theme.palette.secondary.mainGradient }}>
+                            Edit Payment
+                    </Button>
                 </Grid>
             </Grid>
         </Container>
-    )
+        // <Container style={{ paddingTop: 30 }} maxWidth="lg">
+        //     <Grid container spacing={2}>
+        //         <Grid item sm={12}>
+        //             <Card style={{ background: theme.palette.secondary.mainGradient,height: "100%",}}>
+        //                 <Grid container spacing = {2}>
+        //                     <Grid item sm={6} md={3}>
+        //                         <TextField  
+        //                         color="primary"
+        //                         required
+        //                         id="standard-select-month"
+        //                         select
+        //                         label="Month"
+        //                         name="month"
+        //                         autoFocus
+        //                         value={month}
+        //                         helperText="Select the month."
+        //                         onChange={changeMonth}>
+        //                             {months.map((option) => (
+        //                                 <MenuItem key={option.value} value = {option.value}>
+        //                                     {option.label}
+        //                                 </MenuItem>
+        //                             ))}
+        //                         </TextField>
+        //                     </Grid>
+        //                     <Grid item sm={6} md={3}>
+        //                         <TextField
+        //                         color="primary"
+        //                         required
+        //                         id="standard-outlined"
+        //                         label="Year"
+        //                         variant="outlined"
+        //                         value = {year}
+        //                         onChange={changeYear}
+        //                         >
+
+        //                         </TextField>
+        //                     </Grid>
+        //                     <Grid item sm={6} md={3}>
+        //                         <TextField
+        //                         color="primary"
+        //                         required
+        //                         select
+        //                         label="Activity Type"
+        //                         value={paymentType}
+        //                         onChange={changeType}
+        //                         name="paymentType"
+        //                         helperText="Select the payment type.">
+        //                             {paymentTypes.map((option) => (
+        //                                 <MenuItem key={option.value} value = {option.value}>
+        //                                     {option.label}
+        //                                 </MenuItem>
+        //                             ))}
+        //                         </TextField>
+        //                     </Grid>
+        //                     <Grid item sm={6} md={3}>
+        //                         <TextField
+        //                         color="primary"
+        //                         required
+        //                         id="standard-outlined"
+        //                         label="Amount"
+        //                         variant="outlined"
+        //                         value = {amount}
+        //                         onChange={changeAmount}
+        //                         >
+
+        //                         </TextField>
+        //                     </Grid>
+        //                     <Grid item sm={6} md={3}>
+        //                         <CheckBox
+        //                         checked={!isDeleted}
+        //                         color="secondary"
+        //                         onClick={changeDeletionStatus}
+        //                         />
+        //                     </Grid>
+        //                 </Grid>
+        //                 <Grid container spacing={5}>
+        //                     <Grid item sm={12}>
+        //                         <Button 
+        //                         variant="contained" 
+        //                         color="primary"
+        //                         onClick={saveEditedPayment}>
+        //                             Edit Payment
+        //                         </Button>
+        //                     </Grid>
+        //                 </Grid>
+        //             </Card>
+        //         </Grid>
+        //     </Grid>
+        // </Container>
+    );
 }
 };
