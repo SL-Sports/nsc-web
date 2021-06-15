@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import activityService from "../../../services/activityService";
 import authService from "../../../services/authService";
 import { Add, AddComment, Close } from "@material-ui/icons";

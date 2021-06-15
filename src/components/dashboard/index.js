@@ -19,6 +19,8 @@ import ActivityTypes from "../activities/components/activityTypes";
 import { useHistory } from "react-router-dom";
 import { classes } from "istanbul-lib-coverage";
 
+import NavBar from "../navbar";
+
 export default function AssociationDashboard() {
   const [association, setAssociation] = useState(undefined);
   const history = useHistory();
@@ -47,16 +49,6 @@ export default function AssociationDashboard() {
     return (
       <>
         <CssBaseline>
-          <AppBar
-            style={{ background: theme.palette.primary.mainGradient }}
-            position="relative"
-          >
-            <Toolbar>
-              <Typography variant="h6" color="inherit" noWrap>
-                Hello John
-              </Typography>
-            </Toolbar>
-          </AppBar>
           <main>
             <Grid
               container
@@ -64,7 +56,7 @@ export default function AssociationDashboard() {
               direction="column"
               alignItems="center"
               justify="center"
-              style={{ minHeight: "85vh" }}
+              style={{ minHeight: "100vh" }}
             >
               <Grid item xs={3}>
                 <CircularProgress
@@ -80,28 +72,14 @@ export default function AssociationDashboard() {
     return (
       <ThemeProvider theme={theme}>
         <CssBaseline>
-          <AppBar
-            style={{ background: theme.palette.primary.mainGradient }}
-            position="relative"
-          >
-            <Toolbar>
-              <Typography
-                variant="h6"
-                color="inherit"
-                noWrap
-                style={{ flexGrow: 1 }}
-                align="left"
-              >
-                {`${association.name} Dashboard`}
-              </Typography>
-              <Button
-                color="inherit"
-                onClick={async () => await authService.logout()}
-              >
-                LOGOUT
-              </Button>
-            </Toolbar>
-          </AppBar>
+          <NavBar
+            title={`${association.name} Dashboard`}
+            dashboardSelected
+            menuEnabled
+            profilePicEnabled
+            profilePicUrl=""
+          />
+
           <main>
             <Container style={{ padding: 30 }} maxWidth="lg">
               <Grid container spacing={3}>
