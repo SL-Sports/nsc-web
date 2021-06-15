@@ -26,12 +26,12 @@ export default function AssociationDashboard() {
   const getAssociation = async () => {
     let activeAssociationID = await authService.getActiveAssociationID();
     if (activeAssociationID === undefined) {
-      history.push("/nsc");
+      history.push("/");
     } else {
       const associationRes = await getAssociationById(activeAssociationID);
       if (associationRes.status === 200) {
         if (associationRes.data.length === 0) {
-          history.push("/nsc");
+          history.push("/");
         } else {
           setAssociation(associationRes.data[0]);
         }

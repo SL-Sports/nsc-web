@@ -4,19 +4,23 @@ import { CssBaseline, CircularProgress, Grid } from "@material-ui/core";
 import { theme } from "./authTheme";
 
 import authService from "../../services/authService";
+import AssociationDashboard from "../dashboard";
 
 //To make users login before they can access the other pages on the website
 function PrivateRouter(props) {
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+  const [isNSCAdmin, setIsNSCAdmin] = useState(false);
   const path = props.path;
   const component = props.component;
+  const nscOnly = props.nscOnly;
 
   useEffect(() => {
     const checkAuthStatus = async () => {
       let token = await authService.getToken();
+      let accountType = await authService.getAccountType();
       setIsAuthenticated(token !== undefined);
+      setIsNSCAdmin(accountType === "NSC_ADMIN");
       setLoading(false);
     };
 
@@ -48,7 +52,16 @@ function PrivateRouter(props) {
     );
   } else {
     if (isAuthenticated) {
-      return <Route path={path} component={component} />;
+      if (nscOnly) {
+        if (isNSCAdmin) {
+          return <Route path={path} component={component} />;
+        } else {
+          console.log("hi");
+          return <Route path="/dashboard" component={AssociationDashboard} />;
+        }
+      } else {
+        return <Route path={path} component={component} />;
+      }
     } else {
       return <Redirect to="/login" />;
     }

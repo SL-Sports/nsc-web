@@ -1,5 +1,4 @@
 import React from "react";
-import COLORS from "../../colors";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PrivateRouter from "../auth/privateRouter";
 import Activities from "../activities";
@@ -11,9 +10,6 @@ import Forgot from "../auth/forgot";
 import Rankings from "../rankings";
 import NSCDashboard from "../nsc/pages/nscDashboard";
 import AssociationDashboard from "../dashboard";
-function Home() {
-  return <h1 style={{ color: COLORS.blueGradientStart }}>Home</h1>;
-}
 
 function NoMatch() {
   return <h1>404 Page Not Found</h1>;
@@ -37,16 +33,14 @@ export default function Routes() {
         {/* Rankings */}
         <PrivateRouter path="/rankings" component={Rankings} />
 
-        {/* NSC Dashboard */}
-        <PrivateRouter path="/nsc" component={NSCDashboard} />
-
         {/* Association Dashboard */}
         <PrivateRouter path="/dashboard" component={AssociationDashboard} />
 
+        {/* NSC Dashboard */}
+        <PrivateRouter exact path="/" nscOnly component={NSCDashboard} />
+
         {/* NoMatch */}
         <PrivateRouter path="*" component={NoMatch} />
-        {/* Home */}
-        <PrivateRouter path="/" component={Home} />
       </Switch>
     </Router>
   );

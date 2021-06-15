@@ -14,6 +14,10 @@ const getActiveAssociationID = async () => {
   return Cookies.get("activeAssociation");
 };
 
+const getAccountType = async () => {
+  return Cookies.get("accountType");
+};
+
 const login = async (phone, password) => {
   const url = baseUrl + "/login";
   const body = {
@@ -152,4 +156,5 @@ export default {
   getToken,
   getProfileID,
   getActiveAssociationID,
+  getAccountType,
 };
