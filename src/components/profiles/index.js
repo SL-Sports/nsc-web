@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NewProfile from "./webpages/newProfile";
 import ProfilesHome from "./webpages/profilesHome";
 import ProfileView from "./webpages/profileView";
+import AddCoaches from "./webpages/addCoaches";
 
 export default function Profiles() {
   return (
@@ -15,6 +16,7 @@ export default function Profiles() {
         <Route exact path="/new" component={NewProfile} />
         <Route exact path="/:profileID" component={ProfileView} />
         <Route exact path="/:profileID/edit" component={ProfileView} />
+        <Route exact path="/:profileID/add_coaches" component={AddCoaches} />
         <Route component={NoMatch} />
       </Switch>
     </Router>

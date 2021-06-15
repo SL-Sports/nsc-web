@@ -1,5 +1,6 @@
 import React from "react";
 import { Grid, Box, Card, Avatar, Typography, Button } from "@material-ui/core";
+import { Add } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 // eslint-disable-next-line
 import { spacing } from "@material-ui/system";
@@ -26,25 +27,47 @@ export function ProfileDisplay({ profileHeader }) {
       </Grid>
       <Grid item name="coaches-students" xs={12} md={5}>
         <Box m={3} p={3}>
-          <Typography variant="h4">
-            {(profile.profileType === "ATHLETE" && "Coaches") || "Students"}
-          </Typography>
+          <Grid
+            container
+            direction="row"
+            alignItems="center"
+            justify="space-between"
+          >
+            <Grid item>
+              <Typography variant="h4">
+                {(profile.profileType === "ATHLETE" && "Coaches") || "Students"}
+              </Typography>
+            </Grid>
+            {profile.profileType === "ATHLETE" && (
+              <Grid item>
+                <Link to={profile._id + "/add_coaches"}>
+                  <Add color="primary" fontSize="large" />
+                </Link>
+              </Grid>
+            )}
+          </Grid>
         </Box>
         <CoachesStudentsList profileHeader={profileHeader} />
       </Grid>
       <Grid item name="rankings" xs={12} md={5}>
         <Box m={3} p={3}>
-          <Typography variant="h4">Rankings</Typography>
+          <Typography variant="h4" align="left">
+            Rankings
+          </Typography>
         </Box>
       </Grid>
       <Grid item name="activities" xs={12} md={5}>
         <Box m={3} p={3}>
-          <Typography variant="h4">Activities</Typography>
+          <Typography variant="h4" align="left">
+            Activities
+          </Typography>
         </Box>
       </Grid>
       <Grid item name="payments" xs={12} md={5}>
         <Box m={3} p={3}>
-          <Typography variant="h4">Payments</Typography>
+          <Typography variant="h4" align="left">
+            Payments
+          </Typography>
         </Box>
       </Grid>
     </Grid>
