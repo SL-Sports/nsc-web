@@ -13,6 +13,7 @@ import {
 
 import Associations from "../components/associations";
 import Sports from "../components/sports";
+import authService from "../../../services/authService";
 
 export default function NSCDashboard() {
   return (
@@ -32,7 +33,12 @@ export default function NSCDashboard() {
             >
               Hello John
             </Typography>
-            <Button color="inherit">LOGOUT</Button>
+            <Button
+              color="inherit"
+              onClick={async () => await authService.logout()}
+            >
+              LOGOUT
+            </Button>
           </Toolbar>
         </AppBar>
         <main>

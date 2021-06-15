@@ -94,7 +94,12 @@ export default function AssociationDashboard() {
               >
                 {`${association.name} Dashboard`}
               </Typography>
-              <Button color="inherit">LOGOUT</Button>
+              <Button
+                color="inherit"
+                onClick={async () => await authService.logout()}
+              >
+                LOGOUT
+              </Button>
             </Toolbar>
           </AppBar>
           <main>

@@ -18,6 +18,18 @@ const getAccountType = async () => {
   return Cookies.get("accountType");
 };
 
+const logout = async () => {
+  await Cookies.remove("token");
+  await Cookies.remove("preferredName");
+  await Cookies.remove("profileID");
+  await Cookies.remove("accountType");
+  await Cookies.remove("phone");
+  await Cookies.remove("password");
+  await Cookies.remove("activeAssociation");
+
+  window.location.replace("/login");
+};
+
 const login = async (phone, password) => {
   const url = baseUrl + "/login";
   const body = {
@@ -157,4 +169,5 @@ export default {
   getProfileID,
   getActiveAssociationID,
   getAccountType,
+  logout,
 };
