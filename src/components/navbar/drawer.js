@@ -6,6 +6,8 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Divider,
+  Typography,
 } from "@material-ui/core";
 import {
   Speed as DashboardIcon,
@@ -15,7 +17,7 @@ import {
   VideogameAsset as RankingIcon,
 } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
-import { theme } from "./navBarTheme";
+import { theme, useStyles } from "./navBarTheme";
 
 const HeaderDrawer = ({
   open,
@@ -26,10 +28,23 @@ const HeaderDrawer = ({
   rankingsSelected,
 }) => {
   const history = useHistory();
-
+  const classes = useStyles();
   return (
     <>
       <Drawer anchor={"left"} open={open} onClose={() => setDrawerOpen(false)}>
+        <div className={classes.drawerHeader}>
+          <Typography
+            variant="h6"
+            color="inherit"
+            noWrap
+            align="left"
+            style={{ fontWeight: "bolder" }}
+          >
+            SL Sports
+          </Typography>
+        </div>
+
+        <Divider />
         <div
           style={{
             width: "auto",

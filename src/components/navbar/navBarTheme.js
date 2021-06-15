@@ -48,6 +48,14 @@ const useStyles = makeStyles((theme) => ({
     background: "linear-gradient(to right,#f7971e, #ffd200)",
     color: "white",
   },
+  drawerHeader: {
+    display: "flex",
+    alignItems: "center",
+    padding: theme.spacing(0, 2),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: "flex-start",
+  },
 }));
 
 export { theme, useStyles };
