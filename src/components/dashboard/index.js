@@ -77,7 +77,6 @@ export default function AssociationDashboard() {
             dashboardSelected
             menuEnabled
             profilePicEnabled
-            profilePicUrl=""
           />
 
           <main>

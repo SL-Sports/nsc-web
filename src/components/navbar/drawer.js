@@ -26,6 +26,7 @@ const HeaderDrawer = ({
   profilesSelected,
   paymentsSelected,
   rankingsSelected,
+  isNSCAdmin,
 }) => {
   const history = useHistory();
   const classes = useStyles();
@@ -52,6 +53,18 @@ const HeaderDrawer = ({
           role="presentation"
         >
           <List>
+            {isNSCAdmin && (
+              <ListItem
+                button
+                style={{ marginRight: 80 }}
+                onClick={() => history.push("/")}
+              >
+                <ListItemIcon>
+                  <HomeIcon></HomeIcon>
+                </ListItemIcon>
+                <ListItemText primary="NSC Home" />
+              </ListItem>
+            )}
             <ListItem
               button
               selected={dashboardSelected}
@@ -96,16 +109,6 @@ const HeaderDrawer = ({
                 <RankingIcon></RankingIcon>
               </ListItemIcon>
               <ListItemText primary="Rankings" />
-            </ListItem>
-            <ListItem
-              button
-              style={{ marginRight: 80 }}
-              onClick={() => history.push("/")}
-            >
-              <ListItemIcon>
-                <HomeIcon></HomeIcon>
-              </ListItemIcon>
-              <ListItemText primary="NSC Home" />
             </ListItem>
           </List>
         </div>

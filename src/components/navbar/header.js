@@ -19,13 +19,14 @@ const Header = ({
   title,
   backButtonEnabled,
   menuEnabled,
-  profileId,
   profilePicEnabled,
+  profileId,
   profilePicUrl,
   setDrawerOpen,
 }) => {
   const history = useHistory();
   const [profileMenuAnchor, setProfileMenuAnchor] = useState(null);
+
   const open = Boolean(profileMenuAnchor);
 
   return (
