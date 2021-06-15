@@ -10,6 +10,7 @@ import Forgot from "../auth/forgot";
 import Rankings from "../rankings";
 import NSCDashboard from "../nsc/pages/nscDashboard";
 import AssociationDashboard from "../dashboard";
+import NavBar from "../navbar";
 
 function NoMatch() {
   return <h1>404 Page Not Found</h1>;
@@ -19,6 +20,7 @@ export default function Routes() {
   return (
     <Router>
       <Switch>
+        <Route path="/nav" component={NavBar} />
         {/* Auth */}
         <Route path="/login" component={LogIn} />
         <Route path="/signup" component={SignUp} />
