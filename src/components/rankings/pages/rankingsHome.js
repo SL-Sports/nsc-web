@@ -18,6 +18,7 @@ import {
 import { Add } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import Ranking from "../components/rankingCard";
+import NavBar from "../../navbar";
 
 const sportId = "60a7643e0c36495526c36b09";
 
@@ -46,16 +47,6 @@ export default function RankingsHome() {
     return (
       <>
         <CssBaseline>
-          <AppBar
-            style={{ background: theme.palette.primary.mainGradient }}
-            position="relative"
-          >
-            <Toolbar>
-              <Typography variant="h6" color="inherit" noWrap>
-                Rankings - Golf
-              </Typography>
-            </Toolbar>
-          </AppBar>
           <main>
             <Grid
               container
@@ -79,16 +70,13 @@ export default function RankingsHome() {
     return (
       <>
         <CssBaseline>
-          <AppBar
-            style={{ background: theme.palette.primary.mainGradient }}
-            position="relative"
-          >
-            <Toolbar>
-              <Typography variant="h6" color="inherit" noWrap>
-                Rankings - Golf
-              </Typography>
-            </Toolbar>
-          </AppBar>
+          <NavBar
+            rankingsSelected
+            title="Rankings-Golf"
+            profilePicEnabled
+            menuEnabled
+          />
+
           <main>
             <Container style={{ padding: 30 }} maxWidth="md">
               <Grid container spacing={1}>

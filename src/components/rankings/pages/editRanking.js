@@ -19,6 +19,7 @@ import {
 import { ArrowBack } from "@material-ui/icons";
 import { Link, useHistory, useParams } from "react-router-dom";
 import ProfileSearchAutoComplete from "../components/profileSearchField";
+import NavBar from "../../navbar";
 
 export default function EditRanking() {
   const [rankingType, setRankingType] = useState(rankingTypes.NATIONAL);
@@ -64,16 +65,8 @@ export default function EditRanking() {
     return (
       <>
         <CssBaseline>
-          <AppBar
-            style={{ background: theme.palette.primary.mainGradient }}
-            position="relative"
-          >
-            <Toolbar>
-              <Typography variant="h6" color="inherit" noWrap>
-                Edit Ranking
-              </Typography>
-            </Toolbar>
-          </AppBar>
+          <NavBar title="Edit Ranking" backButtonEnabled />
+
           <main>
             <Grid
               container
@@ -97,19 +90,8 @@ export default function EditRanking() {
     return (
       <ThemeProvider theme={theme}>
         <CssBaseline>
-          <AppBar
-            style={{ background: theme.palette.primary.mainGradient }}
-            position="relative"
-          >
-            <Toolbar>
-              <Link to="/" style={{ color: "white", marginTop: 4 }}>
-                <ArrowBack style={{ marginRight: 15 }} />
-              </Link>
-              <Typography variant="h6" color="inherit" noWrap>
-                Edit Ranking
-              </Typography>
-            </Toolbar>
-          </AppBar>
+          <NavBar title="Edit Ranking" backButtonEnabled />
+
           <main>
             <Container maxWidth="md" style={{ padding: 20 }}>
               <Grid container spacing={4}>
