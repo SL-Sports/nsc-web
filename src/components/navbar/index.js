@@ -9,27 +9,34 @@ export default function NavBar({
   title,
   backButtonEnabled,
   menuEnabled,
-  logOutEnabled,
   profileId,
   profilePicEnabled,
   profilePicUrl,
+  dashboardSelected,
+  profilesSelected,
+  paymentsSelected,
+  rankingsSelected,
 }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline>
         <Header
-          title="Hello John"
-          menuEnabled={true}
-          logOutEnabled={true}
-          profilePicEnabled={true}
-          profilePicUrl=""
-          profileId="abc"
+          title={title}
+          backButtonEnabled={backButtonEnabled}
+          menuEnabled={menuEnabled}
+          profileId={profileId}
+          profilePicEnabled={profilePicEnabled}
+          profilePicUrl={profilePicUrl}
           setDrawerOpen={setDrawerOpen}
         ></Header>
         <HeaderDrawer
           open={drawerOpen}
           setDrawerOpen={setDrawerOpen}
+          dashboardSelected={dashboardSelected}
+          profilesSelected={profilesSelected}
+          paymentsSelected={paymentsSelected}
+          rankingsSelected={rankingsSelected}
         ></HeaderDrawer>
       </CssBaseline>
     </ThemeProvider>
