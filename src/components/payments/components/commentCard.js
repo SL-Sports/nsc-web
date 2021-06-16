@@ -9,7 +9,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import ClearIcon from "@material-ui/icons/Clear";
 import SendIcon from "@material-ui/icons/Send";
 import { theme, useStyles } from "./paymentsTheme";
-import paymentsService from "../../services/paymentsService";
+import paymentsService from "../../../services/paymentsService";
 import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 
