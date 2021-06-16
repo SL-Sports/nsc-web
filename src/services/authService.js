@@ -1,9 +1,28 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 const baseUrl = "https://slsports.anuda.me/auth";
+const tokenExpiryTime = 10800;
 
 const getToken = async () => {
-  return Cookies.get("token");
+  let token = await Cookies.get("token");
+
+  if (token === undefined) {
+    logout();
+  } else {
+    const currentTime = Math.floor(new Date().getTime() / 1000);
+    let tokenRefreshedAt = await Cookies.get("tokenRefreshedAt");
+
+    if (currentTime - parseInt(tokenRefreshedAt) < tokenExpiryTime) {
+      return token;
+    } else {
+      let refreshRes = await refreshToken();
+      if (refreshRes) {
+        return getToken();
+      } else {
+        logout();
+      }
+    }
+  }
 };
 
 const getProfileID = async () => {
@@ -40,6 +59,14 @@ const logout = async () => {
   window.location.replace("/login");
 };
 
+const refreshToken = async () => {
+  let phone = await Cookies.get("phone");
+  let password = await Cookies.get("password");
+
+  let result = await login(phone, password);
+  return result;
+};
+
 const login = async (phone, password) => {
   const url = baseUrl + "/login";
   const body = {
@@ -72,6 +99,10 @@ const login = async (phone, password) => {
           Cookies.set("phone", phone);
           Cookies.set("password", password);
           Cookies.set("profilePicUrl", response.data.profile.profilePicUrl);
+
+          const currentTime = Math.floor(new Date().getTime() / 1000);
+
+          Cookies.set("tokenRefreshedAt", currentTime.toString());
 
           if (response.data.accountType === "ASSOCIATION_ADMIN") {
             Cookies.set("activeAssociation", response.data.profile.association);
@@ -192,4 +223,5 @@ export default {
   logout,
   getProfilePic,
   getAssociationName,
+  refreshToken,
 };
