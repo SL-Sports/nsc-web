@@ -57,18 +57,27 @@ const login = async (phone, password) => {
     .post(url, body, config)
     .then((response) => {
       if (response.status === 200) {
-        Cookies.set("token", response.data.token);
-        Cookies.set("preferredName", response.data.profile.preferredName);
-        Cookies.set("profileID", response.data.profile._id);
-        Cookies.set("accountType", response.data.accountType);
-        Cookies.set("phone", phone);
-        Cookies.set("password", password);
-        Cookies.set("profilePicUrl", response.data.profile.profilePicUrl);
+        if (
+          response.data.accountType === "ATHLETE" ||
+          response.data.accountType === "COACH"
+        ) {
+          alert(
+            "This web app is only available for Association and Ministry level Administrators. As a coach or athlete, you should use the SL Sports Mobile App."
+          );
+        } else {
+          Cookies.set("token", response.data.token);
+          Cookies.set("preferredName", response.data.profile.preferredName);
+          Cookies.set("profileID", response.data.profile._id);
+          Cookies.set("accountType", response.data.accountType);
+          Cookies.set("phone", phone);
+          Cookies.set("password", password);
+          Cookies.set("profilePicUrl", response.data.profile.profilePicUrl);
 
-        if (response.data.accountType === "ASSOCIATION_ADMIN") {
-          Cookies.set("activeAssociation", response.data.profile.association);
+          if (response.data.accountType === "ASSOCIATION_ADMIN") {
+            Cookies.set("activeAssociation", response.data.profile.association);
+          }
+          result = true;
         }
-        result = true;
       }
     })
     .catch((err) => {
