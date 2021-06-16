@@ -234,8 +234,10 @@ export async function deleteRanking(rankingId) {
   return result;
 }
 
-export async function profileSearch(query, associationID) {
+export async function profileSearch(query) {
   const url = baseUrl + "search";
+
+  let associationID = await authService.getActiveAssociationID();
 
   let body = {};
 
