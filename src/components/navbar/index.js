@@ -10,7 +10,6 @@ export default function NavBar({
   title,
   backButtonEnabled,
   menuEnabled,
-  profilePicEnabled,
   dashboardSelected,
   profilesSelected,
   paymentsSelected,
@@ -28,10 +27,8 @@ export default function NavBar({
         setNSCAdmin(accountType === "NSC_ADMIN");
       }
 
-      if (profilePicEnabled) {
-        setProfileId(await authService.getProfileID());
-        setProfilePicUrl(await authService.getProfilePic());
-      }
+      setProfileId(await authService.getProfileID());
+      setProfilePicUrl(await authService.getProfilePic());
     };
 
     loadData();
@@ -45,7 +42,7 @@ export default function NavBar({
           backButtonEnabled={backButtonEnabled}
           menuEnabled={menuEnabled}
           profileId={profileId}
-          profilePicEnabled={profilePicEnabled}
+          profilePicEnabled={true}
           profilePicUrl={profilePicUrl}
           setDrawerOpen={setDrawerOpen}
         ></Header>

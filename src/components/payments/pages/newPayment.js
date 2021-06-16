@@ -26,6 +26,7 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 import Checkbox from "@material-ui/core/Checkbox";
 import { useStyles } from "../paymentsTheme";
+import NavBar from "../../navbar";
 
 const profileId = "60a7f13a8ae2f8ad47c5cd1a";
 
@@ -144,91 +145,94 @@ export default function NewPayment() {
   };
 
   return (
-    <Container style={{ paddingTop: 30 }} maxWidth="lg">
-      <Grid container spacing={2}>
-        <Grid item sm={12}>
-          <Card
-            style={{
-              background: theme.palette.secondary.mainGradient,
-              height: "100%",
-            }}
-          >
-            <Grid container spacing={2}>
-              <Grid item sm={6} md={3}>
-                <TextField
-                  color="primary"
-                  required
-                  id="standard-select-month"
-                  select
-                  label="Month"
-                  name="month"
-                  autoFocus
-                  value={month}
-                  helperText="Select the month."
-                  onChange={changeMonth}
-                >
-                  {months.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
+    <>
+      <NavBar backButtonEnabled title="New Payment" />
+      <Container style={{ paddingTop: 30 }} maxWidth="lg">
+        <Grid container spacing={2}>
+          <Grid item sm={12}>
+            <Card
+              style={{
+                background: theme.palette.secondary.mainGradient,
+                height: "100%",
+              }}
+            >
+              <Grid container spacing={2}>
+                <Grid item sm={6} md={3}>
+                  <TextField
+                    color="primary"
+                    required
+                    id="standard-select-month"
+                    select
+                    label="Month"
+                    name="month"
+                    autoFocus
+                    value={month}
+                    helperText="Select the month."
+                    onChange={changeMonth}
+                  >
+                    {months.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+                <Grid item sm={6} md={3}>
+                  <TextField
+                    color="primary"
+                    required
+                    id="standard-outlined"
+                    label="Year"
+                    variant="outlined"
+                    value={year}
+                    onChange={changeYear}
+                  ></TextField>
+                </Grid>
+                <Grid item sm={6} md={3}>
+                  <TextField
+                    color="primary"
+                    required
+                    select
+                    label="Activity Type"
+                    value={paymentType}
+                    onChange={changeType}
+                    name="paymentType"
+                    helperText="Select the payment type."
+                  >
+                    {paymentTypes.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+                <Grid item sm={6} md={3}>
+                  <TextField
+                    color="primary"
+                    required
+                    id="standard-outlined"
+                    label="Amount"
+                    variant="outlined"
+                    value={amount}
+                    onChange={changeAmount}
+                  ></TextField>
+                </Grid>
               </Grid>
-              <Grid item sm={6} md={3}>
-                <TextField
-                  color="primary"
-                  required
-                  id="standard-outlined"
-                  label="Year"
-                  variant="outlined"
-                  value={year}
-                  onChange={changeYear}
-                ></TextField>
+              <Grid container spacing={5}>
+                <Grid item sm={12}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={saveNewPayment}
+                  >
+                    Submit Payment
+                  </Button>
+                </Grid>
               </Grid>
-              <Grid item sm={6} md={3}>
-                <TextField
-                  color="primary"
-                  required
-                  select
-                  label="Activity Type"
-                  value={paymentType}
-                  onChange={changeType}
-                  name="paymentType"
-                  helperText="Select the payment type."
-                >
-                  {paymentTypes.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </Grid>
-              <Grid item sm={6} md={3}>
-                <TextField
-                  color="primary"
-                  required
-                  id="standard-outlined"
-                  label="Amount"
-                  variant="outlined"
-                  value={amount}
-                  onChange={changeAmount}
-                ></TextField>
-              </Grid>
-            </Grid>
-            <Grid container spacing={5}>
-              <Grid item sm={12}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={saveNewPayment}
-                >
-                  Submit Payment
-                </Button>
-              </Grid>
-            </Grid>
-          </Card>
+            </Card>
+          </Grid>
         </Grid>
-      </Grid>
-    </Container>
+      </Container>
+    </>
   );
 }
