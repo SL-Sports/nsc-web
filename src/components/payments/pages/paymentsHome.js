@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import paymentService from "../../../services/paymentsService";
+import authService from "../../../services/authService";
 import {
   AppBar,
   Typography,
@@ -7,6 +8,7 @@ import {
   CssBaseline,
   Container,
   Grid,
+  CircularProgress,
   Fab,
 } from "@material-ui/core";
 
@@ -21,22 +23,23 @@ import PaymentDetail from "./paymentDetail";
 import { Link } from "react-router-dom";
 
 import NewPayment from "./newPayment";
-
-const profileId = "60a7f13a8ae2f8ad47c5cd1a";
+import NavBar from "../../navbar";
 
 export default function PaymentsHome() {
-  const [payments, setPayments] = useState([]);
+  const [payments, setPayments] = useState(undefined);
+  const [associationName, setAssociationName] = useState("");
   const classes = useStyles();
 
   useEffect(() => {
-    const getPayments = async () => {
-      const paymentsRes = await paymentService.getPayments(profileId);
+    const loadData = async () => {
+      setAssociationName(await authService.getAssociationName());
+      let associationID = await authService.getActiveAssociationID();
+      const paymentsRes = await paymentService.getPayments(associationID);
       if (paymentsRes.status === 200) {
         setPayments(paymentsRes.data);
       }
     };
-
-    getPayments();
+    loadData();
   }, []);
 
   const fabStyle = {
@@ -48,40 +51,60 @@ export default function PaymentsHome() {
     position: "fixed",
     background: theme.palette.secondary.mainGradient,
   };
-
-  return (
-    <>
-      <CssBaseline>
-        <AppBar
-          style={{ background: theme.palette.primary.mainGradient }}
-          position="relative"
-        >
-          <Toolbar>
-            <Typography variant="h6" color="inherit" noWrap>
-              Payments - Golf
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <main>
-          <Container style={{ paddingTop: 30 }} maxWidth="lg">
-            <Grid container spacing={2}>
-              {payments.map((payment) => (
-                <PaymentCard
-                  key={payment.payment.id}
-                  payment={payment}
-                  seeMoreEnabled={true}
-                  allowApproval={false}
-                />
-              ))}
+  if (payments === undefined) {
+    return (
+      <>
+        <CssBaseline>
+          <main>
+            <Grid
+              container
+              spacing={0}
+              direction="column"
+              alignItems="center"
+              justify="center"
+              style={{ minHeight: "100vh" }}
+            >
+              <Grid item xs={3}>
+                <CircularProgress
+                  style={{ color: theme.palette.primary.main, margin: "auto" }}
+                ></CircularProgress>{" "}
+              </Grid>
             </Grid>
-          </Container>
-          <Link to={"payments/new"}>
-            <Fab aria-label="add" style={fabStyle}>
-              <AddIcon />
-            </Fab>
-          </Link>
-        </main>
-      </CssBaseline>
-    </>
-  );
+          </main>
+        </CssBaseline>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <CssBaseline>
+          <NavBar
+            menuEnabled
+            paymentsSelected
+            title={`Payments - ${associationName}`}
+            profilePicEnabled
+          ></NavBar>
+          <main>
+            <Container style={{ paddingTop: 30 }} maxWidth="lg">
+              <Grid container spacing={2}>
+                {payments.map((payment) => (
+                  <PaymentCard
+                    key={payment.payment.id}
+                    payment={payment}
+                    seeMoreEnabled={true}
+                    allowApproval={false}
+                  />
+                ))}
+              </Grid>
+            </Container>
+            <Link to={"payments/new"}>
+              <Fab aria-label="add" style={fabStyle}>
+                <AddIcon />
+              </Fab>
+            </Link>
+          </main>
+        </CssBaseline>
+      </>
+    );
+  }
 }
