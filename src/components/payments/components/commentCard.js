@@ -46,7 +46,6 @@ const CommentCard = ({ comment }) => {
 
     const editedComment = await paymentsService.editComment(body);
     setEditingMode(!editingMode);
-    console.log(editedComment.data);
     alert(editedComment.data.message);
   };
 
