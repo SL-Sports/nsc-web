@@ -4,26 +4,23 @@ import { useStyles } from "../paymentsTheme";
 import paymentsService from "../../../services/paymentsService";
 import React, { useState } from "react";
 
-const profileID = "60ac7adc658e534fb80b9f55";
-
-const NewChequeCard = ({ paymentID }) => {
+const NewCommentCard = ({ paymentID }) => {
   const classes = useStyles();
-  const [chequeNum, setChequeNum] = useState("");
+  const [commentText, setCommentText] = useState("");
 
-  const changeCheque = (event) => {
-    setChequeNum(event.target.value);
+  const changeComment = (event) => {
+    setCommentText(event.target.value);
   };
 
-  const sendCheque = async () => {
+  const sendComment = async () => {
     const body = {
+      text: commentText,
       payment: paymentID,
-      chequeNumber: chequeNum,
-      createdBy: profileID,
     };
 
-    const newCheque = await paymentsService.newCheque(body);
-    setChequeNum("");
-    alert(newCheque.data);
+    const newComment = await paymentsService.newComment(body);
+    setCommentText("");
+    alert(newComment.data);
   };
 
   return (
@@ -35,9 +32,9 @@ const NewChequeCard = ({ paymentID }) => {
               <Grid item sm={2}></Grid>
               <Grid item sm={10} align="left">
                 <TextField
-                  onChange={changeCheque}
-                  value={chequeNum}
-                  label="New Cheque Number"
+                  onChange={changeComment}
+                  value={commentText}
+                  label="New Comment"
                   align="left"
                   fullWidth={true}
                 />
@@ -47,7 +44,7 @@ const NewChequeCard = ({ paymentID }) => {
           <Grid item sm={2}>
             <Grid container spacing={1}>
               <Grid item sm={12}>
-                <IconButton onClick={sendCheque}>
+                <IconButton onClick={sendComment}>
                   <SendIcon color="primary" />
                 </IconButton>
               </Grid>
@@ -59,4 +56,4 @@ const NewChequeCard = ({ paymentID }) => {
   );
 };
 
-export default NewChequeCard;
+export default NewCommentCard;
