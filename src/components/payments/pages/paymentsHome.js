@@ -50,6 +50,7 @@ export default function PaymentsHome() {
     left: "auto",
     position: "fixed",
     background: theme.palette.secondary.mainGradient,
+    color: "white",
   };
   if (payments === undefined) {
     return (
@@ -85,7 +86,7 @@ export default function PaymentsHome() {
             profilePicEnabled
           ></NavBar>
           <main>
-            <Container style={{ paddingTop: 30 }} maxWidth="lg">
+            <Container style={{ paddingTop: 30 }} maxWidth="md">
               <Grid container spacing={2}>
                 {payments.map((payment) => (
                   <PaymentCard

@@ -1,9 +1,16 @@
-import { Typography, Grid, Card, Button, IconButton } from "@material-ui/core";
+import {
+  Typography,
+  Grid,
+  Card,
+  Button,
+  IconButton,
+  Hidden,
+} from "@material-ui/core";
 import { CheckBox, CheckBoxOutlineBlank } from "@material-ui/icons";
 import EditIcon from "@material-ui/icons/Edit";
 import moment from "moment";
 import { Link } from "react-router-dom";
-import Checkbox from "@material-ui/core/Checkbox";
+// import Checkbox from "@material-ui/core/Checkbox";
 import { theme, useStyles } from "../paymentsTheme";
 import paymentService from "../../../services/paymentsService";
 import React, { useState } from "react";
@@ -73,7 +80,10 @@ const PaymentCard = ({ payment, seeMoreEnabled, allowApproval }) => {
         getFullTime(payment.payment.approvedByMinistryAt)
       );
     } else {
-      return "Not yet approved by association. ";
+      return (
+        "Waiting for association approval since " +
+        getFullTime(payment.payment.createdAt)
+      );
     }
   };
 
@@ -81,7 +91,7 @@ const PaymentCard = ({ payment, seeMoreEnabled, allowApproval }) => {
     <Grid item key={payment} xs={12} sm={12} md={12} lg={12} xl={12}>
       <Card className={classes.card}>
         <Grid container spacing={2}>
-          <Grid item xs={3} md={1}>
+          <Grid item xs={5} md={2} lg={2}>
             <Card
               className={classes.dateCard}
               style={{
@@ -96,31 +106,38 @@ const PaymentCard = ({ payment, seeMoreEnabled, allowApproval }) => {
                 <Typography style={{ color: "white", fontWeight: "bolder" }}>
                   {payment.payment.year}
                 </Typography>
-                <Typography
-                  style={{ color: "white", fontWeight: "bolder" }}
-                  align="center"
-                >
-                  {stringifyPaymentType(payment.payment.paymentType)}
-                </Typography>
               </div>
+              <Typography
+                style={{
+                  color: "white",
+                  fontWeight: "bolder",
+                  fontStyle: "italic",
+                }}
+              >
+                {stringifyPaymentType(payment.payment.paymentType)}
+              </Typography>
             </Card>
           </Grid>
-          <Grid item xs={5}>
-            <Grid container spacing={0}>
-              <Grid item xs={2}>
-                <Avatar
-                  alt={
-                    payment.payment.profile.preferredName +
-                    " " +
-                    payment.payment.profile.lastName
-                  }
-                  src={payment.payment.profile.profilePicUrl}
-                />
-              </Grid>
-              <Grid item xs={10}>
+          <Grid item xs={7} md={10} lg={10}>
+            <Grid container spacing={2} alignItems="center" justify="center">
+              <Hidden xsDown>
+                <Grid item xs={4} md={1} lg={1}>
+                  <Avatar
+                    style={{ width: 50, height: 50 }}
+                    alt={
+                      payment.payment.profile.preferredName +
+                      " " +
+                      payment.payment.profile.lastName
+                    }
+                    src={payment.payment.profile.profilePicUrl}
+                  />
+                </Grid>
+              </Hidden>
+
+              <Grid item xs={12} md={6} lg={6}>
                 <Typography
                   align="left"
-                  style={{ color: "black", fontWeight: "bolder" }}
+                  style={{ fontWeight: "bolder" }}
                   variant="h5"
                 >
                   {payment.payment.profile.preferredName +
@@ -128,40 +145,59 @@ const PaymentCard = ({ payment, seeMoreEnabled, allowApproval }) => {
                     payment.payment.profile.lastName}
                 </Typography>
               </Grid>
-              <Grid container spacing={1}>
-                <Grid item xs={1} md={1}>
-                  <Checkbox
-                    checked={payment.payment.approvedByAssociation}
-                    style={{ transform: "scale(1.5)" }}
+              <Grid item xs={12} md={5} lg={5}>
+                <Typography
+                  align="right"
+                  style={{ fontWeight: "bolder" }}
+                  variant="h5"
+                >
+                  {`LKR ${payment.payment.amount}`}
+                </Typography>
+              </Grid>
+              <Grid item xs={4} md={1} lg={1}>
+                {payment.payment.approvedByAssociation ? (
+                  <CheckBox
+                    fontSize="large"
+                    style={{
+                      width: 50,
+                      height: 50,
+                      float: "left",
+                      color: "green",
+                    }}
                   />
-                </Grid>
-                <Grid item xs={1}></Grid>
-                <Grid item xs={10} md={10}>
-                  <Typography
-                    align="left"
-                    style={{ color: "black", fontWeight: "fontWeightLight" }}
-                  >
-                    {getAssociationApprovalText()}
-                    {/* Association Approved? String(payment.payment.approvedByAssociation) */}
-                  </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                  <Link to={"payments/" + payment.payment._id}>
-                    {seeMoreEnabled && (
-                      <Button
-                        style={{
-                          background: theme.palette.primary.mainGradient,
-                          color: "white",
-                          borderRadius: 20,
-                          fontWeight: "bolder",
-                        }}
-                        fullWidth
-                      >
-                        SEE MORE
-                      </Button>
-                    )}
-                  </Link>
-                </Grid>
+                ) : (
+                  <CheckBoxOutlineBlank
+                    fontSize="large"
+                    style={{
+                      width: 50,
+                      height: 50,
+                      float: "left",
+                      color: "red",
+                    }}
+                  />
+                )}
+              </Grid>
+              <Grid item xs={8} md={11} lg={11}>
+                <Typography align="left" variant="subtitle1">
+                  {getAssociationApprovalText()}
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Link to={"payments/" + payment.payment._id}>
+                  {seeMoreEnabled && (
+                    <Button
+                      style={{
+                        background: theme.palette.primary.mainGradient,
+                        color: "white",
+                        borderRadius: 20,
+                        fontWeight: "bolder",
+                      }}
+                      fullWidth
+                    >
+                      SEE MORE
+                    </Button>
+                  )}
+                </Link>
                 <Grid item xs={12}>
                   {allowApproval && (
                     <Button
@@ -178,73 +214,7 @@ const PaymentCard = ({ payment, seeMoreEnabled, allowApproval }) => {
                     </Button>
                   )}
                 </Grid>
-                {/* <Grid item xs={6} md={6}>
-                                <Typography align="left" style = {{color: "black", fontWeight: "fontWeightLight"}}>
-                                    Ministry Approved? {String(payment.payment.approvedByMinistry)
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={1} md={1}>
-                                <Checkbox 
-                                    checked={payment.payment.approvedByMinistry}
-                                    // color={"primary"}
-                                    style={{transform: "scale(1.5)"}}
-                                    disableRipple
-                                    iconStyle={{fill: "green"}}
-                                    />
-                            </Grid> */}
               </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={3}>
-            <Grid container spacing={1}>
-              <Grid item xs={12}>
-                <Typography align="left" variant="h5">
-                  {payment.payment.amount} LKR
-                </Typography>
-              </Grid>
-              <Grid item xs={12}>
-                {/* <Typography align="left">
-                                    {stringifyPaymentType(payment.payment.paymentType)}
-                                </Typography> */}
-              </Grid>
-              <Grid item xs={12}>
-                {/* <Link to={"payment-detail/" + payment.payment._id}>
-                                    {seeMoreEnabled && <Button
-                                        style={{
-                                        background: theme.palette.primary.mainGradient,
-                                        color: "white",
-                                        borderRadius: 20,
-                                        fontWeight: "bolder",
-                                        }}
-                                        fullWidth
-                                    >
-                                        SEE MORE
-                                    </Button>}
-                                </Link> */}
-              </Grid>
-              {/* <Grid item xs={12}>
-                                {allowApproval && <Button
-                                        style={{
-                                        background: theme.palette.secondary.mainGradient,
-                                        color: "white",
-                                        borderRadius: 20,
-                                        fontWeight: "bolder",
-                                        }}
-                                        fullWidth
-                                        onClick={approvePayment}
-                                    >
-                                        Approve
-                                    </Button>}
-                            </Grid> */}
-              {/*Need to get user object here somehow to verify that
-                            user.accountType = "NSC_ADMIN"*/}
-              {/* {<Grid item xs={2}> 
-                                <Link to={"/payments/edit/" + payment.payment._id}>
-                                    <IconButton>
-                                        <EditIcon/>
-                                    </IconButton>
-                                </Link>
-                            </Grid>} */}
             </Grid>
           </Grid>
         </Grid>
