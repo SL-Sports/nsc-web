@@ -75,6 +75,7 @@ export default function ProfileSearchAutoComplete({
         <TextField
           {...params}
           label="Athlete Profile"
+          color="secondary"
           onChange={(ev) => {
             // dont fire API if the user delete or not entered anything
             if (ev.target.value !== "" || ev.target.value !== null) {

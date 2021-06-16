@@ -3,7 +3,6 @@ import { getRankings } from "../../../services/rankingService";
 import { rankingTypes, rankingsList } from "../components/rankingTypes";
 import { theme, useStyles } from "../rankingTheme";
 import {
-  AppBar,
   Typography,
   CssBaseline,
   Container,
@@ -36,7 +35,7 @@ export default function RankingsHome() {
   };
   useEffect(() => {
     loadRankings(rankingType);
-  }, []);
+  }, [rankingType]);
 
   const handleSelectChange = async (event) => {
     setRankingType(event.target.value);

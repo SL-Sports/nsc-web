@@ -3,9 +3,7 @@ import { editRanking, getRankingById } from "../../../services/rankingService";
 import { rankingsList, rankingTypes } from "../components/rankingTypes";
 import { theme } from "../rankingTheme";
 import {
-  AppBar,
   Typography,
-  Toolbar,
   CssBaseline,
   Container,
   CircularProgress,
@@ -16,8 +14,7 @@ import {
   TextField,
   ThemeProvider,
 } from "@material-ui/core";
-import { ArrowBack } from "@material-ui/icons";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import ProfileSearchAutoComplete from "../components/profileSearchField";
 import NavBar from "../../navbar";
 
@@ -45,7 +42,7 @@ export default function EditRanking() {
       }
     };
     getRanking();
-  }, []);
+  }, [rankingID]);
 
   const save = async () => {
     setSaving(true);
