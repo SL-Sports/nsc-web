@@ -3,9 +3,7 @@ import { addRanking } from "../../../services/rankingService";
 import { rankingsList, rankingTypes } from "../components/rankingTypes";
 import { theme } from "../rankingTheme";
 import {
-  AppBar,
   Typography,
-  Toolbar,
   CssBaseline,
   Container,
   CircularProgress,
@@ -16,11 +14,9 @@ import {
   TextField,
   ThemeProvider,
 } from "@material-ui/core";
-import { ArrowBack } from "@material-ui/icons";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import ProfileSearchAutoComplete from "../components/profileSearchField";
 import NavBar from "../../navbar";
-const sportId = "60a7643e0c36495526c36b09";
 
 export default function NewRanking() {
   const [rankingType, setRankingType] = useState(rankingTypes.NATIONAL);
@@ -32,12 +28,7 @@ export default function NewRanking() {
   const save = async () => {
     setSaving(true);
     //TODO: restrict profiles to within sport
-    const saveRes = await addRanking(
-      ranking,
-      rankingType,
-      profile._id,
-      sportId
-    );
+    const saveRes = await addRanking(ranking, rankingType, profile._id);
     setSaving(false);
     setProfile(undefined);
     setRanking(undefined);

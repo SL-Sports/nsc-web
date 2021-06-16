@@ -5,7 +5,6 @@ import { theme, useStyles } from "../rankingTheme";
 import {
   AppBar,
   Typography,
-  Toolbar,
   CssBaseline,
   Container,
   CircularProgress,
@@ -21,15 +20,14 @@ import Ranking from "../components/rankingCard";
 import NavBar from "../../navbar";
 import authService from "../../../services/authService";
 
-const sportId = "60a7643e0c36495526c36b09";
-
 export default function RankingsHome() {
   const classes = useStyles();
   const [rankings, setRankings] = useState(undefined);
   const [rankingType, setRankingType] = useState(rankingTypes.NATIONAL);
   const [associationName, setAssociationName] = useState("");
   const loadRankings = async (type) => {
-    const rankingsRes = await getRankings(type, sportId);
+    let associationID = await authService.getActiveAssociationID();
+    const rankingsRes = await getRankings(type, associationID);
     if (rankingsRes.status === 200) {
       setAssociationName(await authService.getAssociationName());
 

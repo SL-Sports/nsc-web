@@ -3,11 +3,11 @@ import authService from "./authService";
 
 const baseUrl = "https://slsports.anuda.me/profile/";
 
-export async function getRankings(rankingType, sport) {
+export async function getRankings(rankingType, associationID) {
   const url = baseUrl + "rankings/get";
   const body = {
     rankingType: rankingType,
-    sport: sport,
+    association: associationID,
     isDeleted: false,
   };
 
@@ -93,14 +93,13 @@ export async function getRankingById(id) {
   return result;
 }
 
-export async function addRanking(ranking, rankingType, profileId, sportId) {
+export async function addRanking(ranking, rankingType, profileId) {
   let token = await authService.getToken();
-  const url = baseUrl + "/rankings/new";
+  const url = baseUrl + "rankings/new";
   const body = {
     ranking: ranking,
     rankingType: rankingType,
     profile: profileId,
-    sport: sportId,
   };
 
   const config = {
@@ -143,7 +142,7 @@ export async function addRanking(ranking, rankingType, profileId, sportId) {
 
 export async function editRanking(id, ranking, rankingType, profileId) {
   let token = await authService.getToken();
-  const url = baseUrl + "/rankings/edit";
+  const url = baseUrl + "rankings/edit";
   const body = {
     ranking: ranking,
     rankingType: rankingType,
@@ -191,7 +190,7 @@ export async function editRanking(id, ranking, rankingType, profileId) {
 
 export async function deleteRanking(rankingId) {
   let token = await authService.getToken();
-  const url = baseUrl + "/rankings/edit";
+  const url = baseUrl + "rankings/edit";
   const body = {
     _id: rankingId,
     isDeleted: true,
@@ -235,12 +234,13 @@ export async function deleteRanking(rankingId) {
   return result;
 }
 
-export async function profileSearch(query) {
-  const url = baseUrl + "/search";
+export async function profileSearch(query, associationID) {
+  const url = baseUrl + "search";
 
   let body = {};
 
   body.query = query;
+  body.association = associationID;
 
   const config = {
     headers: {
