@@ -1,19 +1,11 @@
-import {
-  Typography,
-  Grid,
-  Card,
-  Button,
-  IconButton,
-  Hidden,
-} from "@material-ui/core";
+import { Typography, Grid, Card, Button, Hidden } from "@material-ui/core";
 import { CheckBox, CheckBoxOutlineBlank } from "@material-ui/icons";
-import EditIcon from "@material-ui/icons/Edit";
 import moment from "moment";
 import { Link } from "react-router-dom";
 // import Checkbox from "@material-ui/core/Checkbox";
 import { theme, useStyles } from "../paymentsTheme";
 import paymentService from "../../../services/paymentsService";
-import React, { useState } from "react";
+import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 
 const jackSmithProfileID = "60ac7adc658e534fb80b9f55";

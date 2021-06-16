@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 import paymentService from "../../../services/paymentsService";
 import authService from "../../../services/authService";
 import {
-  AppBar,
-  Typography,
-  Toolbar,
   CssBaseline,
   Container,
   Grid,
@@ -18,11 +15,8 @@ import PaymentCard from "../components/paymentCard";
 
 import { theme, useStyles } from "../paymentsTheme";
 
-import PaymentDetail from "./paymentDetail";
-
 import { Link } from "react-router-dom";
 
-import NewPayment from "./newPayment";
 import NavBar from "../../navbar";
 
 export default function PaymentsHome() {
@@ -42,16 +36,6 @@ export default function PaymentsHome() {
     loadData();
   }, []);
 
-  const fabStyle = {
-    margin: 0,
-    top: "auto",
-    right: 20,
-    bottom: 20,
-    left: "auto",
-    position: "fixed",
-    background: theme.palette.secondary.mainGradient,
-    color: "white",
-  };
   if (payments === undefined) {
     return (
       <>
@@ -99,7 +83,7 @@ export default function PaymentsHome() {
               </Grid>
             </Container>
             <Link to={"payments/new"}>
-              <Fab aria-label="add" style={fabStyle}>
+              <Fab aria-label="add" className={classes.fab}>
                 <AddIcon />
               </Fab>
             </Link>

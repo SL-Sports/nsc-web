@@ -37,6 +37,13 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.secondary.mainGradient,
     borderRadius: 20,
   },
+  fab: {
+    position: "fixed",
+    bottom: theme.spacing(3),
+    right: theme.spacing(3),
+    background: "linear-gradient(to right,#f7971e, #ffd200)",
+    color: "white",
+  },
 }));
 
 export { theme, useStyles };
