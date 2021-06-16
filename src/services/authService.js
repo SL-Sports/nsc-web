@@ -210,8 +210,7 @@ const forgotVerify = async (phone, otpSessionId, otp, newPassword) => {
     return login(phone, newPassword);
   }
 };
-
-export default {
+const functions = {
   login,
   signup,
   forgotRequest,
@@ -225,3 +224,5 @@ export default {
   getAssociationName,
   refreshToken,
 };
+
+export default functions;

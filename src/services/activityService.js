@@ -259,7 +259,7 @@ const getActivityTypes = async (association) => {
   return result;
 };
 
-export default {
+const functions = {
   getActivities,
   getActivityDetail,
   approveActivity,
@@ -268,3 +268,5 @@ export default {
   addActivityType,
   getActivityTypes,
 };
+
+export default functions;
