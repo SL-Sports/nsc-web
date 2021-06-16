@@ -26,6 +26,7 @@ import ChequeCard from "../components/chequeCard";
 import NewChequeCard from "../components/newChequeCard";
 import PaymentComment from "../components/paymentComment";
 import PaymentComments from "../components/paymentComments";
+import NavBar from "../../navbar";
 
 export default function PaymentDetail() {
   const classes = useStyles();
@@ -92,15 +93,13 @@ export default function PaymentDetail() {
     return (
       <>
         <CssBaseline>
-          {/* <NavBar
-                  title={
-                    payment.payment.profile.preferredName + 
-                    payment.payment.profile.lastName +
-                    " - " +
-                    stringifyPaymentType(payment.payment.paymentType.activityType)
-                  }
-                  backButtonEnabled={true}
-                /> */}
+          <NavBar
+            title={`${payment.payment.profile.preferredName} ${
+              payment.payment.profile.lastName
+            } - ${stringifyPaymentType(payment.payment.paymentType)}`}
+            backButtonEnabled
+          />
+
           <main>
             <Container style={{ paddingTop: 30 }} maxWidth="lg">
               <Grid container spacing={2}>
