@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import moment from "moment";
 import {
   Card,
   CardContent,
@@ -51,6 +52,56 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 14,
   },
 }));
+
+export function ProfileCard({ profile, editLink = false }) {
+  const classes = useStyles();
+
+  return (
+    <>
+      <Card className={classes.root}>
+        <CardContent justify="center">
+          <Grid container direction="row" justify="space-between" spacing={2}>
+            <Grid item>
+              <AvatarAndName profile={profile} />
+            </Grid>
+            <Grid item>
+              <AgeSport profile={profile} editLink={editLink} />
+            </Grid>
+          </Grid>
+        </CardContent>
+      </Card>
+    </>
+  );
+}
+
+export function CoachCard({ coach }) {
+  return (
+    <>
+      <Card>
+        <CardContent justify="center">
+          <Grid container direction="row" justify="space-between" spacing={2}>
+            <Grid item>
+              <AvatarAndName profile={coach.coachProfile} />
+            </Grid>
+            <Grid item>
+              <Typography variant="subtitle1">
+                {coach.coachDescription}
+              </Typography>
+              <Typography variant="subtitle1">
+                Start Date: {moment.unix(coach.startDate).format("DD/MM/yyyy")}
+              </Typography>
+              {coach.activeStatus !== "ACTIVE" && (
+                <Typography variant="subtitle1">
+                  End Date: {moment.unix(coach.endDate).format("DD/MM/yyyy")}
+                </Typography>
+              )}
+            </Grid>
+          </Grid>
+        </CardContent>
+      </Card>
+    </>
+  );
+}
 
 function AvatarAndName({ profile }) {
   const classes = useStyles();
@@ -128,27 +179,6 @@ function AgeSport({ profile, editLink = false }) {
           </Grid>
         </Grid>
       </Grid>
-    </>
-  );
-}
-
-export function ProfileCard({ profile, editLink = false }) {
-  const classes = useStyles();
-
-  return (
-    <>
-      <Card className={classes.root}>
-        <CardContent justify="center">
-          <Grid container direction="row" justify="space-between" spacing={2}>
-            <Grid item>
-              <AvatarAndName profile={profile} />
-            </Grid>
-            <Grid item>
-              <AgeSport profile={profile} editLink={editLink} />
-            </Grid>
-          </Grid>
-        </CardContent>
-      </Card>
     </>
   );
 }

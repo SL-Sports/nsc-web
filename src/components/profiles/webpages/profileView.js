@@ -6,7 +6,8 @@ import { spacing } from "@material-ui/system";
 
 import { getProfile } from "../../../services/profileService";
 import { ProfileDisplay } from "../components/profileDisplay";
-import EditProfile from "../webpages/editProfile";
+import EditProfile from "./editProfile";
+import AddCoaches from "./addCoaches";
 
 const status = {
   LOADING: "loading",
@@ -46,6 +47,9 @@ export default function ProfileView() {
       <Switch>
         <Route path="/:profileID/edit">
           <EditProfile profile={profile} />
+        </Route>
+        <Route path="/:profileID/coaches">
+          <AddCoaches profileHeader={profileHeader} />
         </Route>
         <Route path="/:profileID">
           <ProfileDisplay profileHeader={profileHeader} />
