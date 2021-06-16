@@ -20,7 +20,3 @@ export default function Rankings() {
     </Router>
   );
 }
-
-function NoMatch() {
-  return <h1>404 Page Not Found</h1>;
-}

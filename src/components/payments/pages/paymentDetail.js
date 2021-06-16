@@ -18,12 +18,12 @@ import {
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import COLORS from "../../../colors";
-import { theme, useStyles } from "./paymentsTheme";
+import { theme, useStyles } from "../paymentsTheme";
 import PaymentCard from "../components/paymentCard";
 import CommentCard from "../components/commentCard";
 import NewCommentCard from "../components/newCommentCard";
 import ChequeCard from "../components/chequeCard";
-import NewChequeCard from "../components/newCheque";
+import NewChequeCard from "../components/newChequeCard";
 import PaymentComment from "../components/paymentComment";
 import PaymentComments from "../components/paymentComments";
 
@@ -151,7 +151,7 @@ export default function PaymentDetail() {
                 </Grid>
               </Grid>
             </Container>
-            <Link to={"payments-edit/" + payment.payment._id}>
+            <Link to={"/payments/edit/" + payment.payment._id}>
               <Fab aria-label="edit" style={fabStyle}>
                 <IconButton>
                   <EditIcon />

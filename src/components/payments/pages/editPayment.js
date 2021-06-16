@@ -18,7 +18,7 @@ import PaymentCard from "../components/paymentCard";
 
 import { theme } from "../paymentsTheme";
 
-import PaymentDetail from "../components/paymentDetail";
+import PaymentDetail from "./paymentDetail";
 
 import { CircularProgress, Card, Button } from "@material-ui/core";
 import { CheckBox, CheckBoxOutlineBlank } from "@material-ui/icons";
@@ -35,7 +35,7 @@ import ProfileSearchAutoComplete from "../../rankings/components/profileSearchFi
 
 // const profileId = "60a7f13a8ae2f8ad47c5cd1a";
 
-export default function NewPayment() {
+export default function EditPayment() {
   const classes = useStyles();
   const { paymentID } = useParams();
   const [payment, setPayment] = useState(undefined);

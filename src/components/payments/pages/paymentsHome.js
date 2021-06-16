@@ -24,7 +24,7 @@ import NewPayment from "./newPayment";
 
 const profileId = "60a7f13a8ae2f8ad47c5cd1a";
 
-export default function Payments() {
+export default function PaymentsHome() {
   const [payments, setPayments] = useState([]);
   const classes = useStyles();
 
@@ -75,7 +75,7 @@ export default function Payments() {
               ))}
             </Grid>
           </Container>
-          <Link to={"payments-new"}>
+          <Link to={"payments/new"}>
             <Fab aria-label="add" style={fabStyle}>
               <AddIcon />
             </Fab>

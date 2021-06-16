@@ -146,7 +146,7 @@ const PaymentCard = ({ payment, seeMoreEnabled, allowApproval }) => {
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
-                  <Link to={"payment-detail/" + payment.payment._id}>
+                  <Link to={"payments/" + payment.payment._id}>
                     {seeMoreEnabled && (
                       <Button
                         style={{
@@ -239,7 +239,7 @@ const PaymentCard = ({ payment, seeMoreEnabled, allowApproval }) => {
               {/*Need to get user object here somehow to verify that
                             user.accountType = "NSC_ADMIN"*/}
               {/* {<Grid item xs={2}> 
-                                <Link to={"payments-edit/" + payment.payment._id}>
+                                <Link to={"/payments/edit/" + payment.payment._id}>
                                     <IconButton>
                                         <EditIcon/>
                                     </IconButton>
