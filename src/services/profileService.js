@@ -76,7 +76,9 @@ export async function searchProfiles(query = "", profileType = "") {
 export async function advancedSearchProfiles(
   firstName = "",
   lastName = "",
-  preferredName = ""
+  preferredName = "",
+  sportID = "",
+  profileType = ""
 ) {
   const url = baseUrl + "/advanced-search";
 
@@ -86,6 +88,8 @@ export async function advancedSearchProfiles(
   if (firstName !== "") body.firstName = firstName;
   if (lastName !== "") body.lastName = lastName;
   if (preferredName !== "") body.preferredName = preferredName;
+  if (sportID !== "") body.sport = sportID;
+  if (profileType !== "") body.profileType = profileType;
 
   const config = {
     headers: {
