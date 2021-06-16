@@ -16,7 +16,6 @@ import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 
 const ChequeCard = ({ cheque }) => {
-  console.log(cheque);
   const classes = useStyles();
   const [editingMode, setEditingMode] = useState(false);
 
@@ -31,7 +30,6 @@ const ChequeCard = ({ cheque }) => {
     };
 
     const deletedCheque = await paymentsService.editCheque(body);
-    console.log(deletedCheque.data);
     alert(deletedCheque.data.message);
   };
 
@@ -44,13 +42,11 @@ const ChequeCard = ({ cheque }) => {
 
     const editedCheque = await paymentsService.editCheque(body);
     setEditingMode(!editingMode);
-    console.log(editedCheque.data);
     alert(editedCheque.data.message);
   };
 
   const changeChequeNumber = (event) => {
     setChequeNumber(event.target.value);
-    console.log(chequeNumber);
   };
 
   const editCheque = () => {
@@ -64,7 +60,6 @@ const ChequeCard = ({ cheque }) => {
 
     const collectedCheque = await paymentsService.collectCheque(body);
     setChequeCollected(true);
-    console.log(collectedCheque.data);
     alert(collectedCheque.data.message);
   };
 
