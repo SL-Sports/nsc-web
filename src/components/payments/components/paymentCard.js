@@ -40,7 +40,7 @@ const PaymentCard = ({
   };
   const getFullTime = (unixTime) => {
     let date = moment.unix(unixTime);
-    return moment(date).format("MMMM Do YYYY, h:mm a");
+    return moment(date).format("HH:mm, DD/MM/yyyy");
   };
 
   const stringifyPaymentType = (paymentType) => {

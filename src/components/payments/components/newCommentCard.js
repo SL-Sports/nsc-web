@@ -1,26 +1,36 @@
-import { Grid, Card, IconButton, TextField } from "@material-ui/core";
+import {
+  Grid,
+  Card,
+  IconButton,
+  TextField,
+  CircularProgress,
+} from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
 import { useStyles, theme } from "../paymentsTheme";
 import paymentsService from "../../../services/paymentsService";
 import React, { useState } from "react";
 
-const NewCommentCard = ({ paymentID }) => {
+const NewCommentCard = ({ paymentID, reload }) => {
   const classes = useStyles();
   const [commentText, setCommentText] = useState("");
+  const [saving, setSaving] = useState(false);
 
   const changeComment = (event) => {
     setCommentText(event.target.value);
   };
 
   const sendComment = async () => {
+    setSaving(true);
     const body = {
       text: commentText,
       payment: paymentID,
     };
 
     const newComment = await paymentsService.newComment(body);
+    await reload();
     setCommentText("");
-    alert(newComment.data);
+    setSaving(false);
+    alert(newComment.data.message);
   };
 
   return (
@@ -37,12 +47,17 @@ const NewCommentCard = ({ paymentID }) => {
           />
         </Grid>
         <Grid item xs={2}>
-          <IconButton
-            onClick={sendComment}
-            style={{ color: theme.palette.primary.main }}
-          >
-            <SendIcon />
-          </IconButton>
+          {saving ? (
+            <CircularProgress color="primary"></CircularProgress>
+          ) : (
+            <IconButton
+              onClick={sendComment}
+              style={{ color: theme.palette.primary.main }}
+              disabled={saving}
+            >
+              <SendIcon />
+            </IconButton>
+          )}
         </Grid>
       </Grid>
     </Card>

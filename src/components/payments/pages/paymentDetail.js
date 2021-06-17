@@ -136,7 +136,10 @@ export default function PaymentDetail() {
                         )}
                       </Grid>
                       <Grid item xs={12}>
-                        <NewCommentCard paymentID={payment.payment._id} />
+                        <NewCommentCard
+                          paymentID={payment.payment._id}
+                          reload={getPayments}
+                        />
                       </Grid>
                     </Grid>
                   </Grid>
