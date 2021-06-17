@@ -121,7 +121,7 @@ const editPayment = async (paymentInfo) => {
     id: paymentInfo.paymentID,
     month: paymentInfo.month,
     year: paymentInfo.year,
-    profile: paymentInfo.profile,
+    profile: paymentInfo.profileID,
     amount: paymentInfo.amount,
     paymentType: paymentInfo.paymentType,
     isDeleted: paymentInfo.isDeleted,

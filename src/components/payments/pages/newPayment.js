@@ -12,7 +12,6 @@ import { theme } from "../paymentsTheme";
 
 import { CircularProgress, Button, ThemeProvider } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
-import { useStyles } from "../paymentsTheme";
 
 import NavBar from "../../navbar";
 import ProfileSearchAutoComplete from "../../rankings/components/profileSearchField";

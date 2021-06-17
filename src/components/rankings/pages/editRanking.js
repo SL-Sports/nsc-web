@@ -32,7 +32,7 @@ export default function EditRanking() {
       const rankingRes = await getRankingById(rankingID);
       if (rankingRes.status === 200) {
         if (rankingRes.data.length === 0) {
-          alert("Invalid activity ID. Please try again.");
+          history.replace("/rankings");
         } else {
           setRankingData(rankingRes.data[0]);
           setProfile(rankingRes.data[0].profile);
@@ -42,7 +42,7 @@ export default function EditRanking() {
       }
     };
     getRanking();
-  }, [rankingID]);
+  }, [history, rankingID]);
 
   const save = async () => {
     setSaving(true);
