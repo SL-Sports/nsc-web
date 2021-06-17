@@ -17,7 +17,7 @@ import paymentsService from "../../../services/paymentsService";
 import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 
-const ChequeCard = ({ cheque, reload }) => {
+const ChequeCard = ({ cheque, reload, isNSCAdmin }) => {
   const classes = useStyles();
   const [editingMode, setEditingMode] = useState(false);
 
@@ -104,42 +104,50 @@ const ChequeCard = ({ cheque, reload }) => {
               ></TextField>
             )}
           </Grid>
+
           <Grid item xs={4} sm={2}>
-            <Grid container spacing={1}>
-              <Grid item xs={6}>
-                {!editingMode &&
-                  (deleting ? (
-                    <CircularProgress
-                      style={{ color: "red" }}
-                    ></CircularProgress>
-                  ) : (
+            {isNSCAdmin && (
+              <Grid container spacing={1}>
+                <Grid item xs={6}>
+                  {!editingMode &&
+                    (deleting ? (
+                      <CircularProgress
+                        style={{ color: "red" }}
+                      ></CircularProgress>
+                    ) : (
+                      <IconButton
+                        onClick={deleteCheque}
+                        size="small"
+                        style={{ color: "red" }}
+                      >
+                        <Delete />
+                      </IconButton>
+                    ))}
+                </Grid>
+                <Grid item xs={6}>
+                  {!editingMode && (
                     <IconButton
-                      onClick={deleteCheque}
+                      onClick={editCheque}
                       size="small"
-                      style={{ color: "red" }}
+                      color="primary"
                     >
-                      <Delete />
+                      <EditIcon />
                     </IconButton>
-                  ))}
+                  )}
+                  {editingMode && (
+                    <IconButton
+                      onClick={saveEditedCheque}
+                      size="small"
+                      color="primary"
+                    >
+                      <SendIcon />
+                    </IconButton>
+                  )}
+                </Grid>
               </Grid>
-              <Grid item xs={6}>
-                {!editingMode && (
-                  <IconButton onClick={editCheque} size="small" color="primary">
-                    <EditIcon />
-                  </IconButton>
-                )}
-                {editingMode && (
-                  <IconButton
-                    onClick={saveEditedCheque}
-                    size="small"
-                    color="primary"
-                  >
-                    <SendIcon />
-                  </IconButton>
-                )}
-              </Grid>
-            </Grid>
+            )}
           </Grid>
+
           <Grid item xs={12} sm={6}>
             <Grid container spacing={1} alignItems="center" justify="center">
               <Grid item xs={2}>

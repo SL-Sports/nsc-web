@@ -167,6 +167,7 @@ export default function PaymentDetail() {
                               key={cheque._id}
                               cheque={cheque}
                               reload={getPayments}
+                              isNSCAdmin={accountType === "NSC_ADMIN"}
                             />
                           </Grid>
                         ))
