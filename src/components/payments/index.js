@@ -1,7 +1,7 @@
 import { CssBaseline } from "@material-ui/core";
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
+import PrivateRouter from "../auth/privateRouter";
 import PaymentsHome from "./pages/paymentsHome";
 import PaymentDetail from "./pages/paymentDetail";
 import NewPayment from "./pages/newPayment";
@@ -15,8 +15,20 @@ export default function Payments() {
       <CssBaseline />
       <Switch>
         <Route exact path="/payments" component={PaymentsHome} />
-        <Route exact path="/payments/new" component={NewPayment} />
-        <Route exact path="/payments/edit/:paymentID" component={EditPayment} />
+        <PrivateRouter
+          nscOnly
+          exact
+          path="/payments/new"
+          component={NewPayment}
+          redirectUrl="/payments"
+        />
+        <PrivateRouter
+          nscOnly
+          exact
+          path="/payments/edit/:paymentID"
+          component={EditPayment}
+          redirectUrl="/payments"
+        />
         <Route exact path="/payments/:paymentID" component={PaymentDetail} />
 
         <Route component={Routes} />

@@ -18,7 +18,7 @@ import {
   Fab,
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
-import { blue } from '@material-ui/core/colors';
+import { blue } from "@material-ui/core/colors";
 import COLORS from "../../../colors";
 import { theme, useStyles } from "../paymentsTheme";
 import PaymentCard from "../components/paymentCard";
@@ -60,7 +60,7 @@ export default function PaymentDetail() {
     left: "auto",
     position: "fixed",
     background: theme.palette.secondary.mainGradient,
-    color: "white"
+    color: "white",
   };
 
   const stringifyPaymentType = (paymentType) => {
@@ -159,13 +159,15 @@ export default function PaymentDetail() {
                 </Grid>
               </Grid>
             </Container>
-            {accountType == "NSC_ADMIN" && <Link to={"/payments/edit/" + payment.payment._id}>
-              <Fab aria-label="edit" style={fabStyle}>
-                <IconButton>
-                  <EditIcon style={{color : blue[50]}}/>
-                </IconButton>
-              </Fab>
-            </Link>}
+            {accountType === "NSC_ADMIN" && (
+              <Link to={"/payments/edit/" + payment.payment._id}>
+                <Fab aria-label="edit" style={fabStyle}>
+                  <IconButton>
+                    <EditIcon style={{ color: blue[50] }} />
+                  </IconButton>
+                </Fab>
+              </Link>
+            )}
           </main>
         </CssBaseline>
       </>

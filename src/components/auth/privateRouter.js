@@ -13,6 +13,7 @@ function PrivateRouter(props) {
   const path = props.path;
   const component = props.component;
   const nscOnly = props.nscOnly;
+  const redirectUrl = props.redirectUrl;
 
   useEffect(() => {
     const checkAuthStatus = async () => {
@@ -55,7 +56,11 @@ function PrivateRouter(props) {
         if (isNSCAdmin) {
           return <Route path={path} component={component} />;
         } else {
-          return <Redirect to="/dashboard" />;
+          if (redirectUrl === undefined) {
+            return <Redirect to="/dashboard" />;
+          } else {
+            return <Redirect to={redirectUrl} />;
+          }
         }
       } else {
         return <Route path={path} component={component} />;

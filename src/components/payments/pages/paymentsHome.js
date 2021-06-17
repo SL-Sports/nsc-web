@@ -86,11 +86,13 @@ export default function PaymentsHome() {
                 ))}
               </Grid>
             </Container>
-            {accountType == "NSC_ADMIN" && <Link to={"payments/new"}>
-              <Fab aria-label="add" className={classes.fab}>
-                <AddIcon />
-              </Fab>
-            </Link>}
+            {accountType === "NSC_ADMIN" && (
+              <Link to={"payments/new"}>
+                <Fab aria-label="add" className={classes.fab}>
+                  <AddIcon />
+                </Fab>
+              </Link>
+            )}
           </main>
         </CssBaseline>
       </>
