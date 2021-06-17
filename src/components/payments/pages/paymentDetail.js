@@ -52,17 +52,6 @@ export default function PaymentDetail() {
     getPayments();
   }, []);
 
-  const fabStyle = {
-    margin: 0,
-    top: "auto",
-    right: 20,
-    bottom: 20,
-    left: "auto",
-    position: "fixed",
-    background: theme.palette.secondary.mainGradient,
-    color: "white",
-  };
-
   const stringifyPaymentType = (paymentType) => {
     const stipend = "Monthly Stipend";
     const equipment = "Equipment";
@@ -107,28 +96,30 @@ export default function PaymentDetail() {
           />
 
           <main>
-            <Container style={{ paddingTop: 30 }} maxWidth="lg">
-              <Grid container spacing={2}>
-                <PaymentCard
-                  key={payment.payment._id}
-                  payment={payment}
-                  seeMoreEnabled={false}
-                  allowApproval={true}
-                  accountType={accountType}
-                />
-              </Grid>
-            </Container>
-            <Container style={{ paddingTop: 30 }} maxWidth="lg">
-              <Grid container spacing={2}>
-                <Grid item sm={6}>
+            <Container style={{ paddingTop: 30 }} maxWidth="xl">
+              <Grid
+                container
+                spacing={2}
+                alignItems="flex-start"
+                justify="center"
+              >
+                <Grid item xs={12}>
+                  <PaymentCard
+                    key={payment.payment._id}
+                    payment={payment}
+                    seeMoreEnabled={false}
+                    allowApproval={true}
+                    accountType={accountType}
+                  />
+                </Grid>
+                <Grid item xs={12} md={6} lg={3}>
                   <Typography
-                    align="left"
                     variant="h5"
-                    style={{ paddingLeft: 30 }}
+                    align="left"
+                    style={{ fontWeight: "bolder" }}
                   >
                     Comments
                   </Typography>
-                  {/* <Card className={classes.card}> */}
                   <Card className={classes.card}>
                     {payment.comments.map((comment) => (
                       <Grid item sm={12} style={{ padding: 10 }}>
@@ -136,15 +127,13 @@ export default function PaymentDetail() {
                       </Grid>
                     ))}
                   </Card>
-                  <Grid item sm={12}>
-                    <NewCommentCard paymentID={payment.payment._id} />
-                  </Grid>
+                  <NewCommentCard paymentID={payment.payment._id} />
                 </Grid>
-                <Grid item sm={6}>
+                <Grid item xs={12} md={6} lg={4}>
                   <Typography
-                    align="left"
                     variant="h5"
-                    style={{ paddingLeft: 30 }}
+                    align="left"
+                    style={{ fontWeight: "bolder" }}
                   >
                     Cheques
                   </Typography>
@@ -157,11 +146,20 @@ export default function PaymentDetail() {
                   ))}
                   <NewChequeCard paymentID={payment.payment._id} />
                 </Grid>
+                <Grid item xs={12} md={12} lg={5}>
+                  <Typography
+                    variant="h5"
+                    align="left"
+                    style={{ fontWeight: "bolder" }}
+                  >
+                    {`${payment.payment.profile.preferredName}'s Recent Activity`}
+                  </Typography>
+                </Grid>
               </Grid>
             </Container>
             {accountType === "NSC_ADMIN" && (
               <Link to={"/payments/edit/" + payment.payment._id}>
-                <Fab aria-label="edit" style={fabStyle}>
+                <Fab aria-label="edit" className={classes.fab}>
                   <IconButton>
                     <EditIcon style={{ color: blue[50] }} />
                   </IconButton>
