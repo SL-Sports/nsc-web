@@ -168,7 +168,10 @@ export default function PaymentDetail() {
                         ))
                       )}
                       <Grid item xs={12}>
-                        <NewChequeCard paymentID={payment.payment._id} />
+                        <NewChequeCard
+                          paymentID={payment.payment._id}
+                          reload={getPayments}
+                        />
                       </Grid>
                     </Grid>
                   </Grid>

@@ -30,7 +30,10 @@ const NewCommentCard = ({ paymentID, reload }) => {
     await reload();
     setCommentText("");
     setSaving(false);
-    alert(newComment.data.message);
+
+    if (newComment.status !== 200) {
+      alert(newComment.data.message);
+    }
   };
 
   return (

@@ -1,20 +1,27 @@
-import { Grid, Card, IconButton, TextField } from "@material-ui/core";
+import {
+  Grid,
+  Card,
+  IconButton,
+  TextField,
+  CircularProgress,
+} from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
 import { useStyles } from "../paymentsTheme";
 import paymentsService from "../../../services/paymentsService";
 import React, { useState } from "react";
+import authService from "../../../services/authService";
 
-const profileID = "60ac7adc658e534fb80b9f55";
-
-const NewChequeCard = ({ paymentID }) => {
+const NewChequeCard = ({ paymentID, reload }) => {
   const classes = useStyles();
   const [chequeNum, setChequeNum] = useState("");
-
+  const [saving, setSaving] = useState(false);
   const changeCheque = (event) => {
     setChequeNum(event.target.value);
   };
 
   const sendCheque = async () => {
+    setSaving(true);
+    let profileID = await authService.getProfileID();
     const body = {
       payment: paymentID,
       chequeNumber: chequeNum,
@@ -22,8 +29,12 @@ const NewChequeCard = ({ paymentID }) => {
     };
 
     const newCheque = await paymentsService.newCheque(body);
+    await reload();
+    setSaving(false);
     setChequeNum("");
-    alert(newCheque.data);
+    if (newCheque.status !== 200) {
+      alert(newCheque.data.message);
+    }
   };
 
   return (
@@ -40,9 +51,13 @@ const NewChequeCard = ({ paymentID }) => {
           />
         </Grid>
         <Grid item xs={2} sm={1}>
-          <IconButton onClick={sendCheque}>
-            <SendIcon color="primary" />
-          </IconButton>
+          {saving ? (
+            <CircularProgress color="primary"></CircularProgress>
+          ) : (
+            <IconButton onClick={sendCheque} color="primary" disabled={saving}>
+              <SendIcon />
+            </IconButton>
+          )}
         </Grid>
       </Grid>
     </Card>
