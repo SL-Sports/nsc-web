@@ -24,6 +24,7 @@ const ChequeCard = ({ cheque, reload, isNSCAdmin }) => {
   const [chequeNumber, setChequeNumber] = useState(cheque.chequeNumber);
   const [chequeCollected, setChequeCollected] = useState(cheque.collected);
   const [deleting, setDeleting] = useState(false);
+  const [saving, setSaving] = useState(false);
   const deleteCheque = async () => {
     setDeleting(true);
     const body = {
@@ -41,6 +42,7 @@ const ChequeCard = ({ cheque, reload, isNSCAdmin }) => {
   };
 
   const saveEditedCheque = async () => {
+    setSaving(true);
     const body = {
       id: cheque._id,
       isDeleted: false,
@@ -48,8 +50,14 @@ const ChequeCard = ({ cheque, reload, isNSCAdmin }) => {
     };
 
     const editedCheque = await paymentsService.editCheque(body);
+    await reload();
     setEditingMode(!editingMode);
-    alert(editedCheque.data.message);
+
+    setSaving(false);
+
+    if (editedCheque.status !== 200) {
+      alert(editedCheque.data.message);
+    }
   };
 
   const changeChequeNumber = (event) => {
@@ -101,6 +109,7 @@ const ChequeCard = ({ cheque, reload, isNSCAdmin }) => {
               <TextField
                 onChange={changeChequeNumber}
                 value={chequeNumber}
+                fullWidth
               ></TextField>
             )}
           </Grid>
@@ -134,15 +143,18 @@ const ChequeCard = ({ cheque, reload, isNSCAdmin }) => {
                       <EditIcon />
                     </IconButton>
                   )}
-                  {editingMode && (
-                    <IconButton
-                      onClick={saveEditedCheque}
-                      size="small"
-                      color="primary"
-                    >
-                      <SendIcon />
-                    </IconButton>
-                  )}
+                  {editingMode &&
+                    (saving ? (
+                      <CircularProgress color="primary"></CircularProgress>
+                    ) : (
+                      <IconButton
+                        onClick={saveEditedCheque}
+                        size="small"
+                        color="primary"
+                      >
+                        <SendIcon />
+                      </IconButton>
+                    ))}
                 </Grid>
               </Grid>
             )}
