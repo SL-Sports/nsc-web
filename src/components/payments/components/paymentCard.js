@@ -9,8 +9,12 @@ import authService from "../../../services/authService";
 import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 
-
-const PaymentCard = ({ payment, seeMoreEnabled, allowApproval, accountType }) => {
+const PaymentCard = ({
+  payment,
+  seeMoreEnabled,
+  allowApproval,
+  accountType,
+}) => {
   const classes = useStyles();
 
   const getMonth = (unixTime) => {
@@ -192,21 +196,22 @@ const PaymentCard = ({ payment, seeMoreEnabled, allowApproval, accountType }) =>
                   )}
                 </Link>
                 <Grid item xs={12}>
-                  {accountType == "ASSOC_ADMIN" && allowApproval && 
+                  {accountType === "ASSOCIATION_ADMIN" &&
+                    allowApproval &&
                     !payment.payment.approvedByAssociation && (
-                    <Button
-                      style={{
-                        background: theme.palette.primary.mainGradient,
-                        color: "white",
-                        borderRadius: 20,
-                        fontWeight: "bolder",
-                      }}
-                      fullWidth
-                      onClick={approvePayment}
-                    >
-                      Approve
-                    </Button>
-                  )}
+                      <Button
+                        style={{
+                          background: theme.palette.primary.mainGradient,
+                          color: "white",
+                          borderRadius: 20,
+                          fontWeight: "bolder",
+                        }}
+                        fullWidth
+                        onClick={approvePayment}
+                      >
+                        Approve Payment
+                      </Button>
+                    )}
                 </Grid>
               </Grid>
             </Grid>
