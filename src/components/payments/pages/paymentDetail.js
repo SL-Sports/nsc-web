@@ -127,7 +127,7 @@ export default function PaymentDetail() {
                     Comments
                   </Typography>
                   {/* <Card className={classes.card}> */}
-                  <Card>
+                  <Card className={classes.card}>
                     {payment.comments.map((comment) => (
                       <Grid item sm={12} style={{ padding: 10 }}>
                         <PaymentComment key={comment._id} comment={comment} />
