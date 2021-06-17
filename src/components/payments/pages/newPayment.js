@@ -200,7 +200,7 @@ export default function NewPayment() {
         <NavBar backButtonEnabled title="Edit Payment" />
         <Container style={{ paddingTop: 30 }} maxWidth="lg">
           <Grid container spacing={5}>
-            <Grid item sm={6}>
+            <Grid item xs={12} sm={6}>
               {" "}
               {/* Date/Time Picker */}
               <Card className={classes.card}>
@@ -221,7 +221,7 @@ export default function NewPayment() {
                         </MuiPickersUtilsProvider> */}
               </Card>
             </Grid>
-            <Grid item sm={6}>
+            <Grid item xs={12} sm={6}>
               <Card className={classes.card}>
                 <TextField
                   color="primary"
@@ -241,7 +241,7 @@ export default function NewPayment() {
                 </TextField>
               </Card>
             </Grid>
-            <Grid item sm={4}>
+            <Grid item xs={12} sm={4}>
               <Card className={classes.card}>
                 <TextField
                   color="primary"
@@ -254,7 +254,7 @@ export default function NewPayment() {
                 ></TextField>
               </Card>
             </Grid>
-            <Grid item sm={8}>
+            <Grid item xs={12} sm={8}>
               <Card className={classes.card}>
                 <ProfileSearchAutoComplete
                   onSelect={changeProfileid}
@@ -262,7 +262,7 @@ export default function NewPayment() {
                 />
               </Card>
             </Grid>
-            <Grid item sm={12}>
+            <Grid item xs={12} sm={12}>
               <Button
                 variant="contained"
                 onClick={saveNewPayment}
