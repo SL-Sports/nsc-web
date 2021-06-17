@@ -266,7 +266,12 @@ export default function NewPayment() {
               <Button
                 variant="contained"
                 onClick={saveNewPayment}
-                style={{ background: theme.palette.secondary.mainGradient }}
+                style={{ 
+                  background: theme.palette.primary.mainGradient,
+                  color: "white",
+                  borderRadius: 20,
+                  fontWeight: "bolder", }}
+                fullWidth
               >
                 New Payment
               </Button>

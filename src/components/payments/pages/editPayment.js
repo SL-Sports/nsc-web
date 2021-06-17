@@ -206,7 +206,7 @@ export default function EditPayment() {
               {/* Date/Time Picker */}
               <Card className={classes.card}>
                 {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                            <KeyboardDatePicker
+                            <KeyboardDatePicker  //  This wasn't working
                                 disableToolbar
                                 variant="inline"
                                 format="MM/DD/yyyy"
@@ -267,7 +267,12 @@ export default function EditPayment() {
               <Button
                 variant="contained"
                 onClick={saveEditedPayment}
-                style={{ background: theme.palette.secondary.mainGradient }}
+                style={{ 
+                  background: theme.palette.primary.mainGradient,
+                  color: "white",
+                  borderRadius: 20,
+                  fontWeight: "bolder", }}
+                fullWidth
               >
                 Edit Payment
               </Button>
