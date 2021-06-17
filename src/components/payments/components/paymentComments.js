@@ -6,7 +6,7 @@ const PaymentComments = ({ comments }) => {
   const classes = useStyles();
 
   return (
-    <Card className={classes.commentsCard}>
+    <Card className={classes.card}>
       <Grid container spacing={2} direction="column">
         {comments.map((comment) => (
           <PaymentComment key={comment._id} comment={comment} />

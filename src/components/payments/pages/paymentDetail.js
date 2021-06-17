@@ -88,85 +88,95 @@ export default function PaymentDetail() {
     return (
       <>
         <CssBaseline>
-          <NavBar
-            title={`${payment.payment.profile.preferredName} ${
-              payment.payment.profile.lastName
-            } - ${stringifyPaymentType(payment.payment.paymentType)}`}
-            backButtonEnabled
-          />
+          <ThemeProvider theme={theme}>
+            <NavBar
+              title={`${payment.payment.profile.preferredName} ${
+                payment.payment.profile.lastName
+              } - ${stringifyPaymentType(payment.payment.paymentType)}`}
+              backButtonEnabled
+            />
 
-          <main>
-            <Container style={{ paddingTop: 30 }} maxWidth="xl">
-              <Grid
-                container
-                spacing={2}
-                alignItems="flex-start"
-                justify="center"
-              >
-                <Grid item xs={12}>
-                  <PaymentCard
-                    key={payment.payment._id}
-                    payment={payment}
-                    seeMoreEnabled={false}
-                    allowApproval={true}
-                    accountType={accountType}
-                  />
-                </Grid>
-                <Grid item xs={12} md={6} lg={3}>
-                  <Typography
-                    variant="h5"
-                    align="left"
-                    style={{ fontWeight: "bolder" }}
-                  >
-                    Comments
-                  </Typography>
-                  <Card className={classes.card}>
-                    {payment.comments.map((comment) => (
+            <main>
+              <Container style={{ paddingTop: 30 }} maxWidth="xl">
+                <Grid
+                  container
+                  spacing={3}
+                  alignItems="flex-start"
+                  justify="center"
+                >
+                  <Grid item xs={12}>
+                    <PaymentCard
+                      key={payment.payment._id}
+                      payment={payment}
+                      seeMoreEnabled={false}
+                      allowApproval={true}
+                      accountType={accountType}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={6} lg={3}>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <Typography
+                          variant="h5"
+                          align="left"
+                          style={{ fontWeight: "bolder" }}
+                        >
+                          Comments
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={12}>
+                        {payment.comments.length === 0 ? (
+                          <Typography align="left">
+                            No comments have been added to this payment yet.
+                          </Typography>
+                        ) : (
+                          <PaymentComments comments={payment.comments} />
+                        )}
+                      </Grid>
+                      <Grid item xs={12}>
+                        <NewCommentCard paymentID={payment.payment._id} />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={12} md={6} lg={4}>
+                    <Typography
+                      variant="h5"
+                      align="left"
+                      style={{ fontWeight: "bolder" }}
+                    >
+                      Cheques
+                    </Typography>
+                    {payment.cheques.map((cheque) => (
                       <Grid item sm={12} style={{ padding: 10 }}>
-                        <PaymentComment key={comment._id} comment={comment} />
+                        {!cheque.isDeleted && (
+                          <ChequeCard key={cheque._id} cheque={cheque} />
+                        )}
                       </Grid>
                     ))}
-                  </Card>
-                  <NewCommentCard paymentID={payment.payment._id} />
+                    <NewChequeCard paymentID={payment.payment._id} />
+                  </Grid>
+                  <Grid item xs={12} md={12} lg={5}>
+                    <Typography
+                      variant="h5"
+                      align="left"
+                      style={{ fontWeight: "bolder" }}
+                    >
+                      {`${payment.payment.profile.preferredName}'s Recent Activity`}
+                    </Typography>
+                  </Grid>
                 </Grid>
-                <Grid item xs={12} md={6} lg={4}>
-                  <Typography
-                    variant="h5"
-                    align="left"
-                    style={{ fontWeight: "bolder" }}
-                  >
-                    Cheques
-                  </Typography>
-                  {payment.cheques.map((cheque) => (
-                    <Grid item sm={12} style={{ padding: 10 }}>
-                      {!cheque.isDeleted && (
-                        <ChequeCard key={cheque._id} cheque={cheque} />
-                      )}
-                    </Grid>
-                  ))}
-                  <NewChequeCard paymentID={payment.payment._id} />
-                </Grid>
-                <Grid item xs={12} md={12} lg={5}>
-                  <Typography
-                    variant="h5"
-                    align="left"
-                    style={{ fontWeight: "bolder" }}
-                  >
-                    {`${payment.payment.profile.preferredName}'s Recent Activity`}
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Container>
-            {accountType === "NSC_ADMIN" && (
-              <Link to={"/payments/edit/" + payment.payment._id}>
-                <Fab aria-label="edit" className={classes.fab}>
-                  <IconButton>
-                    <EditIcon style={{ color: blue[50] }} />
-                  </IconButton>
-                </Fab>
-              </Link>
-            )}
-          </main>
+              </Container>
+              {accountType === "NSC_ADMIN" && (
+                <Link to={"/payments/edit/" + payment.payment._id}>
+                  <Fab aria-label="edit" className={classes.fab}>
+                    <IconButton>
+                      <EditIcon style={{ color: "white" }} />
+                    </IconButton>
+                  </Fab>
+                </Link>
+              )}
+            </main>
+          </ThemeProvider>
         </CssBaseline>
       </>
     );

@@ -1,6 +1,6 @@
 import { Grid, Card, IconButton, TextField } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
-import { useStyles } from "../paymentsTheme";
+import { useStyles, theme } from "../paymentsTheme";
 import paymentsService from "../../../services/paymentsService";
 import React, { useState } from "react";
 
@@ -24,35 +24,28 @@ const NewCommentCard = ({ paymentID }) => {
   };
 
   return (
-    <Grid item sm={12}>
-      <Card className={classes.card}>
-        <Grid container spacing={1}>
-          <Grid item sm={10}>
-            <Grid container spacing={1}>
-              <Grid item sm={2}></Grid>
-              <Grid item sm={10} align="left">
-                <TextField
-                  onChange={changeComment}
-                  value={commentText}
-                  label="New Comment"
-                  align="left"
-                  fullWidth={true}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item sm={2}>
-            <Grid container spacing={1}>
-              <Grid item sm={12}>
-                <IconButton onClick={sendComment}>
-                  <SendIcon color="primary" />
-                </IconButton>
-              </Grid>
-            </Grid>
-          </Grid>
+    <Card className={classes.card}>
+      <Grid container spacing={1}>
+        <Grid item xs={10}>
+          <TextField
+            onChange={changeComment}
+            color="secondary"
+            value={commentText}
+            label="New Comment"
+            align="left"
+            fullWidth
+          />
         </Grid>
-      </Card>
-    </Grid>
+        <Grid item xs={2}>
+          <IconButton
+            onClick={sendComment}
+            style={{ color: theme.palette.primary.main }}
+          >
+            <SendIcon />
+          </IconButton>
+        </Grid>
+      </Grid>
+    </Card>
   );
 };
 
