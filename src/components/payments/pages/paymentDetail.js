@@ -167,12 +167,14 @@ export default function PaymentDetail() {
                           </Grid>
                         ))
                       )}
-                      <Grid item xs={12}>
-                        <NewChequeCard
-                          paymentID={payment.payment._id}
-                          reload={getPayments}
-                        />
-                      </Grid>
+                      {accountType === "NSC_ADMIN" && (
+                        <Grid item xs={12}>
+                          <NewChequeCard
+                            paymentID={payment.payment._id}
+                            reload={getPayments}
+                          />
+                        </Grid>
+                      )}
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={12} lg={5}>
