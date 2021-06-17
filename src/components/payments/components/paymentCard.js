@@ -21,6 +21,7 @@ const PaymentCard = ({
   seeMoreEnabled,
   allowApproval,
   accountType,
+  reload,
 }) => {
   const classes = useStyles();
   const [approving, setApproving] = useState(false);
@@ -39,7 +40,7 @@ const PaymentCard = ({
   };
   const getFullTime = (unixTime) => {
     let date = moment.unix(unixTime);
-    return moment(date).format("MMMM Do YYYY, h:mm:ss a");
+    return moment(date).format("MMMM Do YYYY, h:mm a");
   };
 
   const stringifyPaymentType = (paymentType) => {
@@ -64,7 +65,11 @@ const PaymentCard = ({
     };
 
     const approvalRes = await paymentService.approvePayment(approveBody);
-    setApproving(false);
+
+    if (approvalRes.status === 200) {
+      await reload();
+      setApproving(false);
+    }
     alert(approvalRes.data.message);
   };
 
@@ -81,7 +86,7 @@ const PaymentCard = ({
       console.log(payment.payment.approvedByMinistryAt);
       return (
         "Approved by association at " +
-        getFullTime(payment.payment.approvedByMinistryAt)
+        getFullTime(payment.payment.approvedByAssociationAt)
       );
     } else {
       return (

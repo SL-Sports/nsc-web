@@ -37,19 +37,19 @@ export default function PaymentDetail() {
   const [payment, setPayment] = useState(undefined);
   const [accountType, setAccountType] = useState("");
 
-  useEffect(() => {
-    const getPayments = async () => {
-      const paymentRes = await paymentService.getPaymentDetail(paymentID);
-      console.log(paymentRes);
-      if (paymentRes.status === 200) {
-        console.log(paymentRes.data[0]);
-        setPayment(paymentRes.data[0]);
-        console.log(paymentRes.data[0].comments);
-        let accountType = await authService.getAccountType();
-        setAccountType(accountType);
-      }
-    };
+  const getPayments = async () => {
+    const paymentRes = await paymentService.getPaymentDetail(paymentID);
+    console.log(paymentRes);
+    if (paymentRes.status === 200) {
+      console.log(paymentRes.data[0]);
+      setPayment(paymentRes.data[0]);
+      console.log(paymentRes.data[0].comments);
+      let accountType = await authService.getAccountType();
+      setAccountType(accountType);
+    }
+  };
 
+  useEffect(() => {
     getPayments();
   }, []);
 
@@ -112,6 +112,7 @@ export default function PaymentDetail() {
                       seeMoreEnabled={false}
                       allowApproval={true}
                       accountType={accountType}
+                      reload={getPayments}
                     />
                   </Grid>
                   <Grid item xs={12} md={6} lg={3}>
