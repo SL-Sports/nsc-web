@@ -172,8 +172,12 @@ export default function EditPayment() {
       paymentType: paymentType,
       paymentID: paymentID,
     };
+    if (isNaN(amount)){
+      alert("Amount must be a number. Please fix and retry.");
+    } else{
     const saveRes = await paymentService.editPayment(paymentInfo);
-    alert(saveRes.data);
+    alert(saveRes.data.message);
+    };
   };
 
   if (payment === undefined) {
@@ -244,15 +248,27 @@ export default function EditPayment() {
             </Grid>
             <Grid item xs={12} sm={4}>
               <Card className={classes.card}>
-                <TextField
-                  color="primary"
-                  required
-                  id="standard-outlined"
-                  label="Amount"
-                  variant="outlined"
-                  value={amount}
-                  onChange={changeAmount}
-                ></TextField>
+                {!isNaN(amount) ? (<TextField
+                    color="primary"
+                    required
+                    id="standard-outlined"
+                    label="Amount"
+                    variant="outlined"
+                    value={amount}
+                    onChange={changeAmount}
+                  />) : (
+                    <TextField
+                    error
+                    color="primary"
+                    required
+                    id="standard-outlined"
+                    label="Amount"
+                    variant="outlined"
+                    helperText="Numbers only"
+                    value={amount}
+                    onChange={changeAmount}
+                  />
+                  )}
               </Card>
             </Grid>
             <Grid item xs={12} sm={8}>
@@ -274,7 +290,7 @@ export default function EditPayment() {
                   fontWeight: "bolder", }}
                 fullWidth
               >
-                Edit Payment
+                Save Edited Payment
               </Button>
             </Grid>
           </Grid>

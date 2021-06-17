@@ -171,8 +171,12 @@ export default function NewPayment() {
       amount: parseInt(amount),
       paymentType: paymentType,
     };
+    if (isNaN(amount)){
+      alert("Amount must be a number. Please fix and retry.");
+    } else{
     const saveRes = await paymentService.sendNewPayment(paymentInfo);
     alert(saveRes.data);
+  };
   };
 
   if (payment === undefined) {
@@ -243,7 +247,7 @@ export default function NewPayment() {
             </Grid>
             <Grid item xs={12} sm={4}>
               <Card className={classes.card}>
-                <TextField
+                {!isNaN(amount) ? (<TextField
                   color="primary"
                   required
                   id="standard-outlined"
@@ -251,7 +255,19 @@ export default function NewPayment() {
                   variant="outlined"
                   value={amount}
                   onChange={changeAmount}
-                ></TextField>
+                />) : (
+                  <TextField
+                  error
+                  color="primary"
+                  required
+                  id="standard-outlined"
+                  label="Amount"
+                  variant="outlined"
+                  helperText="Numbers only"
+                  value={amount}
+                  onChange={changeAmount}
+                />
+                )}
               </Card>
             </Grid>
             <Grid item xs={12} sm={8}>
@@ -273,7 +289,7 @@ export default function NewPayment() {
                   fontWeight: "bolder", }}
                 fullWidth
               >
-                New Payment
+                Create New Payment
               </Button>
             </Grid>
           </Grid>

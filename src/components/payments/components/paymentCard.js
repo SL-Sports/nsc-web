@@ -5,10 +5,10 @@ import { Link } from "react-router-dom";
 // import Checkbox from "@material-ui/core/Checkbox";
 import { theme, useStyles } from "../paymentsTheme";
 import paymentService from "../../../services/paymentsService";
+import authService from "../../../services/authService";
 import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 
-const jackSmithProfileID = "60ac7adc658e534fb80b9f55";
 
 const PaymentCard = ({ payment, seeMoreEnabled, allowApproval, accountType }) => {
   const classes = useStyles();
@@ -44,9 +44,10 @@ const PaymentCard = ({ payment, seeMoreEnabled, allowApproval, accountType }) =>
   };
 
   const approvePayment = async () => {
+    const profileID = await authService.getProfileID();
     const approveBody = {
       paymentID: payment.payment._id,
-      approvedBy: jackSmithProfileID,
+      approvedBy: profileID,
     };
 
     console.log(approveBody);
