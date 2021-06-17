@@ -139,21 +139,25 @@ export default function PaymentDetail() {
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={6} lg={4}>
-                    <Typography
-                      variant="h5"
-                      align="left"
-                      style={{ fontWeight: "bolder" }}
-                    >
-                      Cheques
-                    </Typography>
-                    {payment.cheques.map((cheque) => (
-                      <Grid item sm={12} style={{ padding: 10 }}>
-                        {!cheque.isDeleted && (
-                          <ChequeCard key={cheque._id} cheque={cheque} />
-                        )}
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <Typography
+                          variant="h5"
+                          align="left"
+                          style={{ fontWeight: "bolder" }}
+                        >
+                          Cheques
+                        </Typography>
                       </Grid>
-                    ))}
-                    <NewChequeCard paymentID={payment.payment._id} />
+                      {payment.cheques.map((cheque) => (
+                        <Grid item xs={12}>
+                          <ChequeCard key={cheque._id} cheque={cheque} />
+                        </Grid>
+                      ))}
+                      <Grid item xs={12}>
+                        <NewChequeCard paymentID={payment.payment._id} />
+                      </Grid>
+                    </Grid>
                   </Grid>
                   <Grid item xs={12} md={12} lg={5}>
                     <Typography

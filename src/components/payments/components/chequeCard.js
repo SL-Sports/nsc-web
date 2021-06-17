@@ -6,7 +6,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
-import ClearIcon from "@material-ui/icons/Clear";
+import Delete from "@material-ui/icons/Delete";
 import SendIcon from "@material-ui/icons/Send";
 import moment from "moment";
 import { CheckBox, CheckBoxOutlineBlank } from "@material-ui/icons";
@@ -73,17 +73,23 @@ const ChequeCard = ({ cheque }) => {
     if (cheque.collected) {
       return "Collected at " + getCollectionTime(cheque.collectedAt);
     } else {
-      return "Not collected yet.";
+      return "Waiting for Collection";
     }
   };
 
   return (
     <Grid item sm={12}>
       <Card className={classes.card}>
-        <Grid container spacing={2}>
-          <Grid item xs={8} sm={6} align="left">
+        <Grid container spacing={2} alignItems="center" justify="center">
+          <Grid item xs={8} sm={10}>
             {!editingMode && (
-              <Typography variant="h5"># {chequeNumber}</Typography>
+              <Typography
+                variant="h5"
+                style={{ fontWeight: "bolder" }}
+                align="left"
+              >
+                # {chequeNumber}
+              </Typography>
             )}
             {editingMode && (
               <TextField
@@ -92,61 +98,75 @@ const ChequeCard = ({ cheque }) => {
               ></TextField>
             )}
           </Grid>
-          <Grid item xs={4} sm={6}>
+          <Grid item xs={4} sm={2}>
             <Grid container spacing={1}>
-              <Grid item xs={0} sm={8}>
-
+              <Grid item xs={6}>
+                <IconButton
+                  onClick={deleteCheque}
+                  size="small"
+                  style={{ color: "red" }}
+                >
+                  <Delete />
+                </IconButton>
               </Grid>
-              <Grid item xs={5} sm={2}>
+              <Grid item xs={6}>
                 {!editingMode && (
-                  <IconButton onClick={editCheque}>
-                    <EditIcon/>
+                  <IconButton onClick={editCheque} size="small" color="primary">
+                    <EditIcon />
                   </IconButton>
                 )}
                 {editingMode && (
-                  <IconButton onClick={saveEditedCheque}>
+                  <IconButton
+                    onClick={saveEditedCheque}
+                    size="small"
+                    color="primary"
+                  >
                     <SendIcon />
                   </IconButton>
                 )}
               </Grid>
-              <Grid item xs={5} sm={2}>
-                <IconButton onClick={deleteCheque}>
-                  <ClearIcon/>
-                </IconButton>
-              </Grid>
             </Grid>
           </Grid>
-          <Grid container spacing={1}>
-            <Grid item sm={2}>
-              {cheque.collected ? (
+          <Grid item xs={12} sm={6}>
+            <Grid container spacing={1} alignItems="center" justify="center">
+              <Grid item xs={2}>
+                {cheque.collected ? (
                   <CheckBox
                     fontSize="large"
                     style={{
-                      width: 25,
-                      height: 25,
-                      float: "left",
+                      width: 30,
+                      height: 30,
                       color: "green",
+                      float: "left",
                     }}
                   />
                 ) : (
                   <CheckBoxOutlineBlank
                     fontSize="large"
                     style={{
-                      width: 25,
-                      height: 25,
-                      float: "left",
+                      width: 30,
+                      height: 30,
                       color: "red",
+                      float: "left",
                     }}
                   />
                 )}
+              </Grid>
+              <Grid item xs={10} sm={10}>
+                <Typography align="justify">
+                  {getChequeCollectionMessage()}
+                </Typography>
+              </Grid>
             </Grid>
-            <Grid item xs = {10} sm={10}>
-              <Typography align="left">
-                {getChequeCollectionMessage()}
-              </Typography>
-            </Grid>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Grid container spacing={1} alignItems="center" justify="center">
               <Grid item xs={2}>
                 <Avatar
+                  style={{
+                    width: 30,
+                    height: 30,
+                  }}
                   alt={
                     cheque.createdBy.preferredName +
                     " " +
@@ -156,15 +176,14 @@ const ChequeCard = ({ cheque }) => {
                 />
               </Grid>
               <Grid item xs={10}>
-                <Typography
-                  align="justify"
-                  style={{ color: "black", fontWeight: "bolder" }}
-                >
+                <Typography align="left">
+                  Created By{" "}
                   {cheque.createdBy.preferredName +
                     " " +
                     cheque.createdBy.lastName}
                 </Typography>
               </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Card>
