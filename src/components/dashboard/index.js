@@ -7,6 +7,7 @@ import {
   CssBaseline,
   ThemeProvider,
   CircularProgress,
+  Button,
 } from "@material-ui/core";
 
 import { getAssociationById } from "../../services/associationService";
@@ -98,7 +99,7 @@ export default function AssociationDashboard() {
               <Grid container spacing={3}>
                 <Grid item lg={9} md={12} xs={12}>
                   <Grid container spacing={2}>
-                    <Grid item xs={12}>
+                    <Grid item xs={7} sm={10}>
                       <Typography
                         variant="h4"
                         align="left"
@@ -106,6 +107,20 @@ export default function AssociationDashboard() {
                       >
                         Payments
                       </Typography>
+                    </Grid>
+                    <Grid item xs={5} sm={2}>
+                      <Button
+                        style={{
+                          background: theme.palette.primary.mainGradient,
+                          color: "white",
+                          borderRadius: 20,
+                          fontWeight: "bolder",
+                        }}
+                        fullWidth
+                        onClick={() => history.push("/payments")}
+                      >
+                        SEE ALL
+                      </Button>
                     </Grid>
                     <Grid item xs={12}>
                       <PaymentsList payments={payments} />
