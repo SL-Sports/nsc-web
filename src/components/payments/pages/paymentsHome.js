@@ -22,6 +22,7 @@ import NavBar from "../../navbar";
 export default function PaymentsHome() {
   const [payments, setPayments] = useState(undefined);
   const [associationName, setAssociationName] = useState("");
+  const [accountType, setAccountType] = useState("");
   const classes = useStyles();
 
   useEffect(() => {
@@ -29,6 +30,8 @@ export default function PaymentsHome() {
       setAssociationName(await authService.getAssociationName());
       let associationID = await authService.getActiveAssociationID();
       const paymentsRes = await paymentService.getPayments(associationID);
+      const accountType = await authService.getAccountType();
+      setAccountType(accountType);
       if (paymentsRes.status === 200) {
         setPayments(paymentsRes.data);
       }
@@ -78,15 +81,16 @@ export default function PaymentsHome() {
                     payment={payment}
                     seeMoreEnabled={true}
                     allowApproval={false}
+                    accountType={accountType}
                   />
                 ))}
               </Grid>
             </Container>
-            <Link to={"payments/new"}>
+            {accountType == "NSC_ADMIN" && <Link to={"payments/new"}>
               <Fab aria-label="add" className={classes.fab}>
                 <AddIcon />
               </Fab>
-            </Link>
+            </Link>}
           </main>
         </CssBaseline>
       </>

@@ -10,7 +10,7 @@ import Avatar from "@material-ui/core/Avatar";
 
 const jackSmithProfileID = "60ac7adc658e534fb80b9f55";
 
-const PaymentCard = ({ payment, seeMoreEnabled, allowApproval }) => {
+const PaymentCard = ({ payment, seeMoreEnabled, allowApproval, accountType }) => {
   const classes = useStyles();
 
   const getMonth = (unixTime) => {
@@ -52,8 +52,8 @@ const PaymentCard = ({ payment, seeMoreEnabled, allowApproval }) => {
     console.log(approveBody);
 
     const approvalRes = await paymentService.approvePayment(approveBody);
-    console.log(approvalRes);
-    alert(approvalRes.data);
+    console.log(approvalRes.data.message);
+    alert(approvalRes.data.message);
   };
 
   const getColor = () => {
@@ -191,10 +191,11 @@ const PaymentCard = ({ payment, seeMoreEnabled, allowApproval }) => {
                   )}
                 </Link>
                 <Grid item xs={12}>
-                  {allowApproval && (
+                  {accountType == "ASSOC_ADMIN" && allowApproval && 
+                    !payment.payment.approvedByAssociation && (
                     <Button
                       style={{
-                        background: theme.palette.secondary.mainGradient,
+                        background: theme.palette.primary.mainGradient,
                         color: "white",
                         borderRadius: 20,
                         fontWeight: "bolder",

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import paymentService from "../../../services/paymentsService";
+import authService from "../../../services/authService";
 import { Add, AddComment, ArrowBack } from "@material-ui/icons";
 import { Link, useParams } from "react-router-dom";
 import {
@@ -32,6 +33,7 @@ export default function PaymentDetail() {
   const classes = useStyles();
   const { paymentID } = useParams();
   const [payment, setPayment] = useState(undefined);
+  const [accountType, setAccountType] = useState("");
 
   useEffect(() => {
     const getPayments = async () => {
@@ -41,6 +43,8 @@ export default function PaymentDetail() {
         console.log(paymentRes.data[0]);
         setPayment(paymentRes.data[0]);
         console.log(paymentRes.data[0].comments);
+        let accountType = await authService.getAccountType();
+        setAccountType(accountType);
       }
     };
 
@@ -108,6 +112,7 @@ export default function PaymentDetail() {
                   payment={payment}
                   seeMoreEnabled={false}
                   allowApproval={true}
+                  accountType={accountType}
                 />
               </Grid>
             </Container>
@@ -150,13 +155,13 @@ export default function PaymentDetail() {
                 </Grid>
               </Grid>
             </Container>
-            <Link to={"/payments/edit/" + payment.payment._id}>
+            {accountType == "NSC_ADMIN" && <Link to={"/payments/edit/" + payment.payment._id}>
               <Fab aria-label="edit" style={fabStyle}>
                 <IconButton>
                   <EditIcon />
                 </IconButton>
               </Fab>
-            </Link>
+            </Link>}
           </main>
         </CssBaseline>
       </>

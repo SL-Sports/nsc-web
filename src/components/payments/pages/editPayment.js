@@ -35,7 +35,6 @@ import {
 import NavBar from "../../navbar";
 import ProfileSearchAutoComplete from "../../rankings/components/profileSearchField";
 
-// const profileId = "60a7f13a8ae2f8ad47c5cd1a";
 
 export default function EditPayment() {
   const classes = useStyles();
@@ -47,7 +46,6 @@ export default function EditPayment() {
   const [paymentType, setPaymentType] = useState("");
   const [amount, setAmount] = useState(0);
   const [isDeleted, setIsDeleted] = useState(false);
-  // const [selectedDate, setSelectedDate] = useState(new Date.now())
 
   useEffect(() => {
     const getPayments = async () => {
@@ -61,16 +59,12 @@ export default function EditPayment() {
         setProfileID(innerPayment.payment.profile._id);
         setPaymentType(innerPayment.payment.paymentType);
         setAmount(innerPayment.payment.amount);
-        // setSelectedDate(Date(innerPayment.payment.month + innerPayment.payment.year));
       }
     };
 
     getPayments();
   }, []);
 
-  // const handleDateChange = (date) => {
-  //     setSelectedDate(date);
-  //   };
 
   const months = [
     {
@@ -282,96 +276,5 @@ export default function EditPayment() {
         </Container>
       </>
     );
-    // <Container style={{ paddingTop: 30 }} maxWidth="lg">
-    //     <Grid container spacing={2}>
-    //         <Grid item sm={12}>
-    //             <Card style={{ background: theme.palette.secondary.mainGradient,height: "100%",}}>
-    //                 <Grid container spacing = {2}>
-    //                     <Grid item sm={6} md={3}>
-    //                         <TextField
-    //                         color="primary"
-    //                         required
-    //                         id="standard-select-month"
-    //                         select
-    //                         label="Month"
-    //                         name="month"
-    //                         autoFocus
-    //                         value={month}
-    //                         helperText="Select the month."
-    //                         onChange={changeMonth}>
-    //                             {months.map((option) => (
-    //                                 <MenuItem key={option.value} value = {option.value}>
-    //                                     {option.label}
-    //                                 </MenuItem>
-    //                             ))}
-    //                         </TextField>
-    //                     </Grid>
-    //                     <Grid item sm={6} md={3}>
-    //                         <TextField
-    //                         color="primary"
-    //                         required
-    //                         id="standard-outlined"
-    //                         label="Year"
-    //                         variant="outlined"
-    //                         value = {year}
-    //                         onChange={changeYear}
-    //                         >
-
-    //                         </TextField>
-    //                     </Grid>
-    //                     <Grid item sm={6} md={3}>
-    //                         <TextField
-    //                         color="primary"
-    //                         required
-    //                         select
-    //                         label="Activity Type"
-    //                         value={paymentType}
-    //                         onChange={changeType}
-    //                         name="paymentType"
-    //                         helperText="Select the payment type.">
-    //                             {paymentTypes.map((option) => (
-    //                                 <MenuItem key={option.value} value = {option.value}>
-    //                                     {option.label}
-    //                                 </MenuItem>
-    //                             ))}
-    //                         </TextField>
-    //                     </Grid>
-    //                     <Grid item sm={6} md={3}>
-    //                         <TextField
-    //                         color="primary"
-    //                         required
-    //                         id="standard-outlined"
-    //                         label="Amount"
-    //                         variant="outlined"
-    //                         value = {amount}
-    //                         onChange={changeAmount}
-    //                         >
-
-    //                         </TextField>
-    //                     </Grid>
-    //                     <Grid item sm={6} md={3}>
-    //                         <CheckBox
-    //                         checked={!isDeleted}
-    //                         color="secondary"
-    //                         onClick={changeDeletionStatus}
-    //                         />
-    //                     </Grid>
-    //                 </Grid>
-    //                 <Grid container spacing={5}>
-    //                     <Grid item sm={12}>
-    //                         <Button
-    //                         variant="contained"
-    //                         color="primary"
-    //                         onClick={saveEditedPayment}>
-    //                             Edit Payment
-    //                         </Button>
-    //                     </Grid>
-    //                 </Grid>
-    //             </Card>
-    //         </Grid>
-    //     </Grid>
-    // </Container> */}
-
-    // );
   }
 }
