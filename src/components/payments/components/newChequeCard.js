@@ -32,6 +32,7 @@ const NewChequeCard = ({ paymentID }) => {
         <Grid item xs={10} sm={11}>
           <TextField
             onChange={changeCheque}
+            color="secondary"
             value={chequeNum}
             label="New Cheque Number"
             align="left"

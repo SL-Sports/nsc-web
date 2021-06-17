@@ -29,59 +29,45 @@ export default function ActivitiesList({ profileId }) {
 
   if (activities === undefined) {
     return (
-      <Container style={{ paddingTop: 30 }} maxWidth="sm">
+      <Grid
+        container
+        spacing={2}
+        alignContent="center"
+        alignItems="center"
+        justify="center"
+      >
         <Grid
           container
-          spacing={2}
-          alignContent="center"
+          spacing={0}
+          direction="column"
           alignItems="center"
           justify="center"
+          style={{ minHeight: "20vh" }}
         >
-          <Grid item xs={12}>
-            <Typography
-              variant="h4"
-              align="left"
-              style={{ fontWeight: "bolder" }}
-            >
-              Activity Journal
-            </Typography>
-          </Grid>
-          <Grid
-            container
-            spacing={0}
-            direction="column"
-            alignItems="center"
-            justify="center"
-            style={{ minHeight: "20vh" }}
-          >
-            <Grid item xs={3}>
-              <CircularProgress
-                style={{ color: theme.palette.primary.main, margin: "auto" }}
-              ></CircularProgress>{" "}
-            </Grid>
+          <Grid item xs={3}>
+            <CircularProgress
+              style={{ color: theme.palette.primary.main, margin: "auto" }}
+            ></CircularProgress>{" "}
           </Grid>
         </Grid>
-      </Container>
+      </Grid>
     );
   } else {
     return (
       <>
-        <Container style={{ paddingTop: 30 }} maxWidth="sm">
-          <Grid container spacing={2}>
+        <Grid container spacing={2}>
+          {activities.length === 0 ? (
             <Grid item xs={12}>
-              <Typography
-                variant="h4"
-                align="left"
-                style={{ fontWeight: "bolder" }}
-              >
-                Activity Journal
+              <Typography align="left">
+                No activity entries have been made yet.
               </Typography>
             </Grid>
-            {activities.map((activity) => (
+          ) : (
+            activities.map((activity) => (
               <Activity key={activity.activity.id} activity={activity} />
-            ))}
-          </Grid>
-        </Container>
+            ))
+          )}
+        </Grid>
       </>
     );
   }

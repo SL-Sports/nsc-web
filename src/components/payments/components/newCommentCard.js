@@ -25,7 +25,7 @@ const NewCommentCard = ({ paymentID }) => {
 
   return (
     <Card className={classes.card}>
-      <Grid container spacing={1}>
+      <Grid container spacing={1} alignItems="flex-end" justify="flex-end">
         <Grid item xs={10}>
           <TextField
             onChange={changeComment}

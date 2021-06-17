@@ -87,7 +87,7 @@ const Activity = ({ activity }) => {
             >
               {activity.activity.description}
             </Typography>
-            <Link to={"/" + activity.activity._id}>
+            <Link to={"/activities/" + activity.activity._id}>
               <Button
                 style={{
                   background: theme.palette.primary.mainGradient,

@@ -29,6 +29,7 @@ import NewChequeCard from "../components/newChequeCard";
 import PaymentComment from "../components/paymentComment";
 import PaymentComments from "../components/paymentComments";
 import NavBar from "../../navbar";
+import ActivitiesList from "../../activities/components/activitiesList";
 
 export default function PaymentDetail() {
   const classes = useStyles();
@@ -149,24 +150,41 @@ export default function PaymentDetail() {
                           Cheques
                         </Typography>
                       </Grid>
-                      {payment.cheques.map((cheque) => (
+                      {payment.comments.length === 0 ? (
                         <Grid item xs={12}>
-                          <ChequeCard key={cheque._id} cheque={cheque} />
+                          <Typography align="left">
+                            No cheques have been generated for this payment yet.
+                          </Typography>
                         </Grid>
-                      ))}
+                      ) : (
+                        payment.cheques.map((cheque) => (
+                          <Grid item xs={12}>
+                            <ChequeCard key={cheque._id} cheque={cheque} />
+                          </Grid>
+                        ))
+                      )}
                       <Grid item xs={12}>
                         <NewChequeCard paymentID={payment.payment._id} />
                       </Grid>
                     </Grid>
                   </Grid>
                   <Grid item xs={12} md={12} lg={5}>
-                    <Typography
-                      variant="h5"
-                      align="left"
-                      style={{ fontWeight: "bolder" }}
-                    >
-                      {`${payment.payment.profile.preferredName}'s Recent Activity`}
-                    </Typography>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <Typography
+                          variant="h5"
+                          align="left"
+                          style={{ fontWeight: "bolder" }}
+                        >
+                          {`${payment.payment.profile.preferredName}'s Recent Activity`}
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <ActivitiesList
+                          profileId={payment.payment.profile._id}
+                        ></ActivitiesList>
+                      </Grid>
+                    </Grid>
                   </Grid>
                 </Grid>
               </Container>
