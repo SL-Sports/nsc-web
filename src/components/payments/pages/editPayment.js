@@ -11,12 +11,11 @@ import {
 
 import { theme } from "../paymentsTheme";
 
-import { CircularProgress, Card, Button } from "@material-ui/core";
+import { CircularProgress, Button } from "@material-ui/core";
 import moment from "moment";
 import { useParams, useHistory } from "react-router-dom";
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
@@ -54,7 +53,7 @@ export default function EditPayment() {
     };
 
     getPayments();
-  }, []);
+  }, [history, paymentID]);
 
   const paymentTypes = [
     {
@@ -74,11 +73,6 @@ export default function EditPayment() {
   const changeType = (event) => {
     setPaymentType(event.target.value);
     console.log(paymentType);
-  };
-
-  const changeAmount = (event) => {
-    setAmount(event.target.value);
-    console.log(amount);
   };
 
   const saveEditedPayment = async () => {

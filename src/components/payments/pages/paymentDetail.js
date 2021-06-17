@@ -1,32 +1,23 @@
 import React, { useState, useEffect } from "react";
 import paymentService from "../../../services/paymentsService";
 import authService from "../../../services/authService";
-import { Add, AddComment, ArrowBack } from "@material-ui/icons";
 import { Link, useParams } from "react-router-dom";
 import {
   CircularProgress,
   CssBaseline,
   Grid,
-  AppBar,
-  Toolbar,
   Typography,
   Container,
-  Card,
-  Button,
   IconButton,
   ThemeProvider,
   Fab,
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
-import { blue } from "@material-ui/core/colors";
-import COLORS from "../../../colors";
 import { theme, useStyles } from "../paymentsTheme";
 import PaymentCard from "../components/paymentCard";
-import CommentCard from "../components/commentCard";
 import NewCommentCard from "../components/newCommentCard";
 import ChequeCard from "../components/chequeCard";
 import NewChequeCard from "../components/newChequeCard";
-import PaymentComment from "../components/paymentComment";
 import PaymentComments from "../components/paymentComments";
 import NavBar from "../../navbar";
 import ActivitiesList from "../../activities/components/activitiesList";

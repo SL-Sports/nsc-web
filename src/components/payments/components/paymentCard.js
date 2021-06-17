@@ -9,7 +9,6 @@ import {
 import { CheckBox, CheckBoxOutlineBlank } from "@material-ui/icons";
 import moment from "moment";
 import { Link } from "react-router-dom";
-// import Checkbox from "@material-ui/core/Checkbox";
 import { theme, useStyles } from "../paymentsTheme";
 import paymentService from "../../../services/paymentsService";
 import authService from "../../../services/authService";
@@ -26,18 +25,6 @@ const PaymentCard = ({
   const classes = useStyles();
   const [approving, setApproving] = useState(false);
 
-  const getMonth = (unixTime) => {
-    let date = moment.unix(unixTime);
-    return moment(date).format("MMM");
-  };
-  const getYear = (unixTime) => {
-    let date = moment.unix(unixTime);
-    return moment(date).format("yyyy");
-  };
-  const getDay = (unixTime) => {
-    let date = moment.unix(unixTime);
-    return moment(date).format("DD");
-  };
   const getFullTime = (unixTime) => {
     let date = moment.unix(unixTime);
     return moment(date).format("HH:mm, DD/MM/yyyy");
@@ -71,14 +58,6 @@ const PaymentCard = ({
       setApproving(false);
     }
     alert(approvalRes.data.message);
-  };
-
-  const getColor = () => {
-    if (payment.payment.approvedByAssociation) {
-      return "green";
-    } else {
-      return "red";
-    }
   };
 
   const getAssociationApprovalText = () => {

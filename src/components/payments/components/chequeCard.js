@@ -11,7 +11,6 @@ import Delete from "@material-ui/icons/Delete";
 import SendIcon from "@material-ui/icons/Send";
 import moment from "moment";
 import { CheckBox, CheckBoxOutlineBlank } from "@material-ui/icons";
-// import Checkbox from "@material-ui/core/Checkbox";
 import { useStyles } from "../paymentsTheme";
 import paymentsService from "../../../services/paymentsService";
 import React, { useState } from "react";
