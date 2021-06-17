@@ -22,9 +22,9 @@ const ChequeCard = ({ cheque, reload, isNSCAdmin }) => {
   const [editingMode, setEditingMode] = useState(false);
 
   const [chequeNumber, setChequeNumber] = useState(cheque.chequeNumber);
-  const [chequeCollected, setChequeCollected] = useState(cheque.collected);
   const [deleting, setDeleting] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [collecting, setCollecting] = useState(false);
   const deleteCheque = async () => {
     setDeleting(true);
     const body = {
@@ -69,25 +69,36 @@ const ChequeCard = ({ cheque, reload, isNSCAdmin }) => {
   };
 
   const collectCheque = async () => {
+    if (!isNSCAdmin) return;
+    setCollecting(true);
     const body = {
       chequeId: cheque._id,
     };
 
     const collectedCheque = await paymentsService.collectCheque(body);
-    setChequeCollected(true);
-    alert(collectedCheque.data.message);
+    await reload();
+
+    setCollecting(false);
+
+    if (collectedCheque.status !== 200) {
+      alert(collectedCheque.data.message);
+    }
   };
 
   const getCollectionTime = (unixTime) => {
     let date = moment.unix(unixTime);
-    return moment(date).format("MMMM Do YYYY h:mm A");
+    return moment(date).format("HH:mm, DD/MM/yyyy");
   };
 
   const getChequeCollectionMessage = () => {
     if (cheque.collected) {
       return "Collected at " + getCollectionTime(cheque.collectedAt);
     } else {
-      return "Waiting for Collection";
+      if (isNSCAdmin) {
+        return "Click to update collection status.";
+      } else {
+        return "Waiting for Collection";
+      }
     }
   };
 
@@ -173,20 +184,28 @@ const ChequeCard = ({ cheque, reload, isNSCAdmin }) => {
                       float: "left",
                     }}
                   />
+                ) : collecting ? (
+                  <CircularProgress color="primary"></CircularProgress>
                 ) : (
-                  <CheckBoxOutlineBlank
-                    fontSize="large"
-                    style={{
-                      width: 30,
-                      height: 30,
-                      color: "red",
-                      float: "left",
-                    }}
-                  />
+                  <IconButton
+                    onClick={collectCheque}
+                    disabled={!isNSCAdmin}
+                    style={{ padding: 0, margin: 0, float: "left" }}
+                  >
+                    <CheckBoxOutlineBlank
+                      fontSize="large"
+                      style={{
+                        width: 30,
+                        height: 30,
+                        color: "red",
+                        float: "left",
+                      }}
+                    />
+                  </IconButton>
                 )}
               </Grid>
               <Grid item xs={10} sm={10}>
-                <Typography align="justify">
+                <Typography align="left" onClick={collectCheque}>
                   {getChequeCollectionMessage()}
                 </Typography>
               </Grid>
