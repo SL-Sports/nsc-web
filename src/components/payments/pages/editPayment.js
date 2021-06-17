@@ -32,6 +32,7 @@ export default function EditPayment() {
   const [paymentType, setPaymentType] = useState("");
   const [amount, setAmount] = useState(undefined);
   const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   const history = useHistory();
 
@@ -91,6 +92,16 @@ export default function EditPayment() {
     setSaving(false);
     alert(saveRes.data.message);
     if (saveRes.status === 200) {
+      history.goBack();
+    }
+  };
+
+  const deletePayment = async () => {
+    setDeleting(true);
+    const deleteRes = await paymentService.deletePayment(paymentID);
+    setDeleting(false);
+    alert(deleteRes.data.message);
+    if (deleteRes.status === 200) {
       history.replace("/payments");
     }
   };
@@ -177,6 +188,33 @@ export default function EditPayment() {
                 defaultProfile={payment.payment.profile}
               />
             </Grid>
+            <Grid item xs={12} md={12} align="left">
+              <Button
+                style={{
+                  background: "red",
+                  color: "white",
+                  borderRadius: 20,
+                  fontWeight: "bolder",
+                  marginTop: 20,
+                  padding: 10,
+                }}
+                onClick={deletePayment}
+                disabled={deleting}
+              >
+                {deleting ? (
+                  <CircularProgress
+                    style={{ color: "white" }}
+                  ></CircularProgress>
+                ) : (
+                  <Typography
+                    variant="subtitle1"
+                    style={{ fontWeight: "bolder" }}
+                  >
+                    DELETE PAYMENT REQUEST
+                  </Typography>
+                )}
+              </Button>
+            </Grid>
             <Grid item xs={12} md={12}>
               <Button
                 style={{
@@ -184,7 +222,7 @@ export default function EditPayment() {
                   color: "white",
                   borderRadius: 20,
                   fontWeight: "bolder",
-                  marginTop: 50,
+                  marginTop: 20,
                   padding: 10,
                 }}
                 fullWidth

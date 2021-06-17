@@ -10,6 +10,7 @@ const getPayments = async (associationID) => {
 
   const body = {
     association: associationID,
+    isDeleted: false,
   };
 
   const config = {
@@ -125,6 +126,40 @@ const editPayment = async (paymentInfo) => {
     amount: paymentInfo.amount,
     paymentType: paymentInfo.paymentType,
     isDeleted: paymentInfo.isDeleted,
+  };
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Token: token,
+    },
+  };
+
+  let result = {};
+
+  let response = await axios.post(url, body, config).catch((err) => {
+    result.status = err.response.status;
+    result.data = err.response.data.message;
+    alert(result.data);
+    return result;
+  });
+  result.status = response.status;
+
+  if (response.status === 200) {
+    result.data = response.data;
+  } else {
+    result.data = response.data.message;
+  }
+  return result;
+};
+
+const deletePayment = async (paymentID) => {
+  let token = await authService.getToken();
+
+  const url = baseUrl + "/edit";
+  const body = {
+    id: paymentID,
+    isDeleted: true,
   };
 
   const config = {
@@ -357,6 +392,7 @@ const functions = {
   editCheque,
   collectCheque,
   newCheque,
+  deletePayment,
 };
 
 export default functions;
