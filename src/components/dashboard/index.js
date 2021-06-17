@@ -11,15 +11,20 @@ import {
 
 import { getAssociationById } from "../../services/associationService";
 import authService from "../../services/authService";
+import paymentsService from "../../services/paymentsService";
 
 import ActivityTypes from "../activities/components/activityTypes";
 import { useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
 
 import NavBar from "../navbar";
+import PaymentsList from "../payments/pages/paymentsList";
+
+const paymentsLength = 3;
 
 export default function AssociationDashboard() {
   const [association, setAssociation] = useState(undefined);
+  const [payments, setPayments] = useState(undefined);
   const history = useHistory();
 
   const getAssociation = async () => {
@@ -34,6 +39,17 @@ export default function AssociationDashboard() {
         } else {
           setAssociation(associationRes.data[0]);
           Cookies.set("associationName", associationRes.data[0].name);
+        }
+      }
+
+      const paymentsRes = await paymentsService.getUnapprovedPayments(
+        activeAssociationID
+      );
+      if (paymentsRes.status === 200) {
+        if (paymentsRes.data.length > paymentsLength) {
+          setPayments(paymentsRes.data.reverse().slice(0, paymentsLength));
+        } else {
+          setPayments(paymentsRes.data.reverse());
         }
       }
     }
@@ -78,19 +94,26 @@ export default function AssociationDashboard() {
           />
 
           <main>
-            <Container style={{ padding: 30 }} maxWidth="lg">
+            <Container style={{ padding: 30 }} maxWidth="xl">
               <Grid container spacing={3}>
-                <Grid item lg={8} md={12} xs={12}>
-                  <Typography
-                    variant="h4"
-                    align="left"
-                    style={{ fontWeight: "bolder" }}
-                  >
-                    Payments
-                  </Typography>
+                <Grid item lg={9} md={12} xs={12}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <Typography
+                        variant="h4"
+                        align="left"
+                        style={{ fontWeight: "bolder" }}
+                      >
+                        Payments
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <PaymentsList payments={payments} />
+                    </Grid>
+                  </Grid>
                 </Grid>
 
-                <Grid item lg={4} md={12} xs={12}>
+                <Grid item lg={3} md={12} xs={12}>
                   <ActivityTypes
                     associationId={association._id}
                   ></ActivityTypes>
