@@ -38,6 +38,42 @@ const getPayments = async (associationID) => {
   return result;
 };
 
+const getUnapprovedPayments = async (associationID) => {
+  let token = await authService.getToken();
+
+  const url = baseUrl + "/get";
+
+  const body = {
+    association: associationID,
+    isDeleted: false,
+    approvedByAssociation: false,
+  };
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Token: token,
+    },
+  };
+
+  let result = {};
+
+  let response = await axios.post(url, body, config).catch((err) => {
+    result.status = err.response.status;
+    result.data = err.response.data.message;
+    alert(result.data);
+    return result;
+  });
+  result.status = response.status;
+
+  if (response.status === 200) {
+    result.data = response.data;
+  } else {
+    result.data = response.data.message;
+  }
+  return result;
+};
+
 const getPaymentDetail = async (paymentID) => {
   let token = await authService.getToken();
   let accountType = await authService.getAccountType();
@@ -393,6 +429,7 @@ const functions = {
   collectCheque,
   newCheque,
   deletePayment,
+  getUnapprovedPayments,
 };
 
 export default functions;

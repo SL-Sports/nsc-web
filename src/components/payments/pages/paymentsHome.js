@@ -18,6 +18,7 @@ import { theme, useStyles } from "../paymentsTheme";
 import { Link } from "react-router-dom";
 
 import NavBar from "../../navbar";
+import PaymentsList from "./paymentsList";
 
 export default function PaymentsHome() {
   const [payments, setPayments] = useState(undefined);
@@ -39,63 +40,28 @@ export default function PaymentsHome() {
     loadData();
   }, []);
 
-  if (payments === undefined) {
-    return (
-      <>
-        <CssBaseline>
-          <main>
-            <Grid
-              container
-              spacing={0}
-              direction="column"
-              alignItems="center"
-              justify="center"
-              style={{ minHeight: "100vh" }}
-            >
-              <Grid item xs={3}>
-                <CircularProgress
-                  style={{ color: theme.palette.primary.main, margin: "auto" }}
-                ></CircularProgress>{" "}
-              </Grid>
-            </Grid>
-          </main>
-        </CssBaseline>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <CssBaseline>
-          <NavBar
-            menuEnabled
-            paymentsSelected
-            title={`Payments - ${associationName}`}
-            profilePicEnabled
-          ></NavBar>
-          <main>
-            <Container style={{ paddingTop: 30 }} maxWidth="md">
-              <Grid container spacing={2}>
-                {payments.map((payment) => (
-                  <PaymentCard
-                    key={payment.payment.id}
-                    payment={payment}
-                    seeMoreEnabled={true}
-                    allowApproval={false}
-                    accountType={accountType}
-                  />
-                ))}
-              </Grid>
-            </Container>
-            {accountType === "NSC_ADMIN" && (
-              <Link to={"payments/new"}>
-                <Fab aria-label="add" className={classes.fab}>
-                  <AddIcon />
-                </Fab>
-              </Link>
-            )}
-          </main>
-        </CssBaseline>
-      </>
-    );
-  }
+  return (
+    <>
+      <CssBaseline>
+        <NavBar
+          menuEnabled
+          paymentsSelected
+          title={`Payments - ${associationName}`}
+          profilePicEnabled
+        ></NavBar>
+        <main>
+          <Container style={{ paddingTop: 30 }} maxWidth="md">
+            <PaymentsList payments={payments} accountType={accountType} />
+          </Container>
+          {accountType === "NSC_ADMIN" && (
+            <Link to={"payments/new"}>
+              <Fab aria-label="add" className={classes.fab}>
+                <AddIcon />
+              </Fab>
+            </Link>
+          )}
+        </main>
+      </CssBaseline>
+    </>
+  );
 }
