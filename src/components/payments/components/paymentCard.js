@@ -1,4 +1,11 @@
-import { Typography, Grid, Card, Button, Hidden } from "@material-ui/core";
+import {
+  Typography,
+  Grid,
+  Card,
+  Button,
+  Hidden,
+  CircularProgress,
+} from "@material-ui/core";
 import { CheckBox, CheckBoxOutlineBlank } from "@material-ui/icons";
 import moment from "moment";
 import { Link } from "react-router-dom";
@@ -6,7 +13,7 @@ import { Link } from "react-router-dom";
 import { theme, useStyles } from "../paymentsTheme";
 import paymentService from "../../../services/paymentsService";
 import authService from "../../../services/authService";
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 
 const PaymentCard = ({
@@ -16,6 +23,7 @@ const PaymentCard = ({
   accountType,
 }) => {
   const classes = useStyles();
+  const [approving, setApproving] = useState(false);
 
   const getMonth = (unixTime) => {
     let date = moment.unix(unixTime);
@@ -48,16 +56,15 @@ const PaymentCard = ({
   };
 
   const approvePayment = async () => {
+    setApproving(true);
     const profileID = await authService.getProfileID();
     const approveBody = {
       paymentID: payment.payment._id,
       approvedBy: profileID,
     };
 
-    console.log(approveBody);
-
     const approvalRes = await paymentService.approvePayment(approveBody);
-    console.log(approvalRes.data.message);
+    setApproving(false);
     alert(approvalRes.data.message);
   };
 
@@ -208,8 +215,20 @@ const PaymentCard = ({
                         }}
                         fullWidth
                         onClick={approvePayment}
+                        disabled={approving}
                       >
-                        Approve Payment
+                        {approving ? (
+                          <CircularProgress
+                            style={{ color: "white" }}
+                          ></CircularProgress>
+                        ) : (
+                          <Typography
+                            variant="subtitle1"
+                            style={{ fontWeight: "bolder" }}
+                          >
+                            APPROVE PAYMENT
+                          </Typography>
+                        )}
                       </Button>
                     )}
                 </Grid>
