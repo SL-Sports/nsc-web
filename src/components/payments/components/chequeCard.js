@@ -4,6 +4,7 @@ import {
   Card,
   IconButton,
   TextField,
+  CircularProgress,
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import Delete from "@material-ui/icons/Delete";
@@ -16,22 +17,27 @@ import paymentsService from "../../../services/paymentsService";
 import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 
-const ChequeCard = ({ cheque }) => {
+const ChequeCard = ({ cheque, reload }) => {
   const classes = useStyles();
   const [editingMode, setEditingMode] = useState(false);
 
   const [chequeNumber, setChequeNumber] = useState(cheque.chequeNumber);
   const [chequeCollected, setChequeCollected] = useState(cheque.collected);
-
+  const [deleting, setDeleting] = useState(false);
   const deleteCheque = async () => {
+    setDeleting(true);
     const body = {
       id: cheque._id,
       isDeleted: true,
-      chequeNumber: cheque.chequeNumber,
     };
 
     const deletedCheque = await paymentsService.editCheque(body);
-    alert(deletedCheque.data.message);
+    await reload();
+    setDeleting(false);
+
+    if (deletedCheque.status !== 200) {
+      alert(deletedCheque.data.message);
+    }
   };
 
   const saveEditedCheque = async () => {
@@ -101,13 +107,20 @@ const ChequeCard = ({ cheque }) => {
           <Grid item xs={4} sm={2}>
             <Grid container spacing={1}>
               <Grid item xs={6}>
-                <IconButton
-                  onClick={deleteCheque}
-                  size="small"
-                  style={{ color: "red" }}
-                >
-                  <Delete />
-                </IconButton>
+                {!editingMode &&
+                  (deleting ? (
+                    <CircularProgress
+                      style={{ color: "red" }}
+                    ></CircularProgress>
+                  ) : (
+                    <IconButton
+                      onClick={deleteCheque}
+                      size="small"
+                      style={{ color: "red" }}
+                    >
+                      <Delete />
+                    </IconButton>
+                  ))}
               </Grid>
               <Grid item xs={6}>
                 {!editingMode && (

@@ -163,7 +163,11 @@ export default function PaymentDetail() {
                       ) : (
                         payment.cheques.map((cheque) => (
                           <Grid item xs={12}>
-                            <ChequeCard key={cheque._id} cheque={cheque} />
+                            <ChequeCard
+                              key={cheque._id}
+                              cheque={cheque}
+                              reload={getPayments}
+                            />
                           </Grid>
                         ))
                       )}
