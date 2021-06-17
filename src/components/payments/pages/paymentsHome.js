@@ -33,7 +33,7 @@ export default function PaymentsHome() {
       const accountType = await authService.getAccountType();
       setAccountType(accountType);
       if (paymentsRes.status === 200) {
-        setPayments(paymentsRes.data);
+        setPayments(paymentsRes.data.reverse());
       }
     };
     loadData();
