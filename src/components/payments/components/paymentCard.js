@@ -110,28 +110,38 @@ const PaymentCard = ({
             <Grid container spacing={2} alignItems="center" justify="center">
               <Hidden xsDown>
                 <Grid item xs={4} md={1} lg={1}>
-                  <Avatar
-                    style={{ width: 50, height: 50 }}
-                    alt={
-                      payment.payment.profile.preferredName +
-                      " " +
-                      payment.payment.profile.lastName
-                    }
-                    src={payment.payment.profile.profilePicUrl}
-                  />
+                  <Link
+                    to={`/profiles/${payment.payment.profile._id}`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <Avatar
+                      style={{ width: 50, height: 50 }}
+                      alt={
+                        payment.payment.profile.preferredName +
+                        " " +
+                        payment.payment.profile.lastName
+                      }
+                      src={payment.payment.profile.profilePicUrl}
+                    />
+                  </Link>
                 </Grid>
               </Hidden>
 
               <Grid item xs={12} md={6} lg={6}>
-                <Typography
-                  align="left"
-                  style={{ fontWeight: "bolder" }}
-                  variant="h5"
+                <Link
+                  to={`/profiles/${payment.payment.profile._id}`}
+                  style={{ textDecoration: "none", color: "black" }}
                 >
-                  {payment.payment.profile.preferredName +
-                    " " +
-                    payment.payment.profile.lastName}
-                </Typography>
+                  <Typography
+                    align="left"
+                    style={{ fontWeight: "bolder" }}
+                    variant="h5"
+                  >
+                    {payment.payment.profile.preferredName +
+                      " " +
+                      payment.payment.profile.lastName}
+                  </Typography>
+                </Link>
               </Grid>
               <Grid item xs={12} md={5} lg={5}>
                 <Typography
