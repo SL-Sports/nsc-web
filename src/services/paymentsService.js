@@ -39,12 +39,17 @@ const getPayments = async (associationID) => {
 
 const getPaymentDetail = async (paymentID) => {
   let token = await authService.getToken();
+  let accountType = await authService.getAccountType();
 
   const url = baseUrl + "/get";
 
-  const body = {
+  let body = {
     _id: paymentID,
   };
+
+  if (accountType === "ASSOCIATION_ADMIN") {
+    body.association = await authService.getActiveAssociationID();
+  }
 
   const config = {
     headers: {
