@@ -5,11 +5,16 @@ const baseUrl = "https://slsports.anuda.me/activity";
 
 const getActivities = async (profileId) => {
   let token = await authService.getToken();
+  let accountType = await authService.getAccountType();
   const url = baseUrl + "/get";
 
   const body = {
     profile: profileId,
   };
+
+  if (accountType === "ASSOCIATION_ADMIN") {
+    body.association = await authService.getActiveAssociationID();
+  }
 
   const config = {
     headers: {
@@ -39,11 +44,15 @@ const getActivities = async (profileId) => {
 
 const getActivityDetail = async (activityId) => {
   let token = await authService.getToken();
+  let accountType = await authService.getAccountType();
   const url = baseUrl + "/get";
-
   const body = {
     _id: activityId,
   };
+
+  if (accountType === "ASSOCIATION_ADMIN") {
+    body.association = await authService.getActiveAssociationID();
+  }
 
   const config = {
     headers: {
