@@ -44,9 +44,6 @@ export default function ProfileView() {
     const profile = profileHeader.profile;
     return (
       <Switch>
-        <Route path="/profiles/edit/:profileID">
-          <EditProfile profile={profile} />
-        </Route>
         <Route path="/profiles/coaches/:profileID">
           <AddCoaches profileHeader={profileHeader} />
         </Route>

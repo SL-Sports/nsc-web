@@ -7,6 +7,7 @@ import ProfilesHome from "./webpages/profilesHome";
 import ProfileView from "./webpages/profileView";
 
 import Routes from "../routes";
+import EditProfile from "./webpages/editProfile";
 
 export default function Profiles() {
   return (
@@ -15,7 +16,7 @@ export default function Profiles() {
       <Switch>
         <Route exact path="/profiles" component={ProfilesHome} />
         <Route exact path="/profiles/new" component={NewProfile} />
-        <Route exact path="/profiles/edit/:profileID" component={ProfileView} />
+        <Route exact path="/profiles/edit/:profileID" component={EditProfile} />
         <Route
           exact
           path="/profiles/coaches/:profileID"
