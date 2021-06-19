@@ -19,7 +19,7 @@ import { useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
 
 import NavBar from "../navbar";
-import PaymentsList from "../payments/pages/paymentsList";
+import PaymentsList from "../payments/components/paymentsList";
 
 const paymentsLength = 3;
 

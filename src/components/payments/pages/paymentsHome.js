@@ -18,7 +18,7 @@ import { theme, useStyles } from "../paymentsTheme";
 import { Link } from "react-router-dom";
 
 import NavBar from "../../navbar";
-import PaymentsList from "./paymentsList";
+import PaymentsList from "../components/paymentsList";
 
 export default function PaymentsHome() {
   const [payments, setPayments] = useState(undefined);

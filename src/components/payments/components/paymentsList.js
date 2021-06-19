@@ -1,7 +1,12 @@
 import React from "react";
-import { CssBaseline, Grid, CircularProgress } from "@material-ui/core";
+import {
+  CssBaseline,
+  Grid,
+  CircularProgress,
+  Typography,
+} from "@material-ui/core";
 
-import PaymentCard from "../components/paymentCard";
+import PaymentCard from "./paymentCard";
 
 import { theme } from "../paymentsTheme";
 
@@ -32,15 +37,21 @@ export default function PaymentsList({ payments, accountType }) {
   } else {
     return (
       <Grid container spacing={2}>
-        {payments.map((payment) => (
-          <PaymentCard
-            key={payment.payment.id}
-            payment={payment}
-            seeMoreEnabled={true}
-            allowApproval={false}
-            accountType={accountType}
-          />
-        ))}
+        {payments.length === 0 ? (
+          <Grid item xs={12}>
+            <Typography>No Payments have been added yet</Typography>
+          </Grid>
+        ) : (
+          payments.map((payment) => (
+            <PaymentCard
+              key={payment.payment.id}
+              payment={payment}
+              seeMoreEnabled={true}
+              allowApproval={false}
+              accountType={accountType}
+            />
+          ))
+        )}
       </Grid>
     );
   }
