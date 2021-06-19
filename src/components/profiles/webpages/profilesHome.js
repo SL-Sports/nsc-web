@@ -5,14 +5,8 @@ import { Add } from "@material-ui/icons";
 import { spacing } from "@material-ui/system";
 import { makeStyles } from "@material-ui/core/styles";
 
-import {
-  // advancedSearchProfiles,
-  searchProfiles,
-} from "../../../services/profileService";
-import {
-  ProfileSearchForm,
-  // ProfileAdvancedSearchForm,
-} from "../components/profileSearchForm";
+import { searchProfiles } from "../../../services/profileService";
+import { ProfileSearchForm } from "../components/profileSearchForm";
 import { ProfileList } from "../components/profileList";
 import { profileTypes } from "../profileTypes";
 import { Link } from "react-router-dom";
@@ -34,31 +28,6 @@ export default function ProfilesHome() {
   // Search form field
   let [query, setQuery] = useState("");
   let [profileTypeField, setProfileTypeField] = useState(profileTypes.ALL);
-  // Form advanced filter fields
-  // let [firstName, setFirstName] = useState("");
-  // let [lastName, setLastName] = useState("");
-  // let fields = [
-  //   { field: "First Name", value: firstName, setter: setFirstName },
-  //   { field: "Last Name", value: lastName, setter: setLastName },
-  // ];
-
-  // eslint-disable-next-line
-  // async function updateProfilesAdvanced() {
-  //   const profilesResponse = await advancedSearchProfiles(firstName, lastName);
-
-  //
-  //   if (profilesResponse.status === 200) {
-  //     // If request is good get profiles
-  //     const profiles = profilesResponse.data;
-
-  //     // Set whole profiles list
-  //     setProfiles(
-  //       profiles.sort((p1, p2) => {
-  //         return p1.profileType.localeCompare(p2.profileType);
-  //       })
-  //     );
-  //   }
-  // }
 
   useEffect(() => {
     async function updateProfiles() {
@@ -97,9 +66,6 @@ export default function ProfilesHome() {
       <Box p={2}>
         <Typography variant="h3">Profiles</Typography>
       </Box>
-      {/* <Box name="profile-advanced-search-form" my={2}>
-        <ProfileAdvancedSearchForm fields={fields} />
-      </Box> */}
       <Box name="profile-search-form" pb={4}>
         <ProfileSearchForm
           field="Search"

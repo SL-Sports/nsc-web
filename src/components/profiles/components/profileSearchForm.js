@@ -64,30 +64,3 @@ export function ProfileSearchForm({
     </form>
   );
 }
-
-export function ProfileAdvancedSearchForm({ fields }) {
-  return (
-    <form>
-      <Grid container alignItems="center" justify="center">
-        <Grid item key="filter-label">
-          <Box mx={1}>
-            <h3>Filter:</h3>
-          </Box>
-        </Grid>
-        {fields.map(({ field, value, setter }) => (
-          <Grid item key={field}>
-            <Box mx={1}>
-              <TextField
-                name={field}
-                label={field}
-                value={value}
-                variant="outlined"
-                onChange={(event) => setter(event.target.value)}
-              />
-            </Box>
-          </Grid>
-        ))}
-      </Grid>
-    </form>
-  );
-}
