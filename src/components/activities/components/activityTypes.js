@@ -144,19 +144,25 @@ export default function ActivityTypes({ associationId }) {
             </Button>
           </Grid>
         )}
-        {activityTypes.map((activityType) => (
+        {activityTypes.length === 0 ? (
           <Grid item xs={12}>
-            <Card className={classes.card} style={{ width: "100%" }}>
-              <Typography
-                variant="h5"
-                style={{ fontWeight: "bolder" }}
-                align="left"
-              >
-                {activityType.activityType}
-              </Typography>
-            </Card>
+            <Typography>No Activity Types have been added yet.</Typography>
           </Grid>
-        ))}
+        ) : (
+          activityTypes.map((activityType) => (
+            <Grid item xs={12}>
+              <Card className={classes.card} style={{ width: "100%" }}>
+                <Typography
+                  variant="h5"
+                  style={{ fontWeight: "bolder" }}
+                  align="left"
+                >
+                  {activityType.activityType}
+                </Typography>
+              </Card>
+            </Grid>
+          ))
+        )}
       </Grid>
     );
   }
