@@ -8,6 +8,7 @@ import ProfileView from "./webpages/profileView";
 
 import Routes from "../routes";
 import EditProfile from "./webpages/editProfile";
+import AddCoaches from "./webpages/addCoaches";
 
 export default function Profiles() {
   return (
@@ -20,7 +21,7 @@ export default function Profiles() {
         <Route
           exact
           path="/profiles/coaches/:profileID"
-          component={ProfileView}
+          component={AddCoaches}
         />
         <Route exact path="/profiles/:profileID" component={ProfileView} />
         <Route component={Routes} />

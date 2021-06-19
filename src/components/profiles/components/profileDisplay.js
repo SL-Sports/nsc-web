@@ -44,7 +44,7 @@ export function ProfileDisplay({ profileHeader }) {
               </Grid>
               {profile.profileType === "ATHLETE" && (
                 <Grid item>
-                  <Link to={profile._id + "/coaches"}>
+                  <Link to={"/profiles/coaches/" + profile._id}>
                     <Add color="primary" fontSize="large" />
                   </Link>
                 </Grid>
