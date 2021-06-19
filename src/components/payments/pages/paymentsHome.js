@@ -1,19 +1,11 @@
 import React, { useState, useEffect } from "react";
 import paymentService from "../../../services/paymentsService";
 import authService from "../../../services/authService";
-import {
-  CssBaseline,
-  Container,
-  Grid,
-  CircularProgress,
-  Fab,
-} from "@material-ui/core";
+import { CssBaseline, Container, Fab } from "@material-ui/core";
 
 import AddIcon from "@material-ui/icons/Add";
 
-import PaymentCard from "../components/paymentCard";
-
-import { theme, useStyles } from "../paymentsTheme";
+import { useStyles } from "../paymentsTheme";
 
 import { Link } from "react-router-dom";
 
