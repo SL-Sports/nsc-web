@@ -158,7 +158,7 @@ function AgeSport({ profile, editLink = false }) {
           <Grid container alignItems="center" justify="flex-end" spacing={1}>
             {editLink && (
               <Grid item>
-                <Link to={profile._id + "/edit"}>
+                <Link to={"/profiles/edit/" + profile._id}>
                   <Tooltip title="Edit">
                     <IconButton size="small">
                       <Edit className={classes.icon} />
@@ -168,7 +168,7 @@ function AgeSport({ profile, editLink = false }) {
               </Grid>
             )}
             <Grid item>
-              <Link to={profile._id}>
+              <Link to={`/profiles/${profile._id}`}>
                 <Tooltip title="See More">
                   <IconButton size="small">
                     <ArrowForwardIos className={classes.icon} />

@@ -31,7 +31,7 @@ export default function NewProfile() {
     createProfile(profile)
       .then((res) => {
         const id = res.data.profileInfo._id;
-        history.push("/" + id);
+        history.replace("/profiles/" + id);
       })
       .catch((err) => console.error(err));
   }

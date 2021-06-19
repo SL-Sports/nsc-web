@@ -44,13 +44,13 @@ export default function ProfileView() {
     const profile = profileHeader.profile;
     return (
       <Switch>
-        <Route path="/:profileID/edit">
+        <Route path="/profiles/edit/:profileID">
           <EditProfile profile={profile} />
         </Route>
-        <Route path="/:profileID/coaches">
+        <Route path="/profiles/coaches/:profileID">
           <AddCoaches profileHeader={profileHeader} />
         </Route>
-        <Route path="/:profileID">
+        <Route path="/profiles/:profileID">
           <ProfileDisplay profileHeader={profileHeader} />
         </Route>
       </Switch>

@@ -81,7 +81,7 @@ export default function ProfilesHome() {
           <ProfileList profiles={profiles} editLinks={true} />
         </Box>
       </Container>
-      <Link to="new">
+      <Link to="/profiles/new">
         <Tooltip title="Create Profile/Invite">
           <Fab color="primary" className={classes.fab}>
             <Add />

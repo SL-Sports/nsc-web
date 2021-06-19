@@ -6,22 +6,24 @@ import NewProfile from "./webpages/newProfile";
 import ProfilesHome from "./webpages/profilesHome";
 import ProfileView from "./webpages/profileView";
 
+import Routes from "../routes";
+
 export default function Profiles() {
   return (
-    <Router basename="profiles/">
+    <Router>
       <CssBaseline />
       <Switch>
-        <Route exact path="/" component={ProfilesHome} />
-        <Route exact path="/new" component={NewProfile} />
-        <Route exact path="/:profileID" component={ProfileView} />
-        <Route exact path="/:profileID/edit" component={ProfileView} />
-        <Route exact path="/:profileID/coaches" component={ProfileView} />
-        <Route component={NoMatch} />
+        <Route exact path="/profiles" component={ProfilesHome} />
+        <Route exact path="/profiles/new" component={NewProfile} />
+        <Route exact path="/profiles/edit/:profileID" component={ProfileView} />
+        <Route
+          exact
+          path="/profiles/coaches/:profileID"
+          component={ProfileView}
+        />
+        <Route exact path="/profiles/:profileID" component={ProfileView} />
+        <Route component={Routes} />
       </Switch>
     </Router>
   );
-}
-
-function NoMatch() {
-  return <h1>404 Page Not Found</h1>;
 }

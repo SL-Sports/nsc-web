@@ -118,7 +118,7 @@ function ProfileDetails({ profile }) {
           <Grid container spacing={2} justify="center">
             <Grid item>
               <Link
-                to={profile._id + "/edit"}
+                to={`/profiles/edit/${profile._id}`}
                 style={{ textDecoration: "none" }}
               >
                 <Button variant="contained" color="secondary">

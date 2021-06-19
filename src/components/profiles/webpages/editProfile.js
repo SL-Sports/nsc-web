@@ -15,7 +15,7 @@ export default function EditProfile({ profile }) {
     editProfile(profile)
       .then((res) => {
         const id = res.data.profileInfo._id;
-        history.push("/" + id);
+        history.replace("/profiles/" + id);
       })
       .catch((err) => console.error(err));
   }
