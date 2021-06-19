@@ -7,7 +7,7 @@ import { spacing } from "@material-ui/system";
 
 import { ProfileForm } from "../components/profileForm";
 import { editProfile } from "../../../services/profileService";
-
+import NavBar from "../../navbar";
 export default function EditProfile({ profile }) {
   const history = useHistory();
 
@@ -22,6 +22,7 @@ export default function EditProfile({ profile }) {
 
   return (
     <>
+      <NavBar backButtonEnabled title="Edit Profile" />
       <Grid container alignItems="center" justify="center">
         <Grid item>
           <Paper style={{ borderRadius: 20 }}>

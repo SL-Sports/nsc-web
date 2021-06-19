@@ -10,7 +10,7 @@ import { ProfileSearchForm } from "../components/profileSearchForm";
 import { ProfileList } from "../components/profileList";
 import { profileTypes } from "../profileTypes";
 import { Link } from "react-router-dom";
-
+import NavBar from "../../navbar/";
 const useStyles = makeStyles((theme) => ({
   fab: {
     position: "fixed",
@@ -63,6 +63,7 @@ export default function ProfilesHome() {
 
   return (
     <>
+      <NavBar profilesSelected title={"Profiles Home"} menuEnabled></NavBar>
       <Box p={2}>
         <Typography variant="h3">Profiles</Typography>
       </Box>

@@ -7,6 +7,7 @@ import { spacing } from "@material-ui/system";
 
 import { getDOB } from "../../../services/dateService";
 import { ProfileList } from "./profileList";
+import NavBar from "../../navbar";
 
 function title(string) {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -15,62 +16,66 @@ function title(string) {
 export function ProfileDisplay({ profileHeader }) {
   const profile = profileHeader.profile;
   return (
-    <Grid
-      container
-      direction="row"
-      align="center"
-      justify="space-around"
-      spacing={2}
-    >
-      <Grid item name="profile-details" xs={12}>
-        <ProfileDetails profile={profile} />
-      </Grid>
-      <Grid item name="coaches-students" xs={12} md={5}>
-        <Box m={3} p={3}>
-          <Grid
-            container
-            direction="row"
-            alignItems="center"
-            justify="space-between"
-          >
-            <Grid item>
-              <Typography variant="h4">
-                {(profile.profileType === "ATHLETE" && "Coaches") || "Students"}
-              </Typography>
-            </Grid>
-            {profile.profileType === "ATHLETE" && (
+    <>
+      <NavBar backButtonEnabled title={`${profile.preferredName}'s Profile`} />
+      <Grid
+        container
+        direction="row"
+        align="center"
+        justify="space-around"
+        spacing={2}
+      >
+        <Grid item name="profile-details" xs={12}>
+          <ProfileDetails profile={profile} />
+        </Grid>
+        <Grid item name="coaches-students" xs={12} md={5}>
+          <Box m={3} p={3}>
+            <Grid
+              container
+              direction="row"
+              alignItems="center"
+              justify="space-between"
+            >
               <Grid item>
-                <Link to={profile._id + "/coaches"}>
-                  <Add color="primary" fontSize="large" />
-                </Link>
+                <Typography variant="h4">
+                  {(profile.profileType === "ATHLETE" && "Coaches") ||
+                    "Students"}
+                </Typography>
               </Grid>
-            )}
-          </Grid>
-        </Box>
-        <CoachesStudentsList profileHeader={profileHeader} />
+              {profile.profileType === "ATHLETE" && (
+                <Grid item>
+                  <Link to={profile._id + "/coaches"}>
+                    <Add color="primary" fontSize="large" />
+                  </Link>
+                </Grid>
+              )}
+            </Grid>
+          </Box>
+          <CoachesStudentsList profileHeader={profileHeader} />
+        </Grid>
+        <Grid item name="rankings" xs={12} md={5}>
+          <Box m={3} p={3}>
+            <Typography variant="h4" align="left">
+              Rankings
+            </Typography>
+          </Box>
+        </Grid>
+        <Grid item name="activities" xs={12} md={5}>
+          <Box m={3} p={3}>
+            <Typography variant="h4" align="left">
+              Activities
+            </Typography>
+          </Box>
+        </Grid>
+        <Grid item name="payments" xs={12} md={5}>
+          <Box m={3} p={3}>
+            <Typography variant="h4" align="left">
+              Payments
+            </Typography>
+          </Box>
+        </Grid>
       </Grid>
-      <Grid item name="rankings" xs={12} md={5}>
-        <Box m={3} p={3}>
-          <Typography variant="h4" align="left">
-            Rankings
-          </Typography>
-        </Box>
-      </Grid>
-      <Grid item name="activities" xs={12} md={5}>
-        <Box m={3} p={3}>
-          <Typography variant="h4" align="left">
-            Activities
-          </Typography>
-        </Box>
-      </Grid>
-      <Grid item name="payments" xs={12} md={5}>
-        <Box m={3} p={3}>
-          <Typography variant="h4" align="left">
-            Payments
-          </Typography>
-        </Box>
-      </Grid>
-    </Grid>
+    </>
   );
 }
 

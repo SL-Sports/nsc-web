@@ -3,7 +3,6 @@ import { Grid, Typography } from "@material-ui/core";
 
 import { advancedSearchProfiles } from "../../../services/profileService";
 import { CoachList, ProfileList } from "../components/profileList";
-
 export default function AddCoaches({ profileHeader }) {
   console.log(profileHeader);
 

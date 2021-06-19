@@ -8,7 +8,6 @@ import { getProfile } from "../../../services/profileService";
 import { ProfileDisplay } from "../components/profileDisplay";
 import EditProfile from "./editProfile";
 import AddCoaches from "./addCoaches";
-
 const status = {
   LOADING: "loading",
   NOTFOUND: "notfound",
