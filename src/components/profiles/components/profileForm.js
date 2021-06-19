@@ -11,8 +11,8 @@ import {
   MenuItem,
   InputLabel,
 } from "@material-ui/core";
-import { getAllSports } from "../../../services/sportService";
-import { getAllAssociations } from "../../../services/associationService";
+import { getSports } from "../../../services/sportService";
+import { getAssociations } from "../../../services/associationService";
 
 export function ProfileForm({ profile, onSubmit }) {
   const profileTypes = [
@@ -58,7 +58,7 @@ export function ProfileForm({ profile, onSubmit }) {
 
   useEffect(() => {
     async function fetchSports() {
-      getAllSports()
+      getSports()
         .then((res) => {
           setSports(res.data);
         })
@@ -66,7 +66,7 @@ export function ProfileForm({ profile, onSubmit }) {
     }
 
     async function fetchAssociations() {
-      getAllAssociations()
+      getAssociations()
         .then((res) => {
           setAssociations(res.data);
         })
