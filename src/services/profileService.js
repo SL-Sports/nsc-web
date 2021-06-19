@@ -1,8 +1,6 @@
 import axios from "axios";
-
+import authService from "./authService";
 const baseUrl = "https://slsports.anuda.me/profile";
-const token =
-  "vgZ4pNvRKHI5bwrjuKWRhE7Bq7HU6s2LwZWL8Ra52xFr7ab0nP1xOEUbEIzNzKFzMxdnJMIzBw85e6eKCbge1CsTDV8ZC33sZ16P5iR0clv2YDupZ4vxjF2uPvx6v7R8";
 
 /**
  * searchProfiles:
@@ -18,6 +16,7 @@ const token =
  *
  */
 export async function searchProfiles(query = "", profileType = "") {
+  let token = await authService.getToken();
   const url = baseUrl + "/search";
 
   let body = {};
@@ -80,6 +79,7 @@ export async function advancedSearchProfiles(
   sportID = "",
   profileType = ""
 ) {
+  let token = await authService.getToken();
   const url = baseUrl + "/advanced-search";
 
   let body = {};
@@ -136,6 +136,7 @@ export async function advancedSearchProfiles(
  *
  */
 export async function getProfile(id) {
+  let token = await authService.getToken();
   const url = baseUrl + "/get";
 
   let body = {};
@@ -188,6 +189,7 @@ export async function getProfile(id) {
  *
  */
 export async function createProfile(profile) {
+  let token = await authService.getToken();
   const url = baseUrl + "/new";
 
   let body = profile;
@@ -237,6 +239,7 @@ export async function createProfile(profile) {
  *
  */
 export async function editProfile(profile) {
+  let token = await authService.getToken();
   const url = baseUrl + "/edit";
 
   let body = profile;
