@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import NewProfile from "./webpages/newProfile";
 import ProfilesHome from "./webpages/profilesHome";
-import ProfileView from "./webpages/profileView";
+import { ProfileDisplay } from "./webpages/profileDisplay";
 
 import Routes from "../routes";
 import EditProfile from "./webpages/editProfile";
@@ -23,7 +23,7 @@ export default function Profiles() {
           path="/profiles/coaches/:profileID"
           component={AddCoaches}
         />
-        <Route exact path="/profiles/:profileID" component={ProfileView} />
+        <Route exact path="/profiles/:profileID" component={ProfileDisplay} />
         <Route component={Routes} />
       </Switch>
     </Router>

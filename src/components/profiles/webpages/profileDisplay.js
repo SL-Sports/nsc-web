@@ -1,82 +1,143 @@
-import React from "react";
-import { Grid, Box, Card, Avatar, Typography, Button } from "@material-ui/core";
+import React, { useState, useEffect } from "react";
+import {
+  Grid,
+  Box,
+  Card,
+  Avatar,
+  Typography,
+  Button,
+  CircularProgress,
+  CssBaseline,
+} from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 // eslint-disable-next-line
-import { spacing } from "@material-ui/system";
 
 import { getDOB } from "../../../services/dateService";
-import { ProfileList } from "./profileList";
+import { ProfileList } from "../components/profileList";
 import NavBar from "../../navbar";
+import { useParams, useHistory } from "react-router-dom";
+import { theme } from "../profilesTheme";
+import { getProfile } from "../../../services/profileService";
 
 function title(string) {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
 
-export function ProfileDisplay({ profileHeader }) {
-  const profile = profileHeader.profile;
-  return (
-    <>
-      <NavBar backButtonEnabled title={`${profile.preferredName}'s Profile`} />
-      <Grid
-        container
-        direction="row"
-        align="center"
-        justify="space-around"
-        spacing={2}
-      >
-        <Grid item name="profile-details" xs={12}>
-          <ProfileDetails profile={profile} />
-        </Grid>
-        <Grid item name="coaches-students" xs={12} md={5}>
-          <Box m={3} p={3}>
+export function ProfileDisplay() {
+  const [profileHeader, setProfileHeader] = useState(undefined);
+  const [profile, setProfile] = useState(undefined);
+  const history = useHistory();
+  const { profileID } = useParams();
+
+  useEffect(() => {
+    async function getProfileData() {
+      const profileResponse = await getProfile(profileID);
+
+      if (profileResponse.status === 200) {
+        // If request is good get profile
+        const profileList = profileResponse.data;
+        setProfile(profileList[0].profile);
+        setProfileHeader(profileList[0]);
+      } else {
+        alert("Profile not found");
+        history.replace("/profiles");
+      }
+    }
+
+    getProfileData();
+  }, [profileID, history, setProfile]);
+
+  if (profile === undefined || profileHeader === undefined) {
+    return (
+      <>
+        <CssBaseline>
+          <main>
             <Grid
               container
-              direction="row"
+              spacing={0}
+              direction="column"
               alignItems="center"
-              justify="space-between"
+              justify="center"
+              style={{ minHeight: "100vh" }}
             >
-              <Grid item>
-                <Typography variant="h4">
-                  {(profile.profileType === "ATHLETE" && "Coaches") ||
-                    "Students"}
-                </Typography>
+              <Grid item xs={3}>
+                <CircularProgress
+                  style={{ color: theme.palette.primary.main, margin: "auto" }}
+                ></CircularProgress>{" "}
               </Grid>
-              {profile.profileType === "ATHLETE" && (
-                <Grid item>
-                  <Link to={"/profiles/coaches/" + profile._id}>
-                    <Add color="primary" fontSize="large" />
-                  </Link>
-                </Grid>
-              )}
             </Grid>
-          </Box>
-          <CoachesStudentsList profileHeader={profileHeader} />
+          </main>
+        </CssBaseline>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <NavBar
+          backButtonEnabled
+          title={`${profile.preferredName}'s Profile`}
+        />
+        <Grid
+          container
+          direction="row"
+          align="center"
+          justify="space-around"
+          spacing={2}
+        >
+          <Grid item name="profile-details" xs={12}>
+            <ProfileDetails profile={profile} />
+          </Grid>
+          <Grid item name="coaches-students" xs={12} md={5}>
+            <Box m={3} p={3}>
+              <Grid
+                container
+                direction="row"
+                alignItems="center"
+                justify="space-between"
+              >
+                <Grid item>
+                  <Typography variant="h4">
+                    {(profile.profileType === "ATHLETE" && "Coaches") ||
+                      "Students"}
+                  </Typography>
+                </Grid>
+                {profile.profileType === "ATHLETE" && (
+                  <Grid item>
+                    <Link to={"/profiles/coaches/" + profile._id}>
+                      <Add color="primary" fontSize="large" />
+                    </Link>
+                  </Grid>
+                )}
+              </Grid>
+            </Box>
+            <CoachesStudentsList profileHeader={profileHeader} />
+          </Grid>
+          <Grid item name="rankings" xs={12} md={5}>
+            <Box m={3} p={3}>
+              <Typography variant="h4" align="left">
+                Rankings
+              </Typography>
+            </Box>
+          </Grid>
+          <Grid item name="activities" xs={12} md={5}>
+            <Box m={3} p={3}>
+              <Typography variant="h4" align="left">
+                Activities
+              </Typography>
+            </Box>
+          </Grid>
+          <Grid item name="payments" xs={12} md={5}>
+            <Box m={3} p={3}>
+              <Typography variant="h4" align="left">
+                Payments
+              </Typography>
+            </Box>
+          </Grid>
         </Grid>
-        <Grid item name="rankings" xs={12} md={5}>
-          <Box m={3} p={3}>
-            <Typography variant="h4" align="left">
-              Rankings
-            </Typography>
-          </Box>
-        </Grid>
-        <Grid item name="activities" xs={12} md={5}>
-          <Box m={3} p={3}>
-            <Typography variant="h4" align="left">
-              Activities
-            </Typography>
-          </Box>
-        </Grid>
-        <Grid item name="payments" xs={12} md={5}>
-          <Box m={3} p={3}>
-            <Typography variant="h4" align="left">
-              Payments
-            </Typography>
-          </Box>
-        </Grid>
-      </Grid>
-    </>
-  );
+      </>
+    );
+  }
 }
 
 function ProfileDetails({ profile }) {
