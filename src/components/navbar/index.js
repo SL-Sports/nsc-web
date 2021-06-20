@@ -14,17 +14,24 @@ export default function NavBar({
   profilesSelected,
   paymentsSelected,
   rankingsSelected,
+  associationNameEnabled,
 }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [profileId, setProfileId] = useState("");
   const [profilePicUrl, setProfilePicUrl] = useState("");
   const [isNSCAdmin, setNSCAdmin] = useState(false);
+  const [navBarTitle, setNavBarTitle] = useState(title);
 
   useEffect(() => {
     const loadData = async () => {
       if (menuEnabled) {
         let accountType = await authService.getAccountType();
         setNSCAdmin(accountType === "NSC_ADMIN");
+      }
+
+      if (associationNameEnabled) {
+        let associationName = await authService.getAssociationName();
+        setNavBarTitle(`${title} - ${associationName}`);
       }
 
       setProfileId(await authService.getProfileID());
@@ -38,7 +45,7 @@ export default function NavBar({
     <ThemeProvider theme={theme}>
       <CssBaseline>
         <Header
-          title={title}
+          title={navBarTitle}
           backButtonEnabled={backButtonEnabled}
           menuEnabled={menuEnabled}
           profileId={profileId}

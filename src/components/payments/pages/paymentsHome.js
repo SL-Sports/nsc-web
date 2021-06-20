@@ -14,13 +14,11 @@ import PaymentsList from "../components/paymentsList";
 
 export default function PaymentsHome() {
   const [payments, setPayments] = useState(undefined);
-  const [associationName, setAssociationName] = useState("");
   const [accountType, setAccountType] = useState("");
   const classes = useStyles();
 
   useEffect(() => {
     const loadData = async () => {
-      setAssociationName(await authService.getAssociationName());
       let associationID = await authService.getActiveAssociationID();
       const paymentsRes = await paymentService.getPayments(associationID);
       const accountType = await authService.getAccountType();
@@ -38,8 +36,9 @@ export default function PaymentsHome() {
         <NavBar
           menuEnabled
           paymentsSelected
-          title={`Payments - ${associationName}`}
+          title={"Payments"}
           profilePicEnabled
+          associationNameEnabled
         ></NavBar>
         <main>
           <Container maxWidth="md">

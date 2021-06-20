@@ -128,7 +128,7 @@ export default function EditPayment() {
   } else {
     return (
       <ThemeProvider theme={theme}>
-        <NavBar backButtonEnabled title="Edit Payment" />
+        <NavBar backButtonEnabled title="Edit Payment" associationNameEnabled />
         <Container maxWidth="lg">
           <Grid container spacing={5}>
             <Grid item xs={12} md={6}>

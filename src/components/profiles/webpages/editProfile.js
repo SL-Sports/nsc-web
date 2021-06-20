@@ -47,7 +47,11 @@ export default function EditProfile() {
     return (
       <>
         <CssBaseline>
-          <NavBar title="Edit Profile" backButtonEnabled />
+          <NavBar
+            title="Edit Profile"
+            backButtonEnabled
+            associationNameEnabled
+          />
 
           <main>
             <Grid
@@ -71,7 +75,7 @@ export default function EditProfile() {
   } else {
     return (
       <>
-        <NavBar backButtonEnabled title="Edit Profile" />
+        <NavBar backButtonEnabled title="Edit Profile" associationNameEnabled />
         <Grid container alignItems="center" justify="center">
           <Grid item>
             <Paper style={{ borderRadius: 20 }}>

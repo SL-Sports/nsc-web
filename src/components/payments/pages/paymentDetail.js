@@ -84,7 +84,7 @@ export default function PaymentDetail() {
             <NavBar
               title={`${payment.payment.profile.preferredName} ${
                 payment.payment.profile.lastName
-              } - ${stringifyPaymentType(payment.payment.paymentType)}`}
+              } - ${stringifyPaymentType(payment.payment.paymentType)} Payment`}
               backButtonEnabled
             />
 

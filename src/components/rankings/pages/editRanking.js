@@ -62,7 +62,11 @@ export default function EditRanking() {
     return (
       <>
         <CssBaseline>
-          <NavBar title="Edit Ranking" backButtonEnabled />
+          <NavBar
+            title="Edit Ranking"
+            backButtonEnabled
+            associationNameEnabled
+          />
 
           <main>
             <Grid
@@ -87,7 +91,11 @@ export default function EditRanking() {
     return (
       <ThemeProvider theme={theme}>
         <CssBaseline>
-          <NavBar title="Edit Ranking" backButtonEnabled />
+          <NavBar
+            title="Edit Ranking"
+            backButtonEnabled
+            associationNameEnabled
+          />
 
           <main>
             <Container maxWidth="md">

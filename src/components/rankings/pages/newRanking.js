@@ -40,7 +40,7 @@ export default function NewRanking() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline>
-        <NavBar title="New Ranking" backButtonEnabled />
+        <NavBar title="New Ranking" backButtonEnabled associationNameEnabled />
         <main>
           <Container maxWidth="md">
             <Grid container spacing={4}>

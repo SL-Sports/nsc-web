@@ -36,7 +36,7 @@ export default function NewProfile() {
 
   return (
     <ThemeProvider theme={theme}>
-      <NavBar backButtonEnabled title="New Profile" />
+      <NavBar backButtonEnabled title="New Profile" associationNameEnabled />
       <Container maxWidth="md">
         {/* <Paper style={{ borderRadius: 20 }}> */}
         <ProfileForm profile={newProfile} onSubmit={onSubmit} />

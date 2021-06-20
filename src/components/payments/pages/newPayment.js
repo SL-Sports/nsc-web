@@ -73,7 +73,7 @@ export default function NewPayment() {
 
   return (
     <ThemeProvider theme={theme}>
-      <NavBar backButtonEnabled title="New Payment" />
+      <NavBar backButtonEnabled title="New Payment" associationNameEnabled />
       <Container maxWidth="lg">
         <Grid container spacing={5}>
           <Grid item xs={12} md={6}>

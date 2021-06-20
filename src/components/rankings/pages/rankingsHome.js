@@ -23,13 +23,10 @@ export default function RankingsHome() {
   const classes = useStyles();
   const [rankings, setRankings] = useState(undefined);
   const [rankingType, setRankingType] = useState(rankingTypes.NATIONAL);
-  const [associationName, setAssociationName] = useState("");
   const loadRankings = async (type) => {
     let associationID = await authService.getActiveAssociationID();
     const rankingsRes = await getRankings(type, associationID);
     if (rankingsRes.status === 200) {
-      setAssociationName(await authService.getAssociationName());
-
       setRankings(rankingsRes.data);
     }
   };
@@ -72,9 +69,10 @@ export default function RankingsHome() {
         <CssBaseline>
           <NavBar
             rankingsSelected
-            title={`Rankings - ${associationName}`}
+            title={"Rankings"}
             profilePicEnabled
             menuEnabled
+            associationNameEnabled
           />
 
           <main>

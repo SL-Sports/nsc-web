@@ -77,6 +77,7 @@ export function ProfileDisplay() {
         <NavBar
           backButtonEnabled
           title={`${profile.preferredName}'s Profile`}
+          associationNameEnabled
         />
         <Grid
           container
