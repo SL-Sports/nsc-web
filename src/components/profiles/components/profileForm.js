@@ -4,7 +4,6 @@ import MomentUtils from "@date-io/moment";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import {
   Button,
-  FormControl,
   Grid,
   TextField,
   Select,
@@ -12,7 +11,6 @@ import {
   InputLabel,
 } from "@material-ui/core";
 import { getSports } from "../../../services/sportService";
-import { getAssociations } from "../../../services/associationService";
 import { theme } from "../profilesTheme";
 
 export function ProfileForm({ profile, onSubmit }) {
@@ -25,11 +23,6 @@ export function ProfileForm({ profile, onSubmit }) {
   const [tempProfile, setTempProfile] = useState(profile);
 
   const [sports, setSports] = useState([]);
-  const [associations, setAssociations] = useState([]);
-
-  const [selectedAssociation, setSelectedAssociation] = useState(
-    (profile.association && profile.association._id) || ""
-  );
   const [selectedSport, setSelectedSport] = useState(
     (profile.sport && profile.sport._id) || ""
   );
@@ -50,7 +43,6 @@ export function ProfileForm({ profile, onSubmit }) {
   function handleSubmit(event) {
     event.preventDefault();
     tempProfile.sport = selectedSport;
-    tempProfile.association = selectedAssociation;
     tempProfile.profileType = selectedProfileType;
     tempProfile.dateOfBirth = selectedDate.unix();
     tempProfile.age = moment().year() - selectedDate.year();
@@ -66,16 +58,7 @@ export function ProfileForm({ profile, onSubmit }) {
         .catch((err) => console.error(err));
     }
 
-    async function fetchAssociations() {
-      getAssociations()
-        .then((res) => {
-          setAssociations(res.data);
-        })
-        .catch((err) => console.error(err));
-    }
-
     fetchSports();
-    fetchAssociations();
   }, []);
 
   return (
@@ -87,6 +70,46 @@ export function ProfileForm({ profile, onSubmit }) {
         spacing={3}
         align="left"
       >
+        <Grid item xs={12}>
+          <InputLabel id="sport-label" required color="secondary">
+            Sport
+          </InputLabel>
+          <Select
+            labelId="sport-label"
+            id="sport"
+            value={selectedSport}
+            onChange={(event) => setSelectedSport(event.target.value)}
+            required
+            fullWidth
+            color="secondary"
+          >
+            {sports.map((sport) => (
+              <MenuItem key={sport._id} value={sport._id}>
+                {sport.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </Grid>
+        <Grid item xs={12}>
+          <InputLabel id="profiletype-label" required color="secondary">
+            Profile Type
+          </InputLabel>
+          <Select
+            labelId="profiletype-label"
+            id="profiletype"
+            value={selectedProfileType}
+            onChange={(event) => setSelectedProfileType(event.target.value)}
+            required
+            fullWidth
+            color="secondary"
+          >
+            {profileTypes.map((type) => (
+              <MenuItem key={type.value} value={type.value}>
+                {type.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </Grid>
         <Grid item xs={12} md={6}>
           <TextField
             name="firstName"
@@ -170,68 +193,7 @@ export function ProfileForm({ profile, onSubmit }) {
         </Grid>
         <Grid item />
 
-        <Grid item xs={12}>
-          <InputLabel id="association-label" required color="secondary">
-            Association
-          </InputLabel>
-          <Select
-            // labelId="association-label"
-            id="association"
-            value={selectedAssociation}
-            onChange={(event) => setSelectedAssociation(event.target.value)}
-            required
-            fullWidth
-            color="secondary"
-          >
-            {associations.map((association) => (
-              <MenuItem key={association._id} value={association._id}>
-                {association.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <InputLabel id="sport-label" required color="secondary">
-            Sport
-          </InputLabel>
-          <Select
-            labelId="sport-label"
-            id="sport"
-            value={selectedSport}
-            onChange={(event) => setSelectedSport(event.target.value)}
-            required
-            fullWidth
-            color="secondary"
-          >
-            {sports.map((sport) => (
-              <MenuItem key={sport._id} value={sport._id}>
-                {sport.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <InputLabel id="profiletype-label" required color="secondary">
-            Profile Type
-          </InputLabel>
-          <Select
-            labelId="profiletype-label"
-            id="profiletype"
-            value={selectedProfileType}
-            onChange={(event) => setSelectedProfileType(event.target.value)}
-            required
-            fullWidth
-            color="secondary"
-          >
-            {profileTypes.map((type) => (
-              <MenuItem key={type.value} value={type.value}>
-                {type.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </Grid>
-        <Grid item></Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} md={12}>
           <Button
             style={{
               background: theme.palette.primary.mainGradient,

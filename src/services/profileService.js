@@ -190,10 +190,11 @@ export async function getProfile(id) {
  */
 export async function createProfile(profile) {
   let token = await authService.getToken();
+  let association = await authService.getActiveAssociationID();
   const url = baseUrl + "/new";
 
   let body = profile;
-
+  body.association = association;
   const config = {
     headers: {
       "Content-Type": "application/json",
