@@ -15,7 +15,7 @@ const baseUrl = "https://slsports.anuda.me/profile";
  *                            the error message
  *
  */
-export async function searchProfiles(query = "", profileType = "") {
+export async function searchProfiles(query = "") {
   let token = await authService.getToken();
   const url = baseUrl + "/search";
 
@@ -23,7 +23,6 @@ export async function searchProfiles(query = "", profileType = "") {
 
   // add keys to body if they have been specified
   body.query = query;
-  if (profileType !== "") body.profileType = profileType;
 
   const config = {
     headers: {

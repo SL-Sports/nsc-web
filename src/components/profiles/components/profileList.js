@@ -5,9 +5,9 @@ import { ProfileCard, CoachCard } from "./profileCard";
 
 export function ProfileList({ profiles, editLinks = false }) {
   return (
-    <Grid container direction="column" spacing={1}>
+    <Grid container spacing={1}>
       {profiles.map((profile) => (
-        <Grid item key={profile._id}>
+        <Grid item xs={12} key={profile._id}>
           <ProfileCard profile={profile} editLink={editLinks} />
         </Grid>
       ))}
@@ -17,9 +17,9 @@ export function ProfileList({ profiles, editLinks = false }) {
 
 export function CoachList({ coaches }) {
   return (
-    <Grid container direction="column" spacing={1}>
+    <Grid container spacing={1}>
       {coaches.map((coach) => (
-        <Grid item key={coach.coachProfile._id}>
+        <Grid item xs={12} key={coach.coachProfile._id}>
           <CoachCard coach={coach} />
         </Grid>
       ))}
