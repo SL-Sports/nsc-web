@@ -23,6 +23,7 @@ export async function searchProfiles(query = "") {
 
   // add keys to body if they have been specified
   body.query = query;
+  body.association = await authService.getActiveAssociationID();
 
   const config = {
     headers: {

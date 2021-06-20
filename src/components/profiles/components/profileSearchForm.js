@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Grid, TextField, Button } from "@material-ui/core";
 
-import { profileTypes } from "../profileTypes";
 import { theme } from "../profilesTheme";
 
 export function ProfileSearchForm({ field, query, setQuery }) {
