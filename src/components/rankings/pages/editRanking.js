@@ -90,7 +90,7 @@ export default function EditRanking() {
           <NavBar title="Edit Ranking" backButtonEnabled />
 
           <main>
-            <Container maxWidth="md" style={{ padding: 20 }}>
+            <Container maxWidth="md">
               <Grid container spacing={4}>
                 <Grid item md={6} xs={12}>
                   <Select

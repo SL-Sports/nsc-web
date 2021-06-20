@@ -89,7 +89,7 @@ export default function PaymentDetail() {
             />
 
             <main>
-              <Container style={{ paddingTop: 30 }} maxWidth="xl">
+              <Container maxWidth="xl">
                 <Grid
                   container
                   spacing={3}

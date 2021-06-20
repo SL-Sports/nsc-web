@@ -74,7 +74,7 @@ export default function NewPayment() {
   return (
     <ThemeProvider theme={theme}>
       <NavBar backButtonEnabled title="New Payment" />
-      <Container style={{ paddingTop: 30 }} maxWidth="lg">
+      <Container maxWidth="lg">
         <Grid container spacing={5}>
           <Grid item xs={12} md={6}>
             {" "}

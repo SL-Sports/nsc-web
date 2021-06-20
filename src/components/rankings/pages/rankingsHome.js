@@ -78,7 +78,7 @@ export default function RankingsHome() {
           />
 
           <main>
-            <Container style={{ padding: 30 }} maxWidth="md">
+            <Container maxWidth="md">
               <Grid container spacing={1}>
                 <Grid item xs={12}>
                   <Select

@@ -42,7 +42,7 @@ export default function PaymentsHome() {
           profilePicEnabled
         ></NavBar>
         <main>
-          <Container style={{ paddingTop: 30 }} maxWidth="md">
+          <Container maxWidth="md">
             <PaymentsList payments={payments} accountType={accountType} />
           </Container>
           {accountType === "NSC_ADMIN" && (

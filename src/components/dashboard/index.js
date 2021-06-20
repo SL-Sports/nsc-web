@@ -95,7 +95,7 @@ export default function AssociationDashboard() {
           />
 
           <main>
-            <Container style={{ padding: 30 }} maxWidth="xl">
+            <Container maxWidth="xl">
               <Grid container spacing={3}>
                 <Grid item lg={9} md={12} xs={12}>
                   <Grid container spacing={2}>

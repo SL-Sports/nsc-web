@@ -42,7 +42,7 @@ export default function NewRanking() {
       <CssBaseline>
         <NavBar title="New Ranking" backButtonEnabled />
         <main>
-          <Container maxWidth="md" style={{ padding: 20 }}>
+          <Container maxWidth="md">
             <Grid container spacing={4}>
               <Grid item md={6} xs={12}>
                 <Select

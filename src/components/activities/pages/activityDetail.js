@@ -145,7 +145,7 @@ export default function ActivityDetail() {
           />
 
           <main>
-            <Container style={{ paddingTop: 30 }} maxWidth="md">
+            <Container maxWidth="md">
               <Grid container direction="column" spacing={2}>
                 <Grid item xs={12}>
                   <CoachApprovalCard

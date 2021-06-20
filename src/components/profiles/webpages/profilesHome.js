@@ -7,9 +7,6 @@ import {
   Grid,
 } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
-// eslint-disable-next-line
-import { spacing } from "@material-ui/system";
-import { makeStyles } from "@material-ui/core/styles";
 
 import { searchProfiles } from "../../../services/profileService";
 import { ProfileSearchForm } from "../components/profileSearchForm";
@@ -51,7 +48,7 @@ export default function ProfilesHome() {
     <ThemeProvider theme={theme}>
       <NavBar profilesSelected title={"Profiles Home"} menuEnabled></NavBar>
 
-      <Container maxWidth="md" style={{ paddingTop: 30 }}>
+      <Container maxWidth="md">
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <ProfileSearchForm

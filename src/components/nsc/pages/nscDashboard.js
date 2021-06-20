@@ -12,7 +12,7 @@ export default function NSCDashboard() {
       <CssBaseline>
         <NavBar title="SL Sports Admin Dashboard" profilePicEnabled />
         <main>
-          <Container style={{ padding: 30 }} maxWidth="lg">
+          <Container maxWidth="lg">
             <Grid container spacing={3}>
               <Grid item lg={8} md={12} xs={12}>
                 <Associations></Associations>

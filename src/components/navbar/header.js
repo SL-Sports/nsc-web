@@ -31,7 +31,10 @@ const Header = ({
 
   return (
     <AppBar
-      style={{ background: theme.palette.primary.mainGradient }}
+      style={{
+        background: theme.palette.primary.mainGradient,
+        marginBottom: 30,
+      }}
       position="relative"
     >
       <Toolbar>
