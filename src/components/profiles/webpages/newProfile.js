@@ -1,10 +1,8 @@
 import React from "react";
-import { Paper, Box, Grid } from "@material-ui/core";
+import { Paper, ThemeProvider, Container } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 
-// eslint-disable-next-line
-import { spacing } from "@material-ui/system";
-
+import { theme } from "../profilesTheme";
 import { ProfileForm } from "../components/profileForm";
 import { createProfile } from "../../../services/profileService";
 import NavBar from "../../navbar";
@@ -37,17 +35,13 @@ export default function NewProfile() {
   }
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <NavBar backButtonEnabled title="New Profile" />
-      <Grid container alignItems="center" justify="center">
-        <Grid item>
-          <Paper style={{ borderRadius: 20 }}>
-            <Box px={5} py={3}>
-              <ProfileForm profile={newProfile} onSubmit={onSubmit} />
-            </Box>
-          </Paper>
-        </Grid>
-      </Grid>
-    </>
+      <Container maxWidth="md">
+        {/* <Paper style={{ borderRadius: 20 }}> */}
+        <ProfileForm profile={newProfile} onSubmit={onSubmit} />
+        {/* </Paper> */}
+      </Container>
+    </ThemeProvider>
   );
 }
