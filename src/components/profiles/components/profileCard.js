@@ -13,8 +13,6 @@ import {
 } from "@material-ui/core";
 import { ArrowForwardIos, Edit } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
-// eslint-disable-next-line
-import { spacing } from "@material-ui/system";
 
 function title(string) {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -55,9 +53,11 @@ const useStyles = makeStyles((theme) => ({
 
 export function ProfileCard({ profile, editLink = false }) {
   const classes = useStyles();
-
   return (
-    <>
+    <Link
+      to={`profiles/${profile._id}`}
+      style={{ textTransform: "none", textDecoration: "none" }}
+    >
       <Card className={classes.root}>
         <CardContent justify="center">
           <Grid container direction="row" justify="space-between" spacing={2}>
@@ -70,7 +70,7 @@ export function ProfileCard({ profile, editLink = false }) {
           </Grid>
         </CardContent>
       </Card>
-    </>
+    </Link>
   );
 }
 
