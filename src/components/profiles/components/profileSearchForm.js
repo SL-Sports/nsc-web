@@ -26,6 +26,7 @@ export function ProfileSearchForm({ field, query, setQuery }) {
             variant="outlined"
             fullWidth
             onChange={(event) => setQueryField(event.target.value)}
+            autoFocus
             color="primary"
           />
         </Grid>

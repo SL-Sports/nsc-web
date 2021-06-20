@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Box, Container, Fab, Tooltip, Grid } from "@material-ui/core";
+import {
+  ThemeProvider,
+  Container,
+  Fab,
+  Tooltip,
+  Grid,
+} from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 // eslint-disable-next-line
 import { spacing } from "@material-ui/system";
@@ -10,7 +16,7 @@ import { ProfileSearchForm } from "../components/profileSearchForm";
 import { ProfileList } from "../components/profileList";
 import { Link } from "react-router-dom";
 import NavBar from "../../navbar/";
-import { useStyles } from "../profilesTheme";
+import { useStyles, theme } from "../profilesTheme";
 
 export default function ProfilesHome() {
   const classes = useStyles();
@@ -42,7 +48,7 @@ export default function ProfilesHome() {
   }, [query]);
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <NavBar profilesSelected title={"Profiles Home"} menuEnabled></NavBar>
 
       <Container maxWidth="md" style={{ paddingTop: 30 }}>
@@ -66,6 +72,6 @@ export default function ProfilesHome() {
           </Fab>
         </Tooltip>
       </Link>
-    </>
+    </ThemeProvider>
   );
 }

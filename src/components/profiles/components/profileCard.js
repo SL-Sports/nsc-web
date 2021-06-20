@@ -61,10 +61,10 @@ export function ProfileCard({ profile, editLink = false }) {
       <Card className={classes.root}>
         <CardContent justify="center">
           <Grid container direction="row" justify="space-between" spacing={2}>
-            <Grid item>
+            <Grid item md={8} xs={12}>
               <AvatarAndName profile={profile} />
             </Grid>
-            <Grid item>
+            <Grid item md={4} xs={12}>
               <AgeSport profile={profile} editLink={editLink} />
             </Grid>
           </Grid>
@@ -114,15 +114,15 @@ function AvatarAndName({ profile }) {
       alignItems="center"
       justify="flex-start"
     >
-      <Grid item>
+      <Grid item xs={12} md={2}>
         <Avatar src={profile.profilePicUrl} className={classes.avatar} />
       </Grid>
-      <Grid item>
+      <Grid item xs={12} md={10}>
         <Typography variant="h6" align="left">
           {profile.preferredName} {profile.lastName}
         </Typography>
         <Typography className={classes.school} align="left">
-          {profile.school}
+          {profile.sport.name} {title(profile.profileType)}
         </Typography>
       </Grid>
     </Grid>
@@ -143,14 +143,14 @@ function AgeSport({ profile, editLink = false }) {
         <Grid item>
           <Box pt={0}>
             <Typography className={classes.age} align="right">
-              {profile.age}
+              Age: {profile.age}
             </Typography>
           </Box>
         </Grid>
         <Grid item>
           <Box pb={1}>
             <Typography className={classes.sport} align="right">
-              {profile.sport.name} {title(profile.profileType)}
+              {profile.school}
             </Typography>
           </Box>
         </Grid>
