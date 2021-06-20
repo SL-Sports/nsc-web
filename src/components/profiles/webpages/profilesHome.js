@@ -14,10 +14,11 @@ import { ProfileList } from "../components/profileList";
 import { Link } from "react-router-dom";
 import NavBar from "../../navbar/";
 import { useStyles, theme } from "../profilesTheme";
+import authService from "../../../services/authService";
 
 export default function ProfilesHome() {
   const classes = useStyles();
-
+  const [associationName, setAssociationName] = useState("");
   // Profile lists
   let [profiles, setProfiles] = useState([]);
 
@@ -27,6 +28,7 @@ export default function ProfilesHome() {
   useEffect(() => {
     async function updateProfiles() {
       const profilesResponse = await searchProfiles(query);
+      setAssociationName(await authService.getAssociationName());
 
       if (profilesResponse.status === 200) {
         // If request is good get profiles
@@ -46,7 +48,11 @@ export default function ProfilesHome() {
 
   return (
     <ThemeProvider theme={theme}>
-      <NavBar profilesSelected title={"Profiles Home"} menuEnabled></NavBar>
+      <NavBar
+        profilesSelected
+        title={`Profiles - ${associationName}`}
+        menuEnabled
+      ></NavBar>
 
       <Container maxWidth="md">
         <Grid container spacing={2}>

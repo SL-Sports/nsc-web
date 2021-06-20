@@ -14,6 +14,7 @@ import {
 import { getSports } from "../../../services/sportService";
 import { getAssociations } from "../../../services/associationService";
 import { theme } from "../profilesTheme";
+
 export function ProfileForm({ profile, onSubmit }) {
   const profileTypes = [
     { value: "ADMIN", name: "Admin" },
