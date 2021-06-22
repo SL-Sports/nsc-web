@@ -11,6 +11,8 @@ import {
   List,
   ListItemAvatar,
   ListItemText,
+  Fab,
+  IconButton,
 } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import { Link } from "react-router-dom";
@@ -27,6 +29,7 @@ import {
   PermContactCalendar,
   School,
   Room,
+  Edit as EditIcon,
 } from "@material-ui/icons";
 
 function title(string) {
@@ -113,7 +116,10 @@ export function ProfileDisplay() {
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <Typography variant="h4" style={{ fontWeight: "bolder" }}>
+                    <Typography
+                      variant="h4"
+                      style={{ fontWeight: "bolder", margin: "auto" }}
+                    >
                       {profile.preferredName} {profile.lastName}
                     </Typography>
                     <Typography variant="subtitle1">
@@ -295,6 +301,13 @@ export function ProfileDisplay() {
             </Grid>
           </Grid>
         </Container>
+        <Link to={"/profiles/edit/" + profile._id}>
+          <Fab aria-label="edit" className={classes.fab}>
+            <IconButton>
+              <EditIcon style={{ color: "white" }} />
+            </IconButton>
+          </Fab>
+        </Link>
       </>
     );
   }
