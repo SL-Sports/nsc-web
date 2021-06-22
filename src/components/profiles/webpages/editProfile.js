@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
-  Paper,
-  Box,
+  Container,
   Grid,
   CircularProgress,
   CssBaseline,
@@ -17,6 +16,7 @@ export default function EditProfile() {
   const history = useHistory();
   const [profile, setProfile] = useState(undefined);
   const { profileID } = useParams();
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     async function getProfileData() {
@@ -38,10 +38,14 @@ export default function EditProfile() {
   function onSubmit(profile) {
     editProfile(profile)
       .then((res) => {
+        setSaving(false);
         const id = res.data.profileInfo._id;
         history.replace("/profiles/" + id);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        setSaving(false);
+        console.error(err);
+      });
   }
   if (profile === undefined) {
     return (
@@ -76,15 +80,14 @@ export default function EditProfile() {
     return (
       <>
         <NavBar backButtonEnabled title="Edit Profile" associationNameEnabled />
-        <Grid container alignItems="center" justify="center">
-          <Grid item>
-            <Paper style={{ borderRadius: 20 }}>
-              <Box px={5} py={3}>
-                <ProfileForm profile={profile} onSubmit={onSubmit} />
-              </Box>
-            </Paper>
-          </Grid>
-        </Grid>
+        <Container maxWidth="md">
+          <ProfileForm
+            profile={profile}
+            onSubmit={onSubmit}
+            saving={saving}
+            setSaving={setSaving}
+          />
+        </Container>
       </>
     );
   }
