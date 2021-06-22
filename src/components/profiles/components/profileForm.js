@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core";
 import { getSports } from "../../../services/sportService";
 import { theme } from "../profilesTheme";
+import { upload } from "../../../services/profileService";
 
 export function ProfileForm({ profile, onSubmit, saving, setSaving }) {
   const profileTypes = [
@@ -47,6 +48,12 @@ export function ProfileForm({ profile, onSubmit, saving, setSaving }) {
     event.preventDefault();
     setSaving(true);
     if (profile !== undefined) {
+      let uploadRes = await upload(profilePic);
+      if (uploadRes.status === 200) {
+        tempProfile.profilePicUrl = uploadRes.data;
+      } else {
+        alert(tempProfile.data);
+      }
     }
 
     tempProfile.sport = selectedSport;
@@ -213,7 +220,7 @@ export function ProfileForm({ profile, onSubmit, saving, setSaving }) {
             disabled={saving}
             inputProps={{ accept: "image/*" }}
             style={{ width: "100%", height: "100%" }}
-            // onChange={(e) => setUploadFile(e.target.files[0])}
+            onChange={(e) => setProfilePic(e.target.files[0])}
           />
         </Grid>
 

@@ -278,7 +278,7 @@ export async function editProfile(profile) {
   return result;
 }
 
-export async function upload(file, mediaType) {
+export async function upload(file) {
   let token = await authService.getToken();
   const formData = new FormData();
 
