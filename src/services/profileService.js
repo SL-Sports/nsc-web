@@ -1,7 +1,6 @@
 import axios from "axios";
 import authService from "./authService";
 const baseUrl = "https://slsports.anuda.me/profile";
-const mediaUploadKey = "60b3a9723cda0a622b92c9b0";
 
 /**
  * searchProfiles:

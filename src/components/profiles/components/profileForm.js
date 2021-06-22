@@ -213,10 +213,9 @@ export function ProfileForm({ profile, onSubmit, saving, setSaving }) {
           </InputLabel>
           <Input
             type="file"
-            color="primary"
+            color="secondary"
             id="image"
             labelId="pic-label"
-            color="secondary"
             disabled={saving}
             inputProps={{ accept: "image/*" }}
             style={{ width: "100%", height: "100%" }}
