@@ -10,11 +10,12 @@ import {
   MenuItem,
   InputLabel,
   CircularProgress,
+  Input,
 } from "@material-ui/core";
 import { getSports } from "../../../services/sportService";
 import { theme } from "../profilesTheme";
 
-export function ProfileForm({ profile, onSubmit, saving }) {
+export function ProfileForm({ profile, onSubmit, saving, setSaving }) {
   const profileTypes = [
     { value: "ADMIN", name: "Admin" },
     { value: "COACH", name: "Coach" },
@@ -22,6 +23,7 @@ export function ProfileForm({ profile, onSubmit, saving }) {
   ];
 
   const [tempProfile, setTempProfile] = useState(profile);
+  const [profilePic, setProfilePic] = useState(undefined);
 
   const [sports, setSports] = useState([]);
   const [selectedSport, setSelectedSport] = useState(
@@ -41,8 +43,12 @@ export function ProfileForm({ profile, onSubmit, saving }) {
     });
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
+    setSaving(true);
+    if (profile !== undefined) {
+    }
+
     tempProfile.sport = selectedSport;
     tempProfile.profileType = selectedProfileType;
     tempProfile.dateOfBirth = selectedDate.unix();
@@ -193,6 +199,23 @@ export function ProfileForm({ profile, onSubmit, saving }) {
           />
         </Grid>
         <Grid item />
+
+        <Grid item xs={12}>
+          <InputLabel id="pic-label" color="secondary">
+            Profile Picture
+          </InputLabel>
+          <Input
+            type="file"
+            color="primary"
+            id="image"
+            labelId="pic-label"
+            color="secondary"
+            disabled={saving}
+            inputProps={{ accept: "image/*" }}
+            style={{ width: "100%", height: "100%" }}
+            // onChange={(e) => setUploadFile(e.target.files[0])}
+          />
+        </Grid>
 
         <Grid item xs={12} md={12}>
           <Button

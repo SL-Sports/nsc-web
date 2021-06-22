@@ -1,6 +1,7 @@
 import axios from "axios";
 import authService from "./authService";
 const baseUrl = "https://slsports.anuda.me/profile";
+const mediaUploadKey = "60b3a9723cda0a622b92c9b0";
 
 /**
  * searchProfiles:
@@ -274,5 +275,42 @@ export async function editProfile(profile) {
       // return result;
     });
 
+  return result;
+}
+
+export async function upload(file, mediaType) {
+  let token = await authService.getToken();
+  const formData = new FormData();
+
+  formData.append("media", file);
+
+  const url = baseUrl + "/media/upload";
+
+  const config = {
+    headers: {
+      Token: token,
+    },
+    maxContentLength: Infinity,
+    maxBodyLength: Infinity,
+  };
+
+  let result = {};
+
+  await axios
+    .post(url, formData, config)
+    .then((response) => {
+      result.status = response.status;
+      result.data = response.data.filePath;
+    })
+    .catch((err) => {
+      console.log(err);
+      result.status = err.response.status;
+      if (err.response.data.message !== undefined) {
+        result.data = err.response.data.message;
+      } else {
+        result.data =
+          "We encountered an error while uploading your media. Please try again.";
+      }
+    });
   return result;
 }

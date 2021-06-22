@@ -27,7 +27,6 @@ export default function NewProfile() {
   };
 
   function onSubmit(profile) {
-    setSaving(true);
     createProfile(profile)
       .then((res) => {
         setSaving(false);
@@ -44,9 +43,12 @@ export default function NewProfile() {
     <ThemeProvider theme={theme}>
       <NavBar backButtonEnabled title="New Profile" associationNameEnabled />
       <Container maxWidth="md">
-        {/* <Paper style={{ borderRadius: 20 }}> */}
-        <ProfileForm profile={newProfile} onSubmit={onSubmit} saving={saving} />
-        {/* </Paper> */}
+        <ProfileForm
+          profile={newProfile}
+          onSubmit={onSubmit}
+          saving={saving}
+          setSaving={setSaving}
+        />
       </Container>
     </ThemeProvider>
   );
