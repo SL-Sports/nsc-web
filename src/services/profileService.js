@@ -284,7 +284,7 @@ export async function upload(file, mediaType) {
 
   formData.append("media", file);
 
-  const url = baseUrl + "/media/upload";
+  const url = "https://slsports.anuda.me/activity/media/upload";
 
   const config = {
     headers: {
