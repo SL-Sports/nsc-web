@@ -9,11 +9,12 @@ import {
   Select,
   MenuItem,
   InputLabel,
+  CircularProgress,
 } from "@material-ui/core";
 import { getSports } from "../../../services/sportService";
 import { theme } from "../profilesTheme";
 
-export function ProfileForm({ profile, onSubmit }) {
+export function ProfileForm({ profile, onSubmit, saving }) {
   const profileTypes = [
     { value: "ADMIN", name: "Admin" },
     { value: "COACH", name: "Coach" },
@@ -205,8 +206,13 @@ export function ProfileForm({ profile, onSubmit }) {
             }}
             fullWidth
             type="submit"
+            disabled={saving}
           >
-            {(profile._id && "Edit") || "Create"} Profile
+            {saving ? (
+              <CircularProgress style={{ color: "white" }}></CircularProgress>
+            ) : (
+              ((profile._id && "Edit") || "Create") + " Profile"
+            )}
           </Button>
         </Grid>
       </Grid>

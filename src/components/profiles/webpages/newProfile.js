@@ -1,5 +1,5 @@
-import React from "react";
-import { Paper, ThemeProvider, Container } from "@material-ui/core";
+import React, { useState } from "react";
+import { ThemeProvider, Container } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 
 import { theme } from "../profilesTheme";
@@ -8,6 +8,7 @@ import { createProfile } from "../../../services/profileService";
 import NavBar from "../../navbar";
 export default function NewProfile() {
   const history = useHistory();
+  const [saving, setSaving] = useState(false);
 
   const newProfile = {
     firstName: "",
@@ -26,12 +27,17 @@ export default function NewProfile() {
   };
 
   function onSubmit(profile) {
+    setSaving(true);
     createProfile(profile)
       .then((res) => {
+        setSaving(false);
         const id = res.data.profileInfo._id;
         history.replace("/profiles/" + id);
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        setSaving(false);
+        console.error(err);
+      });
   }
 
   return (
@@ -39,7 +45,7 @@ export default function NewProfile() {
       <NavBar backButtonEnabled title="New Profile" associationNameEnabled />
       <Container maxWidth="md">
         {/* <Paper style={{ borderRadius: 20 }}> */}
-        <ProfileForm profile={newProfile} onSubmit={onSubmit} />
+        <ProfileForm profile={newProfile} onSubmit={onSubmit} saving={saving} />
         {/* </Paper> */}
       </Container>
     </ThemeProvider>
