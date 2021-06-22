@@ -47,7 +47,7 @@ export function ProfileForm({ profile, onSubmit, saving, setSaving }) {
   async function handleSubmit(event) {
     event.preventDefault();
     setSaving(true);
-    if (profile !== undefined) {
+    if (profilePic !== undefined) {
       let uploadRes = await upload(profilePic);
       if (uploadRes.status === 200) {
         tempProfile.profilePicUrl = uploadRes.data;
