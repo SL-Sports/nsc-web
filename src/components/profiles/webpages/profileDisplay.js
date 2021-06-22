@@ -79,35 +79,35 @@ export function ProfileDisplay() {
           associationNameEnabled
         />
         <Container maxWidth="xl">
-          <Grid
-            container
-            direction="row"
-            align="center"
-            justify="center"
-            spacing={3}
-          >
-            <Grid item xs={12} md={12}>
+          <Grid container direction="row" justify="center" spacing={3}>
+            <Grid item xs={12} md={7}>
               <Card raised className={classes.card}>
-                <Grid container alignItems="center" spacing={2}>
+                <Grid
+                  container
+                  alignItems="center"
+                  justify="center"
+                  spacing={2}
+                  direction="column"
+                >
                   <Grid item xs={12} md={3} align="center">
                     <Avatar
                       src={profile.profilePicUrl}
-                      style={{ width: 80, height: 80 }}
+                      style={{ width: 150, height: 150 }}
                     />
                   </Grid>
-                  <Grid item xs={8} md={6}>
-                    <Typography variant="h4">
+                  <Grid item xs={8} md={9}>
+                    <Typography variant="h4" style={{ fontWeight: "bolder" }}>
                       {profile.preferredName} {profile.lastName}
                     </Typography>
                     <Typography variant="subtitle1">
-                      {title(profile.profileType)}
+                      {`${title(profile.profileType)} - ${profile.sport.name}`}
                     </Typography>
-                    <Typography variant="subtitle2">
-                      {profile.country} {profile.sport.name}
+                    <Typography
+                      variant="subtitle2"
+                      style={{ fontStyle: "italic" }}
+                    >
+                      {profile.association.name}
                     </Typography>
-                  </Grid>
-                  <Grid item xs={4} md={3} align="center">
-                    <Typography>Age: {profile.age}</Typography>
                   </Grid>
                 </Grid>
               </Card>
@@ -131,24 +131,47 @@ export function ProfileDisplay() {
                 </Grid>
               </Grid>
             </Grid> */}
-            <Grid item xs={12} md={2}>
-              <Card style={{ borderRadius: 20 }}>
-                <Typography variant="h6">Secondary Information</Typography>
-                <Typography>
-                  Full Name: {profile.firstName} {profile.lastName}
-                </Typography>
-                <Typography>
-                  Date of Birth: {getDOB(profile.dateOfBirth)}
-                </Typography>
-                <Typography variant="body1">
-                  School: {profile.school}
-                </Typography>
-                <Typography>
-                  City, Country: {profile.city}, {profile.country}
-                </Typography>
+            <Grid item xs={12} md={5}>
+              <Card className={classes.card} raised>
+                <Grid
+                  container
+                  alignItems="center"
+                  justify="center"
+                  spacing={1}
+                  direction="column"
+                >
+                  <Grid item xs={12}>
+                    {" "}
+                    <Typography variant="h6">Profile Details</Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Grid item xs={12}>
+                      <Typography>Age: {profile.age}</Typography>
+                    </Grid>
+
+                    <Typography>
+                      Full Name: {profile.firstName} {profile.lastName}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography>
+                      Date of Birth: {getDOB(profile.dateOfBirth)}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography variant="body1">
+                      School: {profile.school}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography>
+                      Location: {profile.city}, {profile.country}
+                    </Typography>
+                  </Grid>
+                </Grid>
               </Card>
             </Grid>
-            <Grid item name="coaches-students" xs={12} md={5}>
+            <Grid item name="coaches-students" xs={12} md={6}>
               <Grid
                 container
                 direction="row"
@@ -171,7 +194,7 @@ export function ProfileDisplay() {
               </Grid>
               <CoachesStudentsList profileHeader={profileHeader} />
             </Grid>
-            <Grid item name="rankings" xs={12} md={5}>
+            <Grid item name="rankings" xs={12} md={6}>
               <Typography
                 variant="h5"
                 align="left"
