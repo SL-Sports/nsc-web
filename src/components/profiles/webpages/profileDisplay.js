@@ -11,7 +11,6 @@ import {
   List,
   ListItemAvatar,
   ListItemText,
-  ListSubheader,
 } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import { Link } from "react-router-dom";
@@ -25,7 +24,6 @@ import { ListItem } from "@material-ui/core";
 import {
   Person,
   Cake,
-  CalendarToday,
   PermContactCalendar,
   School,
   Room,
@@ -92,7 +90,13 @@ export function ProfileDisplay() {
           associationNameEnabled
         />
         <Container maxWidth="xl">
-          <Grid container direction="row" justify="center" spacing={3}>
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="stretch"
+            spacing={3}
+          >
             <Grid item xs={12} md={7}>
               <Card raised className={classes.card}>
                 <Grid
@@ -102,10 +106,10 @@ export function ProfileDisplay() {
                   spacing={2}
                   direction="column"
                 >
-                  <Grid item xs={12} md={3} align="center">
+                  <Grid item xs={12} md={3}>
                     <Avatar
                       src={profile.profilePicUrl}
-                      style={{ width: 150, height: 150 }}
+                      style={{ width: 180, height: 180 }}
                     />
                   </Grid>
                   <Grid item xs={8} md={9}>
