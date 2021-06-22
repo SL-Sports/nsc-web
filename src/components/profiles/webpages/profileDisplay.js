@@ -84,7 +84,7 @@ export function ProfileDisplay() {
             direction="row"
             align="center"
             justify="center"
-            spacing={2}
+            spacing={3}
           >
             <Grid item xs={12} md={12}>
               <Card raised className={classes.card}>
@@ -131,7 +131,7 @@ export function ProfileDisplay() {
                 </Grid>
               </Grid>
             </Grid> */}
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={2}>
               <Card style={{ borderRadius: 20 }}>
                 <Typography variant="h6">Secondary Information</Typography>
                 <Typography>
@@ -148,7 +148,7 @@ export function ProfileDisplay() {
                 </Typography>
               </Card>
             </Grid>
-            <Grid item name="coaches-students" xs={12} md={6}>
+            <Grid item name="coaches-students" xs={12} md={5}>
               <Grid
                 container
                 direction="row"
@@ -171,18 +171,30 @@ export function ProfileDisplay() {
               </Grid>
               <CoachesStudentsList profileHeader={profileHeader} />
             </Grid>
-            <Grid item name="rankings" xs={12} md={6}>
-              <Typography variant="h4" align="left">
+            <Grid item name="rankings" xs={12} md={5}>
+              <Typography
+                variant="h5"
+                align="left"
+                style={{ fontWeight: "bolder" }}
+              >
                 Rankings
               </Typography>
             </Grid>
             <Grid item name="activities" xs={12} md={6}>
-              <Typography variant="h4" align="left">
-                Activities
+              <Typography
+                variant="h5"
+                align="left"
+                style={{ fontWeight: "bolder" }}
+              >
+                Recent Activity
               </Typography>
             </Grid>
             <Grid item name="payments" xs={12} md={6}>
-              <Typography variant="h4" align="left">
+              <Typography
+                variant="h5"
+                align="left"
+                style={{ fontWeight: "bolder" }}
+              >
                 Payments
               </Typography>
             </Grid>
