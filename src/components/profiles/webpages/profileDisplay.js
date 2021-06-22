@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
   Grid,
-  Box,
+  Container,
   Card,
   Avatar,
   Typography,
@@ -15,7 +15,7 @@ import { getDOB } from "../../../services/dateService";
 import { ProfileList } from "../components/profileList";
 import NavBar from "../../navbar";
 import { useParams, useHistory } from "react-router-dom";
-import { theme } from "../profilesTheme";
+import { theme, useStyles } from "../profilesTheme";
 import { getProfile } from "../../../services/profileService";
 
 function title(string) {
@@ -27,6 +27,7 @@ export function ProfileDisplay() {
   const [profile, setProfile] = useState(undefined);
   const history = useHistory();
   const { profileID } = useParams();
+  const classes = useStyles();
 
   useEffect(() => {
     async function getProfileData() {
@@ -77,63 +78,116 @@ export function ProfileDisplay() {
           title={`${profile.preferredName}'s Profile`}
           associationNameEnabled
         />
-        <Grid
-          container
-          direction="row"
-          align="center"
-          justify="space-around"
-          spacing={2}
-        >
-          <Grid item name="profile-details" xs={12}>
-            <ProfileDetails profile={profile} />
-          </Grid>
-          <Grid item name="coaches-students" xs={12} md={5}>
-            <Box m={3} p={3}>
+        <Container maxWidth="xl">
+          <Grid
+            container
+            direction="row"
+            align="center"
+            justify="center"
+            spacing={2}
+          >
+            <Grid item xs={12} md={12}>
+              <Card raised className={classes.card}>
+                <Grid container alignItems="center" spacing={2}>
+                  <Grid item xs={12} md={3} align="center">
+                    <Avatar
+                      src={profile.profilePicUrl}
+                      style={{ width: 80, height: 80 }}
+                    />
+                  </Grid>
+                  <Grid item xs={8} md={6}>
+                    <Typography variant="h4">
+                      {profile.preferredName} {profile.lastName}
+                    </Typography>
+                    <Typography variant="subtitle1">
+                      {title(profile.profileType)}
+                    </Typography>
+                    <Typography variant="subtitle2">
+                      {profile.country} {profile.sport.name}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={4} md={3} align="center">
+                    <Typography>Age: {profile.age}</Typography>
+                  </Grid>
+                </Grid>
+              </Card>
+            </Grid>
+            {/* <Grid item>
+              <Grid container spacing={2} justify="center">
+                <Grid item>
+                  <Link
+                    to={`/profiles/edit/${profile._id}`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <Button variant="contained" color="secondary">
+                      Edit Profile
+                    </Button>
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Button variant="contained" color="primary">
+                    Invite
+                  </Button>
+                </Grid>
+              </Grid>
+            </Grid> */}
+            <Grid item xs={12} md={4}>
+              <Card style={{ borderRadius: 20 }}>
+                <Typography variant="h6">Secondary Information</Typography>
+                <Typography>
+                  Full Name: {profile.firstName} {profile.lastName}
+                </Typography>
+                <Typography>
+                  Date of Birth: {getDOB(profile.dateOfBirth)}
+                </Typography>
+                <Typography variant="body1">
+                  School: {profile.school}
+                </Typography>
+                <Typography>
+                  City, Country: {profile.city}, {profile.country}
+                </Typography>
+              </Card>
+            </Grid>
+            <Grid item name="coaches-students" xs={12} md={6}>
               <Grid
                 container
                 direction="row"
                 alignItems="center"
                 justify="space-between"
               >
-                <Grid item>
+                <Grid item xs={9}>
                   <Typography variant="h4">
                     {(profile.profileType === "ATHLETE" && "Coaches") ||
                       "Students"}
                   </Typography>
                 </Grid>
                 {profile.profileType === "ATHLETE" && (
-                  <Grid item>
+                  <Grid item xs={3}>
                     <Link to={"/profiles/coaches/" + profile._id}>
                       <Add color="primary" fontSize="large" />
                     </Link>
                   </Grid>
                 )}
               </Grid>
-            </Box>
-            <CoachesStudentsList profileHeader={profileHeader} />
-          </Grid>
-          <Grid item name="rankings" xs={12} md={5}>
-            <Box m={3} p={3}>
+              <CoachesStudentsList profileHeader={profileHeader} />
+            </Grid>
+            <Grid item name="rankings" xs={12} md={6}>
               <Typography variant="h4" align="left">
                 Rankings
               </Typography>
-            </Box>
-          </Grid>
-          <Grid item name="activities" xs={12} md={5}>
-            <Box m={3} p={3}>
+            </Grid>
+            <Grid item name="activities" xs={12} md={6}>
               <Typography variant="h4" align="left">
                 Activities
               </Typography>
-            </Box>
-          </Grid>
-          <Grid item name="payments" xs={12} md={5}>
-            <Box m={3} p={3}>
+            </Grid>
+            <Grid item name="payments" xs={12} md={6}>
               <Typography variant="h4" align="left">
                 Payments
               </Typography>
-            </Box>
+            </Grid>
           </Grid>
-        </Grid>
+        </Container>
       </>
     );
   }
@@ -141,33 +195,31 @@ export function ProfileDisplay() {
 
 function ProfileDetails({ profile }) {
   return (
-    <Grid container direction="column" spacing={2}>
+    <>
       <Grid item>
         <Card raised style={{ borderRadius: 20 }}>
-          <Box m={3}>
-            <Grid container alignItems="center" spacing={2}>
-              <Grid item xs={12} md={3} align="center">
-                <Avatar
-                  src={profile.profilePicUrl}
-                  style={{ width: 80, height: 80 }}
-                />
-              </Grid>
-              <Grid item xs={8} md={6}>
-                <Typography variant="h4">
-                  {profile.preferredName} {profile.lastName}
-                </Typography>
-                <Typography variant="subtitle1">
-                  {title(profile.profileType)}
-                </Typography>
-                <Typography variant="subtitle2">
-                  {profile.country} {profile.sport.name}
-                </Typography>
-              </Grid>
-              <Grid item xs={4} md={3} align="center">
-                <Typography>Age: {profile.age}</Typography>
-              </Grid>
+          <Grid container alignItems="center" spacing={2}>
+            <Grid item xs={12} md={3} align="center">
+              <Avatar
+                src={profile.profilePicUrl}
+                style={{ width: 80, height: 80 }}
+              />
             </Grid>
-          </Box>
+            <Grid item xs={8} md={6}>
+              <Typography variant="h4">
+                {profile.preferredName} {profile.lastName}
+              </Typography>
+              <Typography variant="subtitle1">
+                {title(profile.profileType)}
+              </Typography>
+              <Typography variant="subtitle2">
+                {profile.country} {profile.sport.name}
+              </Typography>
+            </Grid>
+            <Grid item xs={4} md={3} align="center">
+              <Typography>Age: {profile.age}</Typography>
+            </Grid>
+          </Grid>
         </Card>
       </Grid>
       <Grid item>
@@ -191,22 +243,18 @@ function ProfileDetails({ profile }) {
       </Grid>
       <Grid item>
         <Card style={{ borderRadius: 20 }}>
-          <Box p={2} align="left">
-            <Typography variant="h6">Secondary Information</Typography>
-            <Typography>
-              Full Name: {profile.firstName} {profile.lastName}
-            </Typography>
-            <Typography>
-              Date of Birth: {getDOB(profile.dateOfBirth)}
-            </Typography>
-            <Typography variant="body1">School: {profile.school}</Typography>
-            <Typography>
-              City, Country: {profile.city}, {profile.country}
-            </Typography>
-          </Box>
+          <Typography variant="h6">Secondary Information</Typography>
+          <Typography>
+            Full Name: {profile.firstName} {profile.lastName}
+          </Typography>
+          <Typography>Date of Birth: {getDOB(profile.dateOfBirth)}</Typography>
+          <Typography variant="body1">School: {profile.school}</Typography>
+          <Typography>
+            City, Country: {profile.city}, {profile.country}
+          </Typography>
         </Card>
       </Grid>
-    </Grid>
+    </>
   );
 }
 
