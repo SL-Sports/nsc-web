@@ -8,6 +8,10 @@ import {
   Button,
   CircularProgress,
   CssBaseline,
+  List,
+  ListItemAvatar,
+  ListItemText,
+  ListSubheader,
 } from "@material-ui/core";
 import { Add } from "@material-ui/icons";
 import { Link } from "react-router-dom";
@@ -17,6 +21,15 @@ import NavBar from "../../navbar";
 import { useParams, useHistory } from "react-router-dom";
 import { theme, useStyles } from "../profilesTheme";
 import { getProfile } from "../../../services/profileService";
+import { ListItem } from "@material-ui/core";
+import {
+  Person,
+  Cake,
+  CalendarToday,
+  PermContactCalendar,
+  School,
+  Room,
+} from "@material-ui/icons";
 
 function title(string) {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -133,42 +146,75 @@ export function ProfileDisplay() {
             </Grid> */}
             <Grid item xs={12} md={5}>
               <Card className={classes.card} raised>
-                <Grid
-                  container
-                  alignItems="center"
-                  justify="center"
-                  spacing={1}
-                  direction="column"
-                >
-                  <Grid item xs={12}>
-                    {" "}
-                    <Typography variant="h6">Profile Details</Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Grid item xs={12}>
-                      <Typography>Age: {profile.age}</Typography>
-                    </Grid>
+                <List>
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar
+                        style={{
+                          background: theme.palette.secondary.mainGradient,
+                        }}
+                      >
+                        <Person />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={`Full Name: ${profile.firstName} ${profile.lastName}`}
+                    />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar
+                        style={{
+                          background: theme.palette.secondary.mainGradient,
+                        }}
+                      >
+                        <PermContactCalendar />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary={`Age: ${profile.age}`} />
+                  </ListItem>
 
-                    <Typography>
-                      Full Name: {profile.firstName} {profile.lastName}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography>
-                      Date of Birth: {getDOB(profile.dateOfBirth)}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography variant="body1">
-                      School: {profile.school}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography>
-                      Location: {profile.city}, {profile.country}
-                    </Typography>
-                  </Grid>
-                </Grid>
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar
+                        style={{
+                          background: theme.palette.secondary.mainGradient,
+                        }}
+                      >
+                        <Cake />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={`Birthday: ${getDOB(profile.dateOfBirth)}`}
+                    />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar
+                        style={{
+                          background: theme.palette.secondary.mainGradient,
+                        }}
+                      >
+                        <Room />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={`Location: ${profile.city}, ${profile.country}`}
+                    />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemAvatar>
+                      <Avatar
+                        style={{
+                          background: theme.palette.secondary.mainGradient,
+                        }}
+                      >
+                        <School />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary={`School: ${profile.school}`} />
+                  </ListItem>
+                </List>
               </Card>
             </Grid>
             <Grid item name="coaches-students" xs={12} md={6}>
