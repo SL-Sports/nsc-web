@@ -106,13 +106,13 @@ export function ProfileDisplay() {
                   spacing={2}
                   direction="column"
                 >
-                  <Grid item xs={12} md={3}>
+                  <Grid item xs={12}>
                     <Avatar
                       src={profile.profilePicUrl}
                       style={{ width: 180, height: 180 }}
                     />
                   </Grid>
-                  <Grid item xs={8} md={9}>
+                  <Grid item xs={12}>
                     <Typography variant="h4" style={{ fontWeight: "bolder" }}>
                       {profile.preferredName} {profile.lastName}
                     </Typography>
@@ -219,6 +219,28 @@ export function ProfileDisplay() {
                     <ListItemText primary={`School: ${profile.school}`} />
                   </ListItem>
                 </List>
+                {!profile.inviteSent && (
+                  <Button
+                    style={{
+                      background: theme.palette.primary.mainGradient,
+                      color: "white",
+                      borderRadius: 20,
+                      fontWeight: "bolder",
+                      marginTop: 15,
+                      padding: 10,
+                    }}
+                    fullWidth
+                    // onClick={save}
+                    // disabled={saving}
+                  >
+                    <Typography
+                      variant="subtitle1"
+                      style={{ fontWeight: "bolder" }}
+                    >
+                      Send App Invite Code
+                    </Typography>
+                  </Button>
+                )}
               </Card>
             </Grid>
             <Grid item name="coaches-students" xs={12} md={6}>
