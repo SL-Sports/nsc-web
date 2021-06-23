@@ -67,7 +67,7 @@ export default function NewPayment() {
     setSaving(false);
     alert(saveRes.data.message);
     if (saveRes.status === 200) {
-      history.replace("/payments");
+      history.goBack();
     }
   };
 
