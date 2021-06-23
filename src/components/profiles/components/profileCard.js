@@ -55,7 +55,7 @@ export function ProfileCard({ profile, editLink = false }) {
   const classes = useStyles();
   return (
     <Link
-      to={`profiles/${profile._id}`}
+      to={`/profiles/${profile._id}`}
       style={{ textTransform: "none", textDecoration: "none" }}
     >
       <Card className={classes.root}>
