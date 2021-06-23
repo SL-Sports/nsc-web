@@ -225,7 +225,7 @@ export function ProfileDisplay() {
                     <ListItemText primary={`School: ${profile.school}`} />
                   </ListItem>
                 </List>
-                {!profile.inviteSent && (
+                {!profile.hasSignedUp && (
                   <Button
                     style={{
                       background: theme.palette.primary.mainGradient,
@@ -243,7 +243,9 @@ export function ProfileDisplay() {
                       variant="subtitle1"
                       style={{ fontWeight: "bolder" }}
                     >
-                      Send App Invite Code
+                      {profile.inviteSent
+                        ? "Resend App Invite Code"
+                        : "Send App Invite Code"}
                     </Typography>
                   </Button>
                 )}
