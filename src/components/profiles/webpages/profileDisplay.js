@@ -32,6 +32,7 @@ import {
   Edit as EditIcon,
 } from "@material-ui/icons";
 import ActivitiesList from "../../activities/components/activitiesList";
+import paymentsService from "../../../services/paymentsService";
 
 function title(string) {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -44,6 +45,8 @@ export function ProfileDisplay() {
   const { profileID } = useParams();
   const classes = useStyles();
 
+  const [payments, setPayments] = useState(undefined);
+
   useEffect(() => {
     async function getProfileData() {
       const profileResponse = await getProfile(profileID);
@@ -53,6 +56,17 @@ export function ProfileDisplay() {
         const profileList = profileResponse.data;
         setProfile(profileList[0].profile);
         setProfileHeader(profileList[0]);
+
+        const paymentsResponse = await paymentsService.getPaymentsForProfile(
+          profileID
+        );
+
+        if (paymentsResponse.status === 200) {
+          setPayments(paymentsResponse.data);
+        } else {
+          alert(paymentsResponse.data);
+          setPayments([]);
+        }
       } else {
         alert("Profile not found");
         history.replace("/profiles");
