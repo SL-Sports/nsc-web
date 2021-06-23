@@ -13,7 +13,7 @@ import { Link, useHistory } from "react-router-dom";
 import { useStyles } from "../rankingTheme";
 import { deleteRanking } from "../../../services/rankingService";
 
-const Ranking = ({ ranking }) => {
+const Ranking = ({ ranking, forProfile }) => {
   const classes = useStyles();
   const [deleting, setDeleting] = useState(false);
   const history = useHistory();
@@ -42,34 +42,48 @@ const Ranking = ({ ranking }) => {
             </Typography>
           </Grid>
 
-          <Hidden xsDown>
-            <Grid item md={1} sm={2}>
-              <Link
-                to={`/profiles/${ranking.profile._id}`}
-                style={{ textDecoration: "none" }}
-              >
-                <Avatar
-                  src={ranking.profile.profilePicUrl}
-                  style={{ width: 50, height: 50, float: "right" }}
-                ></Avatar>
-              </Link>
-            </Grid>
-          </Hidden>
-
-          <Grid item md={7} sm={5} xs={7}>
-            <Link
-              to={`/profiles/${ranking.profile._id}`}
-              style={{ textDecoration: "none", color: "black" }}
-            >
+          {forProfile ? (
+            <Grid item md={8} sm={7} xs={7}>
               <Typography
                 variant="h5"
                 align="left"
                 style={{ fontWeight: "bolder" }}
               >
-                {`${ranking.profile.preferredName} ${ranking.profile.lastName}`}
+                {`${ranking.rankingType} - ${ranking.sport.name}`}
               </Typography>
-            </Link>
-          </Grid>
+            </Grid>
+          ) : (
+            <Hidden xsDown>
+              <Grid item md={1} sm={2}>
+                <Link
+                  to={`/profiles/${ranking.profile._id}`}
+                  style={{ textDecoration: "none" }}
+                >
+                  <Avatar
+                    src={ranking.profile.profilePicUrl}
+                    style={{ width: 50, height: 50, float: "right" }}
+                  ></Avatar>
+                </Link>
+              </Grid>
+            </Hidden>
+          )}
+
+          {!forProfile && (
+            <Grid item md={7} sm={5} xs={7}>
+              <Link
+                to={`/profiles/${ranking.profile._id}`}
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <Typography
+                  variant="h5"
+                  align="left"
+                  style={{ fontWeight: "bolder" }}
+                >
+                  {`${ranking.profile.preferredName} ${ranking.profile.lastName}`}
+                </Typography>
+              </Link>
+            </Grid>
+          )}
           <Grid item md={1} sm={2} xs={6}>
             <IconButton
               aria-label="delete-ranking"
