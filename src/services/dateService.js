@@ -18,4 +18,12 @@ const getDOB = (unixTime) => {
   return moment(date).format("LL");
 };
 
-export { getMonth, getYear, getDay, getDOB };
+const getAge = (dobUnix) => {
+  var birthday = moment(moment.unix(dobUnix)).format("dd-MMM-yyyy");
+  var curTime = moment();
+  var age = moment.duration(curTime.diff(birthday));
+  var years = age.years();
+  return years.toString();
+};
+
+export { getMonth, getYear, getDay, getDOB, getAge };

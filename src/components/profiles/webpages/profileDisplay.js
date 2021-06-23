@@ -37,6 +37,7 @@ import PaymentsList from "../../payments/components/paymentsList";
 import RankingsList from "../../rankings/components/rankingsList";
 import { getRankingsForProfile } from "../../../services/rankingService";
 import authService from "../../../services/authService";
+import { getAge } from "../../../services/dateService";
 
 function title(string) {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -212,7 +213,9 @@ export function ProfileDisplay() {
                         <PermContactCalendar />
                       </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary={`Age: ${profile.age}`} />
+                    <ListItemText
+                      primary={`Age: ${getAge(profile.dateOfBirth)}`}
+                    />
                   </ListItem>
 
                   <ListItem>

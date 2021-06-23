@@ -138,7 +138,7 @@ export default function AssociationDashboard() {
                         fullWidth
                         onClick={() => history.push("/payments")}
                       >
-                        SEE ALL
+                        SEE MORE
                       </Button>
                     </Grid>
                     <Grid item xs={12}>
@@ -172,7 +172,7 @@ export default function AssociationDashboard() {
                     fullWidth
                     onClick={() => history.push("/profiles")}
                   >
-                    SEE ALL
+                    SEE MORE
                   </Button>
                 </Grid>
                 <Grid item xs={12}>

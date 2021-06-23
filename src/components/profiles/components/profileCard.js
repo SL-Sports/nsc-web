@@ -13,6 +13,7 @@ import {
 } from "@material-ui/core";
 import { ArrowForwardIos, Edit } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
+import { getAge } from "../../../services/dateService";
 
 function title(string) {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -201,7 +202,7 @@ function AgeSport({ profile, editLink = false }) {
         <Grid item>
           <Box pt={0}>
             <Typography className={classes.age} align="right">
-              Age: {profile.age}
+              Age: {getAge(profile.dateOfBirth)}
             </Typography>
           </Box>
         </Grid>
