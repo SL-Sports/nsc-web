@@ -39,7 +39,7 @@ export default function NavBar({
     };
 
     loadData();
-  }, []);
+  }, [associationNameEnabled, menuEnabled, title]);
 
   return (
     <ThemeProvider theme={theme}>

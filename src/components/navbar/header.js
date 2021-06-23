@@ -11,7 +11,7 @@ import {
 import { ArrowBack, Menu as MenuIcon } from "@material-ui/icons";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useStyles, theme } from "./navBarTheme";
+import { theme } from "./navBarTheme";
 
 import authService from "../../services/authService";
 
