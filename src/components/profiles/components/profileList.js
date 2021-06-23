@@ -1,16 +1,20 @@
 import React from "react";
-import { Grid } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 
 import { ProfileCard, CoachCard, StudentCard } from "./profileCard";
 
 export function ProfileList({ profiles, editLinks = false }) {
   return (
     <Grid container spacing={1}>
-      {profiles.map((profile) => (
-        <Grid item xs={12} key={profile._id}>
-          <ProfileCard profile={profile} editLink={editLinks} />
-        </Grid>
-      ))}
+      {profiles.length === 0 ? (
+        <Typography>No profiles have been added yet</Typography>
+      ) : (
+        profiles.map((profile) => (
+          <Grid item xs={12} key={profile._id}>
+            <ProfileCard profile={profile} editLink={editLinks} />
+          </Grid>
+        ))
+      )}
     </Grid>
   );
 }
