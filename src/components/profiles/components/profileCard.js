@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 275,
     borderRadius: 20,
-    padding: theme.spacing(2),
   },
   name: {
     fontSize: 12,
@@ -82,33 +81,40 @@ export function CoachCard({ coach }) {
       to={`/profiles/${coach.coachProfile._id}`}
       style={{ textTransform: "none", textDecoration: "none" }}
     >
-      <Grid item key={coach._id} xs={12} sm={12} md={12}>
-        <Card className={classes.root}>
-          <Grid container direction="row" justify="space-between" spacing={2}>
+      <Card className={classes.root}>
+        <CardContent justify="center">
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+            spacing={2}
+          >
             <Grid item md={8} xs={12}>
-              <AvatarAndName profile={coach.coachProfile} />
+              <AvatarAndName
+                profile={coach.coachProfile}
+                isCoach
+                coachDescription={coach.coachDescription}
+              />
             </Grid>
             <Grid item md={4} xs={12}>
-              <Typography variant="subtitle1">
-                {coach.coachDescription}
-              </Typography>
-              <Typography variant="subtitle1">
+              <Typography variant="subtitle1" align="right">
                 Start Date: {moment.unix(coach.startDate).format("DD/MM/yyyy")}
               </Typography>
               {coach.activeStatus !== "ACTIVE" && (
-                <Typography variant="subtitle1">
+                <Typography variant="subtitle1" align="right">
                   End Date: {moment.unix(coach.endDate).format("DD/MM/yyyy")}
                 </Typography>
               )}
             </Grid>
           </Grid>
-        </Card>
-      </Grid>
+        </CardContent>
+      </Card>
     </Link>
   );
 }
 
-function AvatarAndName({ profile }) {
+function AvatarAndName({ profile, isCoach, coachDescription }) {
   const classes = useStyles();
 
   return (
@@ -126,9 +132,15 @@ function AvatarAndName({ profile }) {
         <Typography variant="h6" align="left">
           {profile.preferredName} {profile.lastName}
         </Typography>
-        <Typography className={classes.school} align="left">
-          {profile.sport.name} {title(profile.profileType)}
-        </Typography>
+        {isCoach ? (
+          <Typography className={classes.school} align="left">
+            {coachDescription}
+          </Typography>
+        ) : (
+          <Typography className={classes.school} align="left">
+            {profile.sport.name} {title(profile.profileType)}
+          </Typography>
+        )}
       </Grid>
     </Grid>
   );
