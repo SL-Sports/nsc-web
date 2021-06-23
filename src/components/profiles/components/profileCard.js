@@ -55,7 +55,7 @@ export function ProfileCard({ profile, editLink = false }) {
   const classes = useStyles();
   return (
     <Link
-      to={`/profiles/${profile._id}`}
+      to={`profiles/${profile._id}`}
       style={{ textTransform: "none", textDecoration: "none" }}
     >
       <Card className={classes.root}>
@@ -75,15 +75,19 @@ export function ProfileCard({ profile, editLink = false }) {
 }
 
 export function CoachCard({ coach }) {
+  const classes = useStyles();
   return (
-    <>
-      <Card>
-        <CardContent justify="center">
+    <Link
+      to={`profiles/${coach.coachProfile._id}`}
+      style={{ textTransform: "none", textDecoration: "none" }}
+    >
+      <Grid item key={coach._id} xs={12} sm={12} md={12}>
+        <Card className={classes.root}>
           <Grid container direction="row" justify="space-between" spacing={2}>
-            <Grid item>
+            <Grid item md={8} xs={12}>
               <AvatarAndName profile={coach.coachProfile} />
             </Grid>
-            <Grid item>
+            <Grid item md={4} xs={12}>
               <Typography variant="subtitle1">
                 {coach.coachDescription}
               </Typography>
@@ -97,9 +101,9 @@ export function CoachCard({ coach }) {
               )}
             </Grid>
           </Grid>
-        </CardContent>
-      </Card>
-    </>
+        </Card>
+      </Grid>
+    </Link>
   );
 }
 

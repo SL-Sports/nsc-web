@@ -37,6 +37,7 @@ import PaymentsList from "../../payments/components/paymentsList";
 import RankingsList from "../../rankings/components/rankingsList";
 import { getRankingsForProfile } from "../../../services/rankingService";
 import authService from "../../../services/authService";
+import CoachesList from "../components/coachList";
 
 function title(string) {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -304,8 +305,8 @@ export function ProfileDisplay() {
                     <Add />
                   </IconButton>
                 </Grid>
-                <Grid item xs={12}>
-                  <CoachesStudentsList profileHeader={profileHeader} />
+                <Grid item xs={12} md={12}>
+                  <CoachesList coaches={profileHeader.coaches} />
                 </Grid>
               </Grid>
             </Grid>
