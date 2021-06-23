@@ -52,6 +52,7 @@ export function ProfileDisplay() {
   const [payments, setPayments] = useState(undefined);
   const [rankings, setRankings] = useState(undefined);
   const [accountType, setAccountType] = useState(undefined);
+  const [isCoach, setIsCoach] = useState(false);
   useEffect(() => {
     async function getProfileData() {
       setAccountType(await authService.getAccountType());
@@ -62,6 +63,7 @@ export function ProfileDisplay() {
         const profileList = profileResponse.data;
         setProfile(profileList[0].profile);
         setProfileHeader(profileList[0]);
+        setIsCoach(profileList[0].profile.profileType === "COACH");
 
         const paymentsResponse = await paymentsService.getPaymentsForProfile(
           profileID
@@ -281,27 +283,31 @@ export function ProfileDisplay() {
               </Card>
             </Grid>
             <Grid item name="coaches-students" xs={12} md={6}>
-              <Grid
-                container
-                direction="row"
-                alignItems="center"
-                justify="space-between"
-              >
-                <Grid item xs={9}>
-                  <Typography variant="h4">
-                    {(profile.profileType === "ATHLETE" && "Coaches") ||
-                      "Students"}
+              <Grid container spacing={2}>
+                <Grid item md={11} xs={10}>
+                  <Typography
+                    variant="h5"
+                    align="left"
+                    style={{ fontWeight: "bolder" }}
+                  >
+                    {isCoach ? "Students" : "Coaches"}
                   </Typography>
                 </Grid>
-                {profile.profileType === "ATHLETE" && (
-                  <Grid item xs={3}>
-                    <Link to={"/profiles/coaches/" + profile._id}>
-                      <Add color="primary" fontSize="large" />
-                    </Link>
-                  </Grid>
-                )}
+
+                <Grid item md={1} xs={2}>
+                  <IconButton
+                    color="primary"
+                    aria-label="new-comment"
+                    size="small"
+                    onClick={() => history.push("/rankings/new")}
+                  >
+                    <Add />
+                  </IconButton>
+                </Grid>
+                <Grid item xs={12}>
+                  <CoachesStudentsList profileHeader={profileHeader} />
+                </Grid>
               </Grid>
-              <CoachesStudentsList profileHeader={profileHeader} />
             </Grid>
             <Grid item name="rankings" xs={12} md={6}>
               <Grid container spacing={2}>
@@ -390,71 +396,6 @@ export function ProfileDisplay() {
       </>
     );
   }
-}
-
-function ProfileDetails({ profile }) {
-  return (
-    <>
-      <Grid item>
-        <Card raised style={{ borderRadius: 20 }}>
-          <Grid container alignItems="center" spacing={2}>
-            <Grid item xs={12} md={3} align="center">
-              <Avatar
-                src={profile.profilePicUrl}
-                style={{ width: 80, height: 80 }}
-              />
-            </Grid>
-            <Grid item xs={8} md={6}>
-              <Typography variant="h4">
-                {profile.preferredName} {profile.lastName}
-              </Typography>
-              <Typography variant="subtitle1">
-                {title(profile.profileType)}
-              </Typography>
-              <Typography variant="subtitle2">
-                {profile.country} {profile.sport.name}
-              </Typography>
-            </Grid>
-            <Grid item xs={4} md={3} align="center">
-              <Typography>Age: {profile.age}</Typography>
-            </Grid>
-          </Grid>
-        </Card>
-      </Grid>
-      <Grid item>
-        <Grid container spacing={2} justify="center">
-          <Grid item>
-            <Link
-              to={`/profiles/edit/${profile._id}`}
-              style={{ textDecoration: "none" }}
-            >
-              <Button variant="contained" color="secondary">
-                Edit Profile
-              </Button>
-            </Link>
-          </Grid>
-          <Grid item>
-            <Button variant="contained" color="primary">
-              Invite
-            </Button>
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid item>
-        <Card style={{ borderRadius: 20 }}>
-          <Typography variant="h6">Secondary Information</Typography>
-          <Typography>
-            Full Name: {profile.firstName} {profile.lastName}
-          </Typography>
-          <Typography>Date of Birth: {getDOB(profile.dateOfBirth)}</Typography>
-          <Typography variant="body1">School: {profile.school}</Typography>
-          <Typography>
-            City, Country: {profile.city}, {profile.country}
-          </Typography>
-        </Card>
-      </Grid>
-    </>
-  );
 }
 
 function CoachesStudentsList({ profileHeader }) {
