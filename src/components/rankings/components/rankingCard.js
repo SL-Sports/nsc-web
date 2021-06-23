@@ -49,7 +49,7 @@ const Ranking = ({ ranking, forProfile }) => {
                 align="left"
                 style={{ fontWeight: "bolder" }}
               >
-                {`${ranking.rankingType} - ${ranking.sport.name}`}
+                {`${ranking.rankingType} - ${ranking.association.name}`}
               </Typography>
             </Grid>
           ) : (

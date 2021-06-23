@@ -34,6 +34,8 @@ import {
 import ActivitiesList from "../../activities/components/activitiesList";
 import paymentsService from "../../../services/paymentsService";
 import PaymentsList from "../../payments/components/paymentsList";
+import RankingsList from "../../rankings/components/rankingsList";
+import { getRankingsForProfile } from "../../../services/rankingService";
 
 function title(string) {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -47,7 +49,7 @@ export function ProfileDisplay() {
   const classes = useStyles();
 
   const [payments, setPayments] = useState(undefined);
-
+  const [rankings, setRankings] = useState(undefined);
   useEffect(() => {
     async function getProfileData() {
       const profileResponse = await getProfile(profileID);
@@ -62,6 +64,14 @@ export function ProfileDisplay() {
           profileID
         );
 
+        const rankingsResponse = await getRankingsForProfile(profileID);
+
+        if (rankingsResponse.status === 200) {
+          setRankings(rankingsResponse.data);
+        } else {
+          alert(rankingsResponse.data);
+          setRankings([]);
+        }
         if (paymentsResponse.status === 200) {
           setPayments(paymentsResponse.data);
         } else {
@@ -291,13 +301,20 @@ export function ProfileDisplay() {
               <CoachesStudentsList profileHeader={profileHeader} />
             </Grid>
             <Grid item name="rankings" xs={12} md={6}>
-              <Typography
-                variant="h5"
-                align="left"
-                style={{ fontWeight: "bolder" }}
-              >
-                Rankings
-              </Typography>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <Typography
+                    variant="h5"
+                    align="left"
+                    style={{ fontWeight: "bolder" }}
+                  >
+                    Rankings
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <RankingsList rankings={rankings} forProfile />
+                </Grid>
+              </Grid>
             </Grid>
             <Grid item name="activities" xs={12} md={6}>
               <Grid container spacing={2}>
