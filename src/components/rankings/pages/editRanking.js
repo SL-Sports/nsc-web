@@ -55,7 +55,7 @@ export default function EditRanking() {
     );
     setSaving(false);
     if (saveRes.status === 200) {
-      history.push("/rankings");
+      history.goBack();
     }
   };
   if (rankingData === undefined) {

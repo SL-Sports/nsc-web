@@ -49,8 +49,9 @@ const Ranking = ({ ranking, forProfile }) => {
                 align="left"
                 style={{ fontWeight: "bolder" }}
               >
-                {`${ranking.rankingType} - ${ranking.association.name}`}
+                {ranking.rankingType}
               </Typography>
+              <Typography align="left">{ranking.association.name}</Typography>
             </Grid>
           ) : (
             <Hidden xsDown>
