@@ -18,7 +18,7 @@ import { useStyles, theme } from "../profilesTheme";
 export default function ProfilesHome() {
   const classes = useStyles();
   // Profile lists
-  let [profiles, setProfiles] = useState([]);
+  let [profiles, setProfiles] = useState(undefined);
 
   // Search form field
   let [query, setQuery] = useState("");

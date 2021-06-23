@@ -17,7 +17,7 @@ import {
 import { Add } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import { getDOB } from "../../../services/dateService";
-import { ProfileList, CoachList, StudentList } from "../components/profileList";
+import { CoachList, StudentList } from "../components/profileList";
 import NavBar from "../../navbar";
 import { useParams, useHistory } from "react-router-dom";
 import { theme, useStyles } from "../profilesTheme";
@@ -399,23 +399,5 @@ export function ProfileDisplay() {
         </Link>
       </>
     );
-  }
-}
-
-function CoachesStudentsList({ profileHeader }) {
-  const profile = profileHeader.profile;
-
-  if (profile.profileType === "ATHLETE") {
-    let coaches = profileHeader.coaches;
-    coaches = coaches
-      .filter((coach) => coach.activeStatus === "ACTIVE")
-      .map((coach) => coach.coachProfile);
-    return <ProfileList profiles={coaches} />;
-  } else {
-    let students = profileHeader.students;
-    students = students
-      .filter((student) => student.activeStatus === "ACTIVE")
-      .map((student) => student.athleteProfile);
-    return <ProfileList profiles={students} />;
   }
 }
