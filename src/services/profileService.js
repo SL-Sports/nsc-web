@@ -313,3 +313,43 @@ export async function upload(file) {
     });
   return result;
 }
+
+export async function getActiveProfiles() {
+  let association = await authService.getActiveAssociationID();
+  const url = baseUrl + "/get";
+
+  let body = {};
+
+  // add keys to body if they have been specified
+  body.association = association;
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json"
+    },
+  };
+
+  let result = {};
+
+  await axios
+    .post(url, body, config)
+    .then((response) => {
+      result.status = response.status;
+
+      if (response.status === 200) {
+        result.data = response.data;
+      } else {
+        result.data = response.data.message;
+      }
+
+      // return result;
+    })
+    .catch((err) => {
+      result.status = err.response.status;
+      result.data = err.response.data.message;
+
+      // return result;
+    });
+
+  return result;
+}

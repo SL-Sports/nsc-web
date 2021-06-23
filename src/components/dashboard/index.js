@@ -20,12 +20,16 @@ import Cookies from "js-cookie";
 
 import NavBar from "../navbar";
 import PaymentsList from "../payments/components/paymentsList";
+import { ProfileList } from "../profiles/components/profileList";
+import { getActiveProfiles } from "../../services/profileService";
 
 const paymentsLength = 3;
+const profilesLength = 5;
 
 export default function AssociationDashboard() {
   const [association, setAssociation] = useState(undefined);
   const [payments, setPayments] = useState(undefined);
+  const [profiles, setProfiles] = useState(undefined);
   const history = useHistory();
 
   const getAssociation = async () => {
@@ -52,6 +56,21 @@ export default function AssociationDashboard() {
         } else {
           setPayments(paymentsRes.data.reverse());
         }
+      }
+
+      const profilesRes = await getActiveProfiles();
+      if (profilesRes.status === 200) {
+        let profileData = [];
+
+        for (
+          let i = 0;
+          i < Math.min(profilesLength, profilesRes.data.length);
+          i++
+        ) {
+          profileData.push(profilesRes.data[i].profile);
+        }
+
+        setProfiles(profileData);
       }
     }
   };
@@ -133,7 +152,7 @@ export default function AssociationDashboard() {
                     associationId={association._id}
                   ></ActivityTypes>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={7} sm={10}>
                   <Typography
                     variant="h4"
                     align="left"
@@ -141,6 +160,23 @@ export default function AssociationDashboard() {
                   >
                     Profiles
                   </Typography>
+                </Grid>
+                <Grid item xs={5} sm={2}>
+                  <Button
+                    style={{
+                      background: theme.palette.primary.mainGradient,
+                      color: "white",
+                      borderRadius: 20,
+                      fontWeight: "bolder",
+                    }}
+                    fullWidth
+                    onClick={() => history.push("/profiles")}
+                  >
+                    SEE ALL
+                  </Button>
+                </Grid>
+                <Grid item xs={12}>
+                  <ProfileList profiles={profiles} />
                 </Grid>
               </Grid>
             </Container>
