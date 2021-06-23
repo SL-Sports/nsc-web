@@ -114,6 +114,47 @@ export function CoachCard({ coach }) {
   );
 }
 
+export function StudentCard({ student }) {
+  const classes = useStyles();
+  return (
+    <Link
+      to={`/profiles/${student.athleteProfile._id}`}
+      style={{ textTransform: "none", textDecoration: "none" }}
+    >
+      <Card className={classes.root}>
+        <CardContent justify="center">
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+            spacing={2}
+          >
+            <Grid item md={8} xs={12}>
+              <AvatarAndName
+                profile={student.athleteProfile}
+                isCoach
+                coachDescription={student.coachDescription}
+              />
+            </Grid>
+            <Grid item md={4} xs={12}>
+              <Typography variant="subtitle1" align="right">
+                Start Date:{" "}
+                {moment.unix(student.startDate).format("DD/MM/yyyy")}
+              </Typography>
+              {student.activeStatus !== "ACTIVE" && (
+                <Typography variant="subtitle1" align="right">
+                  End Date: {moment.unix(student.endDate).format("DD/MM/yyyy")}
+                </Typography>
+              )}
+            </Grid>
+          </Grid>
+        </CardContent>
+      </Card>
+    </Link>
+  );
+}
+
 function AvatarAndName({ profile, isCoach, coachDescription }) {
   const classes = useStyles();
 

@@ -17,7 +17,7 @@ import {
 import { Add } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import { getDOB } from "../../../services/dateService";
-import { ProfileList, CoachList } from "../components/profileList";
+import { ProfileList, CoachList, StudentList } from "../components/profileList";
 import NavBar from "../../navbar";
 import { useParams, useHistory } from "react-router-dom";
 import { theme, useStyles } from "../profilesTheme";
@@ -305,7 +305,11 @@ export function ProfileDisplay() {
                   </IconButton>
                 </Grid>
                 <Grid item xs={12} md={12}>
-                  <CoachList coaches={profileHeader.coaches} />
+                  {isCoach ? (
+                    <StudentList students={profileHeader.students} />
+                  ) : (
+                    <CoachList coaches={profileHeader.coaches} />
+                  )}
                 </Grid>
               </Grid>
             </Grid>
