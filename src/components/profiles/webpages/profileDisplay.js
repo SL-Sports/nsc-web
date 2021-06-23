@@ -305,7 +305,7 @@ export function ProfileDisplay() {
             </Grid>
             <Grid item name="rankings" xs={12} md={6}>
               <Grid container spacing={2}>
-                <Grid item xs={11}>
+                <Grid item md={11} xs={10}>
                   <Typography
                     variant="h5"
                     align="left"
@@ -315,7 +315,7 @@ export function ProfileDisplay() {
                   </Typography>
                 </Grid>
 
-                <Grid item xs={1}>
+                <Grid item md={1} xs={2}>
                   <IconButton
                     color="primary"
                     aria-label="new-comment"
@@ -348,7 +348,11 @@ export function ProfileDisplay() {
             </Grid>
             <Grid item name="payments" xs={12} md={6}>
               <Grid container spacing={2}>
-                <Grid item xs={accountType === "NSC_ADMIN" ? 11 : 12}>
+                <Grid
+                  item
+                  xs={accountType === "NSC_ADMIN" ? 10 : 12}
+                  md={accountType === "NSC_ADMIN" ? 11 : 12}
+                >
                   <Typography
                     variant="h5"
                     align="left"
@@ -358,7 +362,7 @@ export function ProfileDisplay() {
                   </Typography>
                 </Grid>
                 {accountType === "NSC_ADMIN" && (
-                  <Grid item xs={1}>
+                  <Grid item xs={2} md={1}>
                     <IconButton
                       color="primary"
                       aria-label="new-comment"

@@ -215,7 +215,7 @@ export default function ActivityDetail() {
                         alignItems="center"
                         justify="center"
                       >
-                        <Grid item xs={11}>
+                        <Grid item xs={10} md={11}>
                           <Typography
                             variant="h5"
                             align="left"
@@ -224,7 +224,7 @@ export default function ActivityDetail() {
                             Comments
                           </Typography>
                         </Grid>
-                        <Grid item xs={1}>
+                        <Grid item xs={2} md={1}>
                           <IconButton
                             color={newCommentToggle ? "secondary" : "primary"}
                             aria-label="new-comment"
@@ -241,7 +241,7 @@ export default function ActivityDetail() {
                           </IconButton>
                         </Grid>
                         {newCommentToggle && (
-                          <Grid item xs={10}>
+                          <Grid item xs={10} md={11}>
                             <TextField
                               color="primary"
                               required
@@ -257,7 +257,7 @@ export default function ActivityDetail() {
                           </Grid>
                         )}
                         {newCommentToggle && (
-                          <Grid item xs={2}>
+                          <Grid item xs={2} md={1}>
                             <Button
                               style={{
                                 background: theme.palette.primary.mainGradient,
