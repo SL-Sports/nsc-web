@@ -36,6 +36,7 @@ import paymentsService from "../../../services/paymentsService";
 import PaymentsList from "../../payments/components/paymentsList";
 import RankingsList from "../../rankings/components/rankingsList";
 import { getRankingsForProfile } from "../../../services/rankingService";
+import authService from "../../../services/authService";
 
 function title(string) {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -50,8 +51,10 @@ export function ProfileDisplay() {
 
   const [payments, setPayments] = useState(undefined);
   const [rankings, setRankings] = useState(undefined);
+  const [accountType, setAccountType] = useState(undefined);
   useEffect(() => {
     async function getProfileData() {
+      setAccountType(await authService.getAccountType());
       const profileResponse = await getProfile(profileID);
 
       if (profileResponse.status === 200) {
@@ -334,7 +337,7 @@ export function ProfileDisplay() {
             </Grid>
             <Grid item name="payments" xs={12} md={6}>
               <Grid container spacing={2}>
-                <Grid item xs={11}>
+                <Grid item xs={accountType === "NSC_ADMIN" ? 11 : 12}>
                   <Typography
                     variant="h5"
                     align="left"
@@ -343,16 +346,18 @@ export function ProfileDisplay() {
                     Payments
                   </Typography>
                 </Grid>
-                <Grid item xs={1}>
-                  <IconButton
-                    color="primary"
-                    aria-label="new-comment"
-                    size="small"
-                    onClick={() => history.push("/payments/new")}
-                  >
-                    <Add />
-                  </IconButton>
-                </Grid>
+                {accountType === "NSC_ADMIN" && (
+                  <Grid item xs={1}>
+                    <IconButton
+                      color="primary"
+                      aria-label="new-comment"
+                      size="small"
+                      onClick={() => history.push("/payments/new")}
+                    >
+                      <Add />
+                    </IconButton>
+                  </Grid>
+                )}
                 <Grid item xs={12}>
                   <PaymentsList payments={payments} />
                 </Grid>
