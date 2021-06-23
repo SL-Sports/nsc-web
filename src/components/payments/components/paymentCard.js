@@ -181,7 +181,7 @@ const PaymentCard = ({
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Link to={"payments/" + payment.payment._id}>
+                <Link to={"/payments/" + payment.payment._id}>
                   {seeMoreEnabled && (
                     <Button
                       style={{
