@@ -334,7 +334,7 @@ export function ProfileDisplay() {
             </Grid>
             <Grid item name="payments" xs={12} md={6}>
               <Grid container spacing={2}>
-                <Grid item xs={12}>
+                <Grid item xs={11}>
                   <Typography
                     variant="h5"
                     align="left"
@@ -342,6 +342,16 @@ export function ProfileDisplay() {
                   >
                     Payments
                   </Typography>
+                </Grid>
+                <Grid item xs={1}>
+                  <IconButton
+                    color="primary"
+                    aria-label="new-comment"
+                    size="small"
+                    onClick={() => history.push("/payments/new")}
+                  >
+                    <Add />
+                  </IconButton>
                 </Grid>
                 <Grid item xs={12}>
                   <PaymentsList payments={payments} />
