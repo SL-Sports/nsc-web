@@ -31,6 +31,7 @@ import {
   Room,
   Edit as EditIcon,
 } from "@material-ui/icons";
+import ActivitiesList from "../../activities/components/activitiesList";
 
 function title(string) {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -284,13 +285,20 @@ export function ProfileDisplay() {
               </Typography>
             </Grid>
             <Grid item name="activities" xs={12} md={6}>
-              <Typography
-                variant="h5"
-                align="left"
-                style={{ fontWeight: "bolder" }}
-              >
-                Recent Activity
-              </Typography>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <Typography
+                    variant="h5"
+                    align="left"
+                    style={{ fontWeight: "bolder" }}
+                  >
+                    Recent Activity
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <ActivitiesList profileId={profile._id}></ActivitiesList>
+                </Grid>
+              </Grid>
             </Grid>
             <Grid item name="payments" xs={12} md={6}>
               <Typography
