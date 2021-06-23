@@ -22,7 +22,7 @@ export default function PaymentsList({ payments, accountType }) {
               direction="column"
               alignItems="center"
               justify="center"
-              style={{ minHeight: "80vh" }}
+              style={{ minHeight: "20vh" }}
             >
               <Grid item xs={3}>
                 <CircularProgress

@@ -33,6 +33,7 @@ import {
 } from "@material-ui/icons";
 import ActivitiesList from "../../activities/components/activitiesList";
 import paymentsService from "../../../services/paymentsService";
+import PaymentsList from "../../payments/components/paymentsList";
 
 function title(string) {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -315,13 +316,20 @@ export function ProfileDisplay() {
               </Grid>
             </Grid>
             <Grid item name="payments" xs={12} md={6}>
-              <Typography
-                variant="h5"
-                align="left"
-                style={{ fontWeight: "bolder" }}
-              >
-                Payments
-              </Typography>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <Typography
+                    variant="h5"
+                    align="left"
+                    style={{ fontWeight: "bolder" }}
+                  >
+                    Payments
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <PaymentsList payments={payments} />
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
         </Container>
