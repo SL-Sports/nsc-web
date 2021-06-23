@@ -17,7 +17,7 @@ import {
 import { Add } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import { getDOB } from "../../../services/dateService";
-import { ProfileList } from "../components/profileList";
+import { ProfileList, CoachList } from "../components/profileList";
 import NavBar from "../../navbar";
 import { useParams, useHistory } from "react-router-dom";
 import { theme, useStyles } from "../profilesTheme";
@@ -37,7 +37,6 @@ import PaymentsList from "../../payments/components/paymentsList";
 import RankingsList from "../../rankings/components/rankingsList";
 import { getRankingsForProfile } from "../../../services/rankingService";
 import authService from "../../../services/authService";
-import CoachesList from "../components/coachList";
 
 function title(string) {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
@@ -306,7 +305,7 @@ export function ProfileDisplay() {
                   </IconButton>
                 </Grid>
                 <Grid item xs={12} md={12}>
-                  <CoachesList coaches={profileHeader.coaches} />
+                  <CoachList coaches={profileHeader.coaches} />
                 </Grid>
               </Grid>
             </Grid>

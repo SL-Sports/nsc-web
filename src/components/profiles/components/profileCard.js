@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 275,
     borderRadius: 20,
+    padding: theme.spacing(2),
   },
   name: {
     fontSize: 12,
@@ -55,7 +56,7 @@ export function ProfileCard({ profile, editLink = false }) {
   const classes = useStyles();
   return (
     <Link
-      to={`profiles/${profile._id}`}
+      to={`/profiles/${profile._id}`}
       style={{ textTransform: "none", textDecoration: "none" }}
     >
       <Card className={classes.root}>
@@ -78,7 +79,7 @@ export function CoachCard({ coach }) {
   const classes = useStyles();
   return (
     <Link
-      to={`profiles/${coach.coachProfile._id}`}
+      to={`/profiles/${coach.coachProfile._id}`}
       style={{ textTransform: "none", textDecoration: "none" }}
     >
       <Grid item key={coach._id} xs={12} sm={12} md={12}>
