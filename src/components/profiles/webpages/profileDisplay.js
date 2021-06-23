@@ -305,7 +305,7 @@ export function ProfileDisplay() {
             </Grid>
             <Grid item name="rankings" xs={12} md={6}>
               <Grid container spacing={2}>
-                <Grid item xs={12}>
+                <Grid item xs={11}>
                   <Typography
                     variant="h5"
                     align="left"
@@ -313,6 +313,17 @@ export function ProfileDisplay() {
                   >
                     Rankings
                   </Typography>
+                </Grid>
+
+                <Grid item xs={1}>
+                  <IconButton
+                    color="primary"
+                    aria-label="new-comment"
+                    size="small"
+                    onClick={() => history.push("/rankings/new")}
+                  >
+                    <Add />
+                  </IconButton>
                 </Grid>
                 <Grid item xs={12}>
                   <RankingsList rankings={rankings} forProfile />
