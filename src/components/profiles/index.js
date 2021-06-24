@@ -24,7 +24,7 @@ export default function Profiles() {
           path="/profiles/invite/:profileID"
           component={SendInvite}
         />
-        <Route exact path="/profiles/coaches/:profileID" component={NewCoach} />
+        <Route exact path="/profiles/coaches" component={NewCoach} />
         <Route exact path="/profiles/:profileID" component={ProfileDisplay} />
         <Route component={Routes} />
       </Switch>

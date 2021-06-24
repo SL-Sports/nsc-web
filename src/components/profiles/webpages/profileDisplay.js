@@ -303,7 +303,15 @@ export function ProfileDisplay() {
                     color="primary"
                     aria-label="new-comment"
                     size="small"
-                    onClick={() => history.push("/rankings/new")}
+                    onClick={() => {
+                      if (isCoach) {
+                        history.push(`/profiles/coaches?coach=${profile._id}`);
+                      } else {
+                        history.push(
+                          `/profiles/coaches?athlete=${profile._id}`
+                        );
+                      }
+                    }}
                   >
                     <Add />
                   </IconButton>
