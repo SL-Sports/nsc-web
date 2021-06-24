@@ -270,8 +270,9 @@ export function ProfileDisplay() {
                       padding: 10,
                     }}
                     fullWidth
-                    // onClick={save}
-                    // disabled={saving}
+                    onClick={() => {
+                      history.push(`/profiles/invite/${profile._id}`);
+                    }}
                   >
                     <Typography
                       variant="subtitle1"

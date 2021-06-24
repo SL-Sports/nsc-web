@@ -362,6 +362,7 @@ export async function sendInvite(phone, accountType, profileID) {
     phone: `94${phone}`,
     accountType: accountType,
     createdBy: createdBy,
+    profileId: profileID,
   };
 
   const config = {
