@@ -402,3 +402,57 @@ export async function sendInvite(phone, accountType, profileID) {
   alert(result.data);
   return result;
 }
+
+export async function addCoach(
+  coachDescription,
+  startDate,
+  coachProfile,
+  athleteProfile
+) {
+  let token = await authService.getToken();
+  const url = baseUrl + "/coach/add";
+  const body = {
+    coachDescription: coachDescription,
+    startDate: startDate,
+    coachProfile: coachProfile,
+    athleteProfile: athleteProfile,
+    activeStatus: "ACTIVE",
+  };
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Token: token,
+    },
+  };
+
+  let result = {};
+
+  await axios
+    .post(url, body, config)
+    .then((response) => {
+      result.status = response.status;
+      if (response.status === 200) {
+        result.data = response.data.message;
+      } else {
+        if (response.data.message !== undefined) {
+          result.data = response.data.message;
+        } else {
+          result.data =
+            "We encountered an error while assigning this coach. Please try again.";
+        }
+      }
+    })
+    .catch((err) => {
+      result.status = err.response.status;
+      if (err.response.data.message !== undefined) {
+        result.data = err.response.data.message;
+      } else {
+        result.data =
+          "We encountered an error while assigning this coach. Please try again.";
+      }
+    });
+
+  alert(result.data);
+  return result;
+}
