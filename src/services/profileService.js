@@ -456,3 +456,62 @@ export async function addCoach(
   alert(result.data);
   return result;
 }
+
+export async function editCoach(
+  coachDescription,
+  startDate,
+  coachProfile,
+  athleteProfile,
+  activeStatus,
+  endDate,
+  coachID
+) {
+  let token = await authService.getToken();
+  const url = baseUrl + "/coach/edit";
+  const body = {
+    coachDescription: coachDescription,
+    startDate: startDate,
+    coachProfile: coachProfile,
+    athleteProfile: athleteProfile,
+    activeStatus: activeStatus,
+    endDate: endDate,
+    coachID: coachID,
+  };
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Token: token,
+    },
+  };
+
+  let result = {};
+
+  await axios
+    .post(url, body, config)
+    .then((response) => {
+      result.status = response.status;
+      if (response.status === 200) {
+        result.data = response.data.message;
+      } else {
+        if (response.data.message !== undefined) {
+          result.data = response.data.message;
+        } else {
+          result.data =
+            "We encountered an error while editing this coach assignment. Please try again.";
+        }
+      }
+    })
+    .catch((err) => {
+      result.status = err.response.status;
+      if (err.response.data.message !== undefined) {
+        result.data = err.response.data.message;
+      } else {
+        result.data =
+          "We encountered an error while editing this coach assignment. Please try again.";
+      }
+    });
+
+  alert(result.data);
+  return result;
+}
