@@ -10,6 +10,7 @@ import {
   Button,
   TextField,
   ThemeProvider,
+  MenuItem,
 } from "@material-ui/core";
 import { useHistory, useParams } from "react-router-dom";
 import ProfileSearchAutoComplete from "../../rankings/components/profileSearchField";
@@ -34,6 +35,30 @@ export default function EditCoach() {
   const history = useHistory();
   const { coachID } = useParams();
 
+  const statusTypes = [
+    {
+      value: "ACTIVE",
+      label: "Actively Coaching",
+    },
+    {
+      value: "PAST",
+      label: "Past Coach",
+    },
+    {
+      value: "DELETED",
+      label: "Delete Coach",
+    },
+  ];
+
+  const changeType = (e) => {
+    setActiveStatus(e.target.value);
+    if (e.target.value === "PAST") {
+      setShowEndDate(true);
+    } else {
+      setShowEndDate(false);
+    }
+  };
+
   useEffect(() => {
     const getCoach = async () => {
       const coachRes = await getCoachById(coachID);
@@ -41,15 +66,17 @@ export default function EditCoach() {
         if (coachRes.data.length === 0) {
           history.replace("/profiles");
         } else {
-          const coach = coachRes.data[0];
-          setCoach(coach);
-          setCoachDescription(coach.coachDescription);
-          setAthleteProfile(coach.athleteProfile);
-          setCoachProfile(coach.coachProfile);
-          setStartDate(moment.unix(coach.startDate).toDate());
-          setEndDate(moment.unix(coach.endDate).toDate());
-          setActiveStatus(coach.activeStatus);
-          setShowEndDate(coach.activeStatus === "PAST");
+          const coachData = coachRes.data[0];
+          setCoach(coachData);
+          setActiveStatus(coachData.activeStatus);
+          setCoachDescription(coachData.coachDescription);
+          setAthleteProfile(coachData.athleteProfile);
+          setCoachProfile(coachData.coachProfile);
+          setStartDate(moment.unix(coachData.startDate).toDate());
+          if (coachData.endDate !== undefined) {
+            setEndDate(moment.unix(coachData.endDate).toDate());
+          }
+          setShowEndDate(coachData.activeStatus === "PAST");
         }
       }
     };
@@ -71,7 +98,7 @@ export default function EditCoach() {
       history.goBack();
     }
   };
-  if (coach === undefined) {
+  if (coach === undefined || activeStatus === undefined) {
     return (
       <>
         <CssBaseline>
@@ -151,6 +178,43 @@ export default function EditCoach() {
                     />
                   </MuiPickersUtilsProvider>
                 </Grid>
+                <Grid item md={showEndDate ? 6 : 12} xs={12}>
+                  <TextField
+                    color="secondary"
+                    required
+                    select
+                    label="Coach Status"
+                    fullWidth
+                    value={activeStatus}
+                    onChange={changeType}
+                    name="activeStatus"
+                    style={{ textAlign: "left" }}
+                  >
+                    {statusTypes.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+                {showEndDate && (
+                  <Grid item md={6} xs={12}>
+                    <MuiPickersUtilsProvider utils={MomentUtils}>
+                      <KeyboardDatePicker
+                        margin="none"
+                        fullWidth
+                        id="endday-picker-dialog"
+                        format="DD/MM/yyyy"
+                        label="End Date"
+                        value={endDate}
+                        onChange={(date) => setEndDate(date)}
+                        KeyboardButtonProps={{
+                          "aria-label": "change end date",
+                        }}
+                      />
+                    </MuiPickersUtilsProvider>
+                  </Grid>
+                )}
                 <Grid item md={12} xs={12}>
                   <Button
                     style={{
@@ -174,7 +238,7 @@ export default function EditCoach() {
                         variant="subtitle1"
                         style={{ fontWeight: "bolder" }}
                       >
-                        SAVE RANKING
+                        SAVE ASSIGNMENT
                       </Typography>
                     )}
                   </Button>

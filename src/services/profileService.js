@@ -475,7 +475,7 @@ export async function editCoach(
     athleteProfile: athleteProfile,
     activeStatus: activeStatus,
     endDate: endDate,
-    coachID: coachID,
+    _id: coachID,
   };
 
   const config = {

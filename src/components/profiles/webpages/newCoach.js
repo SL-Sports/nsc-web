@@ -181,7 +181,7 @@ export default function NewCoach() {
                         variant="subtitle1"
                         style={{ fontWeight: "bolder" }}
                       >
-                        SAVE RANKING
+                        ASSIGN COACH
                       </Typography>
                     )}
                   </Button>
