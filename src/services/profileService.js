@@ -325,7 +325,7 @@ export async function getActiveProfiles() {
 
   const config = {
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
   };
 
@@ -351,5 +351,53 @@ export async function getActiveProfiles() {
       // return result;
     });
 
+  return result;
+}
+
+export async function sendInvite(phone, accountType, profileID) {
+  let token = await authService.getToken();
+  let createdBy = await authService.getProfileID();
+  const url = "https://slsports.anuda.me/auth/invite";
+  const body = {
+    phone: `94${phone}`,
+    accountType: accountType,
+    createdBy: createdBy,
+  };
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Token: token,
+    },
+  };
+
+  let result = {};
+
+  await axios
+    .post(url, body, config)
+    .then((response) => {
+      result.status = response.status;
+      if (response.status === 200) {
+        result.data = response.data.message;
+      } else {
+        if (response.data.message !== undefined) {
+          result.data = response.data.message;
+        } else {
+          result.data =
+            "We encountered an error while sending this invite. Please try again.";
+        }
+      }
+    })
+    .catch((err) => {
+      result.status = err.response.status;
+      if (err.response.data.message !== undefined) {
+        result.data = err.response.data.message;
+      } else {
+        result.data =
+          "We encountered an error while sending this invite. Please try again.";
+      }
+    });
+
+  alert(result.data);
   return result;
 }
