@@ -144,28 +144,42 @@ export function CoachCard({ coach }) {
 
 export function StudentCard({ student }) {
   const classes = useStyles();
+  const history = useHistory();
   return (
-    <Link
-      to={`/profiles/${student.athleteProfile._id}`}
-      style={{ textTransform: "none", textDecoration: "none" }}
-    >
-      <Card className={classes.root}>
-        <CardContent justify="center">
-          <Grid
-            container
-            direction="row"
-            justify="center"
-            alignItems="center"
-            spacing={2}
-          >
-            <Grid item md={8} xs={12}>
+    <Card className={classes.root}>
+      <CardContent justify="center">
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+          spacing={2}
+        >
+          <Grid item md={8} xs={12}>
+            <Link
+              to={`/profiles/${student.athleteProfile._id}`}
+              style={{
+                textTransform: "none",
+                textDecoration: "none",
+                color: "black",
+              }}
+            >
               <AvatarAndName
                 profile={student.athleteProfile}
                 isCoach
                 coachDescription={student.coachDescription}
               />
-            </Grid>
-            <Grid item md={4} xs={12}>
+            </Link>
+          </Grid>
+          <Grid item md={3} xs={8}>
+            <Link
+              to={`/profiles/${student.athleteProfile._id}`}
+              style={{
+                textTransform: "none",
+                textDecoration: "none",
+                color: "black",
+              }}
+            >
               <Typography variant="subtitle1" align="right">
                 Start Date:{" "}
                 {moment.unix(student.startDate).format("DD/MM/yyyy")}
@@ -175,11 +189,24 @@ export function StudentCard({ student }) {
                   End Date: {moment.unix(student.endDate).format("DD/MM/yyyy")}
                 </Typography>
               )}
-            </Grid>
+            </Link>
           </Grid>
-        </CardContent>
-      </Card>
-    </Link>
+          <Grid item md={1} xs={4}>
+            <IconButton
+              color="primary"
+              aria-label="edit-ranking"
+              size="medium"
+              style={{ float: "right" }}
+              onClick={() =>
+                history.push(`/profiles/coaches/edit/${student._id}`)
+              }
+            >
+              <Edit fontSize="medium"></Edit>
+            </IconButton>
+          </Grid>
+        </Grid>
+      </CardContent>
+    </Card>
   );
 }
 
