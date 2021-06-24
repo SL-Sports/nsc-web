@@ -7,9 +7,11 @@ import { profileSearch } from "../../../services/rankingService";
 export default function ProfileSearchAutoComplete({
   onSelect,
   defaultProfile,
+  title,
 }) {
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
+  const [label, setLabel] = React.useState("");
   const loading = open && options.length === 0;
 
   const onChangeHandle = async (value) => {
@@ -27,6 +29,12 @@ export default function ProfileSearchAutoComplete({
   React.useEffect(() => {
     if (!open) {
       setOptions([]);
+    }
+
+    if (title === undefined) {
+      setLabel("Athlete Profile");
+    } else {
+      setLabel(title);
     }
   }, [open]);
 
@@ -74,7 +82,7 @@ export default function ProfileSearchAutoComplete({
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Athlete Profile"
+          label={label}
           color="secondary"
           onChange={(ev) => {
             // dont fire API if the user delete or not entered anything

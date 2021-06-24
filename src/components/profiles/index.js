@@ -8,7 +8,7 @@ import { ProfileDisplay } from "./webpages/profileDisplay";
 
 import Routes from "../routes";
 import EditProfile from "./webpages/editProfile";
-import AddCoaches from "./webpages/addCoaches";
+import NewCoach from "./webpages/newCoach";
 import SendInvite from "./webpages/sendInvite";
 
 export default function Profiles() {
@@ -24,11 +24,7 @@ export default function Profiles() {
           path="/profiles/invite/:profileID"
           component={SendInvite}
         />
-        <Route
-          exact
-          path="/profiles/coaches/:profileID"
-          component={AddCoaches}
-        />
+        <Route exact path="/profiles/coaches/:profileID" component={NewCoach} />
         <Route exact path="/profiles/:profileID" component={ProfileDisplay} />
         <Route component={Routes} />
       </Switch>
