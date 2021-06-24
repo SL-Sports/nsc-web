@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import moment from "moment";
 import {
   Card,
@@ -76,29 +76,43 @@ export function ProfileCard({ profile, editLink = false }) {
 }
 
 export function CoachCard({ coach }) {
+  const history = useHistory();
   const classes = useStyles();
   return (
-    <Link
-      to={`/profiles/${coach.coachProfile._id}`}
-      style={{ textTransform: "none", textDecoration: "none" }}
-    >
-      <Card className={classes.root}>
-        <CardContent justify="center">
-          <Grid
-            container
-            direction="row"
-            justify="center"
-            alignItems="center"
-            spacing={2}
-          >
-            <Grid item md={8} xs={12}>
+    <Card className={classes.root}>
+      <CardContent justify="center">
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+          spacing={2}
+        >
+          <Grid item md={8} xs={12}>
+            <Link
+              to={`/profiles/${coach.coachProfile._id}`}
+              style={{
+                textTransform: "none",
+                textDecoration: "none",
+                color: "black",
+              }}
+            >
               <AvatarAndName
                 profile={coach.coachProfile}
                 isCoach
                 coachDescription={coach.coachDescription}
               />
-            </Grid>
-            <Grid item md={4} xs={12}>
+            </Link>
+          </Grid>
+          <Grid item md={3} xs={8}>
+            <Link
+              to={`/profiles/${coach.coachProfile._id}`}
+              style={{
+                textTransform: "none",
+                textDecoration: "none",
+                color: "black",
+              }}
+            >
               <Typography variant="subtitle1" align="right">
                 Start Date: {moment.unix(coach.startDate).format("DD/MM/yyyy")}
               </Typography>
@@ -107,11 +121,24 @@ export function CoachCard({ coach }) {
                   End Date: {moment.unix(coach.endDate).format("DD/MM/yyyy")}
                 </Typography>
               )}
-            </Grid>
+            </Link>
           </Grid>
-        </CardContent>
-      </Card>
-    </Link>
+          <Grid item md={1} xs={4}>
+            <IconButton
+              color="primary"
+              aria-label="edit-ranking"
+              size="medium"
+              style={{ float: "right" }}
+              onClick={() =>
+                history.push(`/profiles/coaches/edit/${coach._id}`)
+              }
+            >
+              <Edit fontSize="medium"></Edit>
+            </IconButton>
+          </Grid>
+        </Grid>
+      </CardContent>
+    </Card>
   );
 }
 
