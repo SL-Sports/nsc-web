@@ -35,6 +35,7 @@ export default function PaymentDetail() {
       console.log(paymentRes.data[0]);
       setPayment(paymentRes.data[0]);
       console.log(paymentRes.data[0].comments);
+      console.log(paymentRes.data[0].cheques)
       let accountType = await authService.getAccountType();
       setAccountType(accountType);
     }
@@ -145,7 +146,7 @@ export default function PaymentDetail() {
                           Cheques
                         </Typography>
                       </Grid>
-                      {payment.comments.length === 0 ? (
+                      {payment.cheques.length === 0 ? (
                         <Grid item xs={12}>
                           <Typography align="left">
                             No cheques have been generated for this payment yet.
