@@ -305,10 +305,12 @@ export function ProfileDisplay() {
                     size="small"
                     onClick={() => {
                       if (isCoach) {
-                        history.push(`/profiles/coaches?coach=${profile._id}`);
+                        history.push(
+                          `/profiles/coaches/new?coach=${profile._id}`
+                        );
                       } else {
                         history.push(
-                          `/profiles/coaches?athlete=${profile._id}`
+                          `/profiles/coaches/new?athlete=${profile._id}`
                         );
                       }
                     }}

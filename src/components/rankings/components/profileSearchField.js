@@ -36,7 +36,7 @@ export default function ProfileSearchAutoComplete({
     } else {
       setLabel(title);
     }
-  }, [open]);
+  }, [open, title]);
 
   return (
     <Autocomplete

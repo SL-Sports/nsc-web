@@ -10,6 +10,7 @@ import Routes from "../routes";
 import EditProfile from "./webpages/editProfile";
 import NewCoach from "./webpages/newCoach";
 import SendInvite from "./webpages/sendInvite";
+import EditCoach from "./webpages/editCoach";
 
 export default function Profiles() {
   return (
@@ -24,7 +25,12 @@ export default function Profiles() {
           path="/profiles/invite/:profileID"
           component={SendInvite}
         />
-        <Route exact path="/profiles/coaches" component={NewCoach} />
+        <Route exact path="/profiles/coaches/new" component={NewCoach} />
+        <Route
+          exact
+          path="/profiles/coaches/edit/:coachID"
+          component={EditCoach}
+        />
         <Route exact path="/profiles/:profileID" component={ProfileDisplay} />
         <Route component={Routes} />
       </Switch>
