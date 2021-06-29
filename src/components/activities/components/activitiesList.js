@@ -20,7 +20,7 @@ export default function ActivitiesList({ profileId }) {
       }
       const activitiesRes = await activityService.getActivities(profileId);
       if (activitiesRes.status === 200) {
-        setActivities(activitiesRes.data);
+        setActivities(activitiesRes.data.reverse());
       }
     };
 
