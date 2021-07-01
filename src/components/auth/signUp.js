@@ -39,7 +39,7 @@ export default function SignUp() {
       return;
     }
     setSigningUp(true);
-    let formattedBirthday = moment(birthDay).format("DDMMYYYY");
+    let formattedBirthday = moment(birthDay).unix();
     let result = await authService.signup(
       phone,
       password,
