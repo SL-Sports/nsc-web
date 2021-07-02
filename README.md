@@ -1,70 +1,53 @@
-# Getting Started with Create React App
+﻿# NSC Web
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The NSC Web App is a dashboard for athlete and coach management, built for administrators of the National Sports Council of Sri Lanka and various Sri Lankan sporting associations. The web app is built in React and uses a backend API built with Express.js, which connects to the MongoDB database. 
 
-## Available Scripts
+Built by [@anudaweerasinghe](https://github.com/anudaweerasinghe), [@sparrownor1](https://github.com/sparrownor1), [@addykan](https://github.com/addykan), and [@raaidrt](https://github.com/raaidrt). 
 
-In the project directory, you can run:
+To run a local version of the app in your own browser, run `npm run start` in terminal. Unfortunately, authentication is required to access the app. 
 
-### `npm start`
+# File Structure
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The app is separated into multiple modules, separated by folders in `/src/components`. The main pages are the dashboard home page, activities, payments, and profiles. 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# Modules
 
-### `npm test`
+## Dashboard Home Page
+This page is visible to NSC admins only, who can click through to each association to view the association's dashboard. Sports and associations are independently tracked to allow for multiple associations under one sport. 
+![Dashboard home page - only visible to NSC Admins](https://media.discordapp.net/attachments/600111845268914179/860591886128644126/unknown.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Association Home Page
+On the association home page, both NSC admins and association admins can get an overview of recent payment requests as well as profiles. 
+![Golf Association Home Page example](https://media.discordapp.net/attachments/600111845268914179/860592696938987520/unknown.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Profiles Module
+The Profiles module allows admins to view information about athletes and coaches, across all associations. This information is accessible by the general public through the API endpoint.  
+![Profiles home page](https://media.discordapp.net/attachments/600111845268914179/860593551645605888/unknown.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The profile details page allows admins to view publicly available information such as names, locations, and associated profiles (such as a coach). They can also view information about the user's recent activities, rankings, and payments. 
+![Profile details page](https://media.discordapp.net/attachments/600111845268914179/860618736217358386/unknown.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Admins are also able to make changes to rankings and profile information directly from this page: 
+![Ranking edit page](https://media.discordapp.net/attachments/600111845268914179/860619596813959268/unknown.png)
+![Profile edit page](https://media.discordapp.net/attachments/600111845268914179/860620061760552980/unknown.png)
 
-### `npm run eject`
+## Payments Module
+The payments module allows admins to track, create, edit, and approve payments to athletes and coaches. Only NSC Admins are permitted to create new payments. 
+![Payments home page](https://media.discordapp.net/attachments/600111845268914179/860620831477727232/unknown.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+The details page shows more information about the specific payment, allowing NSC admins and association admins to add comments and track paycheck information. Alongside payment details, admins can also see activity history for the user. 
+![Payment details page](https://media.discordapp.net/attachments/600111845268914179/860623461231886406/unknown.png)
+Admins can also add, edit, and delete payment details. 
+![Payment edit page](https://media.discordapp.net/attachments/600111845268914179/860630702914535494/unknown.png)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Rankings Module
+The rankings module supports multiple ranking types, and admins can easily add new players to the ranking list. 
+![Rankings Page](https://media.discordapp.net/attachments/600111845268914179/860631506883969044/unknown.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Activities Module
+The activity details page is accessible from any activity card across the entire app, and shows information about a specific activity. Athletes, coaches, and all admins can add comments and media to the activity, which can be approved by coaches and associations. 
+Below is an example of a fully approved activity:
+![Approved activity details page example](https://media.discordapp.net/attachments/600111845268914179/860636034411790356/unknown.png)
+And an example of an unapproved activity: 
+![Unapproved activity details example](https://media.discordapp.net/attachments/600111845268914179/860637044652769300/unknown.png)
