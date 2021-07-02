@@ -15,9 +15,6 @@ export default function ActivitiesList({ profileId }) {
 
   useEffect(() => {
     const getActivities = async () => {
-      if (profileId === undefined) {
-        profileId = "60ac7a65658e534fb80b9f52";
-      }
       const activitiesRes = await activityService.getActivities(profileId);
       if (activitiesRes.status === 200) {
         setActivities(activitiesRes.data.reverse());
