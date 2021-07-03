@@ -2,7 +2,6 @@ import { CssBaseline } from "@material-ui/core";
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import ActivitiesList from "./components/activitiesList";
 import ActivityDetail from "./pages/activityDetail";
 
 export default function Activities() {
@@ -10,7 +9,6 @@ export default function Activities() {
     <Router basename="activities/">
       <CssBaseline />
       <Switch>
-        <Route exact path="/" component={ActivitiesList} />
         <Route exact path="/:activityId" component={ActivityDetail} />
         <Route component={NoMatch} />
       </Switch>
