@@ -30,6 +30,12 @@ import {
   School,
   Room,
   Edit as EditIcon,
+  Home,
+  Money,
+  Computer,
+  Phone,
+  ConfirmationNumber,
+  Sports,
 } from "@material-ui/icons";
 import ActivitiesList from "../../activities/components/activitiesList";
 import paymentsService from "../../../services/paymentsService";
@@ -132,7 +138,7 @@ export function ProfileDisplay() {
             alignItems="stretch"
             spacing={3}
           >
-            <Grid item xs={12} md={7}>
+            <Grid item xs={12} md={6}>
               <Card raised className={classes.card}>
                 <Grid
                   container
@@ -155,7 +161,9 @@ export function ProfileDisplay() {
                       {profile.preferredName} {profile.lastName}
                     </Typography>
                     <Typography variant="subtitle1">
-                      {`${title(profile.profileType)} - ${profile.sport.name}`}
+                      {`${title(profile.category)} ${title(
+                        profile.profileType
+                      )} - ${profile.sport.name}`}
                     </Typography>
                     <Typography
                       variant="subtitle2"
@@ -165,100 +173,6 @@ export function ProfileDisplay() {
                     </Typography>
                   </Grid>
                 </Grid>
-              </Card>
-            </Grid>
-            {/* <Grid item>
-              <Grid container spacing={2} justify="center">
-                <Grid item>
-                  <Link
-                    to={`/profiles/edit/${profile._id}`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <Button variant="contained" color="secondary">
-                      Edit Profile
-                    </Button>
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Button variant="contained" color="primary">
-                    Invite
-                  </Button>
-                </Grid>
-              </Grid>
-            </Grid> */}
-            <Grid item xs={12} md={5}>
-              <Card className={classes.card} raised>
-                <List>
-                  <ListItem>
-                    <ListItemAvatar>
-                      <Avatar
-                        style={{
-                          background: theme.palette.secondary.mainGradient,
-                        }}
-                      >
-                        <Person />
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={`Full Name: ${profile.firstName} ${profile.lastName}`}
-                    />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemAvatar>
-                      <Avatar
-                        style={{
-                          background: theme.palette.secondary.mainGradient,
-                        }}
-                      >
-                        <PermContactCalendar />
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={`Age: ${getAge(profile.dateOfBirth)}`}
-                    />
-                  </ListItem>
-
-                  <ListItem>
-                    <ListItemAvatar>
-                      <Avatar
-                        style={{
-                          background: theme.palette.secondary.mainGradient,
-                        }}
-                      >
-                        <Cake />
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={`Birthday: ${getDOB(profile.dateOfBirth)}`}
-                    />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemAvatar>
-                      <Avatar
-                        style={{
-                          background: theme.palette.secondary.mainGradient,
-                        }}
-                      >
-                        <Room />
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText
-                      primary={`Location: ${profile.city}, ${profile.country}`}
-                    />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemAvatar>
-                      <Avatar
-                        style={{
-                          background: theme.palette.secondary.mainGradient,
-                        }}
-                      >
-                        <School />
-                      </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary={`School: ${profile.school}`} />
-                  </ListItem>
-                </List>
                 {!profile.hasSignedUp && (
                   <Button
                     style={{
@@ -284,6 +198,201 @@ export function ProfileDisplay() {
                     </Typography>
                   </Button>
                 )}
+              </Card>
+            </Grid>
+            {/* <Grid item>
+              <Grid container spacing={2} justify="center">
+                <Grid item>
+                  <Link
+                    to={`/profiles/edit/${profile._id}`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <Button variant="contained" color="secondary">
+                      Edit Profile
+                    </Button>
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Button variant="contained" color="primary">
+                    Invite
+                  </Button>
+                </Grid>
+              </Grid>
+            </Grid> */}
+            <Grid item xs={12} md={6}>
+              <Card className={classes.card} raised>
+                <Grid container spacing={0}>
+                  <Grid item xs={12} md={6}>
+                    <List>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar
+                            style={{
+                              background: theme.palette.secondary.mainGradient,
+                            }}
+                          >
+                            <Person />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={`Full Name: ${profile.firstName} ${profile.lastName}`}
+                        />
+                      </ListItem>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar
+                            style={{
+                              background: theme.palette.secondary.mainGradient,
+                            }}
+                          >
+                            <PermContactCalendar />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={`Age: ${getAge(profile.dateOfBirth)}`}
+                        />
+                      </ListItem>
+
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar
+                            style={{
+                              background: theme.palette.secondary.mainGradient,
+                            }}
+                          >
+                            <Cake />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={`Birthday: ${getDOB(profile.dateOfBirth)}`}
+                        />
+                      </ListItem>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar
+                            style={{
+                              background: theme.palette.secondary.mainGradient,
+                            }}
+                          >
+                            <Room />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={`Location: ${profile.city}, ${profile.country}`}
+                        />
+                      </ListItem>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar
+                            style={{
+                              background: theme.palette.secondary.mainGradient,
+                            }}
+                          >
+                            <School />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText primary={`School: ${profile.school}`} />
+                      </ListItem>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar
+                            style={{
+                              background: theme.palette.secondary.mainGradient,
+                            }}
+                          >
+                            <Person />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={`Event(s): ${profile.eventNames}`}
+                        />
+                      </ListItem>
+                    </List>
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <List>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar
+                            style={{
+                              background: theme.palette.secondary.mainGradient,
+                            }}
+                          >
+                            <ConfirmationNumber />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText primary={`NIC #: ${profile.nic}`} />
+                      </ListItem>
+
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar
+                            style={{
+                              background: theme.palette.secondary.mainGradient,
+                            }}
+                          >
+                            <Home />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText primary={`Address: ${profile.address}`} />
+                      </ListItem>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar
+                            style={{
+                              background: theme.palette.secondary.mainGradient,
+                            }}
+                          >
+                            <Phone />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={`Contact No: ${profile.contactNumber}`}
+                        />
+                      </ListItem>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar
+                            style={{
+                              background: theme.palette.secondary.mainGradient,
+                            }}
+                          >
+                            <Sports />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText primary={`Club: ${profile.club}`} />
+                      </ListItem>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar
+                            style={{
+                              background: theme.palette.secondary.mainGradient,
+                            }}
+                          >
+                            <Computer />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={`Occupation: ${profile.occupation}`}
+                        />
+                      </ListItem>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar
+                            style={{
+                              background: theme.palette.secondary.mainGradient,
+                            }}
+                          >
+                            <Money />
+                          </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={`Bank Details: ${profile.bankAccountNo}, ${profile.bankBranch} - ${profile.bankName}`}
+                        />
+                      </ListItem>
+                    </List>
+                  </Grid>
+                </Grid>
               </Card>
             </Grid>
             <Grid item name="coaches-students" xs={12} md={6}>
