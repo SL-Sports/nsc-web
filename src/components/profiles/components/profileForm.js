@@ -34,15 +34,21 @@ export function ProfileForm({ profile, onSubmit, saving, setSaving }) {
     profile.profileType || ""
   );
   const [selectedDate, setSelectedDate] = useState(
-    (profile.dateOfBirth && moment.unix(profile.dateOfBirth)) || moment()
+    (profile.dateOfBirth && moment.unix(profile.dateOfBirth).utc()) || moment().utc().format('LL')
   );
-
+  // moment.utc(moment(birthDay).format('LL')).unix()
   function handleInputChange(event) {
     setTempProfile({
       ...tempProfile,
       [event.target.name]: event.target.value,
     });
   }
+
+  const handleDateChange = (input) => {
+    let correctUnixTime = moment.utc(input.utc().format('LL')).unix();
+    let newDate = moment.unix(correctUnixTime).utc();
+    setSelectedDate(newDate);
+  };
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -55,7 +61,7 @@ export function ProfileForm({ profile, onSubmit, saving, setSaving }) {
         alert(tempProfile.data);
       }
     }
-
+    console.log(selectedDate.unix());
     tempProfile.sport = selectedSport;
     tempProfile.profileType = selectedProfileType;
     tempProfile.dateOfBirth = selectedDate.unix();
@@ -162,7 +168,8 @@ export function ProfileForm({ profile, onSubmit, saving, setSaving }) {
             <DatePicker
               label="Date of Birth"
               value={selectedDate}
-              onChange={(date) => setSelectedDate(date)}
+              onChange={handleDateChange}
+              // onChange={(date) => setSelectedDate(date)}
               openTo="year"
               views={["year", "month", "date"]}
               format="MMM DD, YYYY"
