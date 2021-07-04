@@ -15,7 +15,6 @@ export default function NewProfile() {
     lastName: "",
     preferredName: "",
     association: undefined,
-    // TODO
     profilePicUrl: "",
     sport: undefined,
     age: 0,
@@ -24,6 +23,16 @@ export default function NewProfile() {
     city: "",
     school: "",
     profileType: "",
+    eventNames: "",
+    nic: "",
+    address: "",
+    contactNumber: "",
+    occupation: "",
+    bankAccountNo: "",
+    bankBranch: "",
+    bankName: "",
+    club: "",
+    category: "",
   };
 
   function onSubmit(profile) {
