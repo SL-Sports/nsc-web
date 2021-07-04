@@ -14,8 +14,8 @@ const getDay = (unixTime) => {
 };
 
 const getDOB = (unixTime) => {
-  let date = moment.unix(unixTime);
-  return moment(date).format("LL");
+  let date = moment.unix(unixTime).utc();
+  return date.format("LL");
 };
 
 const getAge = (dobUnix) => {
