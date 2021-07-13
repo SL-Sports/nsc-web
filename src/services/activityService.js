@@ -1,7 +1,7 @@
 import axios from "axios";
 import authService from "./authService";
 
-const baseUrl = "https://nsc-app.herokuapp.com/activity";
+const baseUrl = "https://slsports.anuda.me/activity";
 
 const getActivities = async (profileId) => {
   let token = await authService.getToken();

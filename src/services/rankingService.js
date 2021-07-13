@@ -1,7 +1,7 @@
 import axios from "axios";
 import authService from "./authService";
 
-const baseUrl = "https://nsc-app.herokuapp.com/profile/";
+const baseUrl = "https://slsports.anuda.me/profile/";
 
 export async function getRankings(rankingType, associationID) {
   const url = baseUrl + "rankings/get";
