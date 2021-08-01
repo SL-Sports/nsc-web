@@ -58,12 +58,6 @@ export function ProfileForm({ profile, onSubmit, saving, setSaving }) {
     setSelectedDate(newDate);
   };
 
-  const handleDateChange = (input) => {
-    let correctUnixTime = moment.utc(input.utc().format("LL")).unix();
-    let newDate = moment.unix(correctUnixTime).utc();
-    setSelectedDate(newDate);
-  };
-
   async function handleSubmit(event) {
     event.preventDefault();
     setSaving(true);
