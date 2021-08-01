@@ -23,6 +23,13 @@ export function ProfileForm({ profile, onSubmit, saving, setSaving }) {
     { value: "ATHLETE", name: "Athlete" },
   ];
 
+  const categories = [
+    { value: "HIGH PERFORMANCE", name: "High Performance" },
+    { value: "NATIONAL", name: "National" },
+    { value: "SCHOOL", name: "School" },
+    { value: "AMATEUR", name: "Amateur" },
+  ];
+
   const [tempProfile, setTempProfile] = useState(profile);
   const [profilePic, setProfilePic] = useState(undefined);
 
@@ -33,8 +40,10 @@ export function ProfileForm({ profile, onSubmit, saving, setSaving }) {
   const [selectedProfileType, setSelectedProfileType] = useState(
     profile.profileType || ""
   );
+  const [category, setCategory] = useState(profile.category || "");
   const [selectedDate, setSelectedDate] = useState(
-    (profile.dateOfBirth && moment.unix(profile.dateOfBirth).utc()) || moment().utc().format('LL')
+    (profile.dateOfBirth && moment.unix(profile.dateOfBirth).utc()) ||
+      moment().utc().format("LL")
   );
   // moment.utc(moment(birthDay).format('LL')).unix()
   function handleInputChange(event) {
@@ -43,9 +52,8 @@ export function ProfileForm({ profile, onSubmit, saving, setSaving }) {
       [event.target.name]: event.target.value,
     });
   }
-
   const handleDateChange = (input) => {
-    let correctUnixTime = moment.utc(input.utc().format('LL')).unix();
+    let correctUnixTime = moment.utc(input.utc().format("LL")).unix();
     let newDate = moment.unix(correctUnixTime).utc();
     setSelectedDate(newDate);
   };
@@ -54,15 +62,20 @@ export function ProfileForm({ profile, onSubmit, saving, setSaving }) {
     event.preventDefault();
     setSaving(true);
     if (profilePic !== undefined) {
-      let uploadRes = await upload(profilePic);
-      if (uploadRes.status === 200) {
-        tempProfile.profilePicUrl = uploadRes.data;
-      } else {
-        alert(tempProfile.data);
-      }
+      alert(
+        "Media upload is not supported on this version of the SL Sports App."
+      );
+
+      // let uploadRes = await upload(profilePic);
+      // if (uploadRes.status === 200) {
+      //   tempProfile.profilePicUrl = uploadRes.data;
+      // } else {
+      //   alert(tempProfile.data);
+      // }
     }
     console.log(selectedDate.unix());
     tempProfile.sport = selectedSport;
+    tempProfile.category = category;
     tempProfile.profileType = selectedProfileType;
     tempProfile.dateOfBirth = selectedDate.unix();
     tempProfile.age = moment().year() - selectedDate.year();
@@ -212,7 +225,126 @@ export function ProfileForm({ profile, onSubmit, saving, setSaving }) {
             color="secondary"
           />
         </Grid>
-        <Grid item />
+        <Grid item xs={12} md={12}>
+          <InputLabel id="category-label" required color="secondary">
+            Profile Category
+          </InputLabel>
+          <Select
+            labelId="category-label"
+            id="category"
+            value={category}
+            onChange={(event) => setCategory(event.target.value)}
+            required
+            fullWidth
+            color="secondary"
+          >
+            {categories.map((type) => (
+              <MenuItem key={type.value} value={type.value}>
+                {type.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            name="eventNames"
+            label="Events"
+            value={tempProfile.eventNames}
+            onChange={handleInputChange}
+            required
+            fullWidth
+            color="secondary"
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            name="nic"
+            label="National ID Card Number"
+            value={tempProfile.nic}
+            onChange={handleInputChange}
+            required
+            fullWidth
+            color="secondary"
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            name="address"
+            label="Address"
+            value={tempProfile.address}
+            onChange={handleInputChange}
+            required
+            fullWidth
+            color="secondary"
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            name="contactNumber"
+            label="Contact Number"
+            value={tempProfile.contactNumber}
+            onChange={handleInputChange}
+            required
+            fullWidth
+            color="secondary"
+          />
+        </Grid>
+
+        <Grid item xs={12} md={4}>
+          <TextField
+            name="bankAccountNo"
+            label="Bank Account Number"
+            value={tempProfile.bankAccountNo}
+            onChange={handleInputChange}
+            required
+            fullWidth
+            color="secondary"
+          />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextField
+            name="bankBranch"
+            label="Bank Branch"
+            value={tempProfile.bankBranch}
+            onChange={handleInputChange}
+            required
+            fullWidth
+            color="secondary"
+          />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <TextField
+            name="bankName"
+            label="Bank Name"
+            value={tempProfile.bankName}
+            onChange={handleInputChange}
+            required
+            fullWidth
+            color="secondary"
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            name="occupation"
+            label="Occupation"
+            value={tempProfile.occupation}
+            onChange={handleInputChange}
+            required
+            fullWidth
+            color="secondary"
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            name="club"
+            label="Club"
+            value={tempProfile.club}
+            onChange={handleInputChange}
+            required
+            fullWidth
+            color="secondary"
+          />
+        </Grid>
 
         <Grid item xs={12}>
           <InputLabel id="pic-label" color="secondary">
