@@ -45,13 +45,19 @@ export function ProfileForm({ profile, onSubmit, saving, setSaving }) {
     (profile.dateOfBirth && moment.unix(profile.dateOfBirth).utc()) ||
       moment().utc().format("LL")
   );
-
+  // moment.utc(moment(birthDay).format('LL')).unix()
   function handleInputChange(event) {
     setTempProfile({
       ...tempProfile,
       [event.target.name]: event.target.value,
     });
   }
+  const handleDateChange = (input) => {
+    let correctUnixTime = moment.utc(input.utc().format("LL")).unix();
+    let newDate = moment.unix(correctUnixTime).utc();
+    setSelectedDate(newDate);
+  };
+
   const handleDateChange = (input) => {
     let correctUnixTime = moment.utc(input.utc().format("LL")).unix();
     let newDate = moment.unix(correctUnixTime).utc();
@@ -73,7 +79,7 @@ export function ProfileForm({ profile, onSubmit, saving, setSaving }) {
       //   alert(tempProfile.data);
       // }
     }
-
+    console.log(selectedDate.unix());
     tempProfile.sport = selectedSport;
     tempProfile.category = category;
     tempProfile.profileType = selectedProfileType;
@@ -182,6 +188,7 @@ export function ProfileForm({ profile, onSubmit, saving, setSaving }) {
               label="Date of Birth"
               value={selectedDate}
               onChange={handleDateChange}
+              // onChange={(date) => setSelectedDate(date)}
               openTo="year"
               views={["year", "month", "date"]}
               format="MMM DD, YYYY"
