@@ -1,6 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-const baseUrl = "https://slsports.anuda.me/auth";
+const baseUrl = "https://nsc-app.herokuapp.com/auth";
 const tokenExpiryTime = 10800;
 
 const getToken = async () => {
