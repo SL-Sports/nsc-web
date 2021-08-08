@@ -31,7 +31,9 @@ export default function NavBar({
 
       if (associationNameEnabled) {
         let associationName = await authService.getAssociationName();
-        setNavBarTitle(`${title} - ${associationName}`);
+        if (associationName !== undefined) {
+          setNavBarTitle(`${title} - ${associationName}`);
+        }
       }
 
       setProfileId(await authService.getProfileID());
