@@ -44,7 +44,7 @@ export default function PaymentsList({ payments, accountType }) {
         ) : (
           payments.map((payment) => (
             <PaymentCard
-              key={payment.payment.id}
+              key={payment.id}
               payment={payment}
               seeMoreEnabled={true}
               allowApproval={false}

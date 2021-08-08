@@ -47,7 +47,7 @@ const PaymentCard = ({
     setApproving(true);
     const profileID = await authService.getProfileID();
     const approveBody = {
-      paymentID: payment.payment._id,
+      paymentID: payment._id,
       approvedBy: profileID,
     };
 
@@ -61,16 +61,16 @@ const PaymentCard = ({
   };
 
   const getAssociationApprovalText = () => {
-    if (payment.payment.approvedByAssociation) {
-      console.log(payment.payment.approvedByMinistryAt);
+    if (payment.approvedByAssociation) {
+      console.log(payment.approvedByMinistryAt);
       return (
         "Approved by association at " +
-        getFullTime(payment.payment.approvedByAssociationAt)
+        getFullTime(payment.approvedByAssociationAt)
       );
     } else {
       return (
         "Waiting for association approval since " +
-        getFullTime(payment.payment.createdAt)
+        getFullTime(payment.createdAt)
       );
     }
   };
@@ -89,10 +89,10 @@ const PaymentCard = ({
             >
               <div style={{ margin: "auto", paddingBottom: 4 }}>
                 <Typography style={{ color: "white", fontWeight: "bolder" }}>
-                  {payment.payment.month}
+                  {payment.month}
                 </Typography>
                 <Typography style={{ color: "white", fontWeight: "bolder" }}>
-                  {payment.payment.year}
+                  {payment.year}
                 </Typography>
               </div>
               <Typography
@@ -102,7 +102,7 @@ const PaymentCard = ({
                   fontStyle: "italic",
                 }}
               >
-                {stringifyPaymentType(payment.payment.paymentType)}
+                {stringifyPaymentType(payment.paymentType)}
               </Typography>
             </Card>
           </Grid>
@@ -111,17 +111,17 @@ const PaymentCard = ({
               <Hidden xsDown>
                 <Grid item xs={4} md={1} lg={1}>
                   <Link
-                    to={`/profiles/${payment.payment.profile._id}`}
+                    to={`/profiles/${payment.profile._id}`}
                     style={{ textDecoration: "none" }}
                   >
                     <Avatar
                       style={{ width: 50, height: 50 }}
                       alt={
-                        payment.payment.profile.preferredName +
+                        payment.profile.preferredName +
                         " " +
-                        payment.payment.profile.lastName
+                        payment.profile.lastName
                       }
-                      src={payment.payment.profile.profilePicUrl}
+                      src={payment.profile.profilePicUrl}
                     />
                   </Link>
                 </Grid>
@@ -129,7 +129,7 @@ const PaymentCard = ({
 
               <Grid item xs={12} md={6} lg={6}>
                 <Link
-                  to={`/profiles/${payment.payment.profile._id}`}
+                  to={`/profiles/${payment.profile._id}`}
                   style={{ textDecoration: "none", color: "black" }}
                 >
                   <Typography
@@ -137,9 +137,9 @@ const PaymentCard = ({
                     style={{ fontWeight: "bolder" }}
                     variant="h5"
                   >
-                    {payment.payment.profile.preferredName +
+                    {payment.profile.preferredName +
                       " " +
-                      payment.payment.profile.lastName}
+                      payment.profile.lastName}
                   </Typography>
                 </Link>
               </Grid>
@@ -149,11 +149,11 @@ const PaymentCard = ({
                   style={{ fontWeight: "bolder" }}
                   variant="h5"
                 >
-                  {`LKR ${payment.payment.amount}`}
+                  {`LKR ${payment.amount}`}
                 </Typography>
               </Grid>
               <Grid item xs={4} md={1} lg={1}>
-                {payment.payment.approvedByAssociation ? (
+                {payment.approvedByAssociation ? (
                   <CheckBox
                     fontSize="large"
                     style={{
@@ -181,7 +181,7 @@ const PaymentCard = ({
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Link to={"/payments/" + payment.payment._id}>
+                <Link to={"/payments/" + payment._id}>
                   {seeMoreEnabled && (
                     <Button
                       style={{
@@ -199,7 +199,7 @@ const PaymentCard = ({
                 <Grid item xs={12}>
                   {accountType === "ASSOCIATION_ADMIN" &&
                     allowApproval &&
-                    !payment.payment.approvedByAssociation && (
+                    !payment.approvedByAssociation && (
                       <Button
                         style={{
                           background: theme.palette.primary.mainGradient,
