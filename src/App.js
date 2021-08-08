@@ -1,20 +1,14 @@
-import './App.css';
-import React from 'react';
+import "./App.css";
+import React from "react";
 
-import Routes from './components/routes';
+import Routes from "./components/routes";
+import { ProvideAuth } from "./features/auth";
 
 function App() {
-
   return (
-      <div className="App">
-
-        <div className="debug">
-          {/* {cookies.token} */}
-        </div>
-
-        <Routes />
-
-      </div>
+    <ProvideAuth>
+      <Routes />
+    </ProvideAuth>
   );
 }
 
