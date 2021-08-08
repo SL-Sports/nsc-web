@@ -1,7 +1,7 @@
 import { getHTTP, postHTTP } from "../../../helpers/http";
 
 class AuthService {
-  async login(phone, password) {
+  static async login(phone, password) {
     const data = {
       phone: `94${phone}`,
       password: password,
@@ -10,7 +10,7 @@ class AuthService {
     return postHTTP("/auth/login", data, { withCredentials: true });
   }
 
-  async register(phone, password, inviteCode, dateOfBirth) {
+  static async register(phone, password, inviteCode, dateOfBirth) {
     const data = {
       phone: `94${phone}`,
       password,
@@ -21,15 +21,15 @@ class AuthService {
     return postHTTP("/auth/sign-up", data, { withCredentials: true });
   }
 
-  async profile() {
+  static async profile() {
     return getHTTP("/auth/profile", { withCredentials: true });
   }
 
-  async logout() {
+  static async logout() {
     return getHTTP("/auth/logout", { withCredentials: true });
   }
 
-  async forgotRequest(phone) {
+  static async forgotRequest(phone) {
     const data = {
       phone: `94${phone}`,
     };
@@ -39,7 +39,7 @@ class AuthService {
     }).then((res) => res.data.otpId);
   }
 
-  async forgotVerify(phone, otpSessionId, otp, newPassword) {
+  static async forgotVerify(phone, otpSessionId, otp, newPassword) {
     const data = {
       otpSessionId,
       OTP: otp,
