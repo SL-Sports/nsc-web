@@ -135,7 +135,7 @@ export function ProfileDisplay() {
             container
             direction="row"
             justify="center"
-            alignItems="stretch"
+            alignItems="center"
             spacing={3}
           >
             <Grid item xs={12} md={6}>
