@@ -22,7 +22,7 @@ const Activity = ({ activity }) => {
   };
 
   return (
-    <Grid item key={activity.activity._id} xs={12} sm={12} md={12}>
+    <Grid item key={activity._id} xs={12} sm={12} md={12}>
       <Card className={classes.card}>
         <Grid container spacing={2} style={{ height: "100%" }}>
           <Grid item xs={4} sm={3} md={3} lg={3}>
@@ -35,13 +35,13 @@ const Activity = ({ activity }) => {
             >
               <div style={{ margin: "auto", paddingBottom: 4 }}>
                 <Typography style={{ color: "white", fontWeight: "bolder" }}>
-                  {getMonth(activity.activity.startTime)}
+                  {getMonth(activity.startTime)}
                 </Typography>
                 <Typography style={{ color: "white", fontWeight: "bolder" }}>
-                  {getDay(activity.activity.startTime)}
+                  {getDay(activity.startTime)}
                 </Typography>
                 <Typography style={{ color: "white", fontWeight: "bolder" }}>
-                  {getYear(activity.activity.startTime)}
+                  {getYear(activity.startTime)}
                 </Typography>
               </div>
               <Typography
@@ -52,7 +52,7 @@ const Activity = ({ activity }) => {
                   fontStyle: "italic",
                 }}
               >
-                {activity.activity.activityType.activityType}
+                {activity.activityType.activityType}
               </Typography>
             </Card>
           </Grid>
@@ -65,11 +65,11 @@ const Activity = ({ activity }) => {
                   align="left"
                   style={{ fontWeight: "bolder" }}
                 >
-                  {activity.activity.title}
+                  {activity.title}
                 </Typography>
               </Grid>
               <Grid item xs={2}>
-                {activity.activity.isApproved ? (
+                {activity.isApproved ? (
                   <CheckBox fontSize="large" style={{ color: "green" }} />
                 ) : (
                   <CheckBoxOutlineBlank
@@ -85,9 +85,9 @@ const Activity = ({ activity }) => {
               align="left"
               style={{ paddingTop: 15, paddingBottom: 15 }}
             >
-              {activity.activity.description}
+              {activity.description}
             </Typography>
-            <Link to={"/activities/" + activity.activity._id}>
+            <Link to={"/activities/" + activity._id}>
               <Button
                 style={{
                   background: theme.palette.primary.mainGradient,

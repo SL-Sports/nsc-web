@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
 import activityService from "../../../services/activityService";
-import {
-  Typography,
-  CircularProgress,
-  Container,
-  Grid,
-} from "@material-ui/core";
+import { Typography, CircularProgress, Grid } from "@material-ui/core";
 import Activity from "./activityCard";
 
 import { theme } from "../activityTheme";
@@ -61,7 +56,7 @@ export default function ActivitiesList({ profileId }) {
             </Grid>
           ) : (
             activities.map((activity) => (
-              <Activity key={activity.activity.id} activity={activity} />
+              <Activity key={activity.id} activity={activity} />
             ))
           )}
         </Grid>

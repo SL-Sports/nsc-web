@@ -67,7 +67,7 @@ export default function AssociationDashboard() {
           i < Math.min(profilesLength, profilesRes.data.length);
           i++
         ) {
-          profileData.push(profilesRes.data[i].profile);
+          profileData.push(profilesRes.data[i]);
         }
 
         setProfiles(profileData);

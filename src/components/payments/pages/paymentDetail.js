@@ -35,7 +35,7 @@ export default function PaymentDetail() {
       console.log(paymentRes.data[0]);
       setPayment(paymentRes.data[0]);
       console.log(paymentRes.data[0].comments);
-      console.log(paymentRes.data[0].cheques)
+      console.log(paymentRes.data[0].cheques);
       let accountType = await authService.getAccountType();
       setAccountType(accountType);
     }
@@ -100,7 +100,7 @@ export default function PaymentDetail() {
                   <Grid item xs={12}>
                     <PaymentCard
                       key={payment.payment._id}
-                      payment={payment}
+                      payment={payment.payment}
                       seeMoreEnabled={false}
                       allowApproval={true}
                       accountType={accountType}
