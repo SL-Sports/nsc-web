@@ -1,12 +1,7 @@
 // Code snippets taken from https://usehooks.com/useAuth/
 import React, { useState, useContext, createContext, useEffect } from "react";
 
-import {
-  loginService,
-  logoutService,
-  profileService,
-  registerService,
-} from "../services/authService";
+import AuthService from "../services/authService";
 
 const authContext = createContext();
 
@@ -27,32 +22,15 @@ export const useAuth = () => {
 function useProvideAuth() {
   const [user, setUser] = useState(null);
 
-  const login = (email, password, cb) =>
-    loginService(email, password).then((res) => {
+  const login = (phone, password, cb) =>
+    AuthService.login(phone, password).then((res) => {
       setUser(res.data);
       cb();
     });
 
-  const register = (
-    email,
-    password,
-    phone,
-    firstName,
-    lastName,
-    isClient,
-    isAgent,
-    cb
-  ) =>
-    registerService(
-      email,
-      password,
-      phone,
-      firstName,
-      lastName,
-      isClient,
-      isAgent
-    ).then((res) =>
-      loginService(email, password).then((res) => {
+  const register = (phone, password, inviteCode, dateOfBirth, cb) =>
+    AuthService.register(phone, password, inviteCode, dateOfBirth).then((res) =>
+      AuthService.login(phone, password).then((res) => {
         setUser(res.data);
         cb();
       })
@@ -60,12 +38,12 @@ function useProvideAuth() {
 
   const logout = () => {
     setUser(false);
-    return logoutService();
+    return AuthService.logout();
   };
 
   // For debugging only
   const ping = () => {
-    profileService()
+    AuthService.profile()
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err.response.data));
   };
@@ -75,8 +53,8 @@ function useProvideAuth() {
   // ... component that utilizes this hook to re-render with the ...
   // ... latest auth object.
   useEffect(() => {
-    profileService()
-      .then((res) => setUser(res.data))
+    AuthService.profile()
+      .then((res) => setUser(res.data.user))
       .catch((err) => {
         setUser(false);
       });
