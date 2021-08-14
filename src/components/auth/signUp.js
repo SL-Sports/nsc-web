@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import authService from "../../services/authService";
 import { theme, useStyles } from "./authTheme";
 import bg from "../../assets/dots-web.png";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import MomentUtils from "@date-io/moment";
 import moment from "moment";
 import {
@@ -22,16 +22,20 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
+import { useAuth } from "../../features/auth";
 
 export default function SignUp() {
   const classes = useStyles();
   const history = useHistory();
+  const location = useLocation();
+  const auth = useAuth();
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [inviteCode, setInviteCode] = useState("");
   const [birthDay, setBirthDay] = useState(new Date());
   const [confirmPassword, setConfirmPassword] = useState("");
   const [signingUp, setSigningUp] = useState(false);
+  let { from } = location.state || { from: { pathname: "/" } };
 
   const signUp = async () => {
     if (confirmPassword !== password) {
@@ -40,21 +44,17 @@ export default function SignUp() {
     }
     setSigningUp(true);
     let formattedBirthday = moment.utc(moment(birthDay).format("LL")).unix();
-    let result = await authService.signup(
-      phone,
-      password,
-      inviteCode,
-      formattedBirthday
-    );
-    if (result) {
-      history.replace("/");
-    } else {
-      setSigningUp(false);
-      setPassword("");
-      setPhone("");
-      setInviteCode("");
-      setConfirmPassword("");
-    }
+    auth
+      .register(phone, password, inviteCode, formattedBirthday, () =>
+        history.push(from)
+      )
+      .catch((err) => {
+        alert(err.message);
+        setInviteCode("");
+        setPassword("");
+        setConfirmPassword("");
+        setSigningUp(false);
+      });
   };
 
   return (
@@ -205,7 +205,12 @@ export default function SignUp() {
                           </Button>
                         </Grid>
                         <Grid item xs={6}>
-                          <Link to="/login">
+                          <Link
+                            to={{
+                              pathname: "/login",
+                              state: { from },
+                            }}
+                          >
                             <Typography color="primary">
                               I already have an account
                             </Typography>
