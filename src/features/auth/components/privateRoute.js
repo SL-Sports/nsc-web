@@ -3,7 +3,7 @@ import { Route, Redirect } from "react-router-dom";
 
 import { useAuth } from "../hooks/useAuth";
 
-export function PrivateRoute({ children, ...rest }) {
+export function PrivateRoute({ children, nscOnly, ...rest }) {
   let auth = useAuth();
 
   return (
@@ -11,7 +11,11 @@ export function PrivateRoute({ children, ...rest }) {
       {...rest}
       render={({ location }) => {
         return auth.user ? ( // Check if logged in
-          children
+          !nscOnly || auth.user.accountType === "NSC_ADMIN" ? ( // Check NSC perms
+            children
+          ) : (
+            <Redirect to="/" />
+          )
         ) : (
           <Redirect
             to={{
