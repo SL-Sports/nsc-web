@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import authService from "../../services/authService";
+import { useAuth } from "../../features/auth";
 import { theme, useStyles } from "./authTheme";
 import bg from "../../assets/dots-web.png";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import {
   Typography,
   CssBaseline,
@@ -20,20 +20,24 @@ import {
 export default function Login() {
   const classes = useStyles();
   const history = useHistory();
+  const location = useLocation();
+  const auth = useAuth();
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [loggingIn, setLoggingIn] = useState(false);
+  let { from } = location.state || { from: { pathname: "/" } };
 
   const login = async () => {
     setLoggingIn(true);
-    let result = await authService.login(phone, password);
-    if (result) {
-      history.replace("/");
-    } else {
-      setLoggingIn(false);
-      setPassword("");
-      setPhone("");
-    }
+    auth
+      .login(phone, password, () => history.push(from))
+      .catch((err) => {
+        alert(
+          err.response.status === 401 ? "Invalid credentials" : "Server error"
+        );
+        setLoggingIn(false);
+        setPassword("");
+      });
   };
 
   return (
@@ -141,14 +145,23 @@ export default function Login() {
                           </Button>
                         </Grid>
                         <Grid item xs={6}>
-                          <Link to="/forgot">
+                          <Link
+                            to={{
+                              pathname: "/forgot",
+                            }}
+                          >
                             <Typography color="primary">
                               Forgot Password
                             </Typography>
                           </Link>
                         </Grid>
                         <Grid item xs={6}>
-                          <Link to="/signup">
+                          <Link
+                            to={{
+                              pathname: "/signup",
+                              state: { from },
+                            }}
+                          >
                             <Typography color="primary">Sign Up</Typography>
                           </Link>
                         </Grid>
