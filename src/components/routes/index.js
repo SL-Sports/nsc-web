@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import PrivateRouter from "../auth/privateRouter";
+import { PrivateRoute } from "../../features/auth";
 import Activities from "../activities";
 import Profiles from "../profiles";
 import Payments from "../payments";
@@ -25,22 +25,22 @@ export default function Routes() {
         <Route path="/forgot" component={Forgot} />
 
         {/* Activities */}
-        <PrivateRouter path="/activities" component={Activities} />
+        <PrivateRoute path="/activities" component={Activities} />
         {/* Payments */}
-        <PrivateRouter path="/payments" component={Payments} />
+        <PrivateRoute path="/payments" component={Payments} />
         {/* Profiles */}
-        <PrivateRouter path="/profiles" component={Profiles} />
+        <PrivateRoute path="/profiles" component={Profiles} />
         {/* Rankings */}
-        <PrivateRouter path="/rankings" component={Rankings} />
+        <PrivateRoute path="/rankings" component={Rankings} />
 
         {/* Association Dashboard */}
-        <PrivateRouter path="/dashboard" component={AssociationDashboard} />
+        <PrivateRoute path="/dashboard" component={AssociationDashboard} />
 
         {/* NSC Dashboard */}
-        <PrivateRouter exact path="/" nscOnly component={NSCDashboard} />
+        <PrivateRoute exact path="/" nscOnly component={NSCDashboard} />
 
         {/* NoMatch */}
-        <PrivateRouter path="*" component={NoMatch} />
+        <PrivateRoute path="*" component={NoMatch} />
       </Switch>
     </Router>
   );
