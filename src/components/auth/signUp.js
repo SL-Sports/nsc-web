@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import authService from "../../services/authService";
 import { theme, useStyles } from "./authTheme";
 import bg from "../../assets/dots-web.png";
 import { Link, useHistory, useLocation } from "react-router-dom";
