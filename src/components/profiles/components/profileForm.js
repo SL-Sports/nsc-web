@@ -62,16 +62,12 @@ export function ProfileForm({ profile, onSubmit, saving, setSaving }) {
     event.preventDefault();
     setSaving(true);
     if (profilePic !== undefined) {
-      alert(
-        "Media upload is not supported on this version of the SL Sports App."
-      );
-
-      // let uploadRes = await upload(profilePic);
-      // if (uploadRes.status === 200) {
-      //   tempProfile.profilePicUrl = uploadRes.data;
-      // } else {
-      //   alert(tempProfile.data);
-      // }
+      let uploadRes = await upload(profilePic);
+      if (uploadRes.status === 200) {
+        tempProfile.profilePicUrl = uploadRes.data;
+      } else {
+        alert(tempProfile.data);
+      }
     }
     console.log(selectedDate.unix());
     tempProfile.sport = selectedSport;
