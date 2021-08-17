@@ -1,5 +1,5 @@
 import axios from "axios";
-import authService from "./authService";
+import authService from "../../../services/authService";
 
 const baseUrl = "https://slsports.anuda.me/activity";
 

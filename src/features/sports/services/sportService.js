@@ -1,13 +1,11 @@
 import axios from "axios";
-import authService from "./authService";
+import authService from "../../../services/authService";
 
-const baseUrl = "https://slsports.anuda.me/association";
+const baseUrl = "https://slsports.anuda.me/profile/sports";
 
-export async function getAssociations() {
+export async function getSports() {
   const url = baseUrl + "/get";
-  const body = {
-    isDeleted: false,
-  };
+  const body = {};
 
   const config = {
     headers: {
@@ -28,7 +26,7 @@ export async function getAssociations() {
           result.data = response.data.message;
         } else {
           result.data =
-            "We encountered an error while retrieving association data. Please try again.";
+            "We encountered an error while retrieving sports data. Please try again.";
         }
         alert(result.data);
       }
@@ -39,7 +37,7 @@ export async function getAssociations() {
         result.data = err.response.data.message;
       } else {
         result.data =
-          "We encountered an error while retrieving association data. Please try again.";
+          "We encountered an error while retrieving sports data. Please try again.";
       }
       alert(result.data);
     });
@@ -47,7 +45,7 @@ export async function getAssociations() {
   return result;
 }
 
-export async function getAssociationById(id) {
+export async function getSportById(id) {
   const url = baseUrl + "/get";
   const body = {
     _id: id,
@@ -72,7 +70,7 @@ export async function getAssociationById(id) {
           result.data = response.data.message;
         } else {
           result.data =
-            "We encountered an error while retrieving association data. Please try again.";
+            "We encountered an error while retrieving sports data. Please try again.";
         }
         alert(result.data);
       }
@@ -83,7 +81,7 @@ export async function getAssociationById(id) {
         result.data = err.response.data.message;
       } else {
         result.data =
-          "We encountered an error while retrieving association data. Please try again.";
+          "We encountered an error while retrieving sports data. Please try again.";
       }
       alert(result.data);
     });
@@ -91,7 +89,7 @@ export async function getAssociationById(id) {
   return result;
 }
 
-export async function addAssociation(name, description) {
+export async function addSport(name, description) {
   let token = await authService.getToken();
   const url = baseUrl + "/new";
   const body = {
@@ -119,7 +117,7 @@ export async function addAssociation(name, description) {
           result.data = response.data.message;
         } else {
           result.data =
-            "We encountered an error while adding this association. Please try again.";
+            "We encountered an error while adding this sport. Please try again.";
         }
       }
     })
@@ -129,7 +127,7 @@ export async function addAssociation(name, description) {
         result.data = err.response.data.message;
       } else {
         result.data =
-          "We encountered an error while adding this association. Please try again.";
+          "We encountered an error while adding this sport. Please try again.";
       }
     });
 
@@ -137,7 +135,7 @@ export async function addAssociation(name, description) {
   return result;
 }
 
-export async function editAssociation(id, name, description) {
+export async function editSport(id, name, description) {
   let token = await authService.getToken();
   const url = baseUrl + "/edit";
   const body = {
@@ -166,7 +164,7 @@ export async function editAssociation(id, name, description) {
           result.data = response.data.message;
         } else {
           result.data =
-            "We encountered an error while editing this association. Please try again.";
+            "We encountered an error while editing this sport. Please try again.";
         }
       }
     })
@@ -176,53 +174,7 @@ export async function editAssociation(id, name, description) {
         result.data = err.response.data.message;
       } else {
         result.data =
-          "We encountered an error while editing this association. Please try again.";
-      }
-    });
-
-  alert(result.data);
-  return result;
-}
-
-export async function deleteAssociation(associationId) {
-  let token = await authService.getToken();
-  const url = baseUrl + "/edit";
-  const body = {
-    _id: associationId,
-    isDeleted: true,
-  };
-
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Token: token,
-    },
-  };
-
-  let result = {};
-
-  await axios
-    .post(url, body, config)
-    .then((response) => {
-      result.status = response.status;
-      if (response.status === 200) {
-        result.data = "Successfully deleted this association!";
-      } else {
-        if (response.data.message !== undefined) {
-          result.data = response.data.message;
-        } else {
-          result.data =
-            "We encountered an error while deleting this association. Please try again.";
-        }
-      }
-    })
-    .catch((err) => {
-      result.status = err.response.status;
-      if (err.response.data.message !== undefined) {
-        result.data = err.response.data.message;
-      } else {
-        result.data =
-          "We encountered an error while deleting this association. Please try again.";
+          "We encountered an error while editing this sport. Please try again.";
       }
     });
 
