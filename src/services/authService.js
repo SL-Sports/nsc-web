@@ -125,6 +125,14 @@ const login = async (phone, password) => {
 const signup = async (phone, password, inviteCode, dateOfBirth) => {
   const url = baseUrl + "/sign-up";
 
+  const validator = new RegExp("^(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{8,32}$");
+  if (!validator.test(password)) {
+    alert(
+      "Password validation failed. Password must contain lowercase and uppercase character. Password must be 8-32 characters in length."
+    );
+    return false;
+  }
+
   const body = {
     phone: `94${phone}`,
     password: password,
