@@ -39,7 +39,7 @@ class AuthService {
     }).then((res) => res.data.otpId);
   }
 
-  static async forgotVerify(phone, otpSessionId, otp, newPassword) {
+  static async forgotVerify(otpSessionId, otp, newPassword) {
     const data = {
       otpSessionId,
       OTP: otp,

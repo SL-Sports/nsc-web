@@ -41,6 +41,14 @@ function useProvideAuth() {
     return AuthService.logout();
   };
 
+  const forgotRequest = (phone) => AuthService.forgotRequest(phone);
+
+  const forgotVerify = (phone, otpSessionId, otp, newPassword) => {
+    AuthService.forgotVerify(otpSessionId, otp, newPassword).then((res) =>
+      AuthService.login(phone, newPassword)
+    );
+  };
+
   // For debugging only
   const ping = () => {
     AuthService.profile()
@@ -66,6 +74,8 @@ function useProvideAuth() {
     login,
     register,
     logout,
+    forgotRequest,
+    forgotVerify,
     ping,
   };
 }
