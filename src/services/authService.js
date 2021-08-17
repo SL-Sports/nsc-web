@@ -192,6 +192,14 @@ const forgotRequest = async (phone) => {
 const forgotVerify = async (phone, otpSessionId, otp, newPassword) => {
   const url = baseUrl + "/forgot/verify";
 
+  const validator = new RegExp("^(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{8,32}$");
+  if (!validator.test(newPassword)) {
+    alert(
+      "Password validation failed. Password must contain lowercase and uppercase character. Password must be 8-32 characters in length."
+    );
+    return false;
+  }
+
   const body = {
     otpSessionId: otpSessionId,
     OTP: otp,
