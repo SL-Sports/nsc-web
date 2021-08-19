@@ -1,472 +1,124 @@
-import axios from "axios";
-import authService from "../../../services/authService";
+import { postHTTP } from "../../../helpers/http";
 
 const baseUrl = "https://slsports.anuda.me/payment";
 
-const getPayments = async (associationID) => {
-  let token = await authService.getToken();
+export default class PaymentService {
+  static getPayments = (associationID) => {
+    const data = {
+      association: associationID,
+      isDeleted: false,
+    };
 
-  const url = baseUrl + "/get";
-
-  const body = {
-    association: associationID,
-    isDeleted: false,
+    return postHTTP("/payment/get", data, { withCredentials: true });
   };
 
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Token: token,
-    },
+  static getUnapprovedPayments = (associationID) => {
+    const data = {
+      association: associationID,
+      isDeleted: false,
+      approvedByAssociation: false,
+    };
+
+    return postHTTP("/payment/get", data, { withCredentials: true });
   };
 
-  let result = {};
+  static getPaymentDetail = (paymentID) => {
+    let data = {
+      _id: paymentID,
+    };
 
-  let response = await axios.post(url, body, config).catch((err) => {
-    result.status = err.response.status;
-    result.data = err.response.data.message;
-    alert(result.data);
-    return result;
-  });
-  result.status = response.status;
-
-  if (response.status === 200) {
-    result.data = response.data;
-  } else {
-    result.data = response.data.message;
-  }
-  return result;
-};
-
-const getUnapprovedPayments = async (associationID) => {
-  let token = await authService.getToken();
-
-  const url = baseUrl + "/get";
-
-  const body = {
-    association: associationID,
-    isDeleted: false,
-    approvedByAssociation: false,
+    return postHTTP("/payment/get", data, { withCredentials: true });
   };
 
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Token: token,
-    },
+  static sendNewPayment = ({ month, year, profileID, amount, paymentType }) => {
+    const data = {
+      month,
+      year,
+      profile: profileID,
+      amount,
+      paymentType,
+    };
+
+    return postHTTP("/payment/new", data, { withCredentials: true });
   };
 
-  let result = {};
+  static editPayment = ({
+    paymentID,
+    month,
+    year,
+    profileID,
+    amount,
+    paymentType,
+    isDeleted,
+  }) => {
+    const data = {
+      id: paymentID,
+      month,
+      year,
+      profile: profileID,
+      amount,
+      paymentType,
+      isDeleted,
+    };
 
-  let response = await axios.post(url, body, config).catch((err) => {
-    result.status = err.response.status;
-    result.data = err.response.data.message;
-    alert(result.data);
-    return result;
-  });
-  result.status = response.status;
-
-  if (response.status === 200) {
-    result.data = response.data;
-  } else {
-    result.data = response.data.message;
-  }
-  return result;
-};
-
-const getPaymentDetail = async (paymentID) => {
-  let token = await authService.getToken();
-  let accountType = await authService.getAccountType();
-
-  const url = baseUrl + "/get";
-
-  let body = {
-    _id: paymentID,
+    return postHTTP("/payment/edit", data, { withCredentials: true });
   };
 
-  if (accountType === "ASSOCIATION_ADMIN") {
-    body.association = await authService.getActiveAssociationID();
-  }
+  static deletePayment = (paymentID) => {
+    const data = {
+      id: paymentID,
+      isDeleted: true,
+    };
 
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Token: token,
-    },
+    return postHTTP("/payment/edit", data, { withCredentials: true });
   };
 
-  let result = {};
+  static approvePayment = ({ paymentID, approvedBy }) => {
+    const data = {
+      payment: paymentID,
+      approvedBy,
+    };
 
-  let response = await axios.post(url, body, config).catch((err) => {
-    result.status = err.response.status;
-    result.data = err.response.data.message;
-
-    return result;
-  });
-  result.status = response.status;
-
-  if (response.status === 200) {
-    result.data = response.data;
-  } else {
-    result.data = response.data.message;
-  }
-  return result;
-};
-
-const sendNewPayment = async (paymentInfo) => {
-  let token = await authService.getToken();
-
-  const url = baseUrl + "/new";
-  const body = {
-    month: paymentInfo.month,
-    year: paymentInfo.year,
-    profile: paymentInfo.profileID,
-    amount: paymentInfo.amount,
-    paymentType: paymentInfo.paymentType,
+    return postHTTP("/payment/approve", data, { withCredentials: true });
   };
 
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Token: token,
-    },
+  static newComment = ({ text, payment }) => {
+    const data = { text, payment };
+    return postHTTP("/payment/comment/new", data, { withCredentials: true });
   };
 
-  let result = {};
-
-  let response = await axios.post(url, body, config).catch((err) => {
-    result.status = err.response.status;
-    result.data = err.response.data.message;
-    alert(result.data);
-    return result;
-  });
-  result.status = response.status;
-
-  if (response.status === 200) {
-    result.data = response.data;
-  } else {
-    result.data = response.data.message;
-  }
-  return result;
-};
-
-const editPayment = async (paymentInfo) => {
-  let token = await authService.getToken();
-
-  const url = baseUrl + "/edit";
-  const body = {
-    id: paymentInfo.paymentID,
-    month: paymentInfo.month,
-    year: paymentInfo.year,
-    profile: paymentInfo.profileID,
-    amount: paymentInfo.amount,
-    paymentType: paymentInfo.paymentType,
-    isDeleted: paymentInfo.isDeleted,
+  static editComment = ({ id, text, isDeleted }) => {
+    const data = { id, text, isDeleted };
+    return postHTTP("/payment/comment/edit", data, { withCredentials: true });
   };
 
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Token: token,
-    },
+  static newCheque = ({ payment, createdBy, chequeNumber }) => {
+    const data = { payment, createdBy, chequeNumber };
+
+    return postHTTP("/payment/cheque/new", data, { withCredentials: true });
   };
 
-  let result = {};
+  static editCheque = ({ id, chequeNumber, isDeleted }) => {
+    const data = { id, chequeNumber, isDeleted };
 
-  let response = await axios.post(url, body, config).catch((err) => {
-    result.status = err.response.status;
-    result.data = err.response.data.message;
-    alert(result.data);
-    return result;
-  });
-  result.status = response.status;
-
-  if (response.status === 200) {
-    result.data = response.data;
-  } else {
-    result.data = response.data.message;
-  }
-  return result;
-};
-
-const deletePayment = async (paymentID) => {
-  let token = await authService.getToken();
-
-  const url = baseUrl + "/edit";
-  const body = {
-    id: paymentID,
-    isDeleted: true,
+    return postHTTP("/payment/cheque/edit", data, { withCredentials: true });
   };
 
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Token: token,
-    },
+  static collectCheque = ({ chequeId }) => {
+    const data = { chequeId };
+
+    return postHTTP("/payment/cheque/collect", data, { withCredentials: true });
   };
 
-  let result = {};
+  // potentially buggy - check prior implementation for what to send in body
+  // supposed to use getActiveAssociation
+  static getPaymentsForProfile = ({ profileID, associationID }) => {
+    const data = {
+      profile: profileID,
+      association: associationID,
+      isDeleted: false,
+    };
 
-  let response = await axios.post(url, body, config).catch((err) => {
-    result.status = err.response.status;
-    result.data = err.response.data.message;
-    alert(result.data);
-    return result;
-  });
-  result.status = response.status;
-
-  if (response.status === 200) {
-    result.data = response.data;
-  } else {
-    result.data = response.data.message;
-  }
-  return result;
-};
-
-const approvePayment = async (approvalInfo) => {
-  let token = await authService.getToken();
-
-  const url = baseUrl + "/approve";
-  const body = {
-    payment: approvalInfo.paymentID,
-    approvedBy: approvalInfo.approvedBy,
+    return postHTTP("/payment/get", data, { withCredentials: true });
   };
-
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Token: token,
-    },
-  };
-
-  let result = {};
-
-  let response = await axios.post(url, body, config).catch((err) => {
-    result.status = err.response.status;
-    result.data = err.response.data.message;
-    alert(result.data);
-    return result;
-  });
-  result.status = response.status;
-
-  if (response.status === 200) {
-    result.data = response.data;
-  } else {
-    result.data = response.data.message;
-  }
-  return result;
-};
-
-const editComment = async (commentInfo) => {
-  let token = await authService.getToken();
-
-  const url = baseUrl + "/comment/edit";
-
-  const body = commentInfo;
-
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Token: token,
-    },
-  };
-
-  let result = {};
-
-  let response = await axios.post(url, body, config).catch((err) => {
-    result.status = err.response.status;
-    result.data = err.response.data.message;
-    alert(result.data);
-    return result;
-  });
-  result.status = response.status;
-
-  if (response.status === 200) {
-    result.data = response.data;
-  } else {
-    result.data = response.data.message;
-  }
-  return result;
-};
-
-const newComment = async (commentInfo) => {
-  let token = await authService.getToken();
-
-  const url = baseUrl + "/comment/new";
-
-  const body = commentInfo;
-
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Token: token,
-    },
-  };
-
-  let result = {};
-
-  let response = await axios.post(url, body, config).catch((err) => {
-    result.status = err.response.status;
-    result.data = err.response.data.message;
-    alert(result.data);
-    return result;
-  });
-  result.status = response.status;
-
-  if (response.status === 200) {
-    result.data = response.data;
-  } else {
-    result.data = response.data.message;
-  }
-  return result;
-};
-
-const editCheque = async (chequeInfo) => {
-  let token = await authService.getToken();
-
-  const url = baseUrl + "/cheque/edit";
-
-  const body = chequeInfo;
-
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Token: token,
-    },
-  };
-
-  let result = {};
-
-  let response = await axios.post(url, body, config).catch((err) => {
-    result.status = err.response.status;
-    result.data = err.response.data.message;
-    alert(result.data);
-    return result;
-  });
-  result.status = response.status;
-
-  if (response.status === 200) {
-    result.data = response.data;
-  } else {
-    result.data = response.data.message;
-  }
-  return result;
-};
-
-const collectCheque = async (chequeInfo) => {
-  let token = await authService.getToken();
-
-  const url = baseUrl + "/cheque/collect";
-
-  const body = chequeInfo;
-
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Token: token,
-    },
-  };
-
-  let result = {};
-
-  let response = await axios.post(url, body, config).catch((err) => {
-    result.status = err.response.status;
-    result.data = err.response.data.message;
-    alert(result.data);
-    return result;
-  });
-  result.status = response.status;
-
-  if (response.status === 200) {
-    result.data = response.data;
-  } else {
-    result.data = response.data.message;
-  }
-  return result;
-};
-
-const newCheque = async (chequeInfo) => {
-  let token = await authService.getToken();
-
-  const url = baseUrl + "/cheque/new";
-
-  const body = chequeInfo;
-
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Token: token,
-    },
-  };
-
-  let result = {};
-
-  let response = await axios.post(url, body, config).catch((err) => {
-    result.status = err.response.status;
-    result.data = err.response.data.message;
-    alert(result.data);
-    return result;
-  });
-  result.status = response.status;
-
-  if (response.status === 200) {
-    result.data = response.data;
-  } else {
-    result.data = response.data.message;
-  }
-  return result;
-};
-
-const getPaymentsForProfile = async (profileID) => {
-  let token = await authService.getToken();
-  let associationID = await authService.getActiveAssociationID();
-  const url = baseUrl + "/get";
-
-  const body = {
-    association: associationID,
-    isDeleted: false,
-    profile: profileID,
-  };
-
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Token: token,
-    },
-  };
-
-  let result = {};
-
-  let response = await axios.post(url, body, config).catch((err) => {
-    result.status = err.response.status;
-    result.data = err.response.data.message;
-    alert(result.data);
-    return result;
-  });
-  result.status = response.status;
-
-  if (response.status === 200) {
-    result.data = response.data;
-  } else {
-    result.data = response.data.message;
-  }
-  return result;
-};
-
-const functions = {
-  getPayments,
-  getPaymentDetail,
-  sendNewPayment,
-  editPayment,
-  approvePayment,
-  editComment,
-  newComment,
-  editCheque,
-  collectCheque,
-  newCheque,
-  deletePayment,
-  getUnapprovedPayments,
-  getPaymentsForProfile,
-};
-
-export default functions;
+}
