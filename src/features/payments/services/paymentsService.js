@@ -109,7 +109,7 @@ export default class PaymentService {
   };
 
   // potentially buggy - check prior implementation for what to send in body
-  // supposed to use getActiveAssociation
+  // supposed to use getActiveAssociationID
   static getPaymentsForProfile = ({ profileID, associationID }) => {
     const data = {
       profile: profileID,
