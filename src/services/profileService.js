@@ -1,6 +1,6 @@
 import axios from "axios";
 import authService from "./authService";
-const baseUrl = "https://slsports.anuda.me/profile";
+const baseUrl = "https://api.slsports.lk/profile";
 
 /**
  * searchProfiles:
@@ -283,7 +283,7 @@ export async function upload(file) {
 
   formData.append("media", file);
 
-  const url = "https://slsports.anuda.me/activity/media/upload";
+  const url = "https://api.slsports.lk/activity/media/upload";
 
   const config = {
     headers: {
@@ -357,7 +357,7 @@ export async function getActiveProfiles() {
 export async function sendInvite(phone, accountType, profileID) {
   let token = await authService.getToken();
   let createdBy = await authService.getProfileID();
-  const url = "https://slsports.anuda.me/auth/invite";
+  const url = "https://api.slsports.lk/auth/invite";
   const body = {
     phone: `94${phone}`,
     accountType: accountType,

@@ -1,7 +1,7 @@
 import axios from "axios";
 import authService from "./authService";
 
-const baseUrl = "https://slsports.anuda.me/activity";
+const baseUrl = "https://api.slsports.lk/activity";
 
 const getActivities = async (profileId) => {
   let token = await authService.getToken();
