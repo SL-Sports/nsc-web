@@ -8,6 +8,7 @@ export default function ProfileSearchAutoComplete({
   onSelect,
   defaultProfile,
   title,
+  allAssociations,
 }) {
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
@@ -19,7 +20,7 @@ export default function ProfileSearchAutoComplete({
     if (value.length < 2) {
       setOptions([]);
     } else {
-      const result = await profileSearch(value);
+      const result = await profileSearch(value, allAssociations);
 
       const profiles = result.data;
       setOptions(profiles);

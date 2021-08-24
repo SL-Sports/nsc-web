@@ -234,7 +234,7 @@ export async function deleteRanking(rankingId) {
   return result;
 }
 
-export async function profileSearch(query) {
+export async function profileSearch(query, allAssociations) {
   const url = baseUrl + "search";
 
   let associationID = await authService.getActiveAssociationID();
@@ -242,7 +242,9 @@ export async function profileSearch(query) {
   let body = {};
 
   body.query = query;
-  body.association = associationID;
+  if (!allAssociations) {
+    body.association = associationID;
+  }
 
   const config = {
     headers: {

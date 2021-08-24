@@ -143,6 +143,7 @@ export default function EditCoach() {
                   <ProfileSearchAutoComplete
                     onSelect={(value) => setCoachProfile(value)}
                     defaultProfile={coach.coachProfile}
+                    allAssociations={true}
                     title="Coach Profile"
                   ></ProfileSearchAutoComplete>
                 </Grid>

@@ -121,6 +121,7 @@ export default function NewCoach() {
                   <ProfileSearchAutoComplete
                     onSelect={(value) => setCoachProfile(value)}
                     defaultProfile={coachID !== null ? coachProfile : undefined}
+                    allAssociations={true}
                     title="Coach Profile"
                   ></ProfileSearchAutoComplete>
                 </Grid>
