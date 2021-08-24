@@ -125,7 +125,9 @@ const login = async (phone, password) => {
 const signup = async (phone, password, inviteCode, dateOfBirth) => {
   const url = baseUrl + "/sign-up";
 
-  const validator = new RegExp("^(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{8,32}$");
+  const validator = new RegExp(
+    "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$&*~]).{8,32}$"
+  );
   if (!validator.test(password)) {
     alert(
       "Password validation failed. Password must be alphanumeric and contain lowercase and uppercase character. Password must be 8-32 characters in length."
@@ -192,7 +194,9 @@ const forgotRequest = async (phone) => {
 const forgotVerify = async (phone, otpSessionId, otp, newPassword) => {
   const url = baseUrl + "/forgot/verify";
 
-  const validator = new RegExp("^(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{8,32}$");
+  const validator = new RegExp(
+    "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$&*~]).{8,32}$"
+  );
   if (!validator.test(newPassword)) {
     alert(
       "Password validation failed. Password must be alphanumeric and contain lowercase and uppercase character. Password must be 8-32 characters in length."
