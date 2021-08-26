@@ -305,13 +305,9 @@ export default function ActivityDetail() {
                             aria-label="new-media"
                             size="small"
                             onClick={() => {
-                              alert(
-                                "Media upload is not supported on this version of the SL Sports App."
-                              );
-
-                              // setNewMediaToggle(!newMediaToggle);
-                              // setSelectedImage(false);
-                              // setSelectedVideo(false);
+                              setNewMediaToggle(!newMediaToggle);
+                              setSelectedImage(false);
+                              setSelectedVideo(false);
                             }}
                             disabled={uploadingImage || uploadingVideo}
                           >
