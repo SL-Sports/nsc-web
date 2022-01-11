@@ -49,7 +49,7 @@ const Ranking = ({ ranking, forProfile }) => {
                 align="left"
                 style={{ fontWeight: "bolder" }}
               >
-                {ranking.rankingType}
+                {ranking.rankingType} - {ranking.event}
               </Typography>
               <Typography align="left">{ranking.association.name}</Typography>
             </Grid>
@@ -82,6 +82,7 @@ const Ranking = ({ ranking, forProfile }) => {
                 >
                   {`${ranking.profile.preferredName} ${ranking.profile.lastName}`}
                 </Typography>
+                <Typography align="left">{ranking.event}</Typography>
               </Link>
             </Grid>
           )}

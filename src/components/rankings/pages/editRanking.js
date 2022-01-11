@@ -22,6 +22,7 @@ export default function EditRanking() {
   const [rankingType, setRankingType] = useState(rankingTypes.NATIONAL);
   const [profile, setProfile] = useState(undefined);
   const [ranking, setRanking] = useState(undefined);
+  const [event, setEvent] = useState("");
   const [saving, setSaving] = useState(false);
   const [rankingData, setRankingData] = useState(undefined);
   const history = useHistory();
@@ -37,6 +38,7 @@ export default function EditRanking() {
           setRankingData(rankingRes.data[0]);
           setProfile(rankingRes.data[0].profile);
           setRankingType(rankingRes.data[0].rankingType);
+          setEvent(rankingRes.data[0].event);
           setRanking(rankingRes.data[0].ranking);
         }
       }
@@ -51,7 +53,8 @@ export default function EditRanking() {
       rankingID,
       ranking,
       rankingType,
-      profile._id
+      profile._id,
+      event
     );
     setSaving(false);
     if (saveRes.status === 200) {
@@ -135,6 +138,15 @@ export default function EditRanking() {
                     required
                     value={ranking}
                     onChange={(e) => setRanking(e.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    label="Event"
+                    fullWidth
+                    color="secondary"
+                    value={event}
+                    onChange={(e) => setEvent(e.target.value)}
                   />
                 </Grid>
                 <Grid item md={12} xs={12}>

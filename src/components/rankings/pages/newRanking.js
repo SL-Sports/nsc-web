@@ -21,6 +21,7 @@ import NavBar from "../../navbar";
 export default function NewRanking() {
   const [rankingType, setRankingType] = useState(rankingTypes.NATIONAL);
   const [profile, setProfile] = useState("");
+  const [event, setEvent] = useState("");
   const [ranking, setRanking] = useState(undefined);
   const [saving, setSaving] = useState(false);
   const history = useHistory();
@@ -28,10 +29,11 @@ export default function NewRanking() {
   const save = async () => {
     setSaving(true);
     //TODO: restrict profiles to within sport
-    const saveRes = await addRanking(ranking, rankingType, profile._id);
+    const saveRes = await addRanking(ranking, rankingType, profile._id, event);
     setSaving(false);
     setProfile(undefined);
     setRanking(undefined);
+    setEvent("");
     if (saveRes.status === 200) {
       history.goBack();
     }
@@ -79,6 +81,15 @@ export default function NewRanking() {
                   required
                   value={ranking}
                   onChange={(e) => setRanking(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Event"
+                  fullWidth
+                  color="secondary"
+                  value={event}
+                  onChange={(e) => setEvent(e.target.value)}
                 />
               </Grid>
               <Grid item md={12} xs={12}>
