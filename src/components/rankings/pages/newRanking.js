@@ -88,8 +88,7 @@ export default function NewRanking() {
                   label="Event"
                   fullWidth
                   color="secondary"
-                  type="number"
-                  value={ranking}
+                  value={event}
                   onChange={(e) => setEvent(e.target.value)}
                 />
               </Grid>
