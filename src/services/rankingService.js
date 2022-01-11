@@ -93,13 +93,14 @@ export async function getRankingById(id) {
   return result;
 }
 
-export async function addRanking(ranking, rankingType, profileId) {
+export async function addRanking(ranking, rankingType, profileId, event) {
   let token = await authService.getToken();
   const url = baseUrl + "rankings/new";
   const body = {
     ranking: ranking,
     rankingType: rankingType,
     profile: profileId,
+    event: event,
   };
 
   const config = {
