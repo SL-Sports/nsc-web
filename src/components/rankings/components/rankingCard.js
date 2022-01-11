@@ -82,6 +82,7 @@ const Ranking = ({ ranking, forProfile }) => {
                 >
                   {`${ranking.profile.preferredName} ${ranking.profile.lastName}`}
                 </Typography>
+                <Typography align="left">{ranking.event}</Typography>
               </Link>
             </Grid>
           )}
