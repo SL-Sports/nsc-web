@@ -198,6 +198,31 @@ export function ProfileDisplay() {
                     </Typography>
                   </Button>
                 )}
+
+                <Button
+                  style={{
+                    background: theme.palette.primary.mainGradient,
+                    color: "white",
+                    borderRadius: 20,
+                    fontWeight: "bolder",
+                    marginTop: 15,
+                    padding: 10,
+                  }}
+                  fullWidth
+                  disabled={!profile.vaccinated}
+                  onClick={() => {
+                    window.open(profile.vaccineCardUrl, "_blank");
+                  }}
+                >
+                  <Typography
+                    variant="subtitle1"
+                    style={{ fontWeight: "bolder" }}
+                  >
+                    {profile.vaccinated
+                      ? "View COVID-19 Vaccine Record"
+                      : "COVID-19 Vaccine Records Not Uploaded"}
+                  </Typography>
+                </Button>
               </Card>
             </Grid>
             {/* <Grid item>
